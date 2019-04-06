@@ -1,3 +1,0 @@
-if (self.CavalryLogger) { CavalryLogger.start_js(["Efro0"]); }
-
-__d("FBEmojiResource",["EmojiImageURL","FBEmojiUtils","SupportedFBEmoji"],(function(a,b,c,d,e,f){"use strict";__p&&__p();function g(a){var c=b("FBEmojiUtils").normalizeKey(a);return b("SupportedFBEmoji")[c]?a:null}function h(a){this.$1=a}h.prototype.getImageURL=function(a){var c=this.$1;return b("SupportedFBEmoji")[c]?b("EmojiImageURL").getFBEmojiURL(c,a):b("EmojiImageURL").getFBEmojiExtendedURL(c,a)};h.fromCodepoints=function(a){a=g(b("FBEmojiUtils").getKeyFromCodepoints(a));return a==null?null:new h(a)};e.exports=h}),null);
