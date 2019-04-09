@@ -4,9 +4,6 @@
  * and open the template in the editor.
  */
 package com.cybershop.dtos;
-
-import java.util.List;
-
 /**
  *
  * @author chungnguyen
@@ -17,7 +14,6 @@ public class BannerDTO {
 
     public BannerDTO() {
     }
-
     public int getBannerID() {
         return bannerID;
     }
