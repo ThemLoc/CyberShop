@@ -5,7 +5,7 @@
  */
 package com.cybershop.daos;
 
-import com.cybershop.dtos.ImageDTO;
+import com.cybershop.models.Images;
 import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
 import javax.sql.DataSource;
@@ -14,7 +14,7 @@ import javax.sql.DataSource;
  *
  * @author ngthe
  */
-public class ImageDAO implements InterfaceBasicDAO<ImageDTO> {
+public class ImageDAO implements InterfaceBasicDAO<Images> {
 
     private DataSource dataSource;
 
@@ -23,22 +23,22 @@ public class ImageDAO implements InterfaceBasicDAO<ImageDTO> {
     }
 
     @Override
-    public void create(ImageDTO object) {
+    public void create(Images object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(ImageDTO t) {
+    public void update(Images t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(ImageDTO t) {
+    public void delete(Images t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<ImageDTO> getAll() {
+    public List<Images> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

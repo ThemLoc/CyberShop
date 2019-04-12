@@ -8,7 +8,7 @@ package com.cybershop.utils;
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+//import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
 /**
  *
@@ -19,16 +19,16 @@ public class DatabaseConfig {
     
      @Bean
     public DataSource getDataSource() {
-        DataSource ds = createDS();
-        return ds;
+//        DataSource ds = createDS();
+        return null;
     }
-     private DataSource createDS() {
-        SimpleDriverDataSource ds = new SimpleDriverDataSource();
-        ds.setUrl("jdbc:jtds:sqlserver://localhost:1433/AssignemntNANO;");
-        ds.setUsername("sa");
-        ds.setPassword("abcdefj");
-        ds.setDriverClass(net.sourceforge.jtds.jdbc.Driver.class);
-        return ds;
-    }
+//     private DataSource createDS() {
+//        SimpleDriverDataSource ds = new SimpleDriverDataSource();
+//        ds.setUrl("jdbc:jtds:sqlserver://localhost:1433/AssignemntNANO;");
+//        ds.setUsername("sa");
+//        ds.setPassword("abcdefj");
+//        ds.setDriverClass(net.sourceforge.jtds.jdbc.Driver.class);
+//        return ds;
+//    }
     
 }

@@ -5,7 +5,7 @@
  */
 package com.cybershop.daos;
 
-import com.cybershop.dtos.OrderDTO;
+import com.cybershop.models.Order;
 import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
 import javax.sql.DataSource;
@@ -14,7 +14,7 @@ import javax.sql.DataSource;
  *
  * @author ngthe
  */
-public class OrderDAO implements InterfaceBasicDAO<OrderDTO> {
+public class OrderDAO implements InterfaceBasicDAO<Order> {
 
     private DataSource dataSource;
 
@@ -23,22 +23,22 @@ public class OrderDAO implements InterfaceBasicDAO<OrderDTO> {
     }
 
     @Override
-    public void create(OrderDTO object) {
+    public void create(Order object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(OrderDTO t) {
+    public void update(Order t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(OrderDTO t) {
+    public void delete(Order t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<OrderDTO> getAll() {
+    public List<Order> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -5,16 +5,16 @@
  */
 package com.cybershop.interfacedao;
 
-import com.cybershop.dtos.AdminDTO;
-import com.cybershop.dtos.BannerDTO;
-import com.cybershop.dtos.CategoryDTO;
-import com.cybershop.dtos.CustomerDTO;
-import com.cybershop.dtos.ImageDTO;
-import com.cybershop.dtos.OrderDTO;
-import com.cybershop.dtos.OrderDetailDTO;
-import com.cybershop.dtos.ProductDTO;
-import com.cybershop.dtos.PromotionDTO;
-import com.cybershop.dtos.StoreInformationDTO;
+import com.cybershop.models.Admin;
+import com.cybershop.models.Banner;
+import com.cybershop.models.Category;
+import com.cybershop.models.Customer;
+import com.cybershop.models.Images;
+import com.cybershop.models.Order;
+import com.cybershop.models.OrderDetail;
+import com.cybershop.models.Product;
+import com.cybershop.models.Promotion;
+import com.cybershop.models.StoreInfomation;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -24,52 +24,52 @@ import java.sql.SQLException;
  */
 public class ExtractDATA {
 
-    public static ProductDTO extractProduct(ResultSet rs) throws SQLException {
+    public static Product extractProduct(ResultSet rs) throws SQLException {
 
         return null;
     }
 
-    public static CategoryDTO extractCategory(ResultSet rs) throws SQLException {
+    public static Category extractCategory(ResultSet rs) throws SQLException {
 
         return null;
     }
 
-    public static OrderDTO extractOrder(ResultSet rs) throws SQLException {
+    public static Order extractOrder(ResultSet rs) throws SQLException {
 
         return null;
     }
 
-    public static OrderDetailDTO extractOrderDetail(ResultSet rs) throws SQLException {
+    public static OrderDetail extractOrderDetail(ResultSet rs) throws SQLException {
 
         return null;
     }
 
-    public static ImageDTO extractImage(ResultSet rs) throws SQLException {
+    public static Images extractImage(ResultSet rs) throws SQLException {
 
         return null;
     }
 
-    public static StoreInformationDTO extractStoreInformation(ResultSet rs) throws SQLException {
+    public static StoreInfomation extractStoreInformation(ResultSet rs) throws SQLException {
 
         return null;
     }
 
-    public static AdminDTO extractAdmin(ResultSet rs) throws SQLException {
+    public static Admin extractAdmin(ResultSet rs) throws SQLException {
 
         return null;
     }
 
-    public static BannerDTO extractBanner(ResultSet rs) throws SQLException {
+    public static Banner extractBanner(ResultSet rs) throws SQLException {
 
         return null;
     }
 
-    public static PromotionDTO extractPromotion(ResultSet rs) throws SQLException {
+    public static Promotion extractPromotion(ResultSet rs) throws SQLException {
 
         return null;
     }
     
-   public static CustomerDTO extractCustomer(ResultSet rs) throws SQLException {
+   public static Customer extractCustomer(ResultSet rs) throws SQLException {
 
         return null;
     }

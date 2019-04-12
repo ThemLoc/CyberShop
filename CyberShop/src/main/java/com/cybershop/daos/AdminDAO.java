@@ -5,7 +5,7 @@
  */
 package com.cybershop.daos;
 
-import com.cybershop.dtos.AdminDTO;
+import com.cybershop.models.Admin;
 import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
 import javax.sql.DataSource;
@@ -14,7 +14,7 @@ import javax.sql.DataSource;
  *
  * @author ngthe
  */
-public class AdminDAO implements InterfaceBasicDAO<AdminDTO>{
+public class AdminDAO implements InterfaceBasicDAO<Admin>{
     
     private DataSource dataSource;
 
@@ -22,22 +22,22 @@ public class AdminDAO implements InterfaceBasicDAO<AdminDTO>{
         this.dataSource = dataSource;
     }
     @Override
-    public void create(AdminDTO object) {
+    public void create(Admin object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(AdminDTO t) {
+    public void update(Admin t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(AdminDTO t) {
+    public void delete(Admin t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<AdminDTO> getAll() {
+    public List<Admin> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

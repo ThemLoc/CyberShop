@@ -5,7 +5,7 @@
  */
 package com.cybershop.daos;
 
-import com.cybershop.dtos.PromotionDTO;
+import com.cybershop.models.Promotion;
 import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
 import javax.sql.DataSource;
@@ -14,7 +14,7 @@ import javax.sql.DataSource;
  *
  * @author ngthe
  */
-public class PromotionDAO implements InterfaceBasicDAO<PromotionDTO> {
+public class PromotionDAO implements InterfaceBasicDAO<Promotion> {
 
     private DataSource dataSource;
 
@@ -23,22 +23,22 @@ public class PromotionDAO implements InterfaceBasicDAO<PromotionDTO> {
     }
 
     @Override
-    public void create(PromotionDTO object) {
+    public void create(Promotion object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(PromotionDTO t) {
+    public void update(Promotion t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(PromotionDTO t) {
+    public void delete(Promotion t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<PromotionDTO> getAll() {
+    public List<Promotion> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
