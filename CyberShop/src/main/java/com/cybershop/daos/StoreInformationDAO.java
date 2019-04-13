@@ -1,42 +1,44 @@
 
 package com.cybershop.daos;
 
-import com.cybershop.models.StoreInfomation;
+import com.cybershop.models.StoreInformation;
 import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
 
-public class StoreInformationDAO implements InterfaceBasicDAO<StoreInfomation> {
+@Repository
+public class StoreInformationDAO implements InterfaceBasicDAO<StoreInformation>{
 
-    private DataSource dataSource;
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+    @PersistenceContext
+    private EntityManager em;
+    @Override
+    public void create(StoreInformation obj) {
+        em.persist(obj);
     }
 
     @Override
-    public void create(StoreInfomation object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(StoreInformation obj) {
+        em.merge(obj);
     }
 
     @Override
-    public void update(StoreInfomation t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(int id) {
+        em.remove(getById(id));
     }
 
     @Override
-    public void delete(StoreInfomation t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<StoreInformation> getAll() {
+        return em.createQuery("from StoreInformation").getResultList();
     }
 
     @Override
-    public List<StoreInfomation> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public StoreInformation getById(int id) {
+        return em.find(StoreInformation.class, id);
     }
-
-    @Override
-    public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
+    
+    
+    
 }

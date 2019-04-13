@@ -4,39 +4,41 @@ package com.cybershop.daos;
 import com.cybershop.models.Promotion;
 import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
 
-public class PromotionDAO implements InterfaceBasicDAO<Promotion> {
+@Repository
+public class PromotionDAO implements InterfaceBasicDAO<Promotion>{
 
-    private DataSource dataSource;
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+    @PersistenceContext
+    private EntityManager em;
+    @Override
+    public void create(Promotion obj) {
+        em.persist(obj);
     }
 
     @Override
-    public void create(Promotion object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Promotion obj) {
+        em.merge(obj);
     }
 
     @Override
-    public void update(Promotion t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void delete(Promotion t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(int id) {
+        em.remove(getById(id));
     }
 
     @Override
     public List<Promotion> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.createQuery("from Promotion").getResultList();
     }
 
     @Override
-    public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Promotion getById(int id) {
+        return em.find(Promotion.class, id);
     }
-
+    
+    
+    
+    
 }

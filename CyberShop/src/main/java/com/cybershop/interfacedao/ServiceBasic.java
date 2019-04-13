@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cybershop.services;
+package com.cybershop.interfacedao;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public interface ServiceBasic<T> {
      void save(T obj);
     void remove(int id);
-    T getById(int id);
+    T findById(int id);
     List<T> getByAll();
    
 }

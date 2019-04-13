@@ -4,41 +4,41 @@ package com.cybershop.daos;
 import com.cybershop.models.Product;
 import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
 
+@Repository
+public class ProductDAO implements InterfaceBasicDAO<Product>{
 
-public class ProductDAO implements InterfaceBasicDAO<Product> {
-
-    private DataSource dataSource;
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-    
-
+    @PersistenceContext
+    private EntityManager em;
     @Override
-    public void create(Product object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void create(Product obj) {
+        em.persist(obj);
     }
 
     @Override
-    public void update(Product t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Product obj) {
+        em.merge(obj);
     }
 
     @Override
-    public void delete(Product t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(int id) {
+        em.remove(getById(id));
     }
 
     @Override
     public List<Product> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.createQuery("from Product").getResultList();
     }
 
     @Override
-    public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Product getById(int id) {
+        return em.find(Product.class, id);
     }
-
+    
+    
+    
+    
 }

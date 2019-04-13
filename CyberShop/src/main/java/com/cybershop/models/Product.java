@@ -61,7 +61,7 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "productID")
     private Collection<Banner> bannerCollection;
     @OneToMany(mappedBy = "productID")
-    private Collection<Images> imagesCollection;
+    private Collection<Image> imagesCollection;
     @JoinColumn(name = "BrandID", referencedColumnName = "BrandID")
     @ManyToOne
     private Brand brandID;
@@ -161,11 +161,11 @@ public class Product implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Images> getImagesCollection() {
+    public Collection<Image> getImagesCollection() {
         return imagesCollection;
     }
 
-    public void setImagesCollection(Collection<Images> imagesCollection) {
+    public void setImagesCollection(Collection<Image> imagesCollection) {
         this.imagesCollection = imagesCollection;
     }
 

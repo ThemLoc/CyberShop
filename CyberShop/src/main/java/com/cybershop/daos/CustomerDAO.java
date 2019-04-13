@@ -4,39 +4,41 @@ package com.cybershop.daos;
 import com.cybershop.models.Customer;
 import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
 
-public class CustomerDAO implements InterfaceBasicDAO<Customer> {
+@Repository
+public class CustomerDAO implements InterfaceBasicDAO<Customer>{
 
-    private DataSource dataSource;
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+    @PersistenceContext
+    private EntityManager em;
+    @Override
+    public void create(Customer obj) {
+        em.persist(obj);
     }
 
     @Override
-    public void create(Customer object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Customer obj) {
+        em.merge(obj);
     }
 
     @Override
-    public void update(Customer t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void delete(Customer t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(int id) {
+        em.remove(getById(id));
     }
 
     @Override
     public List<Customer> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.createQuery("from Customer").getResultList();
     }
 
     @Override
-    public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Customer getById(int id) {
+        return em.find(Customer.class, id);
     }
-
+    
+    
+    
+    
 }

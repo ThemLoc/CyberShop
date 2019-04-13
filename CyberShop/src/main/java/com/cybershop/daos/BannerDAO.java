@@ -4,40 +4,41 @@ package com.cybershop.daos;
 import com.cybershop.models.Banner;
 import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
 
+@Repository
+public class BannerDAO implements InterfaceBasicDAO<Banner>{
 
-public class BannerDAO implements InterfaceBasicDAO<Banner> {
-
-    private DataSource dataSource;
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+    @PersistenceContext
+    private EntityManager em;
+    @Override
+    public void create(Banner obj) {
+        em.persist(obj);
     }
 
     @Override
-    public void create(Banner object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Banner obj) {
+        em.merge(obj);
     }
 
     @Override
-    public void update(Banner t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void delete(Banner t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(int id) {
+        em.remove(getById(id));
     }
 
     @Override
     public List<Banner> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.createQuery("from Banner").getResultList();
     }
 
     @Override
-    public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Banner getById(int id) {
+        return em.find(Banner.class, id);
     }
-
+    
+    
+    
+    
 }

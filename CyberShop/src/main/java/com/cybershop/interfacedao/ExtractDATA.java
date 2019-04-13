@@ -5,12 +5,12 @@ import com.cybershop.models.Admin;
 import com.cybershop.models.Banner;
 import com.cybershop.models.Category;
 import com.cybershop.models.Customer;
-import com.cybershop.models.Images;
+import com.cybershop.models.Image;
 import com.cybershop.models.Order;
 import com.cybershop.models.OrderDetail;
 import com.cybershop.models.Product;
 import com.cybershop.models.Promotion;
-import com.cybershop.models.StoreInfomation;
+import com.cybershop.models.StoreInformation;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -37,12 +37,12 @@ public class ExtractDATA {
         return null;
     }
 
-    public static Images extractImage(ResultSet rs) throws SQLException {
+    public static Image extractImage(ResultSet rs) throws SQLException {
 
         return null;
     }
 
-    public static StoreInfomation extractStoreInformation(ResultSet rs) throws SQLException {
+    public static StoreInformation extractStoreInformation(ResultSet rs) throws SQLException {
 
         return null;
     }

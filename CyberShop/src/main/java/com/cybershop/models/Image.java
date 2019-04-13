@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Images.findByImageID", query = "SELECT i FROM Images i WHERE i.imageID = :imageID")
     , @NamedQuery(name = "Images.findByUrlImage", query = "SELECT i FROM Images i WHERE i.urlImage = :urlImage")
     , @NamedQuery(name = "Images.findByMainImage", query = "SELECT i FROM Images i WHERE i.mainImage = :mainImage")})
-public class Images implements Serializable {
+public class Image implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,10 +40,10 @@ public class Images implements Serializable {
     @ManyToOne
     private Product productID;
 
-    public Images() {
+    public Image() {
     }
 
-    public Images(Integer imageID) {
+    public Image(Integer imageID) {
         this.imageID = imageID;
     }
 
@@ -89,10 +89,10 @@ public class Images implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Images)) {
+        if (!(object instanceof Image)) {
             return false;
         }
-        Images other = (Images) object;
+        Image other = (Image) object;
         if ((this.imageID == null && other.imageID != null) || (this.imageID != null && !this.imageID.equals(other.imageID))) {
             return false;
         }

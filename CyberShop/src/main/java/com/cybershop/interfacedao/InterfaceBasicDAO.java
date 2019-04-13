@@ -7,18 +7,16 @@ package com.cybershop.interfacedao;
 
 import java.util.List;
 
-
-
-
 public interface InterfaceBasicDAO<T> {
-    void create(T object);
- 
-    void update(T t);
- 
-    void delete(T t);
-    
+
+    void create(T obj);
+
+    void update(T obj);
+
+    void delete(int id);
+
     List<T> getAll();
-    
-    int count();
-    
+
+    T getById(int id);
+
 }

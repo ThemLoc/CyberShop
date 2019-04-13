@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "StoreInfomation.findByPhone2", query = "SELECT s FROM StoreInfomation s WHERE s.phone2 = :phone2")
     , @NamedQuery(name = "StoreInfomation.findByLocationX", query = "SELECT s FROM StoreInfomation s WHERE s.locationX = :locationX")
     , @NamedQuery(name = "StoreInfomation.findByLocationY", query = "SELECT s FROM StoreInfomation s WHERE s.locationY = :locationY")})
-public class StoreInfomation implements Serializable {
+public class StoreInformation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,10 +52,10 @@ public class StoreInfomation implements Serializable {
     @Column(name = "Location_Y")
     private String locationY;
 
-    public StoreInfomation() {
+    public StoreInformation() {
     }
 
-    public StoreInfomation(Integer storeID) {
+    public StoreInformation(Integer storeID) {
         this.storeID = storeID;
     }
 
@@ -125,10 +125,10 @@ public class StoreInfomation implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof StoreInfomation)) {
+        if (!(object instanceof StoreInformation)) {
             return false;
         }
-        StoreInfomation other = (StoreInfomation) object;
+        StoreInformation other = (StoreInformation) object;
         if ((this.storeID == null && other.storeID != null) || (this.storeID != null && !this.storeID.equals(other.storeID))) {
             return false;
         }

@@ -3,17 +3,17 @@
   <persistence-unit name="com.mycompany_CyberShop_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.cybershop.models.OrderDetail</class>
-    <class>com.cybershop.models.StoreInfomation</class>
     <class>com.cybershop.models.Customer</class>
     <class>com.cybershop.models.Admin</class>
     <class>com.cybershop.models.Brand</class>
     <class>com.cybershop.models.Category</class>
     <class>com.cybershop.models.Banner</class>
-    <class>com.cybershop.models.Images</class>
     <class>com.cybershop.models.Cart</class>
     <class>com.cybershop.models.Product</class>
     <class>com.cybershop.models.Promotion</class>
     <class>com.cybershop.models.Order</class>
+    <class>com.cybershop.models.Image</class>
+    <class>com.cybershop.models.StoreInformation</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=CyberShop"/>

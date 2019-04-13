@@ -4,39 +4,41 @@ package com.cybershop.daos;
 import com.cybershop.models.Admin;
 import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
 
-
+@Repository
 public class AdminDAO implements InterfaceBasicDAO<Admin>{
-    
-    private DataSource dataSource;
 
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+    @PersistenceContext
+    private EntityManager em;
     @Override
-    public void create(Admin object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void create(Admin obj) {
+        em.persist(obj);
     }
 
     @Override
-    public void update(Admin t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Admin obj) {
+        em.merge(obj);
     }
 
     @Override
-    public void delete(Admin t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(int id) {
+        em.remove(getById(id));
     }
 
     @Override
     public List<Admin> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.createQuery("from Admin").getResultList();
     }
 
     @Override
-    public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Admin getById(int id) {
+        return em.find(Admin.class, id);
     }
+    
+    
+    
     
 }

@@ -1,43 +1,44 @@
 
 package com.cybershop.daos;
 
-import com.cybershop.models.Images;
+import com.cybershop.models.Image;
 import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
-import javax.sql.DataSource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import org.springframework.stereotype.Repository;
 
+@Repository
+public class ImageDAO implements InterfaceBasicDAO<Image>{
 
-public class ImageDAO implements InterfaceBasicDAO<Images> {
-
-    private DataSource dataSource;
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+    @PersistenceContext
+    private EntityManager em;
+    @Override
+    public void create(Image obj) {
+        em.persist(obj);
     }
 
     @Override
-    public void create(Images object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(Image obj) {
+        em.merge(obj);
     }
 
     @Override
-    public void update(Images t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(int id) {
+        em.remove(getById(id));
     }
 
     @Override
-    public void delete(Images t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Image> getAll() {
+        return em.createQuery("from Image").getResultList();
     }
 
     @Override
-    public List<Images> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Image getById(int id) {
+        return em.find(Image.class, id);
     }
-
-    @Override
-    public int count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
+    
+    
+    
 }
