@@ -1,18 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.cybershop.daos;
 
 import com.cybershop.interfacedao.InterfaceBasicDAO;
 import com.cybershop.models.Brand;
 import java.util.List;
 
-/**
- *
- * @author ngthe
- */
+
 public class BrandDAO implements InterfaceBasicDAO<Brand>{
 
     @Override

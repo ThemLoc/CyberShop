@@ -10,10 +10,6 @@ import java.util.List;
 
 
 
-/**
- *
- * @author ngthe
- */
 public interface InterfaceBasicDAO<T> {
     void create(T object);
  

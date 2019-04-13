@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.cybershop.interfacedao;
 
 import com.cybershop.models.Admin;
@@ -18,10 +14,7 @@ import com.cybershop.models.StoreInfomation;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author ngthe
- */
+
 public class ExtractDATA {
 
     public static Product extractProduct(ResultSet rs) throws SQLException {
