@@ -6,8 +6,8 @@
 package com.cybershop.services;
 
 import com.cybershop.interfacedao.ServiceBasic;
-import com.cybershop.daos.AdminDAO;
-import com.cybershop.models.Admin;
+import com.cybershop.daos.ProductDAO;
+import com.cybershop.models.Product;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,14 +18,14 @@ import org.springframework.transaction.annotation.Transactional;
  * @author ngthe
  */
 @Service
-public class ProductServiceImpl implements ServiceBasic<Admin>{
+public class ProductServiceImpl implements ServiceBasic<Product>{
     
     @Autowired
-    private AdminDAO dao;
+    private ProductDAO dao;
 
     @Transactional
     @Override
-    public void save(Admin obj) {
+    public void save(Product obj) {
         dao.create(obj);
     }
 
@@ -37,13 +37,13 @@ public class ProductServiceImpl implements ServiceBasic<Admin>{
 
     @Transactional(readOnly = true)
     @Override
-    public Admin findById(int id) {
+    public Product findById(int id) {
         return dao.getById(id);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Admin> getByAll() {
+    public List<Product> getByAll() {
         return dao.getAll();
     }
     

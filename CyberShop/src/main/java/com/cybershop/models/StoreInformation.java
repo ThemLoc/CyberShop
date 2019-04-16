@@ -9,46 +9,37 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "StoreInfomation")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "StoreInfomation.findAll", query = "SELECT s FROM StoreInfomation s")
-    , @NamedQuery(name = "StoreInfomation.findByStoreID", query = "SELECT s FROM StoreInfomation s WHERE s.storeID = :storeID")
-    , @NamedQuery(name = "StoreInfomation.findByStoreName", query = "SELECT s FROM StoreInfomation s WHERE s.storeName = :storeName")
-    , @NamedQuery(name = "StoreInfomation.findByAddress", query = "SELECT s FROM StoreInfomation s WHERE s.address = :address")
-    , @NamedQuery(name = "StoreInfomation.findByPhone1", query = "SELECT s FROM StoreInfomation s WHERE s.phone1 = :phone1")
-    , @NamedQuery(name = "StoreInfomation.findByPhone2", query = "SELECT s FROM StoreInfomation s WHERE s.phone2 = :phone2")
-    , @NamedQuery(name = "StoreInfomation.findByLocationX", query = "SELECT s FROM StoreInfomation s WHERE s.locationX = :locationX")
-    , @NamedQuery(name = "StoreInfomation.findByLocationY", query = "SELECT s FROM StoreInfomation s WHERE s.locationY = :locationY")})
+//@XmlRootElement
+//@NamedQueries({
+//    @NamedQuery(name = "StoreInfomation.findAll", query = "SELECT s FROM StoreInfomation s")
+//    , @NamedQuery(name = "StoreInfomation.findByStoreID", query = "SELECT s FROM StoreInfomation s WHERE s.storeID = :storeID")
+//    , @NamedQuery(name = "StoreInfomation.findByStoreName", query = "SELECT s FROM StoreInfomation s WHERE s.storeName = :storeName")
+//    , @NamedQuery(name = "StoreInfomation.findByAddress", query = "SELECT s FROM StoreInfomation s WHERE s.address = :address")
+//    , @NamedQuery(name = "StoreInfomation.findByPhone1", query = "SELECT s FROM StoreInfomation s WHERE s.phone1 = :phone1")
+//    , @NamedQuery(name = "StoreInfomation.findByPhone2", query = "SELECT s FROM StoreInfomation s WHERE s.phone2 = :phone2")
+//    , @NamedQuery(name = "StoreInfomation.findByLocationX", query = "SELECT s FROM StoreInfomation s WHERE s.locationX = :locationX")
+//    , @NamedQuery(name = "StoreInfomation.findByLocationY", query = "SELECT s FROM StoreInfomation s WHERE s.locationY = :locationY")})
 public class StoreInformation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
     @Column(name = "StoreID")
     private Integer storeID;
-    @Size(max = 50)
     @Column(name = "StoreName")
     private String storeName;
-    @Size(max = 250)
     @Column(name = "Address")
     private String address;
-    @Size(max = 10)
     @Column(name = "Phone1")
     private String phone1;
-    @Size(max = 10)
     @Column(name = "Phone2")
     private String phone2;
-    @Size(max = 250)
     @Column(name = "Location_X")
     private String locationX;
-    @Size(max = 250)
     @Column(name = "Location_Y")
     private String locationY;
 

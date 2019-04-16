@@ -14,8 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -35,13 +33,10 @@ public class Promotion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
     @Column(name = "PromoID")
     private Integer promoID;
-    @Size(max = 50)
     @Column(name = "PromoCode")
     private String promoCode;
-    @Size(max = 50)
     @Column(name = "Discount")
     private String discount;
     @Column(name = "StartTime")

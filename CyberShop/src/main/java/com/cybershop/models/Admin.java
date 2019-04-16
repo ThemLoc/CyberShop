@@ -12,8 +12,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -37,30 +35,29 @@ public class Admin implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    
     @Column(name = "AdminID")
     private Integer adminID;
-    @Size(max = 50)
+ 
     @Column(name = "Role")
     private String role;
-    @Size(max = 50)
+ 
     @Column(name = "Username")
     private String username;
-    @Size(max = 50)
+ 
     @Column(name = "Password")
     private String password;
-    @Size(max = 100)
+    
     @Column(name = "Fullname")
     private String fullname;
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
-    @Size(max = 10)
     @Column(name = "Phone")
     private String phone;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Size(max = 50)
+ 
     @Column(name = "Email")
     private String email;
-    @Size(max = 250)
+   
     @Column(name = "Address")
     private String address;
     @Column(name = "Sex")
