@@ -1,4 +1,3 @@
-
 package com.cybershop.models;
 
 import java.io.Serializable;
@@ -97,7 +96,9 @@ public class Cart implements Serializable {
 
     @Override
     public String toString() {
-        return "com.cybershop.models.Cart[ cartID=" + cartID + " ]";
+        return "Cart{" + "cartID=" + cartID + ", quanlity=" + quanlity + ", customerID=" + customerID + ", productID=" + productID + '}';
     }
+
     
+
 }

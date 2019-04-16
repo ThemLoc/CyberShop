@@ -1,44 +1,17 @@
-
 package com.cybershop.daos;
 
 import com.cybershop.models.Customer;
-import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public class CustomerDAO implements InterfaceBasicDAO<Customer>{
+public interface CustomerDAO {
 
-    @PersistenceContext
-    private EntityManager em;
-    @Override
-    public void create(Customer obj) {
-        em.persist(obj);
-    }
+    void create(Customer obj);
 
-    @Override
-    public void update(Customer obj) {
-        em.merge(obj);
-    }
+    void update(Customer obj);
 
-    @Override
-    public void delete(int id) {
-        em.remove(getById(id));
-    }
+    void delete(int id);
 
-    @Override
-    public List<Customer> getAll() {
-        return em.createQuery("from Customer").getResultList();
-    }
+    List<Customer> getAll();
 
-    @Override
-    public Customer getById(int id) {
-        return em.find(Customer.class, id);
-    }
-    
-    
-    
-    
+    Customer getById(int id);
 }

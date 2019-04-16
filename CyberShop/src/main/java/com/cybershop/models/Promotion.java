@@ -1,4 +1,3 @@
-
 package com.cybershop.models;
 
 import java.io.Serializable;
@@ -136,7 +135,9 @@ public class Promotion implements Serializable {
 
     @Override
     public String toString() {
-        return "com.cybershop.models.Promotion[ promoID=" + promoID + " ]";
+        return "Promotion{" + "promoID=" + promoID + ", promoCode=" + promoCode + ", discount=" + discount + ", startTime=" + startTime + ", endTime=" + endTime + ", usedTurn=" + usedTurn + ", order1Collection=" + order1Collection + '}';
     }
+
     
+
 }

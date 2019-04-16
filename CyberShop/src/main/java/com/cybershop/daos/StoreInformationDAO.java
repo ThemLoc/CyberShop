@@ -1,44 +1,17 @@
-
 package com.cybershop.daos;
 
 import com.cybershop.models.StoreInformation;
-import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public class StoreInformationDAO implements InterfaceBasicDAO<StoreInformation>{
+public interface StoreInformationDAO {
 
-    @PersistenceContext
-    private EntityManager em;
-    @Override
-    public void create(StoreInformation obj) {
-        em.persist(obj);
-    }
+    void create(StoreInformation obj);
 
-    @Override
-    public void update(StoreInformation obj) {
-        em.merge(obj);
-    }
+    void update(StoreInformation obj);
 
-    @Override
-    public void delete(int id) {
-        em.remove(getById(id));
-    }
+    void delete(int id);
 
-    @Override
-    public List<StoreInformation> getAll() {
-        return em.createQuery("from StoreInformation").getResultList();
-    }
+    List<StoreInformation> getAll();
 
-    @Override
-    public StoreInformation getById(int id) {
-        return em.find(StoreInformation.class, id);
-    }
-    
-    
-    
-    
+    StoreInformation getById(int id);
 }

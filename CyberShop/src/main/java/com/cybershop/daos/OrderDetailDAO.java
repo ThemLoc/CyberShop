@@ -1,44 +1,17 @@
-
 package com.cybershop.daos;
 
 import com.cybershop.models.OrderDetail;
-import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public class OrderDetailDAO implements InterfaceBasicDAO<OrderDetail>{
+public interface OrderDetailDAO {
 
-    @PersistenceContext
-    private EntityManager em;
-    @Override
-    public void create(OrderDetail obj) {
-        em.persist(obj);
-    }
+    void create(OrderDetail obj);
 
-    @Override
-    public void update(OrderDetail obj) {
-        em.merge(obj);
-    }
+    void update(OrderDetail obj);
 
-    @Override
-    public void delete(int id) {
-        em.remove(getById(id));
-    }
+    void delete(int id);
 
-    @Override
-    public List<OrderDetail> getAll() {
-        return em.createQuery("from OrderDetail").getResultList();
-    }
+    List<OrderDetail> getAll();
 
-    @Override
-    public OrderDetail getById(int id) {
-        return em.find(OrderDetail.class, id);
-    }
-    
-    
-    
-    
+    OrderDetail getById(int id);
 }

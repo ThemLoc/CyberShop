@@ -1,4 +1,3 @@
-
 package com.cybershop.models;
 
 import java.io.Serializable;
@@ -98,7 +97,7 @@ public class Brand implements Serializable {
 
     @Override
     public String toString() {
-        return "com.cybershop.models.Brand[ brandID=" + brandID + " ]";
+        return "Brand{" + "brandID=" + brandID + ", imageURL=" + imageURL + ", brandName=" + brandName + ", productCollection=" + productCollection + '}';
     }
-    
+
 }

@@ -1,4 +1,3 @@
-
 package com.cybershop.models;
 
 import java.io.Serializable;
@@ -98,7 +97,9 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return "com.cybershop.models.Category[ cateID=" + cateID + " ]";
+        return "Category{" + "cateID=" + cateID + ", cateName=" + cateName + ", type=" + type + ", productCollection=" + productCollection + '}';
     }
+
     
+
 }

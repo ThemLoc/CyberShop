@@ -1,4 +1,3 @@
-
 package com.cybershop.models;
 
 import java.io.Serializable;
@@ -42,10 +41,10 @@ public class Customer implements Serializable {
     @Basic(optional = false)
     @Column(name = "CustomerID")
     private Integer customerID;
-    
+
     @Column(name = "Username")
     private String username;
-    
+
     @Column(name = "Password")
     private String password;
     @Column(name = "Fullname")
@@ -228,7 +227,8 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "com.cybershop.models.Customer[ customerID=" + customerID + " ]";
+        return "Customer{" + "customerID=" + customerID + ", username=" + username + ", password=" + password + ", fullname=" + fullname + ", sex=" + sex + ", address=" + address + ", email=" + email + ", phone=" + phone + ", token=" + token + ", isGuest=" + isGuest + ", status=" + status + ", dateRegistration=" + dateRegistration + ", dob=" + dob + ", order1Collection=" + order1Collection + ", cartCollection=" + cartCollection + '}';
     }
+
     
 }
