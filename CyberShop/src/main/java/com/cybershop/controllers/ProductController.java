@@ -27,38 +27,38 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/product")
 public class ProductController {
 
-    @Autowired
-    private ProductServiceImpl productServiceImpl;
-
-    @RequestMapping(method = RequestMethod.GET)
-    private String list(Model model) {
-        model.addAttribute("listProduct", productServiceImpl.getByAll());
-        return "/product/productList";
-    }
-
-    @RequestMapping(value = "/product/create", method = RequestMethod.GET)
-    private String create(Model model) {
-        model.addAttribute("listProduct", new Product());
-        return "/product/productForm";
-    }
-
-    @RequestMapping(value = "/product/save", method = RequestMethod.POST)
-    private String save(@ModelAttribute("productForm") Product obj, RedirectAttributes ratts) {
-        productServiceImpl.save(obj);
-        ratts.addFlashAttribute("msg", "saved");
-        return "/product/productList";
-    }
-
-    @RequestMapping(value = "/product/edit/{id}", method = RequestMethod.GET)
-    private String edit(@PathVariable("id") int id, Model model) {
-        model.addAttribute("productForm", productServiceImpl.findById(id));
-        return "/product/productForm";
-    }
-
-    @RequestMapping(value = "/product/delete/{id}", method = RequestMethod.GET)
-    private String delete(@PathVariable("id") int id, RedirectAttributes ratts) {
-        productServiceImpl.remove(id);
-        ratts.addFlashAttribute("msg", "deleted");
-        return "/product/productList";
-    }
+//    @Autowired
+//    private ProductServiceImpl productServiceImpl;
+//
+//    @RequestMapping(method = RequestMethod.GET)
+//    private String list(Model model) {
+//        model.addAttribute("listProduct", productServiceImpl.getByAll());
+//        return "/product/productList";
+//    }
+//
+//    @RequestMapping(value = "/product/create", method = RequestMethod.GET)
+//    private String create(Model model) {
+//        model.addAttribute("listProduct", new Product());
+//        return "/product/productForm";
+//    }
+//
+//    @RequestMapping(value = "/product/save", method = RequestMethod.POST)
+//    private String save(@ModelAttribute("productForm") Product obj, RedirectAttributes ratts) {
+//        productServiceImpl.save(obj);
+//        ratts.addFlashAttribute("msg", "saved");
+//        return "/product/productList";
+//    }
+//
+//    @RequestMapping(value = "/product/edit/{id}", method = RequestMethod.GET)
+//    private String edit(@PathVariable("id") int id, Model model) {
+//        model.addAttribute("productForm", productServiceImpl.findById(id));
+//        return "/product/productForm";
+//    }
+//
+//    @RequestMapping(value = "/product/delete/{id}", method = RequestMethod.GET)
+//    private String delete(@PathVariable("id") int id, RedirectAttributes ratts) {
+//        productServiceImpl.remove(id);
+//        ratts.addFlashAttribute("msg", "deleted");
+//        return "/product/productList";
+//    }
 }

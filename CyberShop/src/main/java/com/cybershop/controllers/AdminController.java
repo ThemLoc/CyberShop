@@ -5,6 +5,7 @@
  */
 package com.cybershop.controllers;
 
+import com.cybershop.interfacedao.ServiceBasic;
 import com.cybershop.models.Admin;
 import com.cybershop.services.AdminServiceImpl;
 import java.util.Arrays;
@@ -27,44 +28,44 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/admin/member")
 public class AdminController {
 
-//    @Qualifier("adminServiceImpl")
-//    @Autowired
-//    private AdminServiceImpl adminServiceImpl;
-//
-//    @RequestMapping(method = RequestMethod.GET)
-//    private String list(Model model) {
-//        model.addAttribute("listAdmin", adminServiceImpl.getByAll());
-//        return "/admin/adminList";
-//    }
-//
-//    @RequestMapping(value = "/admin/member/create", method = RequestMethod.GET)
-//    private String create(Model model) {
-//        model.addAttribute("listAdmin", new Admin());
-//        return "/admin/adminForm";
-//    }
-//
-//    @RequestMapping(value = "/admin/member/save", method = RequestMethod.POST)
-//    private String save(@ModelAttribute("adminForm") Admin obj, RedirectAttributes ratts) {
-//        adminServiceImpl.save(obj);
-//        ratts.addFlashAttribute("msg", "saved");
-//        return "/admin/adminList";
-//    }
-//
-//    @RequestMapping(value = "/admin/member/edit/{id}", method = RequestMethod.GET)
-//    private String edit(@PathVariable("id") int id, Model model) {
-//        model.addAttribute("adminForm", adminServiceImpl.findById(id));
-//        return "/admin/adminForm";
-//    }
-//
-//    @RequestMapping(value = "/admin/member/delete/{id}", method = RequestMethod.GET)
-//    private String delete(@PathVariable("id") int id, RedirectAttributes ratts) {
-//        adminServiceImpl.remove(id);
-//        ratts.addFlashAttribute("msg", "deleted");
-//        return "/admin/AdminList";
-//    }
-//
-//    @ModelAttribute("listRole")
-//    public List<String> listRole(Model model) {
-//        return Arrays.asList("Admin", "Employee");
-//    }
+   
+    @Autowired
+    private AdminServiceImpl adminService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    private String list(Model model) {
+        model.addAttribute("listAdmin", adminService.getByAll());
+        return "Admin/adminList";
+    }
+
+    @RequestMapping(value = "/admin/member/create", method = RequestMethod.GET)
+    private String create(Model model) {
+        model.addAttribute("listAdmin", new Admin());
+        return "Admin/adminForm";
+    }
+
+    @RequestMapping(value = "/admin/member/save", method = RequestMethod.POST)
+    private String save(@ModelAttribute("adminForm") Admin obj, RedirectAttributes ratts) {
+        adminService.save(obj);
+        ratts.addFlashAttribute("msg", "saved");
+        return "Admin/adminList";
+    }
+
+    @RequestMapping(value = "/admin/member/edit/{id}", method = RequestMethod.GET)
+    private String edit(@PathVariable("id") int id, Model model) {
+        model.addAttribute("adminForm", adminService.findById(id));
+        return "/admin/adminForm";
+    }
+
+    @RequestMapping(value = "/admin/member/delete/{id}", method = RequestMethod.GET)
+    private String delete(@PathVariable("id") int id, RedirectAttributes ratts) {
+        adminService.remove(id);
+        ratts.addFlashAttribute("msg", "deleted");
+        return "Admin/AdminList";
+    }
+
+    @ModelAttribute("listRole")
+    public List<String> listRole(Model model) {
+        return Arrays.asList("Admin", "Employee");
+    }
 }
