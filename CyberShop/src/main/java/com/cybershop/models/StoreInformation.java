@@ -1,4 +1,3 @@
-
 package com.cybershop.models;
 
 import java.io.Serializable;
@@ -12,17 +11,17 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "StoreInfomation")
-//@XmlRootElement
-//@NamedQueries({
-//    @NamedQuery(name = "StoreInfomation.findAll", query = "SELECT s FROM StoreInfomation s")
-//    , @NamedQuery(name = "StoreInfomation.findByStoreID", query = "SELECT s FROM StoreInfomation s WHERE s.storeID = :storeID")
-//    , @NamedQuery(name = "StoreInfomation.findByStoreName", query = "SELECT s FROM StoreInfomation s WHERE s.storeName = :storeName")
-//    , @NamedQuery(name = "StoreInfomation.findByAddress", query = "SELECT s FROM StoreInfomation s WHERE s.address = :address")
-//    , @NamedQuery(name = "StoreInfomation.findByPhone1", query = "SELECT s FROM StoreInfomation s WHERE s.phone1 = :phone1")
-//    , @NamedQuery(name = "StoreInfomation.findByPhone2", query = "SELECT s FROM StoreInfomation s WHERE s.phone2 = :phone2")
-//    , @NamedQuery(name = "StoreInfomation.findByLocationX", query = "SELECT s FROM StoreInfomation s WHERE s.locationX = :locationX")
-//    , @NamedQuery(name = "StoreInfomation.findByLocationY", query = "SELECT s FROM StoreInfomation s WHERE s.locationY = :locationY")})
+@Table(name = "StoreInformation")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "StoreInformation.findAll", query = "SELECT s FROM StoreInformation s")
+    , @NamedQuery(name = "StoreInformation.findByStoreID", query = "SELECT s FROM StoreInformation s WHERE s.storeID = :storeID")
+    , @NamedQuery(name = "StoreInformation.findByStoreName", query = "SELECT s FROM StoreInformation s WHERE s.storeName = :storeName")
+    , @NamedQuery(name = "StoreInformation.findByAddress", query = "SELECT s FROM StoreInformation s WHERE s.address = :address")
+    , @NamedQuery(name = "StoreInformation.findByPhone1", query = "SELECT s FROM StoreInformation s WHERE s.phone1 = :phone1")
+    , @NamedQuery(name = "StoreInformation.findByPhone2", query = "SELECT s FROM StoreInformation s WHERE s.phone2 = :phone2")
+    , @NamedQuery(name = "StoreInformation.findByLocationX", query = "SELECT s FROM StoreInformation s WHERE s.locationX = :locationX")
+    , @NamedQuery(name = "StoreInformation.findByLocationY", query = "SELECT s FROM StoreInformation s WHERE s.locationY = :locationY")})
 public class StoreInformation implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -128,7 +127,9 @@ public class StoreInformation implements Serializable {
 
     @Override
     public String toString() {
-        return "com.cybershop.models.StoreInfomation[ storeID=" + storeID + " ]";
+        return "StoreInformation{" + "storeID=" + storeID + ", storeName=" + storeName + ", address=" + address + ", phone1=" + phone1 + ", phone2=" + phone2 + ", locationX=" + locationX + ", locationY=" + locationY + '}';
     }
+
     
+
 }

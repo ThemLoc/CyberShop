@@ -1,4 +1,3 @@
-
 package com.cybershop.models;
 
 import java.io.Serializable;
@@ -14,13 +13,13 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "Images")
-//@XmlRootElement
-//@NamedQueries({
-//    @NamedQuery(name = "Images.findAll", query = "SELECT i FROM Images i")
-//    , @NamedQuery(name = "Images.findByImageID", query = "SELECT i FROM Images i WHERE i.imageID = :imageID")
-//    , @NamedQuery(name = "Images.findByUrlImage", query = "SELECT i FROM Images i WHERE i.urlImage = :urlImage")
-//    , @NamedQuery(name = "Images.findByMainImage", query = "SELECT i FROM Images i WHERE i.mainImage = :mainImage")})
+@Table(name = "Image")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Image.findAll", query = "SELECT i FROM Image i")
+    , @NamedQuery(name = "Image.findByImageID", query = "SELECT i FROM Image i WHERE i.imageID = :imageID")
+    , @NamedQuery(name = "Image.findByUrlImage", query = "SELECT i FROM Image i WHERE i.urlImage = :urlImage")
+    , @NamedQuery(name = "Image.findByMainImage", query = "SELECT i FROM Image i WHERE i.mainImage = :mainImage")})
 public class Image implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -97,7 +96,8 @@ public class Image implements Serializable {
 
     @Override
     public String toString() {
-        return "com.cybershop.models.Images[ imageID=" + imageID + " ]";
+        return "Image{" + "imageID=" + imageID + ", urlImage=" + urlImage + ", mainImage=" + mainImage + ", productID=" + productID + '}';
     }
+
     
 }

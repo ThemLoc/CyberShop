@@ -1,44 +1,17 @@
-
 package com.cybershop.daos;
 
 import com.cybershop.models.Image;
-import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public class ImageDAO implements InterfaceBasicDAO<Image>{
+public interface ImageDAO {
 
-    @PersistenceContext
-    private EntityManager em;
-    @Override
-    public void create(Image obj) {
-        em.persist(obj);
-    }
+    void create(Image obj);
 
-    @Override
-    public void update(Image obj) {
-        em.merge(obj);
-    }
+    void update(Image obj);
 
-    @Override
-    public void delete(int id) {
-        em.remove(getById(id));
-    }
+    void delete(int id);
 
-    @Override
-    public List<Image> getAll() {
-        return em.createQuery("from Image").getResultList();
-    }
+    List<Image> getAll();
 
-    @Override
-    public Image getById(int id) {
-        return em.find(Image.class, id);
-    }
-    
-    
-    
-    
+    Image getById(int id);
 }

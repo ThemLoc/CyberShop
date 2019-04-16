@@ -1,4 +1,3 @@
-
 package com.cybershop.models;
 
 import java.io.Serializable;
@@ -6,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -35,29 +35,27 @@ public class Admin implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    
+    @GeneratedValue
     @Column(name = "AdminID")
     private Integer adminID;
- 
+
     @Column(name = "Role")
     private String role;
- 
+
     @Column(name = "Username")
     private String username;
- 
+
     @Column(name = "Password")
     private String password;
-    
+
     @Column(name = "Fullname")
     private String fullname;
-    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @Column(name = "Phone")
     private String phone;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
- 
+
     @Column(name = "Email")
     private String email;
-   
+
     @Column(name = "Address")
     private String address;
     @Column(name = "Sex")
@@ -185,7 +183,9 @@ public class Admin implements Serializable {
 
     @Override
     public String toString() {
-        return "com.cybershop.models.Admin[ adminID=" + adminID + " ]";
+        return "Admin{" + "adminID=" + adminID + ", role=" + role + ", username=" + username + ", password=" + password + ", fullname=" + fullname + ", phone=" + phone + ", email=" + email + ", address=" + address + ", sex=" + sex + ", status=" + status + ", dob=" + dob + '}';
     }
+
     
+
 }

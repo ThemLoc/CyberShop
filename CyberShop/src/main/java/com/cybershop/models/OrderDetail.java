@@ -1,4 +1,3 @@
-
 package com.cybershop.models;
 
 import java.io.Serializable;
@@ -109,7 +108,9 @@ public class OrderDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "com.cybershop.models.OrderDetail[ orderDetailID=" + orderDetailID + " ]";
+        return "OrderDetail{" + "orderDetailID=" + orderDetailID + ", quantity=" + quantity + ", price=" + price + ", orderID=" + orderID + ", productID=" + productID + '}';
     }
+
     
+
 }

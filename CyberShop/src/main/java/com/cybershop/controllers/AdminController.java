@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.cybershop.controllers;
 
-import com.cybershop.interfacedao.ServiceBasic;
 import com.cybershop.models.Admin;
-import com.cybershop.services.AdminServiceImpl;
+import com.cybershop.services.AdminService;
+import com.cybershop.servicesImpl.AdminServiceImpl;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,13 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-/**
- *
- * @author ngthe
- */
 @Controller
-@RequestMapping("/admin/member")
+@RequestMapping("/admin")
 public class AdminController {
+
 
    
     @Autowired
@@ -68,4 +60,6 @@ public class AdminController {
     public List<String> listRole(Model model) {
         return Arrays.asList("Admin", "Employee");
     }
+
+   
 }

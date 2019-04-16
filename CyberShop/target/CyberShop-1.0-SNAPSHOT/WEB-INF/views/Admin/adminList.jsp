@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+<<<<<<< HEAD
        <h1>List Admin!</h1>
         <c:if test="${not empty msg}">
             ${msg}
@@ -51,5 +52,10 @@
             </tbody>
         </table>
 
+=======
+        <h1>Hello World!
+        ${listAdmin}
+        </h1>
+>>>>>>> 3d45ac934ac572e64b6ee234da5dc63cd1ea1501
     </body>
 </html>

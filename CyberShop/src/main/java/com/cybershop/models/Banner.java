@@ -1,4 +1,3 @@
-
 package com.cybershop.models;
 
 import java.io.Serializable;
@@ -12,7 +11,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
 
 @Entity
 @Table(name = "Banner")
@@ -76,7 +74,9 @@ public class Banner implements Serializable {
 
     @Override
     public String toString() {
-        return "com.cybershop.models.Banner[ banerID=" + banerID + " ]";
+        return "Banner{" + "banerID=" + banerID + ", productID=" + productID + '}';
     }
+
     
+
 }

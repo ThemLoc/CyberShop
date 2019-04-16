@@ -1,44 +1,17 @@
-
 package com.cybershop.daos;
 
 import com.cybershop.models.Promotion;
-import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public class PromotionDAO implements InterfaceBasicDAO<Promotion>{
+public interface PromotionDAO {
 
-    @PersistenceContext
-    private EntityManager em;
-    @Override
-    public void create(Promotion obj) {
-        em.persist(obj);
-    }
+    void create(Promotion obj);
 
-    @Override
-    public void update(Promotion obj) {
-        em.merge(obj);
-    }
+    void update(Promotion obj);
 
-    @Override
-    public void delete(int id) {
-        em.remove(getById(id));
-    }
+    void delete(int id);
 
-    @Override
-    public List<Promotion> getAll() {
-        return em.createQuery("from Promotion").getResultList();
-    }
+    List<Promotion> getAll();
 
-    @Override
-    public Promotion getById(int id) {
-        return em.find(Promotion.class, id);
-    }
-    
-    
-    
-    
+    Promotion getById(int id);
 }

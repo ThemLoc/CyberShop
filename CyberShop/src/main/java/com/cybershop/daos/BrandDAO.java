@@ -1,44 +1,17 @@
-
 package com.cybershop.daos;
 
 import com.cybershop.models.Brand;
-import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public class BrandDAO implements InterfaceBasicDAO<Brand>{
+public interface BrandDAO {
 
-    @PersistenceContext
-    private EntityManager em;
-    @Override
-    public void create(Brand obj) {
-        em.persist(obj);
-    }
+    void create(Brand obj);
 
-    @Override
-    public void update(Brand obj) {
-        em.merge(obj);
-    }
+    void update(Brand obj);
 
-    @Override
-    public void delete(int id) {
-        em.remove(getById(id));
-    }
+    void delete(int id);
 
-    @Override
-    public List<Brand> getAll() {
-        return em.createQuery("from Brand").getResultList();
-    }
+    List<Brand> getAll();
 
-    @Override
-    public Brand getById(int id) {
-        return em.find(Brand.class, id);
-    }
-    
-    
-    
-    
+    Brand getById(int id);
 }

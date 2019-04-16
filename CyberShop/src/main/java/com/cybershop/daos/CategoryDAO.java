@@ -1,44 +1,17 @@
-
 package com.cybershop.daos;
 
 import com.cybershop.models.Category;
-import com.cybershop.interfacedao.InterfaceBasicDAO;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public class CategoryDAO implements InterfaceBasicDAO<Category>{
+public interface CategoryDAO {
 
-    @PersistenceContext
-    private EntityManager em;
-    @Override
-    public void create(Category obj) {
-        em.persist(obj);
-    }
+    void create(Category obj);
 
-    @Override
-    public void update(Category obj) {
-        em.merge(obj);
-    }
+    void update(Category obj);
 
-    @Override
-    public void delete(int id) {
-        em.remove(getById(id));
-    }
+    void delete(int id);
 
-    @Override
-    public List<Category> getAll() {
-        return em.createQuery("from Category").getResultList();
-    }
+    List<Category> getAll();
 
-    @Override
-    public Category getById(int id) {
-        return em.find(Category.class, id);
-    }
-    
-    
-    
-    
+    Category getById(int id);
 }
