@@ -1,4 +1,3 @@
-
 package com.cybershop.controllers;
 
 import com.cybershop.models.Admin;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("manager/admin")
 public class AdminController {
 
     @Autowired
@@ -26,33 +25,33 @@ public class AdminController {
     @RequestMapping(method = RequestMethod.GET)
     private String list(Model model) {
         model.addAttribute("listAdmin", adminServiceImpl.getByAll());
-        return "admin/adminList";
+        return "manager/admin/adminList";
     }
 //
-//    @RequestMapping(value = "/admin/member/create", method = RequestMethod.GET)
+//    @RequestMapping(value = "/manager/admin/member/create", method = RequestMethod.GET)
 //    private String create(Model model) {
 //        model.addAttribute("listAdmin", new Admin());
-//        return "/admin/adminForm";
+//        return "/manager/admin/adminForm";
 //    }
 //
-//    @RequestMapping(value = "/admin/member/save", method = RequestMethod.POST)
+//    @RequestMapping(value = "/manager/admin/member/save", method = RequestMethod.POST)
 //    private String save(@ModelAttribute("adminForm") Admin obj, RedirectAttributes ratts) {
 //        adminServiceImpl.save(obj);
 //        ratts.addFlashAttribute("msg", "saved");
-//        return "/admin/adminList";
+//        return "/manager/admin/adminList";
 //    }
 //
-//    @RequestMapping(value = "/admin/member/edit/{id}", method = RequestMethod.GET)
+//    @RequestMapping(value = "/manager/admin/member/edit/{id}", method = RequestMethod.GET)
 //    private String edit(@PathVariable("id") int id, Model model) {
 //        model.addAttribute("adminForm", adminServiceImpl.findById(id));
-//        return "/admin/adminForm";
+//        return "/manager/admin/adminForm";
 //    }
 //
-//    @RequestMapping(value = "/admin/member/delete/{id}", method = RequestMethod.GET)
+//    @RequestMapping(value = "/manager/admin/member/delete/{id}", method = RequestMethod.GET)
 //    private String delete(@PathVariable("id") int id, RedirectAttributes ratts) {
 //        adminServiceImpl.remove(id);
 //        ratts.addFlashAttribute("msg", "deleted");
-//        return "/admin/AdminList";
+//        return "/manager/admin/AdminList";
 //    }
 //
 //    @ModelAttribute("listRole")
