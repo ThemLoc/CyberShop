@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,7 +13,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-<<<<<<< HEAD:CyberShop/src/main/webapp/WEB-INF/views/Admin/adminList.jsp
        <h1>List Admin!</h1>
         <c:if test="${not empty msg}">
             ${msg}
@@ -32,6 +32,7 @@
                     <th>Day of birth</th>
                 </tr>
             </thead>
+            
             <tbody>
                 <c:forEach items="${listAdmin}" var="a" >
                     <tr>
@@ -52,10 +53,5 @@
             </tbody>
         </table>
 
-=======
-        <h1>Hello World!
-        ${listAdmin}
-        </h1>
->>>>>>> 3d45ac934ac572e64b6ee234da5dc63cd1ea1501:CyberShop/src/main/webapp/WEB-INF/views/admin/adminList.jsp
     </body>
 </html>

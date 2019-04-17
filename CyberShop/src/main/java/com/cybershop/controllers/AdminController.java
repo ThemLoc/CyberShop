@@ -22,7 +22,7 @@ public class AdminController {
 
    
     @Autowired
-    private AdminServiceImpl adminService;
+    private AdminService adminService;
 
     @RequestMapping(method = RequestMethod.GET)
     private String list(Model model) {
