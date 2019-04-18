@@ -17,4 +17,5 @@ public interface OrderService {
     void remove(int id);
     Order findById(int id);
     List<Order> getByAll();
+    void sendEmailOrder(String from, String to, String subject, String content);
 }
