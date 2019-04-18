@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "Order")
+@Table(name = "[Order]")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order o")
@@ -157,11 +157,5 @@ public class Order implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" + "orderID=" + orderID + ", shipAddress=" + shipAddress + ", total=" + total + ", status=" + status + ", orderDate=" + orderDate + ", deliveryFee=" + deliveryFee + ", customerID=" + customerID + ", promotionID=" + promotionID + ", orderDetailCollection=" + orderDetailCollection + '}';
-    }
-
-    
-
+  
 }

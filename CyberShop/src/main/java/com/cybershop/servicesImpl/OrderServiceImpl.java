@@ -10,7 +10,10 @@ import com.cybershop.models.Order;
 import com.cybershop.services.OrderService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -18,8 +21,11 @@ public class OrderServiceImpl implements OrderService{
     
     @Autowired
     private OrderDAO dao;
+    
+    @Autowired
+    MailSender mailSender;
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public void save(Order obj) {
         dao.create(obj);
@@ -41,6 +47,16 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<Order> getByAll() {
         return dao.getAll();
+    }
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void sendEmailOrder(String from, String to, String subject, String content){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(from);
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(content);
+        mailSender.send(message);
     }
     
 }

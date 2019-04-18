@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("manager/product")
 public class ProductController {
 
+
     @Autowired
     private ProductService productService;
     
@@ -39,19 +40,26 @@ public class ProductController {
 //    private String save(@ModelAttribute("productForm") Product obj, RedirectAttributes ratts) {
 //        productService.save(obj);
 //        ratts.addFlashAttribute("msg", "saved");
+
 //        return "manager/product/productList";
+
 //    }
 //
 //    @RequestMapping(value = "/manager/product/edit/{id}", method = RequestMethod.GET)
 //    private String edit(@PathVariable("id") int id, Model model) {
+
 //        model.addAttribute("productForm", productService.findById(id));
 //        return "manager/product/productForm";
+
 //    }
 //
 //    @RequestMapping(value = "/manager/product/delete/{id}", method = RequestMethod.GET)
 //    private String delete(@PathVariable("id") int id, RedirectAttributes ratts) {
-//        productService.remove(id);
+
+//        productServiceImpl.remove(id);
 //        ratts.addFlashAttribute("msg", "deleted");
+
 //        return "manager/product/productList";
 //    }
+
 }
