@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 E:\FPT_NANO_XML\Project_Cybershop\CyberShop\CyberShop\src\main\java\com\cybershop\models\Product.java
 E:\FPT_NANO_XML\Project_Cybershop\CyberShop\CyberShop\src\main\java\com\cybershop\daos\StoreInformationDAO.java
 E:\FPT_NANO_XML\Project_Cybershop\CyberShop\CyberShop\src\main\java\com\cybershop\servicesImpl\OrderDetailServiceImpl.java
@@ -61,3 +62,73 @@ E:\FPT_NANO_XML\Project_Cybershop\CyberShop\CyberShop\src\main\java\com\cybersho
 E:\FPT_NANO_XML\Project_Cybershop\CyberShop\CyberShop\src\main\java\com\cybershop\services\OrderDetailService.java
 E:\FPT_NANO_XML\Project_Cybershop\CyberShop\CyberShop\src\main\java\com\cybershop\daosImpl\CustomerDAOImpl.java
 E:\FPT_NANO_XML\Project_Cybershop\CyberShop\CyberShop\src\main\java\com\cybershop\servicesImpl\AdminServiceImpl.java
+=======
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/controllers/ProductController.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daos/OrderDAO.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daos/ProductDAO.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/models/Brand.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/servicesImpl/CartServiceImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daosImpl/BrandDAOImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/services/PromotionService.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/servicesImpl/CustomerServiceImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/interfacedao/ExtractDATA.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/services/OrderService.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daos/CategoryDAO.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/servicesImpl/BannerServiceImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daos/OrderDetailDAO.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/servicesImpl/PromotionServiceImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daosImpl/CategoryDAOImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daosImpl/ImageDAOImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/servicesImpl/OrderDetailServiceImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/models/Admin.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/models/OrderDetail.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daos/PromotionDAO.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daosImpl/AdminDAOImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/servicesImpl/BrandServiceImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/controllers/AdminController.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/servicesImpl/ProductServiceImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/models/Product.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/services/BannerService.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/servicesImpl/CategoryServiceImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/services/ProductService.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/models/Image.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daosImpl/PromotionDAOImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daosImpl/StoreInformationDAOImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/servicesImpl/ImageServiceImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/models/Order.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/models/Cart.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/services/CustomerService.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/services/BrandService.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daosImpl/OrderDAOImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daosImpl/BannerDAOImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/services/OrderDetailService.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/models/Category.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daos/CartDAO.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daosImpl/CustomerDAOImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daos/StoreInformationDAO.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/services/CategoryService.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/servicesImpl/AdminServiceImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/models/Promotion.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daos/ImageDAO.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/servicesImpl/OrderServiceImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/services/StoreInformationService.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daos/AdminDAO.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daos/BrandDAO.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daos/CustomerDAO.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/services/ImageService.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/models/Banner.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/servicesImpl/StoreInformationServiceImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daosImpl/OrderDetailDAOImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/utils/DatabaseConfig.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/models/StoreInformation.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/services/CartService.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/models/Customer.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daosImpl/CartDAOImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/interfacedao/ServiceBasic.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daos/BannerDAO.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/controllers/HomeController.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/services/AdminService.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daosImpl/ProductDAOImpl.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/utils/Appconfig.java
+/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/controllers/WebsiteController.java
+>>>>>>> 1a5d524477730e55523d8d3f2287d4a22fc5e004
