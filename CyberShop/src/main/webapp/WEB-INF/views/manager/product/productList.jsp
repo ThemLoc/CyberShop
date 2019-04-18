@@ -188,27 +188,56 @@
                                 <div class="box-body">
                                     <button id="btnAdd" type="button" class="btn btn-danger"> + Add New Product</button>
                                     <!-- form start -->
-                                    <form id="form" role="form" style="display: none">
+                                    <form id="form" role="form" style="display: block">
                                         <div class="box-body">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputPassword1">Password</label>
-                                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputFile">File input</label>
-                                                <input type="file" id="exampleInputFile">
 
-                                                <p class="help-block">Example block-level help text here.</p>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Product Name</label>
+                                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter product name">
                                             </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Check me out
-                                                </label>
+                                            <div class="form-group">
+                                                <label>Category</label>
+                                                <select id="categorySelection" class="form-control">
+                                                    <option selected>Select Catogory</option>
+                                                    <option value="cpu">CPU</option>
+                                                    
+                                                    <option>option 3</option>
+                                                    <option>option 4</option>
+                                                    <option>option 5</option>
+                                                </select>
                                             </div>
+                                            <div class="form-group">
+                                                <label>Specifications</label>
+
+                                            </div>
+                                            <div id="cpu" class="spec_div" style="display: none">
+                                            <jsp:include page="fragment/cpu.jsp"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Price</label>
+                                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Price">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPrice1">Quanlity</label>
+                                                <input type="text" class="form-control" id="exampleInputPrice1" placeholder="Quanlity">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">Main Image</label>
+                                                <input type="file" id="exampleInputFile">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputFile">Sub Image</label>
+                                                <input type="file" id="exampleInputFile">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Status</label>
+                                                <select class="form-control">
+                                                    <option>Enable</option>
+                                                    <option>Disable</option>
+                                                </select>
+                                            </div>
+
                                         </div>
                                         <!-- /.box-body -->
 
@@ -429,6 +458,12 @@
                 });
             });
 
+            $(function () {
+                $('#categorySelection').change(function () {
+                    $('.spec_div').hide();
+                    $('#' + $(this).val()).show();
+                });
+            });
         </script>
     </body>
 
