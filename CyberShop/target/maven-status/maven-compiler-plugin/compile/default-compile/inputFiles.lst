@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/controllers/ProductController.java
 /Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daos/OrderDAO.java
 /Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/daos/ProductDAO.java
@@ -73,7 +73,7 @@
 /Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/controllers/RestFullController.java
 /Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/servicesImpl/SpecificationTitleServiceImpl.java
 /Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/java/com/cybershop/controllers/WebsiteController.java
-=======
+
 E:\FNano\ProjectNANO\CyberShop\CyberShop\src\main\java\com\cybershop\servicesImpl\CartServiceImpl.java
 E:\FNano\ProjectNANO\CyberShop\CyberShop\src\main\java\com\cybershop\services\StoreInformationService.java
 E:\FNano\ProjectNANO\CyberShop\CyberShop\src\main\java\com\cybershop\models\OrderDetail.java
@@ -143,4 +143,4 @@ E:\FNano\ProjectNANO\CyberShop\CyberShop\src\main\java\com\cybershop\daos\ImageD
 E:\FNano\ProjectNANO\CyberShop\CyberShop\src\main\java\com\cybershop\services\BrandService.java
 E:\FNano\ProjectNANO\CyberShop\CyberShop\src\main\java\com\cybershop\servicesImpl\BannerServiceImpl.java
 E:\FNano\ProjectNANO\CyberShop\CyberShop\src\main\java\com\cybershop\services\OrderDetailService.java
->>>>>>> 6c553b528a89a17250ae5ff3e1d4e8fabcb551b5
+
