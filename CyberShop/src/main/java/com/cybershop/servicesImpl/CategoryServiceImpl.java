@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class CategoryServiceImpl implements CategoryService{
-    
+public class CategoryServiceImpl implements CategoryService {
+
     @Autowired
     private CategoryDAO dao;
 
@@ -42,5 +42,6 @@ public class CategoryServiceImpl implements CategoryService{
     public List<Category> getByAll() {
         return dao.getAll();
     }
-    
+
+ 
 }

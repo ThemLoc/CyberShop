@@ -13,5 +13,8 @@
     </head>
     <body>
         <h1>Hello Form!</h1>
+        ${product}
+                ${product.imagesCollection}
+
     </body>
 </html>

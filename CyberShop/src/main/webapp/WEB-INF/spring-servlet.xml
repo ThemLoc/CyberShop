@@ -31,9 +31,9 @@
     <mvc:annotation-driven />
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-        <property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=CyberShop"/>
+        <property name="url" value="jdbc:sqlserver://10.211.55.6:1433;databaseName=CyberShop"/>
         <property name="username" value="sa"/>
-        <property name="password" value="01679431597"/>
+        <property name="password" value="123456789"/>
     </bean>
     
     <bean id="emf"
@@ -60,8 +60,8 @@
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.gmail.com" />
         <property name="port" value="587" />
-        <property name="username" value="Cybershop@gmail.com" />
-        <property name="password" value="password" />
+        <property name="username" value="cybershop.nano@gmail.com" />
+        <property name="password" value="0964303637" />
       
         <property name="javaMailProperties">
            <props>
@@ -72,5 +72,9 @@
                </props>
         </property>
     </bean>
-    
+    <bean id="multipartResolver"
+    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <property name="maxUploadSize" value="268435456" />
+  </bean>
+
 </beans>

@@ -1,10 +1,16 @@
 package com.cybershop.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,6 +39,7 @@ public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ProductID")
     private Integer productID;
     @Column(name = "ProductName")
@@ -51,18 +58,26 @@ public class Product implements Serializable {
     @Column(name = "Status")
     private Boolean status;
     @OneToMany(mappedBy = "productID")
+    @JsonIgnore
     private Collection<OrderDetail> orderDetailCollection;
     @OneToMany(mappedBy = "productID")
+    @JsonIgnore
     private Collection<Banner> bannerCollection;
-    @OneToMany(mappedBy = "productID")
+
+    @OneToMany(mappedBy = "productID", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+//    @JsonIgnore
     private Collection<Image> imagesCollection;
+
     @JoinColumn(name = "BrandID", referencedColumnName = "BrandID")
     @ManyToOne
     private Brand brandID;
+
     @JoinColumn(name = "CategoryID", referencedColumnName = "CateID")
     @ManyToOne
     private Category categoryID;
+
     @OneToMany(mappedBy = "productID")
+    @JsonIgnore
     private Collection<Cart> cartCollection;
 
     public Product() {
@@ -155,6 +170,7 @@ public class Product implements Serializable {
     }
 
     @XmlTransient
+//    @JsonManagedReference
     public Collection<Image> getImagesCollection() {
         return imagesCollection;
     }
@@ -208,11 +224,9 @@ public class Product implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" + "productID=" + productID + ", productName=" + productName + ", detail=" + detail + ", price=" + price + ", quantity=" + quantity + ", sell=" + sell + ", downPrice=" + downPrice + ", status=" + status + ", orderDetailCollection=" + orderDetailCollection + ", bannerCollection=" + bannerCollection + ", imagesCollection=" + imagesCollection + ", brandID=" + brandID + ", categoryID=" + categoryID + ", cartCollection=" + cartCollection + '}';
-    }
-
-    
+//    @Override
+//    public String toString() {
+//        return "Product{" + "productID=" + productID + ", productName=" + productName + ", detail=" + detail + ", price=" + price + ", quantity=" + quantity + ", sell=" + sell + ", downPrice=" + downPrice + ", status=" + status + ", orderDetailCollection=" + orderDetailCollection + ", bannerCollection=" + bannerCollection + ", imagesCollection=" + imagesCollection + ", brandID=" + brandID + ", categoryID=" + categoryID + ", cartCollection=" + cartCollection + '}';
+//    }
 
 }
