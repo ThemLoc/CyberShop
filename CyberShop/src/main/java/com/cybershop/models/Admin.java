@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "Admin")
@@ -62,8 +63,9 @@ public class Admin implements Serializable {
     private Boolean sex;
     @Column(name = "Status")
     private Boolean status;
+//    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "DOB")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dob;
 
     public Admin() {

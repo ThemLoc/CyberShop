@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +49,8 @@ public class OrderServiceImpl implements OrderService{
     public List<Order> getByAll() {
         return dao.getAll();
     }
+    
+    @Async
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void sendEmailOrder(String from, String to, String subject, String content){

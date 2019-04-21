@@ -6,6 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -186,48 +189,72 @@
                         <div class="col-xs-12">
                             <div class="box">
                                 <div class="box-body">
-                                    <button id="btnAdd" type="button" class="btn btn-danger"> + Add New Product</button>
+                                    <button id="btnAdd" type="button" class="btn btn-danger">+ Add Admin </button>
                                     <!-- form start -->
-                                    <form id="form" role="form" style="display: none">
+                                    <sf:form id="form" method="POST" action="${pageContext.request.contextPath}/manager/admin/save" role="form" style="display: none" modelAttribute="adminForm">
                                         <div class="box-body">
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                                <label for="exampleInputEmail1">username: </label>
+                                                <input type="text" class="form-control" name="username" placeholder="Enter Username">
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputPassword1">Password</label>
-                                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                                <label for="exampleInputPassword1">password: </label>
+                                                <input type="password" class="form-control" name="password" placeholder="Password">
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputFile">File input</label>
-                                                <input type="file" id="exampleInputFile">
+                                                <label for="exampleInputPassword1">fullname:  </label>
+                                                <input type="text" class="form-control" name="fullname" id="exampleInputPassword1" placeholder="fullname">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">phone:  </label>
+                                                <input type="text" class="form-control" name="phone" placeholder="phone">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">email:  </label>
+                                                <input type="email" class="form-control" name="email" placeholder="email">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">address:  </label>
+                                                <input type="text" class="form-control" name="address" placeholder="address">
+                                            </div>
+                                            <div class="form-group">
+                                                <label >Day of birth:   </label>
+                                                
+                                                <sf:input type="date" path="dob"/>
+                                            </div>
+                                            <div class="radio">
+                                                <label><input type="radio" name="sex" checked>Nam</label>
+                                            </div>
+                                            <div class="radio">
+                                                <label><input type="radio" name="sex" checked>Nữ</label>
+                                            </div>
+                                            <s:bind path="role">
+                                                <label>role </label>
+                                                <sf:select path="role">
+                                                    <sf:options items="${listRole}"/>
+                                                </sf:select>
+                                                <sf:errors path="role"/>
+                                            </s:bind>
 
-                                                <p class="help-block">Example block-level help text here.</p>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Check me out
-                                                </label>
-                                            </div>
+
+                                            <!--                                            <div class="checkbox">
+                                                                                            <label>
+                                                                                                <input type="checkbox"> Check me out
+                                                                                            </label>
+                                                                                        </div>-->
                                         </div>
                                         <!-- /.box-body -->
 
                                         <div class="box-footer">
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
-                                    </form>
-                                </div >
-
-
-
+                                    </sf:form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </section>
                 <!-- Add Product -->
-
-
-
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>Admin Tables</h1>
@@ -237,9 +264,7 @@
                 <section class="content">
                     <div class="row">
                         <div class="col-xs-12">
-
                             <!-- /.box -->
-
                             <div class="box">
                                 <!-- /.box-header -->
                                 <div class="box-body">
@@ -291,47 +316,7 @@
                                                     </td>
                                                 </tr>
                                             </c:forEach>
-
-
                                         </tbody>
-                                        <!--                                        <thead>
-                                                                                    <tr>
-                                                                                        <th>Product ID</th>
-                                                                                        <th>Product Name</th>
-                                                                                        <th>Price</th>
-                                                                                        <th>Quanlity</th>
-                                                                                        <th>Price</th>
-                                                                                        <th>Status</th>
-                                                                                        <th>Action</th>
-                                        
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <tr>
-                                                                                        <td>Trident</td>
-                                                                                        <td>InternetExplorer InternetExplorer InternetExplorer InternetExplorer InternetExplorer InternetExplorer InternetExplorer</td>
-                                                                                        <td>Win 95+ </td>
-                                                                                        <td>5</td>
-                                                                                        <td>C</td>
-                                                                                        <td>Complete</td>
-                                                                                        <td >
-                                                                                            <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#update">Update</button>
-                                                                                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete</button>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>Trident</td>
-                                                                                        <td>InternetExplorer InternetExplorer InternetExplorer InternetExplorer InternetExplorer InternetExplorer InternetExplorer</td>
-                                                                                        <td>Win 95+ </td>
-                                                                                        <td>5</td>
-                                                                                        <td>C</td>
-                                                                                        <td>Complete</td>
-                                                                                        <td >
-                                                                                            <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#update">Update</button>
-                                                                                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete</button>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </tbody>-->
                                     </table>
                                 </div>
                                 <!-- /.box-body -->

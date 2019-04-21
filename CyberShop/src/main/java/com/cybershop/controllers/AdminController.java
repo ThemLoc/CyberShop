@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -25,26 +27,28 @@ public class AdminController {
     @RequestMapping(method = RequestMethod.GET)
     private String list(Model model) {
         model.addAttribute("listAdmin", adminService.getByAll());
+          model.addAttribute("adminForm", new Admin());
         return "manager/admin/adminList";
     }
 
-    @RequestMapping(value = "/admin/member/create", method = RequestMethod.GET)
-    private String create(Model model) {
-        model.addAttribute("listAdmin", new Admin());
-        return "manager/admin/adminForm";
-    }
+//    @RequestMapping(value = "/admin/member/create", method = RequestMethod.GET)
+//    private String create(Model model) {
+//        model.addAttribute("adminForm", new Admin());
+//        return "manager/admin/adminList";
+//    }
 
-    @RequestMapping(value = "/admin/member/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     private String save(@ModelAttribute("adminForm") Admin obj, RedirectAttributes ratts) {
-        adminService.save(obj);
-        ratts.addFlashAttribute("msg", "saved");
-        return "manager/admin/adminList";
+        System.out.println("Admin" + obj);
+//        adminService.save(obj);
+//        ratts.addFlashAttribute("msg", "saved");
+        return "redirect:/manager/admin";
     }
 
     @RequestMapping(value = "/admin/member/edit/{id}", method = RequestMethod.GET)
     private String edit(@PathVariable("id") int id, Model model) {
         model.addAttribute("adminForm", adminService.findById(id));
-        return "manager/admin/adminForm";
+        return "manager/admin/adminList";
     }
 
     @RequestMapping(value = "/admin/member/delete/{id}", method = RequestMethod.GET)
@@ -56,7 +60,9 @@ public class AdminController {
 
     @ModelAttribute("listRole")
     public List<String> listRole(Model model) {
-        return Arrays.asList("Admin", "Employee");
+        return Arrays.asList("ADMIN", "EMPLOYEE");
     }
+    
+    
 
 }
