@@ -44,11 +44,11 @@ public class Category implements Serializable {
     private String cateName;
     @Column(name = "Type")
     private Boolean type;
-    @OneToMany(mappedBy = "categoryID")
+    @OneToMany(mappedBy = "categoryID", cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<Product> productCollection;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cateID")
+    @OneToMany(mappedBy = "cateID", cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<SpecificationTitle> specificationTitleCollection;
 

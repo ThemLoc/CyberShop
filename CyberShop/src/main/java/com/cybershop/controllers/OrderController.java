@@ -45,8 +45,6 @@ public class OrderController {
     
     @RequestMapping(method = RequestMethod.GET)
     private String list(Model model) {
-        List<Order> listOrder = orderService.getByAll();
-//        model.addAttribute("customerName", );
         model.addAttribute("listOrder", orderService.getByAll());
         return "manager/order/orderList";
     }

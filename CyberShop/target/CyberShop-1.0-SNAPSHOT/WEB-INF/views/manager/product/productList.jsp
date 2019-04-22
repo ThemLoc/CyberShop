@@ -739,19 +739,19 @@
                         html += "</div>";
                         html += "</div>";
                         html += "</div>";
-                        if(result['imagesCollection'].length!= 0){
-                        html += "<div class='col-md-12' >";
-                        html += "<h3>Main Image</h3>";
-                        html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][1]['urlImage'] + "' style='width: 100% ; height:400px;vertical-align: middle;'>";
-                        html += "</div>";
+                        if (result['imagesCollection'].length != 0) {
+                            html += "<div class='col-md-12' >";
+                            html += "<h3>Main Image</h3>";
+                            html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][1]['urlImage'] + "' style='width: 100% ; height:400px;vertical-align: middle;'>";
+                            html += "</div>";
 
-                        html += "<div class='col-md-12' >";
-                        html += "<h3>Sub Image</h3>";
-                        for (var i = 2; i < result['imagesCollection'].length; i++) {
-                            html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][i]['urlImage'] + "' style='width: 100% ; height:400px;vertical-align: middle;'>";
-                        }
+                            html += "<div class='col-md-12' >";
+                            html += "<h3>Sub Image</h3>";
+                            for (var i = 2; i < result['imagesCollection'].length; i++) {
+                                html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][i]['urlImage'] + "' style='width: 100% ; height:400px;vertical-align: middle;'>";
+                            }
 
-                        html += "</div>";
+                            html += "</div>";
                         }
                         html += "</div>";
 

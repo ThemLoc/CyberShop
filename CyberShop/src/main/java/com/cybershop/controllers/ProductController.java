@@ -72,7 +72,7 @@ public class ProductController {
             List<MultipartFile> listSubImg = product.getSubImg();
             MultipartFile mainImg = product.getMainImg();
             String fileName = mainImg.getOriginalFilename();
-            File file = new File("/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/webapp/resources/image/img_product", fileName);
+            File file = new File("E:/FNano/ProjectNANO/newCyberShop/CyberShop/src/main/webapp/resources/image/img_product", fileName);
             mainImg.transferTo(file);
             img = new Image();
             img.setUrlImage(fileName);
@@ -81,7 +81,7 @@ public class ProductController {
             listImg.add(img);
             for (MultipartFile subImg : listSubImg) {
                 fileName = subImg.getOriginalFilename();
-                file = new File("/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/webapp/resources/image/img_product", fileName);
+                file = new File("E:/FNano/ProjectNANO/newCyberShop/CyberShop/src/main/webapp/resources/image/img_product", fileName);
                 subImg.transferTo(file);
                 img = new Image();
                 img.setUrlImage(fileName);
@@ -90,6 +90,7 @@ public class ProductController {
                 listImg.add(img);
             }
         } catch (Exception e) {
+            System.out.println("EROR :" + e.getMessage());
             e.printStackTrace();
             model.addAttribute("message", "upload failed");
         }

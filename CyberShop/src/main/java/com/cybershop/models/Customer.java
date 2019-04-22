@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -71,9 +72,9 @@ public class Customer implements Serializable {
     @Column(name = "DOB")
     @Temporal(TemporalType.DATE)
     private Date dob;
-    @OneToMany(mappedBy = "customerID")
+    @OneToMany(mappedBy = "customerID", cascade = CascadeType.ALL)
     private Collection<Order> order1Collection;
-    @OneToMany(mappedBy = "customerID")
+    @OneToMany(mappedBy = "customerID", cascade = CascadeType.ALL)
     private Collection<Cart> cartCollection;
 
     public Customer() {

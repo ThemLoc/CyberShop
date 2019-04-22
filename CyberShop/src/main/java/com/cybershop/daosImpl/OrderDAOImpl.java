@@ -2,6 +2,7 @@ package com.cybershop.daosImpl;
 
 import com.cybershop.daos.OrderDAO;
 import com.cybershop.models.Order;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,7 +31,25 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public List<Order> getAll() {
-        return em.createQuery("from Order").getResultList();
+        List<Order> list = em.createQuery("from Order").getResultList();
+        List<Order> newList = new ArrayList<>();
+        Order order;
+        if (!list.isEmpty()) {
+            for (Order item : list) {
+                order = new Order();
+                order.setOrderID(item.getOrderID());
+                order.setCustomerID(item.getCustomerID());
+                order.setShipAddress(item.getShipAddress());
+                order.setPromotionID(item.getPromotionID());
+                order.setOrderDate(item.getOrderDate());
+                order.setDeliveryFee(item.getDeliveryFee());
+                order.setStatus(item.getStatus());
+                order.setTotal(item.getTotal());
+                order.setOrderDetailCollection(item.getOrderDetailCollection());
+                newList.add(order);
+            }
+        }
+        return newList;
     }
 
     @Override

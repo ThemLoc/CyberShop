@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -54,7 +55,7 @@ public class Order implements Serializable {
     @JoinColumn(name = "PromotionID", referencedColumnName = "PromoID")
     @ManyToOne
     private Promotion promotionID;
-    @OneToMany(mappedBy = "orderID")
+    @OneToMany(mappedBy = "orderID", cascade = CascadeType.ALL)
     private Collection<OrderDetail> orderDetailCollection;
 
     public Order() {

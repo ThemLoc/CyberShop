@@ -243,29 +243,33 @@
                             <div class="box">
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <table id="example1" class="table table-bordered table-hover">
+                                    <table id="tableOrder" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
+                                                <th hidden="true">ID</th>
                                                 <th>Customer Name</th>
-                                                <th>Promotion Description</th>
-                                                <th>Ship Address</th>
-                                                <th>Total</th>
+                                                <th>Discount</th>
                                                 <th>Order Date</th>
-                                                <th>Status</th>
+                                                <th>Ship Address</th>
                                                 <th>Delivery Fee</th>
+                                                <th>Total</th>
+                                                <th>Status</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <c:forEach items="${listOrder}" var="a" varStatus="Counter" >
                                                 <tr>
-                                                    <td>${Counter.count}</td>
-                                                    <td>${a.promotionID}</td>
-                                                    <td>${a.shipAddress}</td>
-                                                    <td>${a.total}</td>
-                                                    <td>${a.orderDate}</td>
-                                                    <td>${a.status}</td>
-                                                    <td>${a.deliveryFee}</td>
+                                                    <td onclick="rowClick(${a.orderID})">${Counter.count}</td>
+                                                    <td hidden="true">${a.orderID}</td>
+                                                    <td onclick="rowClick(${a.orderID})">${a.customerID.fullname}</td>
+                                                    <td onclick="rowClick(${a.orderID})">${a.promotionID.discount}</td>
+                                                    <td onclick="rowClick(${a.orderID})">${a.orderDate}</td>
+                                                    <td onclick="rowClick(${a.orderID})">${a.shipAddress}</td>
+                                                    <td onclick="rowClick(${a.orderID})">${a.deliveryFee}</td>
+                                                    <td onclick="rowClick(${a.orderID})">${a.total}</td>
+                                                    <td onclick="rowClick(${a.orderID})">${a.status}</td>
                                                     <td>
                                                         <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#update">Update</button>
                                                         <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete</button>
@@ -275,44 +279,6 @@
 
 
                                         </tbody>
-                                        <!--                                        <thead>
-                                                                                    <tr>
-                                                                                        <th>Product ID</th>
-                                                                                        <th>Product Name</th>
-                                                                                        <th>Price</th>
-                                                                                        <th>Quanlity</th>
-                                                                                        <th>Price</th>
-                                                                                        <th>Status</th>
-                                                                                        <th>Action</th>
-                                        
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <tr>
-                                                                                        <td>Trident</td>
-                                                                                        <td>InternetExplorer InternetExplorer InternetExplorer InternetExplorer InternetExplorer InternetExplorer InternetExplorer</td>
-                                                                                        <td>Win 95+ </td>
-                                                                                        <td>5</td>
-                                                                                        <td>C</td>
-                                                                                        <td>Complete</td>
-                                                                                        <td >
-                                                                                            <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#update">Update</button>
-                                                                                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete</button>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td>Trident</td>
-                                                                                        <td>InternetExplorer InternetExplorer InternetExplorer InternetExplorer InternetExplorer InternetExplorer InternetExplorer</td>
-                                                                                        <td>Win 95+ </td>
-                                                                                        <td>5</td>
-                                                                                        <td>C</td>
-                                                                                        <td>Complete</td>
-                                                                                        <td >
-                                                                                            <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#update">Update</button>
-                                                                                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete</button>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </tbody>-->
                                     </table>
                                 </div>
                                 <!-- /.box-body -->
@@ -423,6 +389,33 @@
                 </div>
             </div>
         </div>
+        
+        <div class="modal fade" id="showDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="vertical-alignment-helper">
+                <div class="modal-dialog vertical-align-center">
+
+                    <div class="modal-content">
+                        <form id="form" role="form" action="simple.html">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">Order Detail</h4>
+
+                            </div>
+                            <div id="detailModelBody" class="modal-body">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
         <!--/Delete modal -->
         <!-- jQuery 3 -->
@@ -443,7 +436,7 @@
         <!-- page script -->
         <script>
             $(function () {
-                $('#example1').DataTable()
+                $('#tableOrder').DataTable()
                 $('#example2').DataTable({
                     'paging': true,
                     'lengthChange': false,
@@ -461,6 +454,181 @@
                 });
             });
 
+            $(document).ready(function () {
+                var table = document.getElementById("tableOrder");
+                var rows = table.getElementsByTagName("tr");
+                for (i = 0; i < rows.length; i++) {
+                    var currentRow = table.rows[i];
+
+                    var createClickHandler = function (row) {
+                        return function () {
+                            var cell = row.getElementsByTagName("td")[1];
+                            var id = cell.innerHTML;
+                        };
+                    };
+                    currentRow.onclick = createClickHandler(currentRow);
+                }
+            });
+
+            function rowClick(id) {
+                $("#showDetail").modal('show');
+//                var cateID = $(this).val();
+                var html = '';
+                $('#detailModelBody').empty();
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json",
+                    url: "${pageContext.request.contextPath}/api/findProduct/" + id,
+                    dataType: 'json',
+                    timeout: 100000,
+                    success: function (result) {
+                        html += "<div  class='form-horizontal' >";
+
+                        html += "<div class='col-md-5'>";
+//                        html += "<div class='form-group'>";
+                        html += "<div class='row'>";
+                        html += "<table class='table table-bordered table-hover'>";
+                        html += "<thead>";
+                        html += "<tr>";
+                        ;
+                        html += "<th>Title</th>";
+                        html += "<th>Value</th>";
+                        html += "</tr>";
+                        html += "</thead>"
+                        html += "<tbody>"
+                        html += "<tr>";
+                        html += "<td>ProductID</td>"
+                        html += "<td>" + result['productID'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>ProductName</td>"
+                        html += "<td>" + result['productName'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>Brand</td>"
+                        html += "<td>" + result['brandID']['brandName'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>Category</td>"
+                        html += "<td>" + result['categoryID']['cateName'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>Price</td>"
+                        html += "<td>" + result['price'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>DownPrice</td>"
+                        html += "<td>" + result['downPrice'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>Quantity</td>"
+                        html += "<td>" + result['quantity'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>Sold</td>"
+                        html += "<td>" + result['sell'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>Status</td>"
+                        html += "<td>" + result['status'] + "</td>"
+                        html += "</tr>";
+                        html += "</tbody>";
+                        html += "</table>";
+                        html += "</div>";
+                        html += "</div>";
+                        html += "</div>";
+//                        html += "</div>";
+
+                        html += "<div class='col-md-1'>";
+                        html += "</div>";
+
+                        html += "<div class='col-md-6'>";
+//                        html += "<div class='form-group'>";
+                        html += "<div class='row'>";
+                        html += "<table class='table table-bordered table-hover'>";
+                        html += "<thead>";
+                        html += "<tr>";
+                        html += "<th>Title</th>";
+                        html += "<th>Value</th>";
+                        html += "</tr>";
+                        html += "</thead>"
+                        html += "<tbody>"
+                        html += "<tr>";
+                        html += "<td>ProductID</td>"
+                        html += "<td>" + result['productID'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>ProductName</td>"
+                        html += "<td>" + result['productName'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>Brand</td>"
+                        html += "<td>" + result['brandID']['brandName'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>Category</td>"
+                        html += "<td>" + result['categoryID']['cateName'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>Price</td>"
+                        html += "<td>" + result['price'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>DownPrice</td>"
+                        html += "<td>" + result['downPrice'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>Quantity</td>"
+                        html += "<td>" + result['quantity'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>Sold</td>"
+                        html += "<td>" + result['sell'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>Status</td>"
+                        html += "<td>" + result['status'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>Status</td>"
+                        html += "<td>" + result['status'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>Status</td>"
+                        html += "<td>" + result['status'] + "</td>"
+                        html += "</tr>";
+                        html += "<tr>";
+                        html += "<td>Status</td>"
+                        html += "<td>" + result['status'] + "</td>"
+                        html += "</tr>";
+                        html += "</tbody>";
+                        html += "</table>";
+                        html += "</div>";
+                        html += "</div>";
+                        html += "</div>";
+                        if (result['imagesCollection'].length != 0) {
+                            html += "<div class='col-md-12' >";
+                            html += "<h3>Main Image</h3>";
+                            html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][1]['urlImage'] + "' style='width: 100% ; height:400px;vertical-align: middle;'>";
+                            html += "</div>";
+
+                            html += "<div class='col-md-12' >";
+                            html += "<h3>Sub Image</h3>";
+                            for (var i = 2; i < result['imagesCollection'].length; i++) {
+                                html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][i]['urlImage'] + "' style='width: 100% ; height:400px;vertical-align: middle;'>";
+                            }
+
+                            html += "</div>";
+                        }
+                        html += "</div>";
+
+                        $('#detailModelBody').html(html);
+                    },
+                    error: function (e) {
+                        console.log("ERROR: ", e);
+                    }
+                });
+            }
         </script>
     </body>
 </html>
