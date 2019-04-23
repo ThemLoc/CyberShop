@@ -314,10 +314,14 @@
                                                         <c:if test="${!pd.status}">Disable</c:if>
                                                         </td>
                                                         <td>
-                                                            <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#update">Update</button>
-                                                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete</button>
-                                                        </td>
-                                                    </tr>
+                                                        <c:if test="${pd.status}">
+                                                            <button type="submit" class="btn" style="background-color: #aaa;color: white" data-toggle="modal" data-target="#disableProduct">Disable</button>
+                                                        </c:if>
+                                                        <c:if test="${!pd.status}">
+                                                        <button type="submit" class="btn btn-success" data-toggle="modal" data-target="#enableProduct">Enable</button>
+                                                        </c:if>
+                                                    </td>
+                                                </tr>
                                             </c:forEach>
                                         </tbody>
                                     </table>
@@ -347,422 +351,418 @@
         </div>
         <!-- ./wrapper -->
 
-        <!-- Update modal -->
-        <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="vertical-alignment-helper">
-                <div class="modal-dialog vertical-align-center">
 
-                    <div class="modal-content">
-                        <form id="form" role="form" action="simple.html">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 60%">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
 
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+            <!-- Wrapper for slides -->
 
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">Update product</h4>
 
-                            </div>
-                            <div class="modal-body">
+            <!-- Update modal -->
+            <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="vertical-alignment-helper">
+                    <div class="modal-dialog vertical-align-center">
 
-                                <div class="box-body">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                        <div class="modal-content">
+                            <form id="form" role="form" action="simple.html">
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">Update product</h4>
+
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Email address</label>
+                                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Password</label>
+                                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputFile">File input</label>
+                                            <input type="file" id="exampleInputFile">
+
+                                            <p class="help-block">Example block-level help text here.</p>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> Check me out
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputFile">File input</label>
-                                        <input type="file" id="exampleInputFile">
+                                    <!-- /.box-body -->
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
 
-                                        <p class="help-block">Example block-level help text here.</p>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Check me out
-                                        </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--/Update modal -->
+
+            <!-- Disable product modal -->
+            <div class="modal fade" id="disableProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+                <div class="vertical-alignment-helper">
+                    <div class="modal-dialog vertical-align-center" >
+                        <div class="modal-content">
+                            <form id="form" role="form" action="simple.html">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">Disable product</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Disable product will hide it from web site.
+                                    Are you sure disable this product ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Disable</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+             <!-- Enable product modal -->
+            <div class="modal fade" id="enableProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+                <div class="vertical-alignment-helper">
+                    <div class="modal-dialog vertical-align-center" >
+                        <div class="modal-content">
+                            <form id="form" role="form" action="simple.html">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">Disable product</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Enable product will show it to web site.
+                                    Are you sure enable this product ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Disable</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Show Detail product Modal-->
+            <div class="modal fade" id="showDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="vertical-alignment-helper">
+                    <div class="modal-dialog vertical-align-center modal-lg">
+
+                        <div class="modal-content" id="modalDetail">
+                            <form id="form" role="form" action="simple.html">
+
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Product Detail product</h4>
+                                </div>
+                                <div  class="modal-body" style="padding:0px; ">
+                                    <div id="productDetail" style="margin: 10px;" >
+
                                     </div>
                                 </div>
-                                <!-- /.box-body -->
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Update Image</button>
+                                    <button type="button" class="btn btn-primary">Update Specification</button>
+                                    <button type="button" class="btn btn-primary">Update Other Information</button>
+                                </div>
+                            </form>
+
+                        </div>
 
                     </div>
-
                 </div>
             </div>
-        </div>
-
-        <!--/Update modal -->
-
-        <!-- Delete modal -->
-        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-            <div class="vertical-alignment-helper">
-                <div class="modal-dialog vertical-align-center" >
-
-                    <div class="modal-content">
-                        <form id="form" role="form" action="simple.html">
-
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">Delete product</h4>
-
-                            </div>
-                            <div class="modal-body">
-                                Are you sure delete this product ?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Delete</button>
-                            </div>
-                        </form>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="showDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="vertical-alignment-helper">
-                <div class="modal-dialog vertical-align-center">
-
-                    <div class="modal-content">
-                        <form id="form" role="form" action="simple.html">
-
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">Product Detail product</h4>
-
-                            </div>
-                            <div id="detailModelBody" class="modal-body">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Delete</button>
-                            </div>
-                        </form>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
 
 
 
-        <!--<div id="cpu" class="spec_div" style="display: none">-->
-        <%--<jsp:include page="fragment/cpu.jsp"/>--%>
-        <!--</div>-->
+            <!--<div id="cpu" class="spec_div" style="display: none">-->
+            <%--<jsp:include page="fragment/cpu.jsp"/>--%>
+            <!--</div>-->
 
-        <!--/Delete modal -->
-        <!-- jQuery 3 -->
-        <script src="<c:url value="/resources/adminsource/support_template/jquery/dist/jquery.min.js" />" type="text/javascript"></script>
-        <!-- Bootstrap 3.3.7 -->
-        <script src="<c:url value="/resources/adminsource/support_template/bootstrap/dist/js/bootstrap.min.js" />" type="text/javascript"></script>
-        <!-- DataTables -->
-        <script src="<c:url value="/resources/adminsource/support_template/datatables.net/js/jquery.dataTables.min.js" />" type="text/javascript"></script>
-        <script src="<c:url value="/resources/adminsource/support_template/datatables.net-bs/js/dataTables.bootstrap.min.js" />" type="text/javascript"></script>
-        <!-- SlimScroll -->
-        <script src="<c:url value="/resources/adminsource/support_template/jquery-slimscroll/jquery.slimscroll.min.js" />" type="text/javascript"></script>
-        <!-- FastClick -->
-        <script src="<c:url value="/resources/adminsource/support_template/fastclick/lib/fastclick.js" />" type="text/javascript"></script>
-        <!-- AdminLTE App -->
-        <script src="<c:url value="/resources/adminsource/support_template/dist/js/adminlte.min.js" />" type="text/javascript"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="<c:url value="/resources/adminsource/support_template/dist/js/demo.js" />" type="text/javascript"></script>
-        <!-- page script -->
-
-
-        <!--input-->
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.3.1/js/fileinput.js" type="text/javascript"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.3.1/js/fileinput.js" type="text/javascript"></script>
-
-        <script>
+            <!--/Delete modal -->
+            <!-- jQuery 3 -->
+            <script src="<c:url value="/resources/adminsource/support_template/jquery/dist/jquery.min.js" />" type="text/javascript"></script>
+            <!-- Bootstrap 3.3.7 -->
+            <script src="<c:url value="/resources/adminsource/support_template/bootstrap/dist/js/bootstrap.min.js" />" type="text/javascript"></script>
+            <!-- DataTables -->
+            <script src="<c:url value="/resources/adminsource/support_template/datatables.net/js/jquery.dataTables.min.js" />" type="text/javascript"></script>
+            <script src="<c:url value="/resources/adminsource/support_template/datatables.net-bs/js/dataTables.bootstrap.min.js" />" type="text/javascript"></script>
+            <!-- SlimScroll -->
+            <script src="<c:url value="/resources/adminsource/support_template/jquery-slimscroll/jquery.slimscroll.min.js" />" type="text/javascript"></script>
+            <!-- FastClick -->
+            <script src="<c:url value="/resources/adminsource/support_template/fastclick/lib/fastclick.js" />" type="text/javascript"></script>
+            <!-- AdminLTE App -->
+            <script src="<c:url value="/resources/adminsource/support_template/dist/js/adminlte.min.js" />" type="text/javascript"></script>
+            <!-- AdminLTE for demo purposes -->
+            <script src="<c:url value="/resources/adminsource/support_template/dist/js/demo.js" />" type="text/javascript"></script>
+            <!-- page script -->
 
 
-        </script>
-        <script>
+            <!--input-->
 
-            $(document).ready(function () {
-                $("#saveProduct").click(function () {
-                    var detail = '';
-                    var id = '';
-                    $(".specInput").each(function () {
-                        id = 'l' + $(this).attr('id');
-                        detail += $('#' + id).text() + "*";
-                        detail += $(this).val() + "#";
-//                        console.log(detail);
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.3.1/js/fileinput.js" type="text/javascript"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.3.1/js/fileinput.js" type="text/javascript"></script>
+
+            <script>
+
+
+            </script>
+            <script>
+
+                $(document).ready(function () {
+                    $("#saveProduct").click(function () {
+                        var detail = '';
+                        var id = '';
+                        $(".specInput").each(function () {
+                            id = 'l' + $(this).attr('id');
+                            detail += $('#' + id).text() + "*";
+                            detail += $(this).val() + "#";
+                            //                        console.log(detail);
+                        });
+                        $("#detail").val(detail);
                     });
-                    $("#detail").val(detail);
                 });
-            });
+                $(function () {
+                    $('#categorySelection').change(function () {
+                        var cateID = $(this).val();
+                        var html = '';
+                        $('#showSpec').empty();
+                        $.ajax({
+                            type: "GET",
+                            contentType: "application/json",
+                            url: "${pageContext.request.contextPath}/api/findSpec/" + cateID,
+                            dataType: 'json',
+                            timeout: 100000,
+                            success: function (result) {
+                                html += "<div  class='form-horizontal spec_div' >";
+                                html += '<div>';
+                                html += '<label>Specifications</label>';
+                                html += '</div>';
+                                html += "<div class='box-body'>";
+                                for (var i = 0; i < result.length; i++) {
+                                    var point = result.length / 2;
+                                    if (i < point) {
+                                        html += "<div class='col-md-6'>";
+                                        html += "<div class='form-group'>";
+                                        html += "<div class='row'>";
+                                        html += "<label for='spec_" + result[i]['specID'] + "'id='lspec_" + result[i]['specID'] + "' class='col-sm-6 control-label'>" + result[i]['specName'] + "</label>";
+                                        html += "<div class='col-sm-3'>";
+                                        html += "<input id='spec_" + result[i]['specID'] + "'  type='text' class='form-control specInput' >";
+                                        html += "</div>";
+                                        html += "</div>";
+                                        html += "</div>";
+                                        html += "</div>";
+                                    }
+                                    if (i > point) {
+                                        html += "<div class='col-md-6'>";
+                                        html += "<div class='form-group'>";
+                                        html += "<div class='row'>";
+                                        html += "<label for='spec_" + result[i]['specID'] + "'id='lspec_" + result[i]['specID'] + "' class='col-sm-6 control-label'>" + result[i]['specName'] + "</label>";
+                                        html += "<div class='col-sm-3'>";
+                                        html += "<input id='spec_" + result[i]['specID'] + "'  type='text' class='form-control specInput' >";
+                                        html += "</div>";
+                                        html += "</div>";
+                                        html += "</div>";
+                                        html += "</div>";
+                                    }
+                                }
+                                html += "</div>";
+                                html += "</div>";
+                                $('#showSpec').html(html);
+                            },
+                            error: function (e) {
+                                console.log("ERROR: ", e);
+                            }
+                        });
+                    });
+                });
+                $(function () {
 
-
-
-            $(function () {
-                $('#categorySelection').change(function () {
-                    var cateID = $(this).val();
+                    $('#tableProduct').DataTable({
+                        'paging': true,
+                        'lengthChange': true,
+                        'searching': true,
+                        'ordering': true,
+                        'info': true,
+                        'autoWidth': false
+                    });
+                });
+                $(document).ready(function () {
+                    $("#btnAdd").click(function () {
+                        $("#form").toggle();
+                    });
+                });
+//                $(document).ready(function () {
+//                    var table = document.getElementById("tableProduct");
+//                    var rows = table.getElementsByTagName("tr");
+//                    for (i = 0; i < rows.length; i++) {
+//                        var currentRow = table.rows[i];
+//                        var createClickHandler = function (row) {
+//                            return function () {
+//                                var cell = row.getElementsByTagName("td")[0];
+//                                var id = cell.innerHTML;
+//                            };
+//                        };
+//                        currentRow.onclick = createClickHandler(currentRow);
+//                    }
+//                });
+                function rowClick(id) {
+                    $("#showDetail").modal('show');
+                    //                var cateID = $(this).val();
                     var html = '';
-                    $('#showSpec').empty();
+                    $('#detailModelBody').empty();
                     $.ajax({
                         type: "GET",
                         contentType: "application/json",
-                        url: "${pageContext.request.contextPath}/api/findSpec/" + cateID,
+                        url: "${pageContext.request.contextPath}/api/findProduct/" + id,
                         dataType: 'json',
                         timeout: 100000,
                         success: function (result) {
-                            html += "<div  class='form-horizontal spec_div' >";
-                            html += '<div>';
-                            html += '<label>Specifications</label>';
-                            html += '</div>';
-                            html += "<div class='box-body'>";
-                            for (var i = 0; i < result.length; i++) {
-                                var point = result.length / 2;
-                                if (i < point) {
-                                    html += "<div class='col-md-6'>";
-                                    html += "<div class='form-group'>";
-                                    html += "<div class='row'>";
-                                    html += "<label for='spec_" + result[i]['specID'] + "'id='lspec_" + result[i]['specID'] + "' class='col-sm-6 control-label'>" + result[i]['specName'] + "</label>";
-                                    html += "<div class='col-sm-3'>";
-                                    html += "<input id='spec_" + result[i]['specID'] + "'  type='text' class='form-control specInput' >";
-                                    html += "</div>";
-                                    html += "</div>";
-                                    html += "</div>";
-                                    html += "</div>";
+
+                            var detailStr = result['detail'];
+                            var list = detailStr.split("#");
+                            html += "<div  class='form-horizontal col-md-12' >";
+
+                            html += "<div class='col-md-7'>";
+                            if (result['imagesCollection'].length !== 0) {
+
+                                html += "<div class='col-md-12' style='height :300px;vertical-align:middle' >";
+                                //                            html += "<h3>Main Image</h3>";
+                                html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][0]['urlImage'] + "' style='width: 100% ; height:300px;vertical-align: middle;'>";
+                                html += "</div>";
+
+                                html += "<div class='col-md-12' style='height :300px;vertical-align:middle' >";
+                                //                            html += "<h3>Sub Image</h3>";
+
+                                html += "<div id='myCarousel' class='carousel slide' data-ride='carousel' style='width: 100%;height:300px'>";
+                                html += "<ol class='carousel-indicators'>";
+                                for (var i = 1; i < result['imagesCollection'].length; i++) {
+                                    var pos = i - 1;
+                                    if (i === 1) {
+                                        html += "<li data-target='#myCarousel' data-slide-to='" + pos + "' class='active slidePost'></li>";
+                                    }
+                                    if (i > 1) {
+                                        html += "<li data-target='#myCarousel'  class='slidePost' data-slide-to='" + pos + "'></li>";
+                                    }
                                 }
-                                if (i > point) {
-                                    html += "<div class='col-md-6'>";
-                                    html += "<div class='form-group'>";
-                                    html += "<div class='row'>";
-                                    html += "<label for='spec_" + result[i]['specID'] + "'id='lspec_" + result[i]['specID'] + "' class='col-sm-6 control-label'>" + result[i]['specName'] + "</label>";
-                                    html += "<div class='col-sm-3'>";
-                                    html += "<input id='spec_" + result[i]['specID'] + "'  type='text' class='form-control specInput' >";
-                                    html += "</div>";
-                                    html += "</div>";
-                                    html += "</div>";
-                                    html += "</div>";
+                                html += "</ol>";
+                                html += "<div class='carousel-inner'>";
+                                for (var i = 1; i < result['imagesCollection'].length; i++) {
+                                    if (i === 1) {
+                                        html += " <div class='item active'>"
+                                    }
+                                    ;
+                                    if (i > 1) {
+                                        html += " <div class='item'>";
+                                    }
+                                    html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][i]['urlImage'] + "' style='width: 100%;height:300px'>";
+                                    html += " </div>";
                                 }
+
+                                html += "</div>";
+                                html += " <a class='eft carousel-control' href='#myCarousel' data-slide='prev' style='color:green'>";
+                                html += "<span class='glyphicon glyphicon-chevron-left'></span>";
+                                html += "<span class='sr-only'>Previous</span>";
+                                html += " </a>";
+                                html += "<a class='right carousel-control' href='#myCarousel' data-slide='next' style='color:green'>";
+                                html += "<span class='glyphicon glyphicon-chevron-right'></span>";
+                                html += "<span class='sr-only'>Next</span>";
+                                html += " </a>";
+                                html += "</div>";
+                                html += "</div>";
+
                             }
+
                             html += "</div>";
+
+                            html += "<div class='col-md-5'>";
+                            html += "<table class='table table-bordered table-hover'>";
+                            html += "<thead>";
+                            html += "<tr>";
+                            html += "<th>Specification</th>";
+                            html += "<th>Value</th>";
+                            html += "</tr>";
+                            html += "</thead>"
+                            html += "<tbody>"
+                            for (var i = 0; i < list.length - 1; i++) {
+                                var specObj = list[i].split("*");
+                                console.log(specObj);
+                                html += "<tr>";
+                                html += "<td>" + specObj[0] + "</td>"
+                                html += "<td>" + specObj[1] + "</td>"
+                                html += "</tr>";
+                            }
+
+                            html += "</tbody>";
+                            html += "</table>";
                             html += "</div>";
-                            $('#showSpec').html(html);
+
+                            html += "</div>";
+
+
+                            html += "<div col-md-12>";
+                            html += "<table class='table table-bordered table-hover'>";
+                            html += "<thead>";
+                            html += "<tr>";
+                            html += "<th>ProductID</th>";
+                            html += "<th>ProductName</th>";
+                            html += "<th>Brand</th>";
+                            html += "<th>Category</th>";
+                            html += "<th>Price</th>";
+                            html += "<th>DownPrice</th>";
+                            html += "<th>Quantity</th>";
+                            html += "<th>Sold</th>";
+                            html += "<th>Status</th>";
+                            html += "</tr>";
+                            html += "</thead>";
+                            html += "<tbody>";
+                            html += "<tr>";
+                            html += "<td>" + result['productID'] + "</td>";
+                            html += "<td>" + result['productName'] + "</td>";
+                            html += "<td>" + result['brandID']['brandName'] + "</td>";
+                            html += "<td>" + result['categoryID']['cateName'] + "</td>";
+                            html += "<td>" + result['price'] + "</td>";
+                            html += "<td>" + result['downPrice'] + "</td>";
+                            html += "<td>" + result['quantity'] + "</td>";
+                            html += "<td>" + result['sell'] + "</td>";
+                            html += "<td>" + result['status'] + "</td>"
+                            html += "</tr>";
+                            html += "</tbody>";
+                            html += "</table>";
+                            html += "</div>";
+
+                            $('#productDetail').html(html);
                         },
                         error: function (e) {
                             console.log("ERROR: ", e);
                         }
                     });
-                });
-            });
-
-
-            $(function () {
-
-                $('#tableProduct').DataTable({
-                    'paging': true,
-                    'lengthChange': true,
-                    'searching': true,
-                    'ordering': true,
-                    'info': true,
-                    'autoWidth': false
-                });
-            });
-
-            $(document).ready(function () {
-                $("#btnAdd").click(function () {
-                    $("#form").toggle();
-                });
-            });
-
-
-            $(document).ready(function () {
-                var table = document.getElementById("tableProduct");
-                var rows = table.getElementsByTagName("tr");
-                for (i = 0; i < rows.length; i++) {
-                    var currentRow = table.rows[i];
-
-                    var createClickHandler = function (row) {
-                        return function () {
-                            var cell = row.getElementsByTagName("td")[0];
-                            var id = cell.innerHTML;
-
-                        };
-                    };
-                    currentRow.onclick = createClickHandler(currentRow);
                 }
-            });
-
-            function rowClick(id) {
-                $("#showDetail").modal('show');
-//                var cateID = $(this).val();
-                var html = '';
-                $('#detailModelBody').empty();
-                $.ajax({
-                    type: "GET",
-                    contentType: "application/json",
-                    url: "${pageContext.request.contextPath}/api/findProduct/" + id,
-                    dataType: 'json',
-                    timeout: 100000,
-                    success: function (result) {
-                        html += "<div  class='form-horizontal' >";
-
-                        html += "<div class='col-md-5'>";
-//                        html += "<div class='form-group'>";
-                        html += "<div class='row'>";
-                        html += "<table class='table table-bordered table-hover'>";
-                        html += "<thead>";
-                        html += "<tr>";
-                        ;
-                        html += "<th>Title</th>";
-                        html += "<th>Value</th>";
-                        html += "</tr>";
-                        html += "</thead>"
-                        html += "<tbody>"
-                        html += "<tr>";
-                        html += "<td>ProductID</td>"
-                        html += "<td>" + result['productID'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>ProductName</td>"
-                        html += "<td>" + result['productName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Brand</td>"
-                        html += "<td>" + result['brandID']['brandName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Category</td>"
-                        html += "<td>" + result['categoryID']['cateName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Price</td>"
-                        html += "<td>" + result['price'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>DownPrice</td>"
-                        html += "<td>" + result['downPrice'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Quantity</td>"
-                        html += "<td>" + result['quantity'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Sold</td>"
-                        html += "<td>" + result['sell'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Status</td>"
-                        html += "<td>" + result['status'] + "</td>"
-                        html += "</tr>";
-                        html += "</tbody>";
-                        html += "</table>";
-                        html += "</div>";
-                        html += "</div>";
-                        html += "</div>";
-//                        html += "</div>";
-
-                        html += "<div class='col-md-1'>";
-                        html += "</div>";
-
-                        html += "<div class='col-md-6'>";
-//                        html += "<div class='form-group'>";
-                        html += "<div class='row'>";
-                        html += "<table class='table table-bordered table-hover'>";
-                        html += "<thead>";
-                        html += "<tr>";
-                        html += "<th>Title</th>";
-                        html += "<th>Value</th>";
-                        html += "</tr>";
-                        html += "</thead>"
-                        html += "<tbody>"
-                        html += "<tr>";
-                        html += "<td>ProductID</td>"
-                        html += "<td>" + result['productID'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>ProductName</td>"
-                        html += "<td>" + result['productName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Brand</td>"
-                        html += "<td>" + result['brandID']['brandName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Category</td>"
-                        html += "<td>" + result['categoryID']['cateName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Price</td>"
-                        html += "<td>" + result['price'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>DownPrice</td>"
-                        html += "<td>" + result['downPrice'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Quantity</td>"
-                        html += "<td>" + result['quantity'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Sold</td>"
-                        html += "<td>" + result['sell'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Status</td>"
-                        html += "<td>" + result['status'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Status</td>"
-                        html += "<td>" + result['status'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Status</td>"
-                        html += "<td>" + result['status'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Status</td>"
-                        html += "<td>" + result['status'] + "</td>"
-                        html += "</tr>";
-                        html += "</tbody>";
-                        html += "</table>";
-                        html += "</div>";
-                        html += "</div>";
-                        html += "</div>";
-                        if (result['imagesCollection'].length != 0) {
-                            html += "<div class='col-md-12' >";
-                            html += "<h3>Main Image</h3>";
-                            html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][1]['urlImage'] + "' style='width: 100% ; height:400px;vertical-align: middle;'>";
-                            html += "</div>";
-
-                            html += "<div class='col-md-12' >";
-                            html += "<h3>Sub Image</h3>";
-                            for (var i = 2; i < result['imagesCollection'].length; i++) {
-                                html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][i]['urlImage'] + "' style='width: 100% ; height:400px;vertical-align: middle;'>";
-                            }
-
-                            html += "</div>";
-                        }
-                        html += "</div>";
-
-                        $('#detailModelBody').html(html);
-                    },
-                    error: function (e) {
-                        console.log("ERROR: ", e);
-                    }
-                });
-            }
-        </script>
+            </script>
     </body>
 
 </html>

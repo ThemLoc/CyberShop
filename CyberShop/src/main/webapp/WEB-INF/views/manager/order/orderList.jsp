@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,7 +32,6 @@
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <!--modify css-->
-        <link href="<c:url value="/resources/adminsource/support_template/stylemodify.css" />" rel="stylesheet">
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">
@@ -181,57 +181,14 @@
 
 
                 <!-- Add Product -->
-                <section class="content-header">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="box">
-                                <div class="box-body">
-                                    <button id="btnAdd" type="button" class="btn btn-danger"> + Add New Product</button>
-                                    <!-- form start -->
-                                    <form id="form" role="form" style="display: none">
-                                        <div class="box-body">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputPassword1">Password</label>
-                                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputFile">File input</label>
-                                                <input type="file" id="exampleInputFile">
-
-                                                <p class="help-block">Example block-level help text here.</p>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Check me out
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- /.box-body -->
-
-                                        <div class="box-footer">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </form>
-                                </div >
-
-
-
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                
                 <!-- Add Product -->
 
 
 
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>Admin Tables</h1>
-
+                    <h1>Order List</h1>
                 </section>
                 <!-- Main content -->
                 <section class="content">
@@ -271,8 +228,26 @@
                                                     <td onclick="rowClick(${a.orderID})">${a.total}</td>
                                                     <td onclick="rowClick(${a.orderID})">${a.status}</td>
                                                     <td>
-                                                        <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#update">Update</button>
-                                                        <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete</button>
+<!--                                                        <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#update">Update</button>
+                                                        <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete</button>-->
+                                                        
+                                                        <c:if test="${a.status == 'Đã thanh toán'}">
+                                                            <!--<a href="#" class="btn btn-warning">Chưa thanh toán</a>-->
+                                                            <a href="#" class="btn btn-danger">Hủy</a>
+                                                        </c:if>
+                                                        <c:if test="${a.status == 'Create'}">
+                                                            <a href="${pageContext.request.contextPath}/manager/order/update/Confirm&${a.orderID}" class="btn btn-warning">Confirm</a>
+                                                            <a  onclick="statusChange(${a.orderID})" class="btn btn-danger">Denied</a>
+                                                        </c:if>
+                                                        <c:if test="${a.status == 'Confirm'}">
+                                                            <a href="${pageContext.request.contextPath}/manager/order/update/Ready To Delivery&${a.orderID}" class="btn btn-warning">Ready To Delivery</a>
+                                                        </c:if>
+                                                        <c:if test="${a.status == 'Ready To Delivery'}">
+                                                            <a href="${pageContext.request.contextPath}/manager/order/update/Delivery&${a.orderID}" class="btn btn-warning">Delivery</a>
+                                                        </c:if>
+                                                        <c:if test="${a.status == 'Delivery'}">
+                                                            <a href="${pageContext.request.contextPath}/manager/order/update/Completed&${a.orderID}" class="btn btn-warning">Completed</a>
+                                                        </c:if>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -324,25 +299,7 @@
                             <div class="modal-body">
 
                                 <div class="box-body">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputFile">File input</label>
-                                        <input type="file" id="exampleInputFile">
-
-                                        <p class="help-block">Example block-level help text here.</p>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Check me out
-                                        </label>
-                                    </div>
+                                    <
                                 </div>
                                 <!-- /.box-body -->
                             </div>
@@ -361,13 +318,12 @@
         <!--/Update modal -->
 
         <!-- Delete modal -->
-        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="confirmOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="vertical-alignment-helper">
                 <div class="modal-dialog vertical-align-center">
 
                     <div class="modal-content">
                         <form id="form" role="form" action="simple.html">
-
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 
@@ -376,6 +332,7 @@
 
                             </div>
                             <div class="modal-body">
+                                <p id="testID"></p>
                                 Are you sure delete this product ?
                             </div>
                             <div class="modal-footer">
@@ -453,6 +410,12 @@
                     $("#form").toggle();
                 });
             });
+            
+            function statusChange(id) {
+                $("#confirmOrder").modal('show');
+                var c = document.getElementById("testID");
+                c.innerHTML('hello word');
+            }
 
             $(document).ready(function () {
                 var table = document.getElementById("tableOrder");
@@ -471,164 +434,54 @@
             });
 
             function rowClick(id) {
-                $("#showDetail").modal('show');
-//                var cateID = $(this).val();
-                var html = '';
-                $('#detailModelBody').empty();
-                $.ajax({
-                    type: "GET",
-                    contentType: "application/json",
-                    url: "${pageContext.request.contextPath}/api/findProduct/" + id,
-                    dataType: 'json',
-                    timeout: 100000,
-                    success: function (result) {
-                        html += "<div  class='form-horizontal' >";
-
-                        html += "<div class='col-md-5'>";
-//                        html += "<div class='form-group'>";
-                        html += "<div class='row'>";
-                        html += "<table class='table table-bordered table-hover'>";
-                        html += "<thead>";
-                        html += "<tr>";
-                        ;
-                        html += "<th>Title</th>";
-                        html += "<th>Value</th>";
-                        html += "</tr>";
-                        html += "</thead>"
-                        html += "<tbody>"
-                        html += "<tr>";
-                        html += "<td>ProductID</td>"
-                        html += "<td>" + result['productID'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>ProductName</td>"
-                        html += "<td>" + result['productName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Brand</td>"
-                        html += "<td>" + result['brandID']['brandName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Category</td>"
-                        html += "<td>" + result['categoryID']['cateName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Price</td>"
-                        html += "<td>" + result['price'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>DownPrice</td>"
-                        html += "<td>" + result['downPrice'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Quantity</td>"
-                        html += "<td>" + result['quantity'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Sold</td>"
-                        html += "<td>" + result['sell'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Status</td>"
-                        html += "<td>" + result['status'] + "</td>"
-                        html += "</tr>";
-                        html += "</tbody>";
-                        html += "</table>";
-                        html += "</div>";
-                        html += "</div>";
-                        html += "</div>";
-//                        html += "</div>";
-
-                        html += "<div class='col-md-1'>";
-                        html += "</div>";
-
-                        html += "<div class='col-md-6'>";
-//                        html += "<div class='form-group'>";
-                        html += "<div class='row'>";
-                        html += "<table class='table table-bordered table-hover'>";
-                        html += "<thead>";
-                        html += "<tr>";
-                        html += "<th>Title</th>";
-                        html += "<th>Value</th>";
-                        html += "</tr>";
-                        html += "</thead>"
-                        html += "<tbody>"
-                        html += "<tr>";
-                        html += "<td>ProductID</td>"
-                        html += "<td>" + result['productID'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>ProductName</td>"
-                        html += "<td>" + result['productName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Brand</td>"
-                        html += "<td>" + result['brandID']['brandName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Category</td>"
-                        html += "<td>" + result['categoryID']['cateName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Price</td>"
-                        html += "<td>" + result['price'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>DownPrice</td>"
-                        html += "<td>" + result['downPrice'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Quantity</td>"
-                        html += "<td>" + result['quantity'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Sold</td>"
-                        html += "<td>" + result['sell'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Status</td>"
-                        html += "<td>" + result['status'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Status</td>"
-                        html += "<td>" + result['status'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Status</td>"
-                        html += "<td>" + result['status'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Status</td>"
-                        html += "<td>" + result['status'] + "</td>"
-                        html += "</tr>";
-                        html += "</tbody>";
-                        html += "</table>";
-                        html += "</div>";
-                        html += "</div>";
-                        html += "</div>";
-                        if (result['imagesCollection'].length != 0) {
-                            html += "<div class='col-md-12' >";
-                            html += "<h3>Main Image</h3>";
-                            html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][1]['urlImage'] + "' style='width: 100% ; height:400px;vertical-align: middle;'>";
-                            html += "</div>";
-
-                            html += "<div class='col-md-12' >";
-                            html += "<h3>Sub Image</h3>";
-                            for (var i = 2; i < result['imagesCollection'].length; i++) {
-                                html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][i]['urlImage'] + "' style='width: 100% ; height:400px;vertical-align: middle;'>";
+                    $("#showDetail").modal('show');
+                    //                var cateID = $(this).val();
+                    var html = '';
+                    $('#detailModelBody').empty();
+                    $.ajax({
+                        type: "GET",
+                        contentType: "application/json",
+                        url: "${pageContext.request.contextPath}/api/findOrderDetail/" + id,
+                        dataType: 'json',
+                        timeout: 100000,
+                        success: function (result) {
+                            html += "<div col-md-12>";
+                            html += "<table class='table table-bordered table-hover' style='text-align: center'>";
+                            html += "<thead>";
+                            html += "<tr>";
+                            html += "<th style='text-align: center'>Product Name</th>";
+                            html += "<th style='text-align: center'>Product Image</th>";
+                            html += "<th style='text-align: center'>Quantity</th>";
+                            html += "<th style='text-align: center'>Price</th>";
+                            html += "</tr>";
+                            html += "</thead>";
+                            html += "<tbody>";
+                            for (var i = 0; i < result.length; i++) {
+                                html += "<tr>";
+                                html += "<td>";
+                                html += result[i]['productID']['productName'];
+                                html += "</td><td>";
+                                var listImg = result[i]['productID']['imagesCollection'];
+                                for (var j = 0; j < listImg.length; j++) {
+                                    var check = listImg[j]['mainImage'];
+                                    if (check) {
+                                        html +="<img src='${pageContext.request.contextPath}/resources/image/img_product/" +  listImg[j]['urlImage'] + "' style='width: 150px ; height:80px;vertical-align: middle;'>";
+                                    }
+                                }
+                                html += "</td>";
+                                html += "<td>" + result[i]['quantity'] + "</td>";
+                                html += "<td>" + result[i]['productID']['price'] +" VNĐ" + "</td>";
+                                html += "</tr>";
                             }
-
-                            html += "</div>";
+                            
+                            html += "</table>"
+                            $('#detailModelBody').html(html);
+                        },
+                        error: function (e) {
+                            console.log("ERROR: ", e);
                         }
-                        html += "</div>";
-
-                        $('#detailModelBody').html(html);
-                    },
-                    error: function (e) {
-                        console.log("ERROR: ", e);
-                    }
-                });
-            }
+                    });
+                }
         </script>
     </body>
 </html>

@@ -723,163 +723,7 @@
 
                             html += "</div>";
 
-<<<<<<< HEAD
-                        };
-                    };
-                    currentRow.onclick = createClickHandler(currentRow);
-                }
-            });
 
-            function rowClick(id) {
-                $("#showDetail").modal('show');
-//                var cateID = $(this).val();
-                var html = '';
-                $('#detailModelBody').empty();
-                $.ajax({
-                    type: "GET",
-                    contentType: "application/json",
-                    url: "${pageContext.request.contextPath}/api/findProduct/" + id,
-                    dataType: 'json',
-                    timeout: 100000,
-                    success: function (result) {
-                        html += "<div  class='form-horizontal' >";
-
-                        html += "<div class='col-md-5'>";
-//                        html += "<div class='form-group'>";
-                        html += "<div class='row'>";
-                        html += "<table class='table table-bordered table-hover'>";
-                        html += "<thead>";
-                        html += "<tr>";
-                        ;
-                        html += "<th>Title</th>";
-                        html += "<th>Value</th>";
-                        html += "</tr>";
-                        html += "</thead>"
-                        html += "<tbody>"
-                        html += "<tr>";
-                        html += "<td>ProductID</td>"
-                        html += "<td>" + result['productID'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>ProductName</td>"
-                        html += "<td>" + result['productName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Brand</td>"
-                        html += "<td>" + result['brandID']['brandName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Category</td>"
-                        html += "<td>" + result['categoryID']['cateName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Price</td>"
-                        html += "<td>" + result['price'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>DownPrice</td>"
-                        html += "<td>" + result['downPrice'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Quantity</td>"
-                        html += "<td>" + result['quantity'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Sold</td>"
-                        html += "<td>" + result['sell'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Status</td>"
-                        html += "<td>" + result['status'] + "</td>"
-                        html += "</tr>";
-                        html += "</tbody>";
-                        html += "</table>";
-                        html += "</div>";
-                        html += "</div>";
-                        html += "</div>";
-//                        html += "</div>";
-
-                        html += "<div class='col-md-1'>";
-                        html += "</div>";
-
-                        html += "<div class='col-md-6'>";
-//                        html += "<div class='form-group'>";
-                        html += "<div class='row'>";
-                        html += "<table class='table table-bordered table-hover'>";
-                        html += "<thead>";
-                        html += "<tr>";
-                        html += "<th>Title</th>";
-                        html += "<th>Value</th>";
-                        html += "</tr>";
-                        html += "</thead>"
-                        html += "<tbody>"
-                        html += "<tr>";
-                        html += "<td>ProductID</td>"
-                        html += "<td>" + result['productID'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>ProductName</td>"
-                        html += "<td>" + result['productName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Brand</td>"
-                        html += "<td>" + result['brandID']['brandName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Category</td>"
-                        html += "<td>" + result['categoryID']['cateName'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Price</td>"
-                        html += "<td>" + result['price'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>DownPrice</td>"
-                        html += "<td>" + result['downPrice'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Quantity</td>"
-                        html += "<td>" + result['quantity'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Sold</td>"
-                        html += "<td>" + result['sell'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Status</td>"
-                        html += "<td>" + result['status'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Status</td>"
-                        html += "<td>" + result['status'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Status</td>"
-                        html += "<td>" + result['status'] + "</td>"
-                        html += "</tr>";
-                        html += "<tr>";
-                        html += "<td>Status</td>"
-                        html += "<td>" + result['status'] + "</td>"
-                        html += "</tr>";
-                        html += "</tbody>";
-                        html += "</table>";
-                        html += "</div>";
-                        html += "</div>";
-                        html += "</div>";
-                        if (result['imagesCollection'].length != 0) {
-                            html += "<div class='col-md-12' >";
-                            html += "<h3>Main Image</h3>";
-                            html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][1]['urlImage'] + "' style='width: 100% ; height:400px;vertical-align: middle;'>";
-                            html += "</div>";
-
-                            html += "<div class='col-md-12' >";
-                            html += "<h3>Sub Image</h3>";
-                            for (var i = 2; i < result['imagesCollection'].length; i++) {
-                                html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][i]['urlImage'] + "' style='width: 100% ; height:400px;vertical-align: middle;'>";
-                            }
-
-                            html += "</div>";
-=======
                             html += "<div col-md-12>";
                             html += "<table class='table table-bordered table-hover'>";
                             html += "<thead>";
@@ -894,17 +738,17 @@
                             html += "<th>Sold</th>";
                             html += "<th>Status</th>";
                             html += "</tr>";
-                            html += "</thead>"
-                            html += "<tbody>"
+                            html += "</thead>";
+                            html += "<tbody>";
                             html += "<tr>";
-                            html += "<td>" + result['productID'] + "</td>"
-                            html += "<td>" + result['productName'] + "</td>"
-                            html += "<td>" + result['brandID']['brandName'] + "</td>"
-                            html += "<td>" + result['categoryID']['cateName'] + "</td>"
-                            html += "<td>" + result['price'] + "</td>"
-                            html += "<td>" + result['downPrice'] + "</td>"
-                            html += "<td>" + result['quantity'] + "</td>"
-                            html += "<td>" + result['sell'] + "</td>"
+                            html += "<td>" + result['productID'] + "</td>";
+                            html += "<td>" + result['productName'] + "</td>";
+                            html += "<td>" + result['brandID']['brandName'] + "</td>";
+                            html += "<td>" + result['categoryID']['cateName'] + "</td>";
+                            html += "<td>" + result['price'] + "</td>";
+                            html += "<td>" + result['downPrice'] + "</td>";
+                            html += "<td>" + result['quantity'] + "</td>";
+                            html += "<td>" + result['sell'] + "</td>";
                             html += "<td>" + result['status'] + "</td>"
                             html += "</tr>";
                             html += "</tbody>";
@@ -915,7 +759,6 @@
                         },
                         error: function (e) {
                             console.log("ERROR: ", e);
->>>>>>> 9b4722edd0396f34f4de1710492787a2304dfe4d
                         }
                     });
                 }

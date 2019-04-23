@@ -10,6 +10,7 @@ import com.cybershop.models.OrderDetail;
 import com.cybershop.models.Product;
 import com.cybershop.models.SpecificationTitle;
 import com.cybershop.services.OrderDetailService;
+import com.cybershop.services.OrderService;
 import com.cybershop.services.ProductService;
 import com.cybershop.services.SpecificationTitleService;
 import java.util.ArrayList;
@@ -37,9 +38,12 @@ public class RestFullController {
 
     @Autowired
     private SpecificationTitleService specificationTitleService;
-    
+
     @Autowired
-    private OrderDetailService orderDetailService;  
+    private OrderDetailService orderDetailService;
+
+    @Autowired
+    private OrderService orderService;
 
     @Autowired
     private ProductService productService;
@@ -69,7 +73,7 @@ public class RestFullController {
     @RequestMapping(value = "/findOrderDetail/{id}", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ResponseEntity<List<OrderDetail>> findOne(@PathVariable("id") int id) {
+    public ResponseEntity<List<OrderDetail>> findByOrderID(@PathVariable("id") int id) {
         log.info("find member " + id);
 
         List<OrderDetail> list = orderDetailService.findByOrderID(id);
@@ -84,7 +88,7 @@ public class RestFullController {
             orderdetail.setProductID(order.getProductID());
             dtos.add(orderdetail);
         }
-        return new ResponseEntity<>(dtos, HttpStatus.OK);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
 }

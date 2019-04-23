@@ -3,8 +3,10 @@ package com.cybershop.daosImpl;
 import com.cybershop.daos.OrderDetailDAO;
 import com.cybershop.daos.ProductDAO;
 import com.cybershop.models.Image;
+import com.cybershop.models.Order;
 import com.cybershop.models.OrderDetail;
 import com.cybershop.models.Product;
+import com.cybershop.services.CustomerService;
 import com.cybershop.services.ProductService;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,6 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
      
     @Autowired
     private ProductService productService;
-    private ProductDAO productDAO;
     @Override
     public void create(OrderDetail obj) {
         em.persist(obj);
@@ -57,12 +58,11 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
             for (OrderDetail o : list) {
                 od = new OrderDetail();
                 od.setQuantity(o.getQuantity());
+//                od.setOrderID(o.getOrderID());
                 od.setPrice(o.getPrice());
-                od.setOrderDetailID(o.getOrderDetailID());;
+                od.setOrderDetailID(o.getOrderDetailID());
                 Product pro = o.getProductID();
-                System.out.println(pro.getProductID());
-                Product newProduct =  productService.findById(8);
-                System.out.println("New"+newProduct);
+                Product newProduct =  productService.findById(pro.getProductID());
                 od.setProductID(newProduct);
                 newOrderList.add(od);
             }
