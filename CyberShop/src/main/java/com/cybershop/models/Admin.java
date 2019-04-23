@@ -30,7 +30,9 @@ import org.springframework.format.annotation.DateTimeFormat;
     , @NamedQuery(name = "Admin.findByAddress", query = "SELECT a FROM Admin a WHERE a.address = :address")
     , @NamedQuery(name = "Admin.findBySex", query = "SELECT a FROM Admin a WHERE a.sex = :sex")
     , @NamedQuery(name = "Admin.findByStatus", query = "SELECT a FROM Admin a WHERE a.status = :status")
-    , @NamedQuery(name = "Admin.findByDob", query = "SELECT a FROM Admin a WHERE a.dob = :dob")})
+    , @NamedQuery(name = "Admin.findByDob", query = "SELECT a FROM Admin a WHERE a.dob = :dob")
+    , @NamedQuery(name = "UpdateStatus", query = "update Admin set status = :sta where adminID = :id ")
+    ,@NamedQuery(name = "LoginUser", query = "SELECT a FROM Admin a WHERE a.username = :user and a.password = :pass")})
 public class Admin implements Serializable {
 
     private static final long serialVersionUID = 1L;

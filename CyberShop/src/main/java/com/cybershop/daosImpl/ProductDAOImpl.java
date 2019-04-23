@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import com.cybershop.daos.ProductDAO;
+import com.cybershop.models.Image;
+import java.util.ArrayList;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO {
@@ -35,7 +37,34 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public Product getById(int id) {
-        return em.find(Product.class, id);
+        Product product = em.find(Product.class, id);
+        final Product dto = new Product();
+        dto.setProductID(product.getProductID());
+        dto.setProductName(product.getProductName());
+        dto.setQuantity(product.getQuantity());
+        dto.setSell(product.getSell());
+        dto.setPrice(product.getPrice());
+        dto.setDownPrice(product.getDownPrice());
+        dto.setStatus(product.getStatus());
+        dto.setBrandID(product.getBrandID());
+        dto.setDownPrice(product.getDownPrice());
+        dto.setDetail(product.getDetail());
+        dto.setCategoryID(product.getCategoryID());
+        List<Image> listImages = (List<Image>) product.getImagesCollection();
+        List<Image> newList;
+        if (!listImages.isEmpty()) {
+            Image image;
+            newList = new ArrayList<>();
+            for (Image item : listImages) {
+                image = new Image();
+                image.setImageID(item.getImageID());
+                image.setUrlImage(item.getUrlImage());
+                image.setMainImage(item.getMainImage());
+                newList.add(image);
+            }
+            dto.setImagesCollection(newList);
+        }
+        return dto;
     }
 
 }

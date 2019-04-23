@@ -186,48 +186,64 @@
                 <!-- Add Product -->
                 <section class="content-header">
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col-xs-8">
                             <div class="box">
                                 <div class="box-body">
                                     <a href="${pageContext.request.contextPath}/manager/admin"><button id="btnAdd" type="button" class="btn btn-danger">Back </button></a>
                                     <!-- form start -->
                                     <sf:form id="form" method="POST" action="${pageContext.request.contextPath}/manager/admin/save" role="form" modelAttribute="adminForm">
                                         <div class="box-body">
+                                           
+                                            <sf:hidden path="adminID"/>
+                                           
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">username: </label>
-                                                <input type="text" class="form-control" name="username" placeholder="Enter Username">
+                                                <s:bind path="username">
+                                                    <sf:input type="text" class="form-control" path="username" placeholder="Enter Username"/>
+                                                </s:bind>
+                                                
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">password: </label>
-                                                <input type="password" class="form-control" name="password" placeholder="Password">
+                                                <s:bind path="password">
+                                                    <sf:password class="form-control" path="password"  placeholder="password"/>
+                                                </s:bind>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">fullname:  </label>
-                                                <input type="text" class="form-control" name="fullname" id="exampleInputPassword1" placeholder="fullname">
+                                                <s:bind path="fullname">
+                                                    <sf:input type="text" class="form-control" path="fullname"  placeholder="fullname"/>
+                                                </s:bind>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">phone:  </label>
-                                                <input type="text" class="form-control" name="phone" placeholder="phone">
+                                                <s:bind path="phone">
+                                                    <sf:input type="text" class="form-control" path="phone" placeholder="phone"/>
+                                                </s:bind>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">email:  </label>
-                                                <input type="email" class="form-control" name="email" placeholder="email">
+                                                <s:bind path="email">
+                                                    <sf:input type="email" class="form-control" path="email" placeholder="email"/>
+                                                </s:bind>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">address:  </label>
-                                                <input type="text" class="form-control" name="address" placeholder="address">
+                                                <s:bind path="address">
+                                                    <sf:input type="text" class="form-control" path="address" placeholder="address"/>
+                                                </s:bind>
                                             </div>
                                             <div class="form-group">
                                                 <label >Day of birth:   </label>
                                                 
-                                                <sf:input type="date" path="dob"/>
+                                               
                                             </div>
-                                            <div class="radio">
-                                                <label><input type="radio" name="sex" checked>Nam</label>
-                                            </div>
-                                            <div class="radio">
-                                                <label><input type="radio" name="sex" checked>Nữ</label>
-                                            </div>
+                                                    <s:bind path="sex">
+                                                        <sf:radiobutton path="sex" value="true"/>Male 
+                                                        <sf:radiobutton path="sex" value="false"/>Female 
+                                                    </s:bind>
+                                                        <br/>
+        
                                             <s:bind path="role">
                                                 <label>role </label>
                                                 <sf:select path="role">
@@ -236,15 +252,7 @@
                                                 <sf:errors path="role"/>
                                             </s:bind>
 
-
-                                            <!--                                            <div class="checkbox">
-                                                                                            <label>
-                                                                                                <input type="checkbox"> Check me out
-                                                                                            </label>
-                                                                                        </div>-->
                                         </div>
-                                        <!-- /.box-body -->
-
                                         <div class="box-footer">
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
@@ -257,90 +265,8 @@
                         </div>
                     </div>
                 </section>
-                <!-- Add Product -->
-
-
-
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>Admin Tables</h1>
-
-                </section>
-                <!-- Main content -->
-                <section class="content">
-                    <div class="row">
-                        <div class="col-xs-12">
-
-                            <!-- /.box -->
-
-                            <div class="box">
-                                <!-- /.box-header -->
-                                <div class="box-body">
-                                    <table id="example1" class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Username</th>
-                                                <th>Role</th>
-                                                <th>Full name</th>
-                                                <th>Phone</th>
-                                                <th>Email</th>
-                                                <th>Address</th>
-                                                <th>Sex</th>
-                                                <th>Status</th>
-                                                <th>Day of birth</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                            <c:forEach items="${listAdmin}" var="a" varStatus="Counter" >
-                                                <tr>
-                                                    <td>${Counter.count}</td>
-                                                    <td>${a.username}</td>
-                                                    <td>${a.role}</td>
-                                                    <td>${a.fullname}</td>
-                                                    <td>${a.phone}</td>
-                                                    <td>${a.email}</td>
-                                                    <td>${a.address}</td>
-                                                    <td><c:if test="${a.sex == true}">
-                                                            Male
-                                                        </c:if>
-                                                        <c:if test="${a.sex == false}">
-                                                            Female
-                                                        </c:if>
-                                                    </td>
-                                                    <td><c:if test="${a.status == true}">
-                                                            Enable
-                                                        </c:if>
-                                                        <c:if test="${a.status == false}">
-                                                            Disable
-                                                        </c:if>                                                       
-                                                    </td>
-                                                    <td>${a.dob}</td>
-                                                    <td>
-                                                        <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#update">Update</button>
-                                                        <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete</button>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-
-
-                                        </tbody>
-                                       
-                                    </table>
-                                </div>
-                                <!-- /.box-body -->
-                            </div>
-                            <!-- /.box -->
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </section>
-                <!-- /.content -->
-
-
+             
+           
             </div>
             <!-- /.content-wrapper -->
             <footer class="main-footer">
@@ -353,93 +279,8 @@
 
 
         </div>
-        <!-- ./wrapper -->
-
-        <!-- Update modal -->
-        <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="vertical-alignment-helper">
-                <div class="modal-dialog vertical-align-center">
-
-                    <div class="modal-content">
-                        <form id="form" role="form" action="simple.html">
-
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">Update product</h4>
-
-                            </div>
-                            <div class="modal-body">
-
-                                <div class="box-body">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputFile">File input</label>
-                                        <input type="file" id="exampleInputFile">
-
-                                        <p class="help-block">Example block-level help text here.</p>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Check me out
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- /.box-body -->
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </form>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!--/Update modal -->
-
-        <!-- Delete modal -->
-        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="vertical-alignment-helper">
-                <div class="modal-dialog vertical-align-center">
-
-                    <div class="modal-content">
-                        <form id="form" role="form" action="simple.html">
-
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">Delete product</h4>
-
-                            </div>
-                            <div class="modal-body">
-                                Are you sure delete this product ?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Delete</button>
-                            </div>
-                        </form>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!--/Delete modal -->
+      
+      
         <!-- jQuery 3 -->
         <script src="<c:url value="/resources/adminsource/support_template/jquery/dist/jquery.min.js" />" type="text/javascript"></script>
         <!-- Bootstrap 3.3.7 -->

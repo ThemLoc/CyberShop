@@ -23,7 +23,12 @@ public class AdminServiceImpl implements AdminService{
     @Transactional
     @Override
     public void save(Admin obj) {
-        dao.create(obj);
+        if(obj.getAdminID() == null){
+            dao.create(obj);
+        }else{
+            dao.update(obj);
+        }
+        
     }
 
     @Transactional
@@ -43,5 +48,13 @@ public class AdminServiceImpl implements AdminService{
     public List<Admin> getByAll() {
         return dao.getAll();
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Admin login(Admin admin) {
+       
+        return dao.checkLogin(admin);
+    }
+
     
 }

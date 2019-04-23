@@ -13,5 +13,9 @@
     </head>
     <body>
         <h1>Hello Form!</h1>
+        ${product}
+                ${product.imagesCollection}
+
     </body>
 </html>
+//                                html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][i]['urlImage'] + "' style='width: 100% ; height:400px;vertical-align: middle;'>";

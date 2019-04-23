@@ -1,9 +1,14 @@
 package com.cybershop.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,6 +30,7 @@ public class Image implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ImageID")
     private Integer imageID;
     @Column(name = "UrlImage")
@@ -32,7 +38,7 @@ public class Image implements Serializable {
     @Column(name = "MainImage")
     private Boolean mainImage;
     @JoinColumn(name = "ProductID", referencedColumnName = "ProductID")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Product productID;
 
     public Image() {
@@ -66,6 +72,7 @@ public class Image implements Serializable {
         this.mainImage = mainImage;
     }
 
+//     @JsonBackReference
     public Product getProductID() {
         return productID;
     }
@@ -99,5 +106,4 @@ public class Image implements Serializable {
         return "Image{" + "imageID=" + imageID + ", urlImage=" + urlImage + ", mainImage=" + mainImage + ", productID=" + productID + '}';
     }
 
-    
 }

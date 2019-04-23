@@ -1,5 +1,6 @@
 package com.cybershop.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -33,6 +34,7 @@ public class Brand implements Serializable {
     @Column(name = "BrandName")
     private String brandName;
     @OneToMany(mappedBy = "brandID")
+    @JsonIgnore
     private Collection<Product> productCollection;
 
     public Brand() {

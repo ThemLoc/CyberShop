@@ -39,23 +39,23 @@ public class AdminController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     private String save(@ModelAttribute("adminForm") Admin obj, RedirectAttributes ratts) {
-        System.out.println("Admin" + obj);
-//        adminService.save(obj);
-//        ratts.addFlashAttribute("msg", "saved");
+        obj.setStatus(true);
+        adminService.save(obj);
+        ratts.addFlashAttribute("msg", "saved");
         return "redirect:/manager/admin";
     }
 
-    @RequestMapping(value = "/admin/member/edit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     private String edit(@PathVariable("id") int id, Model model) {
         model.addAttribute("adminForm", adminService.findById(id));
-        return "manager/admin/adminList";
+        return "manager/admin/adminForm";
     }
 
-    @RequestMapping(value = "/admin/member/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     private String delete(@PathVariable("id") int id, RedirectAttributes ratts) {
         adminService.remove(id);
-        ratts.addFlashAttribute("msg", "deleted");
-        return "manager/admin/AdminList";
+        ratts.addFlashAttribute("msg", "deleted success");
+        return "redirect:/manager/admin";
     }
 
     @ModelAttribute("listRole")

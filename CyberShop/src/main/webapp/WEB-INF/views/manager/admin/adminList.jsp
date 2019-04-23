@@ -36,7 +36,14 @@
         <!--modify css-->
         <link href="<c:url value="/resources/adminsource/support_template/stylemodify.css" />" rel="stylesheet">
     </head>
-    <body class="hold-transition skin-blue sidebar-mini">
+    <body class="hold-transition skin-blue sidebar-mini" onload="notifi()">
+        <c:if test="${msg != null}">
+            <script>
+                function notifi() {
+                    window.alert(${msg});
+                }
+            </script>
+        </c:if>
         <div class="wrapper">
 
             <header class="main-header">
@@ -64,7 +71,7 @@
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="<c:url value="/resources/adminsource/support_template/dist/img/user2-160x160.jpg"/>" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">Alexander Pierce</span>
+                                    <span class="hidden-xs">${sessionScope.USER.username}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
@@ -121,7 +128,7 @@
                             <img src="<c:url value="/resources/adminsource/support_template/dist/img/user2-160x160.jpg"/>" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p>Alexander Pierce</p>
+                            <p>${sessionScope.USER.username}</p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
@@ -174,6 +181,11 @@
                                 <i class="fa fa-sliders"></i> <span>Banner</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/logout">
+                                <i></i> <span>Logout</span>
+                            </a>
+                        </li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -186,48 +198,50 @@
                 <!-- Add Product -->
                 <section class="content-header">
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col-xs-8">
                             <div class="box">
                                 <div class="box-body">
                                     <button id="btnAdd" type="button" class="btn btn-danger">+ Add Admin </button>
                                     <!-- form start -->
                                     <sf:form id="form" method="POST" action="${pageContext.request.contextPath}/manager/admin/save" role="form" style="display: none" modelAttribute="adminForm">
                                         <div class="box-body">
+                                           
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">username: </label>
-                                                <input type="text" class="form-control" name="username" placeholder="Enter Username">
+                                                <input type="text" class="form-control" name="username" required placeholder="Enter Username" >
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">password: </label>
-                                                <input type="password" class="form-control" name="password" placeholder="Password">
+                                                <input type="password" class="form-control" required name="password" placeholder="Password">
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">fullname:  </label>
-                                                <input type="text" class="form-control" name="fullname" id="exampleInputPassword1" placeholder="fullname">
+                                                <input type="text" class="form-control" required name="fullname" id="exampleInputPassword1" placeholder="fullname">
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">phone:  </label>
-                                                <input type="text" class="form-control" name="phone" placeholder="phone">
+                                                <input type="number" class="form-control" required name="phone" placeholder="phone">
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">email:  </label>
-                                                <input type="email" class="form-control" name="email" placeholder="email">
+                                                <input type="email" class="form-control" name="email" required placeholder="a@gmail.com">
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputPassword1">address:  </label>
-                                                <input type="text" class="form-control" name="address" placeholder="address">
+                                                <input type="text" class="form-control" required name="address" placeholder="address">
                                             </div>
                                             <div class="form-group">
-                                                <label >Day of birth:   </label>
-                                                
-                                                <sf:input type="date" path="dob"/>
+                                                <label>Day of birth:   </label>
+
+                                                <!--                                                <input type="date" name="dob"/>-->
                                             </div>
                                             <div class="radio">
-                                                <label><input type="radio" name="sex" checked>Nam</label>
+                                                <label><input type="radio" name="sex" checked value="true">Nam</label>
                                             </div>
                                             <div class="radio">
-                                                <label><input type="radio" name="sex" checked>Nữ</label>
+                                                <label><input type="radio" name="sex" checked value="false">Nữ</label>
                                             </div>
+                                            <br/>
                                             <s:bind path="role">
                                                 <label>role </label>
                                                 <sf:select path="role">
@@ -237,11 +251,6 @@
                                             </s:bind>
 
 
-                                            <!--                                            <div class="checkbox">
-                                                                                            <label>
-                                                                                                <input type="checkbox"> Check me out
-                                                                                            </label>
-                                                                                        </div>-->
                                         </div>
                                         <!-- /.box-body -->
 
@@ -310,10 +319,19 @@
                                                         </c:if>                                                       
                                                     </td>
                                                     <td>${a.dob}</td>
-                                                    <td>
-                                                        <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#update">Update</button>
-                                                        <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete</button>
-                                                    </td>
+                                                    <c:if test="${a.status == false}">
+                                                        <td>
+
+                                                        </td>
+                                                    </c:if>
+                                                    <c:if test="${a.status == true}">
+                                                        <td>
+                                                            <a class="btn btn-warning"  href="${pageContext.request.contextPath}/manager/admin/edit/${a.adminID}">Edit</a> 
+                                                            <a class="btn btn-danger"  href="${pageContext.request.contextPath}/manager/admin/delete/${a.adminID}">Delete</a>
+
+                                                        </td>
+                                                    </c:if>
+
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
@@ -446,24 +464,24 @@
         <script src="<c:url value="/resources/adminsource/support_template/dist/js/demo.js" />" type="text/javascript"></script>
         <!-- page script -->
         <script>
-            $(function () {
-                $('#example1').DataTable()
-                $('#example2').DataTable({
-                    'paging': true,
-                    'lengthChange': false,
-                    'searching': false,
-                    'ordering': true,
-                    'info': true,
-                    'autoWidth': false
+                $(function () {
+                    $('#example1').DataTable()
+                    $('#example2').DataTable({
+                        'paging': true,
+                        'lengthChange': false,
+                        'searching': false,
+                        'ordering': true,
+                        'info': true,
+                        'autoWidth': false
+                    })
                 })
-            })
 
 
-            $(document).ready(function () {
-                $("#btnAdd").click(function () {
-                    $("#form").toggle();
+                $(document).ready(function () {
+                    $("#btnAdd").click(function () {
+                        $("#form").toggle();
+                    });
                 });
-            });
 
         </script>
     </body>

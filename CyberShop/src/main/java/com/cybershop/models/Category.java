@@ -1,10 +1,18 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.cybershop.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -13,6 +21,10 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ *
+ * @author chungnguyen
+ */
 @Entity
 @Table(name = "Category")
 @XmlRootElement
@@ -33,7 +45,12 @@ public class Category implements Serializable {
     @Column(name = "Type")
     private Boolean type;
     @OneToMany(mappedBy = "categoryID")
+    @JsonIgnore
     private Collection<Product> productCollection;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cateID")
+    @JsonIgnore
+    private Collection<SpecificationTitle> specificationTitleCollection;
 
     public Category() {
     }
@@ -75,6 +92,15 @@ public class Category implements Serializable {
         this.productCollection = productCollection;
     }
 
+    @XmlTransient
+    public Collection<SpecificationTitle> getSpecificationTitleCollection() {
+        return specificationTitleCollection;
+    }
+
+    public void setSpecificationTitleCollection(Collection<SpecificationTitle> specificationTitleCollection) {
+        this.specificationTitleCollection = specificationTitleCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -97,9 +123,7 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return "Category{" + "cateID=" + cateID + ", cateName=" + cateName + ", type=" + type + ", productCollection=" + productCollection + '}';
+        return "com.mycompany.test.Category[ cateID=" + cateID + " ]";
     }
-
     
-
 }

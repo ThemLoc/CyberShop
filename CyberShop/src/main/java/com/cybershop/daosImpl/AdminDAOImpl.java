@@ -5,6 +5,7 @@ import com.cybershop.models.Admin;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -25,7 +26,9 @@ public class AdminDAOImpl implements AdminDAO {
 
     @Override
     public void delete(int id) {
-        em.remove(getById(id));
+        boolean status = false;
+        this.em.createNamedQuery("UpdateStatus").setParameter("id", id).setParameter("sta", status).executeUpdate();
+//        em.remove(getById(id));
     }
 
     @Override
@@ -36,6 +39,11 @@ public class AdminDAOImpl implements AdminDAO {
     @Override
     public Admin getById(int id) {
         return em.find(Admin.class, id);
+    }
+
+    @Override
+    public Admin checkLogin(Admin admin) {
+        return this.em.createNamedQuery("LoginUser", Admin.class).setParameter("user", admin.getUsername()).setParameter("pass", admin.getPassword()).getSingleResult();
     }
 
 }

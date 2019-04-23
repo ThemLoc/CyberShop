@@ -22,7 +22,12 @@ public class CustomerServiceImpl implements CustomerService{
     @Transactional
     @Override
     public void save(Customer obj) {
-        dao.create(obj);
+        if(obj.getCustomerID() == null){
+             dao.create(obj);
+        }else{
+            dao.update(obj);
+        }
+       
     }
 
     @Transactional

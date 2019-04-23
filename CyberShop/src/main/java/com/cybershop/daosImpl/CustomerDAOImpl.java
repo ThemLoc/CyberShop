@@ -25,7 +25,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public void delete(int id) {
-        em.remove(getById(id));
+        this.em.createNamedQuery("UpdateStatusCustomer").setParameter("id", id).setParameter("sta", false).executeUpdate();
+//        em.remove(getById(id));
     }
 
     @Override
