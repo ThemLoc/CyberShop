@@ -1,3 +1,4 @@
+com\cybershop\models\DeniedForm.class
 com\cybershop\daos\BannerDAO.class
 com\cybershop\daos\SpecificationTitleDAO.class
 com\cybershop\daosImpl\BannerDAOImpl.class
@@ -21,6 +22,7 @@ com\cybershop\servicesImpl\CartServiceImpl.class
 com\cybershop\daos\ProductDAO.class
 com\cybershop\services\OrderService.class
 com\cybershop\daosImpl\SpecificationTitleDAOImpl.class
+com\cybershop\servicesImpl\OrderServiceImpl$1.class
 com\cybershop\servicesImpl\CustomerServiceImpl.class
 com\cybershop\models\Category.class
 com\cybershop\services\OrderDetailService.class
