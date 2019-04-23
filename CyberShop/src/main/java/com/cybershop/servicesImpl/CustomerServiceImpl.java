@@ -32,8 +32,8 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Transactional
     @Override
-    public void remove(int id) {
-        dao.delete(id);
+    public void remove(int id, boolean status) {
+        dao.delete(id, status);
     }
 
     @Transactional(readOnly = true)
@@ -47,5 +47,7 @@ public class CustomerServiceImpl implements CustomerService{
     public List<Customer> getByAll() {
         return dao.getAll();
     }
+
+   
     
 }

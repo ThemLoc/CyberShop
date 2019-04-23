@@ -30,11 +30,17 @@ public class CustomerController {
         model.addAttribute("listCustomer", customerService.getByAll());
         return "manager/customer/customerList";
     }
-    @RequestMapping(value = "/status/{id}",method = RequestMethod.GET)
-    private String changeStatus(@PathVariable("id") int id) {
-        customerService.remove(id);
+    @RequestMapping(value = "/status/{id}/{status}",method = RequestMethod.GET)
+    private String changeStatus(@PathVariable("id") int id, @PathVariable("status") boolean sta) {
+        customerService.remove(id, sta);
         return "redirect:/manager/customer";
     }
+    
+//    @RequestMapping(value = "/order/{id}",method = RequestMethod.GET)
+//    private String viewOrderCustomer(@PathVariable("id") int id) {
+//        customerService.remove(id);
+//        return "redirect:/manager/customer";
+//    }
 
 
     

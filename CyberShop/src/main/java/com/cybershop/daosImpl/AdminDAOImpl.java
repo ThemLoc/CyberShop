@@ -43,7 +43,22 @@ public class AdminDAOImpl implements AdminDAO {
 
     @Override
     public Admin checkLogin(Admin admin) {
-        return this.em.createNamedQuery("LoginUser", Admin.class).setParameter("user", admin.getUsername()).setParameter("pass", admin.getPassword()).getSingleResult();
+        try {
+             return this.em.createNamedQuery("LoginUser", Admin.class).setParameter("user", admin.getUsername()).setParameter("pass", admin.getPassword()).getSingleResult();
+
+        } catch (Exception e) {
+            return null;
+        }
+        
+    }
+
+    @Override
+    public Admin getByUsername(String username) {
+         try {          
+             return this.em.createNamedQuery("Admin.findByUsername", Admin.class).setParameter("username", username).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }

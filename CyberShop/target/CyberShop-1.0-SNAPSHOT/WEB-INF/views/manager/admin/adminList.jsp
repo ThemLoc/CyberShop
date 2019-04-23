@@ -363,7 +363,7 @@
         <!-- ./wrapper -->
 
         <!-- Update modal -->
-        <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--        <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="vertical-alignment-helper">
                 <div class="modal-dialog vertical-align-center">
 
@@ -400,7 +400,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <!-- /.box-body -->
+                                 /.box-body 
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -412,7 +412,7 @@
 
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <!--/Update modal -->
 

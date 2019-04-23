@@ -2,6 +2,8 @@ package com.cybershop.controllers;
 
 import com.cybershop.models.Admin;
 import com.cybershop.services.AdminService;
+import com.cybershop.services.OrderService;
+import java.util.Random;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -19,6 +22,8 @@ public class HomeController {
 
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private OrderService orderService;
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String home(Model model) {
@@ -28,7 +33,7 @@ public class HomeController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, HttpSession session, HttpServletRequest request) {
         Admin admin = checkCookies(request);
-//        System.out.println(admin);
+
         if (admin == null) {
             model.addAttribute("formLogin", new Admin());
             return "/manager/loginManager/login";
@@ -61,7 +66,7 @@ public class HomeController {
             }
             return "redirect:/manager/admin";
         } else {
-            ratts.addFlashAttribute("err", "not corect password or username");
+            ratts.addFlashAttribute("errLogin", "not corect password or username");
             return "redirect:/login";
 
         }
@@ -73,23 +78,23 @@ public class HomeController {
         Admin admin = null;
         String username = "", password = "";
         for (Cookie ck : cookies) {
-             System.out.println("ck " + ck.getName());
+            System.out.println("ck " + ck.getName());
             if (ck.getName().equalsIgnoreCase("username")) {
                 username = ck.getValue();
-                
+
             }
             if (ck.getName().equalsIgnoreCase("password")) {
                 password = ck.getValue();
-                
+
             }
 
         }
-        if(username != "" && password != "") {
+        if (username != "" && password != "") {
             admin = new Admin();
             admin.setUsername(username);
             admin.setPassword(password);
         }
-      
+
         return admin;
 
     }
@@ -98,8 +103,8 @@ public class HomeController {
     public String logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         session.removeAttribute("USER");
         session.invalidate();
-         Cookie[] cookies = request.getCookies();
-         System.out.println(request.getCookies().toString());
+        Cookie[] cookies = request.getCookies();
+        System.out.println(request.getCookies().toString());
         for (Cookie ck : cookies) {
             System.out.println("ck logout: " + ck.getName());
             if (ck.getName().equalsIgnoreCase("username")) {
@@ -114,6 +119,26 @@ public class HomeController {
             }
         }
         return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/forgot/{username}", method = RequestMethod.GET)
+    public String forgotPassword(@PathVariable("username") String username, RedirectAttributes ratts) {
+        Admin a = adminService.getByUser(username);
+        if (a != null) {
+            orderService.sendEmailOrder("", a.getEmail(), "Your Password", a.getPassword());
+        } else {
+            ratts.addFlashAttribute("err", "Not Corect username");
+        }
+        return "redirect:/login";
+    }
+
+    public String createPass() {
+        String a = "a";
+        Random rd = new Random();
+        for (int i = 0; i < 10; i++) {
+            a += rd.nextInt(i);
+        }
+        return a;
     }
 
 }

@@ -14,4 +14,6 @@ public interface OrderDetailDAO {
     List<OrderDetail> getAll();
 
     OrderDetail getById(int id);
+    
+    List<OrderDetail> getByOrderID(int id);
 }

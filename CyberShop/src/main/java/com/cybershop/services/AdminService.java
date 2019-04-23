@@ -18,4 +18,5 @@ public interface AdminService {
     Admin findById(int id);
     List<Admin> getByAll();
     Admin login(Admin admin);
+    Admin getByUser(String username);
 }

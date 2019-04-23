@@ -723,6 +723,7 @@
 
                             html += "</div>";
 
+
                             html += "<div col-md-12>";
                             html += "<table class='table table-bordered table-hover'>";
                             html += "<thead>";
@@ -737,17 +738,17 @@
                             html += "<th>Sold</th>";
                             html += "<th>Status</th>";
                             html += "</tr>";
-                            html += "</thead>"
-                            html += "<tbody>"
+                            html += "</thead>";
+                            html += "<tbody>";
                             html += "<tr>";
-                            html += "<td>" + result['productID'] + "</td>"
-                            html += "<td>" + result['productName'] + "</td>"
-                            html += "<td>" + result['brandID']['brandName'] + "</td>"
-                            html += "<td>" + result['categoryID']['cateName'] + "</td>"
-                            html += "<td>" + result['price'] + "</td>"
-                            html += "<td>" + result['downPrice'] + "</td>"
-                            html += "<td>" + result['quantity'] + "</td>"
-                            html += "<td>" + result['sell'] + "</td>"
+                            html += "<td>" + result['productID'] + "</td>";
+                            html += "<td>" + result['productName'] + "</td>";
+                            html += "<td>" + result['brandID']['brandName'] + "</td>";
+                            html += "<td>" + result['categoryID']['cateName'] + "</td>";
+                            html += "<td>" + result['price'] + "</td>";
+                            html += "<td>" + result['downPrice'] + "</td>";
+                            html += "<td>" + result['quantity'] + "</td>";
+                            html += "<td>" + result['sell'] + "</td>";
                             html += "<td>" + result['status'] + "</td>"
                             html += "</tr>";
                             html += "</tbody>";

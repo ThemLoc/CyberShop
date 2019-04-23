@@ -270,8 +270,8 @@
                                                     </td>
 
                                                     <td>
-                                                        <a class="btn btn-warning"  href="${pageContext.request.contextPath}/manager/customer/status/${a.customerID}">Change status</a> 
-                                                        <a class="btn btn-warning"  href="${pageContext.request.contextPath}/manager/customer/order/${a.customerID}">view Order </a> 
+                                                        <a class="btn btn-warning"  href="${pageContext.request.contextPath}/manager/customer/status/${a.customerID}/${a.status}">Change status</a> 
+                                                        <a class="btn btn-warning"  href="${pageContext.request.contextPath}/manager/order/getbyCus/${a.customerID}">view Order </a> 
 
                                                     </td>
                                                 </tr>

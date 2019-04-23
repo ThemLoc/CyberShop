@@ -56,5 +56,10 @@ public class AdminServiceImpl implements AdminService{
         return dao.checkLogin(admin);
     }
 
+    @Override
+    public Admin getByUser(String username) {
+       return dao.getByUsername(username);
+    }
+
     
 }

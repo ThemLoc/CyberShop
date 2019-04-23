@@ -16,4 +16,6 @@ public interface AdminDAO {
     Admin getById(int id);
     
     Admin checkLogin(Admin admin);
+    
+    Admin getByUsername(String username);
 }

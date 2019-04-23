@@ -46,13 +46,14 @@
                 <h1>Login</h1>
                 <sf:form action="${pageContext.request.contextPath}/login/check" method="post" modelAttribute="formLogin">
                     <div class="form-group has-feedback">
-                        <input type="text" class="form-control" placeholder="Username" name="username">
+                        <input type="text" class="form-control" id="user" placeholder="Username" name="username" required>
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
-                        <input type="password" class="form-control" placeholder="Password" name="password">
+                        <input type="password" class="form-control" placeholder="Password" name="password" required>
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
+                    <span style="color: red; font-size: 20px">${errLogin}</span>
 
                     <div class="row">
                         <div class="col-xs-12">
@@ -77,6 +78,7 @@
 
 
                 </sf:form>
+                    
 
                 <!--                <div class="social-auth-links text-center">
                                     <p>- OR -</p>
@@ -87,7 +89,7 @@
                                 </div>-->
                 <!-- /.social-auth-links -->
 
-                <a href="#">I forgot my password</a><br>
+                <a id="forgot" href="">I forgot my password</a><br>
                 <!--                <a href="register.html" class="text-center">Register a new membership</a>-->
 
             </div>
@@ -96,11 +98,33 @@
         <!-- /.login-box -->
 
         <!-- jQuery 3 -->
-        <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
-        <!-- Bootstrap 3.3.7 -->
+       <script src="<c:url value="/resources/adminsource/support_template/jquery/dist/jquery.min.js" />" type="text/javascript"></script>
+            <!-- Bootstrap 3.3.7 -->
+            <script src="<c:url value="/resources/adminsource/support_template/bootstrap/dist/js/bootstrap.min.js" />" type="text/javascript"></script>
+            <!-- DataTables -->
+            <script src="<c:url value="/resources/adminsource/support_template/datatables.net/js/jquery.dataTables.min.js" />" type="text/javascript"></script>
+            <script src="<c:url value="/resources/adminsource/support_template/datatables.net-bs/js/dataTables.bootstrap.min.js" />" type="text/javascript"></script>
+            <!-- SlimScroll -->
+            <script src="<c:url value="/resources/adminsource/support_template/jquery-slimscroll/jquery.slimscroll.min.js" />" type="text/javascript"></script>
+            <!-- FastClick -->
+            <script src="<c:url value="/resources/adminsource/support_template/fastclick/lib/fastclick.js" />" type="text/javascript"></script>
+            <!-- AdminLTE App -->
+            <script src="<c:url value="/resources/adminsource/support_template/dist/js/adminlte.min.js" />" type="text/javascript"></script>
+            <!-- AdminLTE for demo purposes -->
+            <script src="<c:url value="/resources/adminsource/support_template/dist/js/demo.js" />" type="text/javascript"></script>
+            <!-- page script -->
+
+
+            <!--input-->
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.3.1/js/fileinput.js" type="text/javascript"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.3.1/js/fileinput.js" type="text/javascript"></script>
+
+<!--        <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+         Bootstrap 3.3.7 
         <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <!-- iCheck -->
-        <script src="../../plugins/iCheck/icheck.min.js"></script>
+         iCheck 
+        <script src="../../plugins/iCheck/icheck.min.js"></script>-->
         <script>
             $(function () {
                 $('input').iCheck({
@@ -108,6 +132,9 @@
                     radioClass: 'iradio_square-blue',
                     increaseArea: '20%' /* optional */
                 });
+            });
+            $("#user").keyup(function (){
+                $("#forgot").attr('href',"${pageContext.request.contextPath}/forgot/"+$(this).val());
             });
         </script>
     </body>
