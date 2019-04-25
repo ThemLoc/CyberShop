@@ -17,4 +17,5 @@ public interface CustomerService {
     void remove(int id, boolean status);
     Customer findById(int id);
     List<Customer> getByAll();
+    Customer getByUser(String username);
 }

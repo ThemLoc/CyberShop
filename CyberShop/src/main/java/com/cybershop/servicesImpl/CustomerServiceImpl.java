@@ -48,6 +48,11 @@ public class CustomerServiceImpl implements CustomerService{
         return dao.getAll();
     }
 
+    @Override
+    public Customer getByUser(String username) {
+        return dao.getByUsername(username);
+    }
+
    
     
 }

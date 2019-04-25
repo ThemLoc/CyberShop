@@ -1,3 +1,4 @@
+com\cybershop\models\DeniedForm.class
 com\cybershop\daos\BannerDAO.class
 com\cybershop\daos\SpecificationTitleDAO.class
 com\cybershop\daosImpl\BannerDAOImpl.class

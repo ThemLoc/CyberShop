@@ -77,6 +77,7 @@ public class HomeController {
         Cookie[] cookies = request.getCookies();
         Admin admin = null;
         String username = "", password = "";
+//        System.out.println("checkLogin " + request.getHeaderNames());
         for (Cookie ck : cookies) {
             System.out.println("ck " + ck.getName());
             if (ck.getName().equalsIgnoreCase("username")) {
@@ -104,9 +105,8 @@ public class HomeController {
         session.removeAttribute("USER");
         session.invalidate();
         Cookie[] cookies = request.getCookies();
-        System.out.println(request.getCookies().toString());
         for (Cookie ck : cookies) {
-            System.out.println("ck logout: " + ck.getName());
+//            System.out.println("ck logout: " + ck.getName());
             if (ck.getName().equalsIgnoreCase("username")) {
                 ck.setValue("");
                 ck.setMaxAge(0);
@@ -124,21 +124,27 @@ public class HomeController {
     @RequestMapping(value = "/forgot/{username}", method = RequestMethod.GET)
     public String forgotPassword(@PathVariable("username") String username, RedirectAttributes ratts) {
         Admin a = adminService.getByUser(username);
+
         if (a != null) {
-            orderService.sendEmailOrder("", a.getEmail(), "Your Password", a.getPassword());
+            a.setPassword(randomPassword(5));
+            adminService.save(a);
+            Admin b = adminService.findById(a.getAdminID());
+            orderService.sendEmailOrder("cybershop.nano@gmail.com", b.getEmail(), "Your Password", b.getPassword());
+            ratts.addFlashAttribute("msgForgot", "Password have to reset in your email");
         } else {
             ratts.addFlashAttribute("err", "Not Corect username");
         }
         return "redirect:/login";
     }
 
-    public String createPass() {
-        String a = "a";
-        Random rd = new Random();
-        for (int i = 0; i < 10; i++) {
-            a += rd.nextInt(i);
+    String randomPassword(int len) {
+        String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        Random rnd = new Random();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i <= len; i++) {
+            sb.append(AB.charAt(rnd.nextInt(AB.length())));
         }
-        return a;
+        return sb.toString();
     }
 
 }

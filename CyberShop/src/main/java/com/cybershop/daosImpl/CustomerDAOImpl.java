@@ -62,4 +62,13 @@ public class CustomerDAOImpl implements CustomerDAO {
         return newCus;
     }
 
+    @Override
+    public Customer getByUsername(String username) {
+          try {          
+             return this.em.createNamedQuery("Customer.findByUsername", Customer.class).setParameter("username", username).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

@@ -2,8 +2,14 @@ package com.cybershop.controllers;
 
 import com.cybershop.models.Admin;
 import com.cybershop.services.AdminService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,15 +25,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("manager/admin")
 public class AdminController {
 
-
-   
     @Autowired
     private AdminService adminService;
 
     @RequestMapping(method = RequestMethod.GET)
     private String list(Model model) {
         model.addAttribute("listAdmin", adminService.getByAll());
-          model.addAttribute("adminForm", new Admin());
+        model.addAttribute("adminForm", new Admin());
         return "manager/admin/adminList";
     }
 
@@ -36,17 +40,38 @@ public class AdminController {
 //        model.addAttribute("adminForm", new Admin());
 //        return "manager/admin/adminList";
 //    }
-
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    private String save(@ModelAttribute("adminForm") Admin obj, RedirectAttributes ratts) {
-        obj.setStatus(true);
-        adminService.save(obj);
-        ratts.addFlashAttribute("msg", "saved");
+    private String save(@ModelAttribute("adminForm") Admin obj, RedirectAttributes ratts, HttpServletRequest request) {
+        try {
+            String yob = request.getParameter("dayYob");
+            System.out.println("yob" + yob);
+            if (yob != null) {
+                try {
+                    Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(yob);
+                    if (dob != null) {
+                        obj.setDob(dob);
+                        obj.setStatus(true);
+                        adminService.save(obj);
+                        ratts.addFlashAttribute("msg", "saved");
+                    }
+                } catch (ParseException ex) {
+                    Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                obj.setStatus(true);
+                adminService.save(obj);
+                ratts.addFlashAttribute("msg", "saved");
+            }
+        } catch (Exception e) {
+            ratts.addFlashAttribute("err", "Update Fail");
+        }
+
         return "redirect:/manager/admin";
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     private String edit(@PathVariable("id") int id, Model model) {
+        System.out.println("acount: " + adminService.findById(id));
         model.addAttribute("adminForm", adminService.findById(id));
         return "manager/admin/adminForm";
     }
@@ -62,7 +87,5 @@ public class AdminController {
     public List<String> listRole(Model model) {
         return Arrays.asList("ADMIN", "EMPLOYEE");
     }
-    
-    
 
 }

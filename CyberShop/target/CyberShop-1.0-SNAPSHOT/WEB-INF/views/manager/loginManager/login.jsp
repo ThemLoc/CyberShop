@@ -89,9 +89,10 @@
                                 </div>-->
                 <!-- /.social-auth-links -->
 
-                <a id="forgot" href="">I forgot my password</a><br>
+<!--                <a id="forgot" href="">I forgot my password</a><br>-->
                 <!--                <a href="register.html" class="text-center">Register a new membership</a>-->
-
+               
+<!--                 <span style="color: red; font-size: 20px">${msgForgot}</span>-->
             </div>
             <!-- /.login-box-body -->
         </div>
