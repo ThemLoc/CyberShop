@@ -26,6 +26,7 @@ com\cybershop\servicesImpl\OrderServiceImpl$1.class
 com\cybershop\servicesImpl\CustomerServiceImpl.class
 com\cybershop\models\Category.class
 com\cybershop\services\OrderDetailService.class
+com\cybershop\controllers\CustomerController.class
 com\cybershop\controllers\WebsiteController.class
 com\cybershop\daos\ImageDAO.class
 com\cybershop\models\Banner.class

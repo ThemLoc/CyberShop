@@ -26,8 +26,10 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public void delete(int id) {
-        em.remove(getById(id));
+    public void delete(int id, boolean status) {
+      
+        this.em.createNamedQuery("UpdateStatusCustomer").setParameter("id", id).setParameter("sta", !status).executeUpdate();
+//        em.remove(getById(id));
     }
 
     @Override
@@ -58,6 +60,15 @@ public class CustomerDAOImpl implements CustomerDAO {
             newCus.setOrder1Collection(newList);
         }
         return newCus;
+    }
+
+    @Override
+    public Customer getByUsername(String username) {
+          try {          
+             return this.em.createNamedQuery("Customer.findByUsername", Customer.class).setParameter("username", username).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }

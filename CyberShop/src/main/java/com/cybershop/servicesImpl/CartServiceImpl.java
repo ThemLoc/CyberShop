@@ -22,7 +22,12 @@ public class CartServiceImpl implements CartService{
     @Transactional
     @Override
     public void save(Cart obj) {
-        dao.create(obj);
+        if(obj.getCustomerID().getCustomerID() != null){
+            dao.update(obj);
+        }else{
+             dao.create(obj);
+        }
+       
     }
 
     @Transactional
