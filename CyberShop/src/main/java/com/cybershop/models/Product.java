@@ -224,9 +224,4 @@ public class Product implements Serializable {
         return true;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Product{" + "productID=" + productID + ", productName=" + productName + ", detail=" + detail + ", price=" + price + ", quantity=" + quantity + ", sell=" + sell + ", downPrice=" + downPrice + ", status=" + status + ", orderDetailCollection=" + orderDetailCollection + ", bannerCollection=" + bannerCollection + ", imagesCollection=" + imagesCollection + ", brandID=" + brandID + ", categoryID=" + categoryID + ", cartCollection=" + cartCollection + '}';
-//    }
-
 }

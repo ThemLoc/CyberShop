@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Image.findAll", query = "SELECT i FROM Image i")
     , @NamedQuery(name = "Image.findByImageID", query = "SELECT i FROM Image i WHERE i.imageID = :imageID")
     , @NamedQuery(name = "Image.findByUrlImage", query = "SELECT i FROM Image i WHERE i.urlImage = :urlImage")
-    , @NamedQuery(name = "Image.findByMainImage", query = "SELECT i FROM Image i WHERE i.mainImage = :mainImage")})
+    , @NamedQuery(name = "Image.findByProductID", query = "SELECT i FROM Image i WHERE i.mainImage = :mainImage AND i.productID.productID = :proID")})
 public class Image implements Serializable {
 
     private static final long serialVersionUID = 1L;

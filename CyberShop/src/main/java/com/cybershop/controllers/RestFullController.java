@@ -5,7 +5,6 @@
  */
 package com.cybershop.controllers;
 
-import com.cybershop.models.Order;
 import com.cybershop.models.OrderDetail;
 import com.cybershop.models.Product;
 import com.cybershop.models.SpecificationTitle;

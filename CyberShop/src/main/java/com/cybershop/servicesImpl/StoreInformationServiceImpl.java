@@ -22,7 +22,11 @@ public class StoreInformationServiceImpl implements StoreInformationService{
     @Transactional
     @Override
     public void save(StoreInformation obj) {
-        dao.create(obj);
+        if (obj.getStoreID() != null) {
+            dao.update(obj);
+        } else {
+            dao.create(obj);
+        }
     }
 
     @Transactional

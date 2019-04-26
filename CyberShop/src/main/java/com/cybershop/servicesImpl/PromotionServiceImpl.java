@@ -22,7 +22,11 @@ public class PromotionServiceImpl implements PromotionService{
     @Transactional
     @Override
     public void save(Promotion obj) {
-        dao.create(obj);
+        if (obj.getPromoID() != null) {
+            dao.update(obj);
+        } else {
+            dao.create(obj);
+        }
     }
 
     @Transactional

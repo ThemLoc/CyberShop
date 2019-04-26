@@ -14,4 +14,6 @@ public interface ProductDAO {
     List<Product> getAll();
 
     Product getById(int id);
+    
+    List<Product> getProductNotInBanner();
 }

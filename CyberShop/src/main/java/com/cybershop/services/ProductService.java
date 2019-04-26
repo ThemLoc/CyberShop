@@ -17,4 +17,5 @@ public interface ProductService {
     void remove(int id);
     Product findById(int id);
     List<Product> getByAll();
+    List<Product> findProductNotInBanner();
 }

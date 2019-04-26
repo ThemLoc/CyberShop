@@ -54,12 +54,6 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void sendEmailOrder(final String from, final String to, final String subject, final String content) {
-//        MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-//        message.setFrom(from);
-//        message.setTo(to);
-//        message.setSubject(subject);
-//        message.setText(content);
-//        mailSender.send(message);
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             @Override
             public void prepare(MimeMessage mimeMessage) throws Exception {

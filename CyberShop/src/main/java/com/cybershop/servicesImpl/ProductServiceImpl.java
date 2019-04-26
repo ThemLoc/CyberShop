@@ -42,5 +42,10 @@ public class ProductServiceImpl implements ProductService{
     public List<Product> getByAll() {
         return dao.getAll();
     }
+
+    @Override
+    public List<Product> findProductNotInBanner() {
+        return dao.getProductNotInBanner();
+    }
     
 }
