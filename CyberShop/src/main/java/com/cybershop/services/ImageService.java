@@ -17,4 +17,8 @@ public interface ImageService {
     void remove(int id);
     Image findById(int id);
     List<Image> getByAll();
+    
+    void updateMainImage(Image image);
+    
+    void updateSubImage(List<Image> list);
 }

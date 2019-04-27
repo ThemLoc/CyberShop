@@ -127,7 +127,7 @@
                 </a>
             </li>
             <li>
-                <a href="../widgets.html">
+                <a href="${pageContext.request.contextPath}/manager/storeinfo">
                     <i class="fa fa-info-circle"></i> <span>Store Information</span>
                     <span class="pull-right-container">
                         <!-- <small class="label pull-right bg-green">new</small> -->

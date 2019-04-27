@@ -26,6 +26,7 @@ com\cybershop\servicesImpl\OrderServiceImpl$1.class
 com\cybershop\servicesImpl\CustomerServiceImpl.class
 com\cybershop\models\Category.class
 com\cybershop\services\OrderDetailService.class
+com\cybershop\controllers\OrderController$1.class
 com\cybershop\servicesImpl\DetailsUserService.class
 com\cybershop\controllers\CustomerController.class
 com\cybershop\controllers\WebsiteController.class
@@ -68,6 +69,7 @@ com\cybershop\daos\CartDAO.class
 com\cybershop\daos\AdminDAO.class
 com\cybershop\daosImpl\CustomerDAOImpl.class
 com\cybershop\services\PromotionService.class
+com\cybershop\controllers\OrderController$2.class
 com\cybershop\daos\BrandDAO.class
 com\cybershop\services\BrandService.class
 com\cybershop\controllers\ProductController.class

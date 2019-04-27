@@ -23,4 +23,5 @@ public interface SpecificationTitleService {
     List<SpecificationTitle> getByAll();
 
     List<SpecificationTitle> getByCategory(int id);
+//    void addSpec(String specName,int cateID);
 }

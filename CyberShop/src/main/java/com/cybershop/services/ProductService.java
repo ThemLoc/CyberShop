@@ -13,8 +13,22 @@ import java.util.List;
  * @author chungnguyen
  */
 public interface ProductService {
-     void save(Product obj);
+
+    void save(Product obj);
+
     void remove(int id);
+
     Product findById(int id);
+
     List<Product> getByAll();
+
+    void changeStatus(int id, boolean status);
+
+    void updateOtherInfo(Product obj);
+
+    void updateSpecification(int productID, int cateID, String detail);
+
+    int countByCateID(int cateID);
+
+    List<Product> findProductNotInBanner();
 }

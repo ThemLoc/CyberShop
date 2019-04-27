@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ImageServiceImpl implements ImageService{
-    
+public class ImageServiceImpl implements ImageService {
+
     @Autowired
     private ImageDAO dao;
 
@@ -42,5 +42,17 @@ public class ImageServiceImpl implements ImageService{
     public List<Image> getByAll() {
         return dao.getAll();
     }
-    
+
+    @Transactional
+    @Override
+    public void updateMainImage(Image image) {
+        dao.updateMainImage(image);
+    }
+
+    @Transactional
+    @Override
+    public void updateSubImage(List<Image> list) {
+        dao.updateSubImage(list);
+    }
+
 }

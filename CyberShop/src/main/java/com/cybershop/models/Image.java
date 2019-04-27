@@ -24,7 +24,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Image.findAll", query = "SELECT i FROM Image i")
     , @NamedQuery(name = "Image.findByImageID", query = "SELECT i FROM Image i WHERE i.imageID = :imageID")
     , @NamedQuery(name = "Image.findByUrlImage", query = "SELECT i FROM Image i WHERE i.urlImage = :urlImage")
-    , @NamedQuery(name = "Image.findByMainImage", query = "SELECT i FROM Image i WHERE i.mainImage = :mainImage")})
+    , @NamedQuery(name = "Image.updateMainImage", query = "Update Image set urlImage = ? WHERE productID.id = ? AND mainImage = 1")
+    , @NamedQuery(name = "Image.checkMainImage", query = "Select i from Image i WHERE i.productID.id = ? AND i.mainImage = 1")
+//    , @NamedQuery(name = "Image.insertImage", query = "Insert into Image (urlImage,productID,mainImage) values(?,?,?)")
+    , @NamedQuery(name = "Image.findByMainImage", query = "SELECT i FROM Image i WHERE i.mainImage = :mainImage")
+    , @NamedQuery(name = "Image.findByProductID", query = "SELECT i FROM Image i WHERE i.mainImage = :mainImage AND i.productID.productID = :proID")})
 public class Image implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,8 +41,8 @@ public class Image implements Serializable {
     private String urlImage;
     @Column(name = "MainImage")
     private Boolean mainImage;
-    @JoinColumn(name = "ProductID", referencedColumnName = "ProductID")
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ProductID", referencedColumnName = "ProductID")
     private Product productID;
 
     public Image() {

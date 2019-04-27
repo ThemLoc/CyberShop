@@ -42,7 +42,16 @@ public class SpecificationTitleDAOImpl implements SpecificationTitleDAO {
 
     @Override
     public List<SpecificationTitle> getByCateID(int id) {
-        return this.em.createNamedQuery("SpecificationTitle.getByCateID", SpecificationTitle.class).setParameter("cateID",id).getResultList();
+        return this.em.createNamedQuery("SpecificationTitle.getByCateID", SpecificationTitle.class).setParameter("cateID", id).getResultList();
     }
+
+//    @Override
+//    public void addSpec(String specName, int cateID) {
+//        this.em.createQuery("Insert into SpecificationTitle (SpecName,CateID) values (?,?)")
+//                .setParameter(1, specName)
+//                .setParameter(2, cateID)
+//                .executeUpdate();
+//
+//    }
 
 }

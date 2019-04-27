@@ -1,12 +1,8 @@
 package com.cybershop.daosImpl;
 
 import com.cybershop.daos.OrderDetailDAO;
-import com.cybershop.daos.ProductDAO;
-import com.cybershop.models.Image;
-import com.cybershop.models.Order;
 import com.cybershop.models.OrderDetail;
 import com.cybershop.models.Product;
-import com.cybershop.services.CustomerService;
 import com.cybershop.services.ProductService;
 import java.util.ArrayList;
 import java.util.List;
