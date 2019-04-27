@@ -27,7 +27,8 @@ public interface ProductService {
     void updateOtherInfo(Product obj);
 
     void updateSpecification(int productID, int cateID, String detail);
-    
-    List countByCate();
+
+    int countByCateID(int cateID);
+
     List<Product> findProductNotInBanner();
 }

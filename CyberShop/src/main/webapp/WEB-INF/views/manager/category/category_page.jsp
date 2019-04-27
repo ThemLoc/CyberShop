@@ -23,21 +23,32 @@
                         <div class="col-xs-12">
                             <div class="box">
                                 <div class="box-body">
-                                    <div class="panel-body">
-                                        <form action="action.php" >
+
+                                    <button id="showFormAddCategory" class="btn btn-danger">+ Add New Category</button>
+                                    </br>
+                                    </br>
+                                    <div id="divAdd" class="panel-body" style="display: none" >
+
+                                        <form id="formAdd" >
+                                            <label>Category Name</label>
+                                            <input type="text" name="addmore[]" class="form-control" placeholder="Enter Category Name" required><br/>
+                                            <label>Specification Title</label>
                                             <div class="input-group control-group after-add-more">
-                                                <input type="text" name="addmore[]" class="form-control" placeholder="Enter Name Here">
+
+                                                <input type="text" name="addmore[]" class="form-control" placeholder="Enter Specification" required>
                                                 <div class="input-group-btn"> 
                                                     <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
                                                 </div>
                                             </div>
+                                            <br/>
+                                            <button id="btnSubmitAdd" class="btn btn-primary">Add Category</button>
                                         </form>
 
 
                                         <!-- Copy Fields -->
                                         <div class="copy hide">
                                             <div class="control-group input-group" style="margin-top:10px">
-                                                <input type="text" name="addmore[]" class="form-control" placeholder="Enter Name Here">
+                                                <input type="text" name="addmore[]" class="form-control" placeholder="Enter Specification"" required>
                                                 <div class="input-group-btn"> 
                                                     <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
                                                 </div>
@@ -63,6 +74,8 @@
                                                 <th>Category Type</th>
                                                 <th>Specification Title</th>
                                                 <th>Number of product</th>
+                                                <th>Delete</th>
+                                                <th>Update</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -83,11 +96,32 @@
                                                             ${spec.specName} -
                                                         </c:forEach>
                                                     </td>
-                                                    <td></td>
+                                                    <c:forEach var="item"  items="${count}">
+                                                        <c:if test="${item.cateID == cate.cateID}">
+                                                            <td>
+                                                                ${item.count}
+                                                            </td>
+                                                            <c:if test="${item.count == 0}">
+                                                                <td>
+                                                                    <button class="btn btn-primary">Delete</button>
+                                                                </td>
+                                                            </c:if>
+                                                            <c:if test="${item.count != 0}">
+                                                                <td></td>
+                                                            </c:if>
+
+
+                                                        </c:if>
+                                                    </c:forEach>
+
+                                                    <td>
+                                                        <button class="btn btn-danger">Update</button>
+                                                    </td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
                                     </table>
+
 
 
                                 </div>
@@ -134,8 +168,8 @@
 
 
             });
-            
-             $(function () {
+
+            $(function () {
                 $('#tableCategory').DataTable({
                     'paging': true,
                     'lengthChange': true,
@@ -146,6 +180,33 @@
                 });
             });
 
+            $(document).ready(function () {
+                $("#showFormAddCategory").click(function () {
+                    $("#divAdd").toggle();
+                });
+            });
+
+            $(document).ready(function () {
+                $('#btnSubmitAdd').click(function (e) {
+                    e.preventDefault();  // add preventDefault()
+                    var ajaxdata = $("#formAdd").val();
+
+                    // don't send data like this
+                    // var value = "country=" + ajaxdata;
+                    // try like below, as an object
+                    var value = {'form': ajaxdata};
+
+                    $.ajax({
+                        url: "${pageContext.request.contextPath}/api/addCategory",
+                        type: "POST",
+                        data: value,
+                        cache: false,
+                        success: function () {
+                            alert("load success");
+                        }
+                    });
+                });
+            });
         </script>
 
     </body>

@@ -61,16 +61,17 @@ public class ProductServiceImpl implements ProductService {
         dao.updateSpecification(productID, cateID, detail);
     }
 
-    @Transactional(readOnly = true)
-    @Override
-    public List countByCate() {
-//        return dao.countByCate();
-return null;
-    }
-
+    @Transactional
     @Override
     public List<Product> findProductNotInBanner() {
         return dao.getProductNotInBanner();
     }
-    
+
+    @Transactional
+    @Override
+    public int countByCateID(int cateID) {
+        
+        return dao.countPdByCateID(cateID);
+    }
+
 }

@@ -30,8 +30,13 @@ public class CategoryController {
     @RequestMapping(value = {""},method = RequestMethod.GET)
     private String categoryPage(Model model) {
         model.addAttribute("categoryWithSpec", categoryService.getAllCateWithSpec());
-        model.addAttribute("countList", productService.countByCate());
-        System.out.println(productService.countByCate());
+        model.addAttribute("count", categoryService.getCountproduct());
+        return "manager/category/category_page";
+    }
+    
+    @RequestMapping(value = {"/addCategory"},method = RequestMethod.POST)
+    private String addCate(Model model) {
+        model.addAttribute("categoryWithSpec", categoryService.getAllCateWithSpec());
         return "manager/category/category_page";
     }
 }
