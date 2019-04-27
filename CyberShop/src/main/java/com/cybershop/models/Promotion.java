@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -31,6 +33,7 @@ public class Promotion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue
     @Basic(optional = false)
     @Column(name = "PromoID")
     private Integer promoID;
@@ -46,7 +49,7 @@ public class Promotion implements Serializable {
     private Date endTime;
     @Column(name = "UsedTurn")
     private Integer usedTurn;
-    @OneToMany(mappedBy = "promotionID")
+    @OneToMany(mappedBy = "promotionID", cascade = CascadeType.ALL)
     private Collection<Order> order1Collection;
 
     public Promotion() {

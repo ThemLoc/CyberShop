@@ -1,0 +1,136 @@
+.search{
+
+	vertical-align: center;
+	margin-top: 100px;
+}
+.inputSearch{
+	width: 400px;
+	float: left;
+}
+.category{
+	margin-top: 100px;
+	width: 90px;
+	height: 42px;
+	border-radius: 0;
+}
+.btn-group{
+	float: left;
+	margin-left: 50px;
+}
+
+.block-slider4
+.threadripper{
+	padding-top: 50px;
+	width: 400px;
+	height: 400px;
+	margin-left: 150px;
+}
+.block-slider4
+.km{
+	padding-top: 50px;
+	width: 450px;
+	height: 450px;
+	margin-left: 150px;
+}
+.block-slider4
+.km2{
+	padding-top: 50px;
+	width: 450px;
+	height: 450px;
+	margin-left: 200px;
+}
+.block-slider4
+.km3{
+	padding-top: 50px;
+	width: 450px;
+	height: 450px;
+	margin-left: 200px;
+}
+.single-product img{
+	/* width: 500px; */
+	height: 230px;
+}
+.brand-wrapper img{
+	padding-left: 20px;
+	padding-right: 20px;
+	height: 100px;
+	padding-bottom: 30px;
+}
+.dropbtn {
+    background-color: #FAFAFA;
+    /* height: auto; */
+    color: #6e6a6a;
+    padding: 20px;
+    font-size: 14px;
+    border: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    /* background-color: #f1f1f1; */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown a {
+	text-decoration: none;
+    color: black !important;
+    background-color: white !important;
+    display: block;
+    width: 200px !important;
+}
+
+.dropdown-content a:hover {background-color: #ddd !important;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #5a88ca; color: white;}
+.latest-product
+.v3-new-arrival-title{
+	text-align: center;
+	font-size: 29px;
+    font-weight: lighter;
+    color: white;
+    background-color: #cc3300;
+    margin-bottom: 10px;
+}
+.v3-new-arrival-title2{
+	text-align: center;
+	font-size: 29px;
+    font-weight: lighter;
+    color: white;
+    background-color: #6699ff;
+    margin-bottom: 10px;
+}
+/* detai; */
+.single-product-area{
+	margin-top: -60px;
+}
+.desc{
+	margin-top: 100px;
+}
+.related-products-wrapper .related-products-carousel .single-product img{
+	height: 350px;
+}
+/* .footer-newsletter{
+	width: 230px;
+} */
+.footer-top-area .container {
+	height: 140px;
+}
+/* .footer-bottom-area{
+	height: 50px;
+} */
+.checkOut{
+	text-align:right;
+}
+.updateCart{
+	margin-left: 550px !important;
+}

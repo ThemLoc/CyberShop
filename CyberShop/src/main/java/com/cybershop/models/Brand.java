@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Brand implements Serializable {
     private String imageURL;
     @Column(name = "BrandName")
     private String brandName;
-    @OneToMany(mappedBy = "brandID")
+    @OneToMany(mappedBy = "brandID", cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<Product> productCollection;
 

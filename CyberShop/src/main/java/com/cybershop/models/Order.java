@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -27,8 +28,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Order.findByShipAddress", query = "SELECT o FROM Order o WHERE o.shipAddress = :shipAddress")
     , @NamedQuery(name = "Order.findByTotal", query = "SELECT o FROM Order o WHERE o.total = :total")
     , @NamedQuery(name = "Order.findByStatus", query = "SELECT o FROM Order o WHERE o.status = :status")
-    , @NamedQuery(name = "Order.findByOrderDate", query = "SELECT o FROM Order o WHERE o.orderDate = :orderDate")
-    , @NamedQuery(name = "Order.findByDeliveryFee", query = "SELECT o FROM Order o WHERE o.deliveryFee = :deliveryFee")})
+    , @NamedQuery(name = "Order.updateStatus", query = "Update Order SET status = ? WHERE orderID = ?")
+    , @NamedQuery(name = "Order.findByCustomerID", query = "SELECT o FROM Order o WHERE o.customerID.customerID = :customerID")})
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,7 +55,7 @@ public class Order implements Serializable {
     @JoinColumn(name = "PromotionID", referencedColumnName = "PromoID")
     @ManyToOne
     private Promotion promotionID;
-    @OneToMany(mappedBy = "orderID")
+    @OneToMany(mappedBy = "orderID", cascade = CascadeType.ALL)
     private Collection<OrderDetail> orderDetailCollection;
 
     public Order() {

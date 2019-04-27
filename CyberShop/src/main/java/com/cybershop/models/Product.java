@@ -69,10 +69,10 @@ public class Product implements Serializable {
     private Double downPrice;
     @Column(name = "Status")
     private Boolean status;
-    @OneToMany(mappedBy = "productID")
+    @OneToMany(mappedBy = "productID", cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<OrderDetail> orderDetailCollection;
-    @OneToMany(mappedBy = "productID")
+    @OneToMany(mappedBy = "productID", cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<Banner> bannerCollection;
 
@@ -87,7 +87,7 @@ public class Product implements Serializable {
     @ManyToOne
     private Category categoryID;
 
-    @OneToMany(mappedBy = "productID")
+    @OneToMany(mappedBy = "productID", cascade = CascadeType.ALL)
     @JsonIgnore
     private Collection<Cart> cartCollection;
 

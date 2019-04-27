@@ -14,4 +14,6 @@ public interface OrderDAO {
     List<Order> getAll();
 
     Order getById(int id);
+    List<Order> getByCusID(int id);
+    void updateStatus(String status, int id);
 }

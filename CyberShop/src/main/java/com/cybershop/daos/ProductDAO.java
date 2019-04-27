@@ -26,4 +26,6 @@ public interface ProductDAO {
 
     int countPdByCateID();
 
+    
+    List<Product> getProductNotInBanner();
 }

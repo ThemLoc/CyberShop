@@ -14,4 +14,8 @@ public interface AdminDAO {
     List<Admin> getAll();
 
     Admin getById(int id);
+    
+    Admin checkLogin(Admin admin);
+    
+    Admin getByUsername(String username);
 }

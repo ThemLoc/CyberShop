@@ -22,13 +22,18 @@ public class CustomerServiceImpl implements CustomerService{
     @Transactional
     @Override
     public void save(Customer obj) {
-        dao.create(obj);
+        if(obj.getCustomerID() == null){
+             dao.create(obj);
+        }else{
+            dao.update(obj);
+        }
+       
     }
 
     @Transactional
     @Override
-    public void remove(int id) {
-        dao.delete(id);
+    public void remove(int id, boolean status) {
+        dao.delete(id, status);
     }
 
     @Transactional(readOnly = true)
@@ -42,5 +47,12 @@ public class CustomerServiceImpl implements CustomerService{
     public List<Customer> getByAll() {
         return dao.getAll();
     }
+
+    @Override
+    public Customer getByUser(String username) {
+        return dao.getByUsername(username);
+    }
+
+   
     
 }

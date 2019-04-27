@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -33,7 +34,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Customer.findByIsGuest", query = "SELECT c FROM Customer c WHERE c.isGuest = :isGuest")
     , @NamedQuery(name = "Customer.findByStatus", query = "SELECT c FROM Customer c WHERE c.status = :status")
     , @NamedQuery(name = "Customer.findByDateRegistration", query = "SELECT c FROM Customer c WHERE c.dateRegistration = :dateRegistration")
-    , @NamedQuery(name = "Customer.findByDob", query = "SELECT c FROM Customer c WHERE c.dob = :dob")})
+    , @NamedQuery(name = "Customer.findByDob", query = "SELECT c FROM Customer c WHERE c.dob = :dob")
+    , @NamedQuery(name = "UpdateStatusCustomer", query = "update Customer set status = :sta where customerID = :id ")
+  
+})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -71,9 +75,9 @@ public class Customer implements Serializable {
     @Column(name = "DOB")
     @Temporal(TemporalType.DATE)
     private Date dob;
-    @OneToMany(mappedBy = "customerID")
+    @OneToMany(mappedBy = "customerID", cascade = CascadeType.ALL)
     private Collection<Order> order1Collection;
-    @OneToMany(mappedBy = "customerID")
+    @OneToMany(mappedBy = "customerID", cascade = CascadeType.ALL)
     private Collection<Cart> cartCollection;
 
     public Customer() {

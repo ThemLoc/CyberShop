@@ -7,14 +7,24 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import com.cybershop.daos.ProductDAO;
 import com.cybershop.dto.CountDTO;
+import com.cybershop.models.Banner;
 import com.cybershop.models.Image;
+import com.cybershop.services.BannerService;
+import com.cybershop.services.ProductService;
 import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO {
 
     @PersistenceContext
     private EntityManager em;
+    
+    @Autowired
+    private ProductService proService;
+    
+    @Autowired
+    private BannerService banService;
 
     @Override
     public void create(Product obj) {
@@ -113,5 +123,24 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
   
+    public List<Product> getProductNotInBanner() {
+        List<Product> list = em.createQuery("from Product").getResultList();
+        List<Product> newList = new ArrayList<>();
+        Product product;
+        List<Banner> listBanner = banService.getByAll();
+        if (!list.isEmpty()) {
+            for (Product item : list) {
+                product = new Product();
+                product = proService.findById(item.getProductID());
+                newList.add(product);
+                for (Banner banItem : listBanner) {
+                    if (product.getProductID() == banItem.getProductID().getProductID()) {
+                        newList.remove(product);
+                    }
+                }
+            }
+        }
+        return newList;
+    }
 
 }

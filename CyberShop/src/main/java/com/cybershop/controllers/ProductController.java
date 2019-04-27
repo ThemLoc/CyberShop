@@ -97,6 +97,7 @@ public class ProductController {
                 }
             }
         } catch (Exception e) {
+            System.out.println("EROR :" + e.getMessage());
             e.printStackTrace();
             model.addAttribute("message", "upload failed");
         }

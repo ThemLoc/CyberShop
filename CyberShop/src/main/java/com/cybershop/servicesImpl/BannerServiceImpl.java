@@ -42,5 +42,4 @@ public class BannerServiceImpl implements BannerService{
     public List<Banner> getByAll() {
         return dao.getAll();
     }
-    
 }

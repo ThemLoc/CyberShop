@@ -29,4 +29,5 @@ public interface ProductService {
     void updateSpecification(int productID, int cateID, String detail);
     
     List countByCate();
+    List<Product> findProductNotInBanner();
 }

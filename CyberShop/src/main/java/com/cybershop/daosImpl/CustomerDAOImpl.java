@@ -2,6 +2,8 @@ package com.cybershop.daosImpl;
 
 import com.cybershop.daos.CustomerDAO;
 import com.cybershop.models.Customer;
+import com.cybershop.models.Order;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,8 +26,10 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public void delete(int id) {
-        em.remove(getById(id));
+    public void delete(int id, boolean status) {
+      
+        this.em.createNamedQuery("UpdateStatusCustomer").setParameter("id", id).setParameter("sta", !status).executeUpdate();
+//        em.remove(getById(id));
     }
 
     @Override
@@ -35,7 +39,36 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public Customer getById(int id) {
-        return em.find(Customer.class, id);
+        Customer cus = em.find(Customer.class, id);
+        Customer newCus = new Customer();
+        newCus.setCustomerID(cus.getCustomerID());
+        newCus.setEmail(cus.getEmail());
+        newCus.setFullname(cus.getFullname());
+        newCus.setPhone(cus.getPhone());
+        newCus.setAddress(cus.getAddress());
+        newCus.setDob(cus.getDob());
+        List<Order> listOrder = (List<Order>) cus.getOrder1Collection();
+        List<Order> newList;
+        if (!listOrder.isEmpty()) {
+            Order order;
+            newList = new ArrayList<>();
+            for (Order item : listOrder) {
+                order = new Order();
+                order.setCustomerID(item.getCustomerID());
+                newList.add(order);
+            }
+            newCus.setOrder1Collection(newList);
+        }
+        return newCus;
+    }
+
+    @Override
+    public Customer getByUsername(String username) {
+          try {          
+             return this.em.createNamedQuery("Customer.findByUsername", Customer.class).setParameter("username", username).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }

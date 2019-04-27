@@ -13,7 +13,7 @@ import java.util.List;
  * @author chungnguyen
  */
 public interface PromotionService {
-     void save(Promotion obj);
+    void save(Promotion obj);
     void remove(int id);
     Promotion findById(int id);
     List<Promotion> getByAll();

@@ -13,8 +13,9 @@ import java.util.List;
  * @author chungnguyen
  */
 public interface OrderDetailService {
-     void save(OrderDetail obj);
+    void save(OrderDetail obj);
     void remove(int id);
     OrderDetail findById(int id);
     List<OrderDetail> getByAll();
+    List<OrderDetail> findByOrderID(int id);
 }

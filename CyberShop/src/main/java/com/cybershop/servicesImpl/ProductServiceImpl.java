@@ -68,4 +68,9 @@ public class ProductServiceImpl implements ProductService {
 return null;
     }
 
+    @Override
+    public List<Product> findProductNotInBanner() {
+        return dao.getProductNotInBanner();
+    }
+    
 }
