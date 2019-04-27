@@ -25,9 +25,8 @@ public class AdminDAOImpl implements AdminDAO {
     }
 
     @Override
-    public void delete(int id) {
-        boolean status = false;
-        this.em.createNamedQuery("UpdateStatus").setParameter("id", id).setParameter("sta", status).executeUpdate();
+    public void delete(int id, boolean status ) {
+        this.em.createNamedQuery("UpdateStatus").setParameter("id", id).setParameter("sta", !status).executeUpdate();
 //        em.remove(getById(id));
     }
 

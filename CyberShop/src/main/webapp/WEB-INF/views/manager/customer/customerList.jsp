@@ -112,10 +112,10 @@
                                                         </c:if>
                                                     </td>
                                                     <td><c:if test="${a.isGuest == true}">
-                                                            <input type="checkbox" checked="checked" />
+                                                            <input disabled="true" type="checkbox" checked="checked" />
                                                         </c:if>
                                                         <c:if test="${a.isGuest == false}">
-                                                            <input type="checkbox" checked="checked" />
+                                                            <input disabled="true" type="checkbox" checked="checked" />
                                                         </c:if>
                                                     </td>
 
@@ -131,7 +131,7 @@
                                                     </td>
 
                                                     <td>
-                                                        <a class="btn btn-warning"  href="${pageContext.request.contextPath}/manager/customer/status/${a.customerID}/${a.status}">Change status</a> 
+                                                        <a class="btn btn-warning"  href="${pageContext.request.contextPath}/manager/customer/status/${a.customerID}/${a.status}" onclick="return confirm('Are you sure?');">Change status</a> 
                                                         <a class="btn btn-warning"  href="${pageContext.request.contextPath}/manager/order/getbyCus/${a.customerID}">view Order </a> 
 
                                                     </td>

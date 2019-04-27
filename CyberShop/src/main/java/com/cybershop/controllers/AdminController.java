@@ -76,9 +76,9 @@ public class AdminController {
         return "manager/admin/adminForm";
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    private String delete(@PathVariable("id") int id, RedirectAttributes ratts) {
-        adminService.remove(id);
+    @RequestMapping(value = "/delete/{id}/{status}", method = RequestMethod.GET)
+    private String delete(@PathVariable("id") int id, @PathVariable("status") boolean status, RedirectAttributes ratts) {
+        adminService.remove(id, status);
         ratts.addFlashAttribute("msg", "deleted success");
         return "redirect:/manager/admin";
     }

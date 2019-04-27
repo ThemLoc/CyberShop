@@ -6,13 +6,18 @@
 package com.cybershop.controllers;
 
 
+import com.cybershop.models.Admin;
 import com.cybershop.models.DeniedForm;
 import com.cybershop.models.Order;
+import com.cybershop.services.AdminService;
 import com.cybershop.services.CustomerService;
 import com.cybershop.services.OrderService;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,6 +38,9 @@ public class OrderController {
     private OrderService orderService;
     private CustomerService customerService;
     
+    @Autowired
+    private AdminService adminService;
+    
     @RequestMapping(value = "/order/member/save", method = RequestMethod.POST)
     private String checkout(@ModelAttribute("cart") Order obj, RedirectAttributes ratts) {
         orderService.sendEmailOrder("cybershop.nano@gmail.com", "chungnguyen2602@gmail.com", "Đơn đặt hàng", "Đặt hàng thành công");
@@ -49,9 +57,18 @@ public class OrderController {
     }
     
     @RequestMapping(method = RequestMethod.GET)
-    private String list(Model model) {
+    private String list(Model model, HttpSession session) {
         model.addAttribute("listOrder", orderService.getByAll());
         model.addAttribute("deniedForm", new DeniedForm());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Admin a = adminService.getByUser(username);
+        if(a != null){
+            session.setAttribute("USER", a);
+        }else{
+            
+        }
+        
         return "manager/order/orderList";
     }
     

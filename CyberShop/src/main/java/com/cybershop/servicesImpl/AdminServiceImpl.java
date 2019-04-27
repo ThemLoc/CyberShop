@@ -33,8 +33,8 @@ public class AdminServiceImpl implements AdminService{
 
     @Transactional
     @Override
-    public void remove(int id) {
-        dao.delete(id);
+    public void remove(int id, boolean status) {
+        dao.delete(id, status);
     }
 
     @Transactional(readOnly = true)
