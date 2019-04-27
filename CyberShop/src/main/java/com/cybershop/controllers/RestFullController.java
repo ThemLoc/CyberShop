@@ -226,6 +226,27 @@ public class RestFullController {
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+    
+    
+     @RequestMapping(value = "/addCategory", method = RequestMethod.POST,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity addCategory(
+//            @RequestParam("productID") String productID,
+//            @RequestParam("detail") String detail,
+//            @RequestParam("cateID") String cateID
+    )
+    {
+//        if(productID.equals("") || detail.equals("") || cateID.equals("")){
+//             return new ResponseEntity("fail", HttpStatus.OK);
+//        }
+//        productService.updateSpecification(Integer.parseInt(productID), Integer.parseInt(cateID), detail);
+
+        return new ResponseEntity("success", HttpStatus.OK);
+    }
+    
+    
+    
 
 
 }

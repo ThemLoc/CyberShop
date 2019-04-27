@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import com.cybershop.daos.ProductDAO;
-import com.cybershop.dto.CountDTO;
 import com.cybershop.models.Banner;
 import com.cybershop.models.Image;
 import com.cybershop.services.BannerService;
@@ -118,8 +117,12 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public int countPdByCateID() {
-        return (int) this.em.createQuery("Select COUNT(categoryID) from Product group by categoryID").getSingleResult();
+    public int countPdByCateID(int cateID) {
+        long resultL = (long) this.em.createQuery("Select COUNT(categoryID) from Product where CategoryID = ?")
+                .setParameter(1, cateID)
+                .getSingleResult();
+        int resultInt = (int)resultL;
+        return resultInt;
     }
 
   

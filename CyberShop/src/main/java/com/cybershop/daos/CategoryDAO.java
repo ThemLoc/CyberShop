@@ -1,5 +1,6 @@
 package com.cybershop.daos;
 
+import com.cybershop.dto.CountProductByCateDTO;
 import com.cybershop.models.Category;
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface CategoryDAO {
     Category getById(int id);
     
     List<Category> getAllWithSpec();
+    
+    List<CountProductByCateDTO> getCountproduct();
 }

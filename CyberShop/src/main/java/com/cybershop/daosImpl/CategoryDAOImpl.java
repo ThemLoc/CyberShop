@@ -1,8 +1,10 @@
 package com.cybershop.daosImpl;
 
 import com.cybershop.daos.CategoryDAO;
+import com.cybershop.dto.CountProductByCateDTO;
 import com.cybershop.models.Category;
 import com.cybershop.models.SpecificationTitle;
+import com.cybershop.services.ProductService;
 import com.cybershop.services.SpecificationTitleService;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,9 @@ public class CategoryDAOImpl implements CategoryDAO {
     private EntityManager em;
     @Autowired
     SpecificationTitleService specificationTitleService;
+
+    @Autowired
+    ProductService productService;
 
     @Override
     public void create(Category obj) {
@@ -80,9 +85,24 @@ public class CategoryDAOImpl implements CategoryDAO {
                     category.setSpecificationTitleCollection(newListSPec);
                 }
                 newList.add(category);
+
             }
         }
         return newList;
+    }
+
+    @Override
+    public List<CountProductByCateDTO> getCountproduct() {
+        List<Category> list = em.createQuery("from Category").getResultList();
+        List<CountProductByCateDTO> listCount = new ArrayList<>();
+        CountProductByCateDTO cpbcdto;
+        for (Category item : list) {
+            cpbcdto = new CountProductByCateDTO();
+            cpbcdto.setCateID(item.getCateID());
+            cpbcdto.setCount(productService.countByCateID(item.getCateID()));
+            listCount.add(cpbcdto);
+        }
+        return listCount;
     }
 
 }

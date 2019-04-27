@@ -24,7 +24,7 @@ public interface ProductDAO {
 
     void updateSpecification(int productID, int cateID, String detail);
 
-    int countPdByCateID();
+    int countPdByCateID(int cateID);
 
     
     List<Product> getProductNotInBanner();
