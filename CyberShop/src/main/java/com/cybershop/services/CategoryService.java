@@ -17,4 +17,5 @@ public interface CategoryService {
     void remove(int id);
     Category findById(int id);
     List<Category> getByAll();
+     List<Category> getAllCateWithSpec();
 }

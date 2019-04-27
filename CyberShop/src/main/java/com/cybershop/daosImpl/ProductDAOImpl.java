@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import com.cybershop.daos.ProductDAO;
+import com.cybershop.dto.CountDTO;
 import com.cybershop.models.Image;
 import java.util.ArrayList;
 
@@ -66,5 +67,51 @@ public class ProductDAOImpl implements ProductDAO {
         }
         return dto;
     }
+
+    @Override
+    public void updateStatus(int id, boolean status) {
+        this.em.createNamedQuery("Product.updateStatus")
+                .setParameter("status", status)
+                .setParameter("productID", id)
+                .executeUpdate();
+    }
+
+    @Override
+    public Product getByIdNormal(int id) {
+        return em.find(Product.class, id);
+    }
+
+    @Override
+    public void updateOtherInfo(Product obj) {
+        try {
+            this.em.createNamedQuery("Product.updateOther")
+                    .setParameter("productName", obj.getProductName())
+                    .setParameter("brandID", obj.getBrandID().getBrandID())
+                    .setParameter("price", obj.getPrice())
+                    .setParameter("downPrice", obj.getDownPrice())
+                    .setParameter("quantity", obj.getQuantity())
+                    .setParameter("productID", obj.getProductID())
+                    .executeUpdate();
+        } catch (Exception e) {
+            System.out.println("ERROR :" + e.getMessage());
+        }
+
+    }
+
+    @Override
+    public void updateSpecification(int productID, int cateID, String detail) {
+        this.em.createNamedQuery("Product.updateSpec")
+                .setParameter("detail", detail)
+                .setParameter("cateID", cateID)
+                .setParameter("productID", productID)
+                .executeUpdate();
+    }
+
+    @Override
+    public int countPdByCateID() {
+        return (int) this.em.createQuery("Select COUNT(categoryID) from Product group by categoryID").getSingleResult();
+    }
+
+  
 
 }

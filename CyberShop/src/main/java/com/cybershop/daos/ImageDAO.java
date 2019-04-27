@@ -14,4 +14,8 @@ public interface ImageDAO {
     List<Image> getAll();
 
     Image getById(int id);
+    
+    void updateMainImage(Image image);
+    
+    void updateSubImage(List<Image> list);
 }

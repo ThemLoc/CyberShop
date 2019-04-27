@@ -69,25 +69,32 @@ public class ProductController {
         dbProduct.setBrandID(brand);
         dbProduct.setCategoryID(category);
         try {
+            String fileName;
+            File file;
             List<MultipartFile> listSubImg = product.getSubImg();
             MultipartFile mainImg = product.getMainImg();
-            String fileName = mainImg.getOriginalFilename();
-            File file = new File("/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/webapp/resources/image/img_product", fileName);
-            mainImg.transferTo(file);
-            img = new Image();
-            img.setUrlImage(fileName);
-            img.setMainImage(Boolean.TRUE);
-            img.setProductID(dbProduct);
-            listImg.add(img);
-            for (MultipartFile subImg : listSubImg) {
-                fileName = subImg.getOriginalFilename();
+
+            if (!mainImg.isEmpty()) {
+                fileName = mainImg.getOriginalFilename();
                 file = new File("/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/webapp/resources/image/img_product", fileName);
-                subImg.transferTo(file);
+                mainImg.transferTo(file);
                 img = new Image();
                 img.setUrlImage(fileName);
+                img.setMainImage(Boolean.TRUE);
                 img.setProductID(dbProduct);
-                img.setMainImage(Boolean.FALSE);
                 listImg.add(img);
+            }
+            if (!listSubImg.isEmpty()) {
+                for (MultipartFile subImg : listSubImg) {
+                    fileName = subImg.getOriginalFilename();
+                    file = new File("/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/webapp/resources/image/img_product", fileName);
+                    subImg.transferTo(file);
+                    img = new Image();
+                    img.setUrlImage(fileName);
+                    img.setProductID(dbProduct);
+                    img.setMainImage(Boolean.FALSE);
+                    listImg.add(img);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -33,6 +33,18 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Product.findByQuantity", query = "SELECT p FROM Product p WHERE p.quantity = :quantity")
     , @NamedQuery(name = "Product.findBySell", query = "SELECT p FROM Product p WHERE p.sell = :sell")
     , @NamedQuery(name = "Product.findByDownPrice", query = "SELECT p FROM Product p WHERE p.downPrice = :downPrice")
+    , @NamedQuery(name = "Product.updateStatus", query = "Update Product p set p.status = :status WHERE p.productID = :productID")
+    , @NamedQuery(name = "Product.updateOther", query = "Update Product p set "
+            + "p.productName = :productName,"
+            + "p.brandID.id = :brandID,"
+            + "p.price = :price,"
+            + "p.downPrice = :downPrice,"
+            + "p.quantity = :quantity"
+            + "  WHERE p.productID = :productID")
+    , @NamedQuery(name = "Product.updateSpec", query = "Update Product p set "
+            + "p.detail= :detail,"
+            + "p.categoryID.id = :cateID"
+            + "  WHERE p.productID = :productID")
     , @NamedQuery(name = "Product.findByStatus", query = "SELECT p FROM Product p WHERE p.status = :status")})
 public class Product implements Serializable {
 
@@ -64,8 +76,7 @@ public class Product implements Serializable {
     @JsonIgnore
     private Collection<Banner> bannerCollection;
 
-    @OneToMany(mappedBy = "productID", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-//    @JsonIgnore
+    @OneToMany(mappedBy = "productID", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Collection<Image> imagesCollection;
 
     @JoinColumn(name = "BrandID", referencedColumnName = "BrandID")
@@ -224,9 +235,8 @@ public class Product implements Serializable {
         return true;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Product{" + "productID=" + productID + ", productName=" + productName + ", detail=" + detail + ", price=" + price + ", quantity=" + quantity + ", sell=" + sell + ", downPrice=" + downPrice + ", status=" + status + ", orderDetailCollection=" + orderDetailCollection + ", bannerCollection=" + bannerCollection + ", imagesCollection=" + imagesCollection + ", brandID=" + brandID + ", categoryID=" + categoryID + ", cartCollection=" + cartCollection + '}';
-//    }
-
+    @Override
+    public String toString() {
+        return "Product{" + "productID=" + productID + ", productName=" + productName + ", detail=" + detail + ", price=" + price + ", quantity=" + quantity + ", sell=" + sell + ", downPrice=" + downPrice + ", status=" + status + ", orderDetailCollection=" + orderDetailCollection + ", bannerCollection=" + bannerCollection + ", imagesCollection=" + imagesCollection + ", brandID=" + brandID + ", categoryID=" + categoryID + ", cartCollection=" + cartCollection + '}';
+    }
 }
