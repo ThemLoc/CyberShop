@@ -55,5 +55,10 @@ public class CategoryServiceImpl implements CategoryService {
         return  dao.getCountproduct();
     }
 
+//    @Override
+//    public int addCategory(String cateName, int type) {
+//        return dao.addCategory(cateName, type);
+//    }
+
  
 }

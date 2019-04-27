@@ -33,10 +33,5 @@ public class CategoryController {
         model.addAttribute("count", categoryService.getCountproduct());
         return "manager/category/category_page";
     }
-    
-    @RequestMapping(value = {"/addCategory"},method = RequestMethod.POST)
-    private String addCate(Model model) {
-        model.addAttribute("categoryWithSpec", categoryService.getAllCateWithSpec());
-        return "manager/category/category_page";
-    }
+   
 }
