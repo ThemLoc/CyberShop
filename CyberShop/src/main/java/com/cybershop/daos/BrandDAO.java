@@ -14,4 +14,5 @@ public interface BrandDAO {
     List<Brand> getAll();
 
     Brand getById(int id);
+    
 }
