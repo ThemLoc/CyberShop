@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ProductServiceImpl implements ProductService{
-    
+public class ProductServiceImpl implements ProductService {
+
     @Autowired
     private ProductDAO dao;
 
@@ -41,6 +41,31 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public List<Product> getByAll() {
         return dao.getAll();
+    }
+
+    @Transactional
+    @Override
+    public void changeStatus(int id, boolean status) {
+        dao.updateStatus(id, status);
+    }
+
+    @Transactional
+    @Override
+    public void updateOtherInfo(Product obj) {
+        dao.updateOtherInfo(obj);
+    }
+
+    @Transactional
+    @Override
+    public void updateSpecification(int productID, int cateID, String detail) {
+        dao.updateSpecification(productID, cateID, detail);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List countByCate() {
+//        return dao.countByCate();
+return null;
     }
 
     @Override

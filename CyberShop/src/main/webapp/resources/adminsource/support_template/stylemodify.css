@@ -1,13 +1,4 @@
-/*!
- * Slider for Bootstrap
- *
- * Copyright 2012 Stefan Petre
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- */
-.modal {
-}
+
 .vertical-alignment-helper {
     display:table;
     height: 100%;
@@ -20,15 +11,17 @@
 }
 .modal-content {
     /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
-/*    width:inherit;
+    width:inherit;
     height:inherit;
-     To center horizontally 
-    margin: 0 auto;*/
+    /* To center horizontally */
+    margin: 0 auto;
+    /*overflow:auto;*/
 }
-#modalDetail{
-    width: 2550px;
-    margin: auto;
-}
-.slidePost{
-   
+#modal_body_Spec{
+     width:inherit;
+    height:auto;
+    max-height:700px;
+    /* To center horizontally */
+    margin: 0 auto;
+    overflow:auto;
 }

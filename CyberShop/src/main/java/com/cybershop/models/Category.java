@@ -83,7 +83,6 @@ public class Category implements Serializable {
         this.type = type;
     }
 
-    @XmlTransient
     public Collection<Product> getProductCollection() {
         return productCollection;
     }
@@ -92,7 +91,6 @@ public class Category implements Serializable {
         this.productCollection = productCollection;
     }
 
-    @XmlTransient
     public Collection<SpecificationTitle> getSpecificationTitleCollection() {
         return specificationTitleCollection;
     }

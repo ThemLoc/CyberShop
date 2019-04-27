@@ -14,4 +14,6 @@ public interface CategoryDAO {
     List<Category> getAll();
 
     Category getById(int id);
+    
+    List<Category> getAllWithSpec();
 }

@@ -13,6 +13,7 @@ com\cybershop\models\OrderDetail.class
 com\cybershop\servicesImpl\OrderServiceImpl.class
 com\cybershop\daos\CategoryDAO.class
 com\cybershop\daos\CustomerDAO.class
+com\cybershop\controllers\CategoryController.class
 com\cybershop\models\Order.class
 com\cybershop\controllers\OrderController.class
 com\cybershop\daosImpl\ImageDAOImpl.class
@@ -76,6 +77,7 @@ com\cybershop\services\BrandService.class
 com\cybershop\controllers\StoreInfoController.class
 com\cybershop\controllers\BannerController.class
 com\cybershop\controllers\ProductController.class
+com\cybershop\dto\CountDTO.class
 com\cybershop\servicesImpl\SpecificationTitleServiceImpl.class
 com\cybershop\models\Promotion.class
 com\cybershop\controllers\AdminController.class

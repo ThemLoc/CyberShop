@@ -37,6 +37,7 @@ E:\FNano\ProjectNANO\newCyberShop\CyberShop\src\main\java\com\cybershop\models\I
 E:\FNano\ProjectNANO\newCyberShop\CyberShop\src\main\java\com\cybershop\models\Order.java
 E:\FNano\ProjectNANO\newCyberShop\CyberShop\src\main\java\com\cybershop\servicesImpl\AdminServiceImpl.java
 E:\FNano\ProjectNANO\newCyberShop\CyberShop\src\main\java\com\cybershop\models\Category.java
+E:\FNano\ProjectNANO\newCyberShop\CyberShop\src\main\java\com\cybershop\controllers\CategoryController.java
 E:\FNano\ProjectNANO\newCyberShop\CyberShop\src\main\java\com\cybershop\servicesImpl\PromotionServiceImpl.java
 E:\FNano\ProjectNANO\newCyberShop\CyberShop\src\main\java\com\cybershop\controllers\HomeController.java
 E:\FNano\ProjectNANO\newCyberShop\CyberShop\src\main\java\com\cybershop\controllers\PromotionController.java
@@ -67,6 +68,7 @@ E:\FNano\ProjectNANO\newCyberShop\CyberShop\src\main\java\com\cybershop\controll
 E:\FNano\ProjectNANO\newCyberShop\CyberShop\src\main\java\com\cybershop\daosImpl\StoreInformationDAOImpl.java
 E:\FNano\ProjectNANO\newCyberShop\CyberShop\src\main\java\com\cybershop\daos\BrandDAO.java
 E:\FNano\ProjectNANO\newCyberShop\CyberShop\src\main\java\com\cybershop\daos\CategoryDAO.java
+E:\FNano\ProjectNANO\newCyberShop\CyberShop\src\main\java\com\cybershop\dto\CountDTO.java
 E:\FNano\ProjectNANO\newCyberShop\CyberShop\src\main\java\com\cybershop\models\SpecificationTitle.java
 E:\FNano\ProjectNANO\newCyberShop\CyberShop\src\main\java\com\cybershop\services\AdminService.java
 E:\FNano\ProjectNANO\newCyberShop\CyberShop\src\main\java\com\cybershop\dto\CreateProductDTO.java
