@@ -39,12 +39,13 @@
     <body class="hold-transition login-page">
         <div class="login-box">
             <div class="login-logo">
-                <a href="../../index2.html"><b>Admin</b>CyberShop</a>
+                <b>Admin</b>CyberShop
             </div>
             <!-- /.login-logo -->
             <div class="login-box-body">
                 <h1>Login</h1>
-                <sf:form action="${pageContext.request.contextPath}/login/check" method="post" modelAttribute="formLogin">
+                <h2 style="color: red">${message}</h2>
+                <form action="<c:url value='j_spring_security_login' />" method="post" modelAttribute="loginForm">
                     <div class="form-group has-feedback">
                         <input type="text" class="form-control" id="user" placeholder="Username" name="username" required>
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -58,7 +59,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="">
-                                <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                                <input name="submit" type="submit" value="login" class="btn btn-primary btn-block btn-flat"/>
                             </div>
 
                         </div>
@@ -67,17 +68,19 @@
                         <div class="col-xs-12">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="remember" value="1"> Remember Me
+                                    <input type="checkbox" name="remember-me"> Remember Me
                                 </label>
                             </div>
                         </div>
+                       
                         <!-- /.col -->
 
                         <!-- /.col -->
                     </div>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
 
-                </sf:form>
+                </form>
                     
 
                 <!--                <div class="social-auth-links text-center">

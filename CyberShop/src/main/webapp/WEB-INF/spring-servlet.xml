@@ -3,7 +3,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:tx="http://www.springframework.org/schema/tx"
-
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans     
         http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
@@ -14,7 +13,7 @@
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-    <context:component-scan base-package="com.cybershop" />
+    <context:component-scan base-package="com.cybershop.controllers" />
 
     <bean
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -51,31 +50,6 @@
                 <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
-    </bean>
-    
-    <tx:annotation-driven/>
-    
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="emf"/>
-    </bean>
-    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="smtp.gmail.com" />
-        <property name="port" value="587" />
-        <property name="username" value="cybershop.nano@gmail.com" />
-        <property name="password" value="0964303637" />
-      
-        <property name="javaMailProperties">
-           <props>
-                <prop key="mail.transport.protocol">smtp</prop> 
-                  <prop key="mail.smtp.auth">true</prop>
-                  <prop key="mail.smtp.starttls.enable">true</prop>
-                  <prop key="mail.debug">true</prop>
-               </props>
-        </property>
-    </bean>
-    <bean id="multipartResolver"
-    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-    <property name="maxUploadSize" value="268435456" />
-  </bean>
+    </bean>    
 
 </beans>

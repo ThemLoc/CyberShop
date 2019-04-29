@@ -26,4 +26,6 @@ public interface CategoryService {
     List<Category> getAllCateWithSpec();
 
     List<CountProductByCateDTO> getCountproduct();
+    
+//     int addCategory(String cateName,int type);
 }

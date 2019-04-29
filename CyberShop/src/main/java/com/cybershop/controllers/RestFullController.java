@@ -6,6 +6,7 @@
 package com.cybershop.controllers;
 
 import com.cybershop.models.Brand;
+import com.cybershop.models.Category;
 import com.cybershop.models.Image;
 import com.cybershop.models.Product;
 import com.cybershop.models.SpecificationTitle;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import com.cybershop.models.OrderDetail;
 import com.cybershop.models.Product;
 import com.cybershop.models.SpecificationTitle;
+import com.cybershop.services.CategoryService;
 import com.cybershop.services.OrderDetailService;
 import com.cybershop.services.OrderService;
 import com.cybershop.services.ProductService;
@@ -64,6 +66,9 @@ public class RestFullController {
 
     @Autowired
     private ImageService imageService;
+
+    @Autowired
+    CategoryService categoryService;
 
     @RequestMapping(value = "/findSpec/{id}", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -198,8 +203,8 @@ public class RestFullController {
             @RequestParam("productID") String productID,
             @RequestParam("detail") String detail,
             @RequestParam("cateID") String cateID) {
-        if(productID.equals("") || detail.equals("") || cateID.equals("")){
-             return new ResponseEntity("fail", HttpStatus.OK);
+        if (productID.equals("") || detail.equals("") || cateID.equals("")) {
+            return new ResponseEntity("fail", HttpStatus.OK);
         }
         productService.updateSpecification(Integer.parseInt(productID), Integer.parseInt(cateID), detail);
 
@@ -226,27 +231,58 @@ public class RestFullController {
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
-    
-    
-     @RequestMapping(value = "/addCategory", method = RequestMethod.POST,
+
+    @RequestMapping(value = "/addCategory", method = RequestMethod.POST,
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public ResponseEntity addCategory(
-//            @RequestParam("productID") String productID,
-//            @RequestParam("detail") String detail,
-//            @RequestParam("cateID") String cateID
-    )
-    {
-//        if(productID.equals("") || detail.equals("") || cateID.equals("")){
-//             return new ResponseEntity("fail", HttpStatus.OK);
-//        }
-//        productService.updateSpecification(Integer.parseInt(productID), Integer.parseInt(cateID), detail);
+            @RequestParam("listSpec[]") List<String> listSpec,
+            @RequestParam("cateName") String cateName,
+            @RequestParam("selectType") int type) {
+        try {
+            Category category = new Category();
+            category.setCateName(cateName);
+            if (type == 1) {
+                category.setType(Boolean.TRUE);
+            } else {
+                category.setType(Boolean.FALSE);
+            }
+            List<SpecificationTitle> newlistSpec = new ArrayList<>();
+            SpecificationTitle specTitle = new SpecificationTitle();
+            for (String spec : listSpec) {
+                specTitle = new SpecificationTitle();
+                specTitle.setSpecName(spec);
+                specTitle.setCateID(category);
+                newlistSpec.add(specTitle);
+            }
+            System.out.println(newlistSpec);
+            category.setSpecificationTitleCollection(newlistSpec);
+            categoryService.save(category);
+        } catch (Exception e) {
+            System.out.println("ERROR in addCategory :" + e.getMessage());
+            return new ResponseEntity("fail", HttpStatus.OK);
+        }
 
         return new ResponseEntity("success", HttpStatus.OK);
     }
-    
-    
-    
 
+    @RequestMapping(value = "/deleteCategory/{id}", method = RequestMethod.POST,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity deleteCategory(@PathVariable("id") int id) {
+        try {
+            int check = productService.countByCateID(id);
+            if (check == 0) {
+                categoryService.remove(id);
+            } else {
+                return new ResponseEntity("reload", HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR in deleteCategory :" + e.getMessage());
+            return new ResponseEntity("fail", HttpStatus.OK);
+        }
+
+        return new ResponseEntity("success", HttpStatus.OK);
+    }
 
 }

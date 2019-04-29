@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <header class="main-header">
     <!-- Logo -->
     <a href="../../index2.html" class="logo">
@@ -22,15 +23,17 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="${pageContext.request.contextPath}/resources/adminsource/support_template/dist/img/user2-160x160.jpg" class="user-image" >
-                        <span class="hidden-xs">Alexander Pierce</span>
+
+                        <img src="<c:url value="/resources/adminsource/support_template/dist/img/user2-160x160.jpg"/>" class="user-image" alt="User Image">
+                        <span class="hidden-xs">${sessionScope.USER.fullname}</span>
+
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
                             <img src="<c:url value="/resources/adminsource/support_template/dist/img/user2-160x160.jpg"/>" class="img-circle" alt="User Image">
 
-                                 <p>
+                            <p>
                                 Alexander Pierce - Web Developer
                                 <small>Member since Nov. 2012</small>
                             </p>
@@ -82,7 +85,9 @@
                 <img src="<c:url value="/resources/adminsource/support_template/dist/img/user2-160x160.jpg"/>" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
+
+                <p>${sessionScope.USER.fullname}</p>
+
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
@@ -90,17 +95,36 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
+
+            <!--            <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-user-o"></i> <span>Admin</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                                <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                            </ul>
+                        </li>-->
+            <li>
+                <a href="${pageContext.request.contextPath}/manager/admin">
+                    <i class="fa fa-user-o"></i> <span>Admin</span>
+                </a>
+
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-user-o"></i> <span>Admin</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
+                    <i class="fa fa-user-o"></i> <span>Customer</span>
+                    <!--                    <span class="pull-right-container">
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </span>-->
                 </a>
-                <ul class="treeview-menu">
-                    <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                    <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-                </ul>
+                <!--                <ul class="treeview-menu">
+                                    <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                                    <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                                </ul>-->
+
             </li>
             <li>
                 <a href="${pageContext.request.contextPath}/manager/product">
@@ -113,16 +137,18 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="${pageContext.request.contextPath}/manager/order">
                     <i class="fa fa-book"></i> <span>Order</span>
-                    <small class="label pull-right bg-red">3</small>
-                    <small class="label pull-right bg-yellow">2</small>
-                    <small class="label pull-right bg-green">1</small>
+
+                    <!--                    <small class="label pull-right bg-red">3</small>
+                                        <small class="label pull-right bg-yellow">2</small>
+                                        <small class="label pull-right bg-green">1</small>-->
+
 
                 </a>
             </li>
             <li>
-                <a href="../widgets.html">
+                <a href="${pageContext.request.contextPath}/manager/storeinfo">
                     <i class="fa fa-info-circle"></i> <span>Store Information</span>
                     <span class="pull-right-container">
                         <!-- <small class="label pull-right bg-green">new</small> -->
@@ -130,14 +156,29 @@
                 </a>
             </li>
             <li>
-                <a href="../widgets.html">
+                <a href="${pageContext.request.contextPath}/manager/promotion">
                     <i class="fa fa-bullhorn"></i> <span>Promotion</span>
                 </a>
             </li>
             <li>
-                <a href="../widgets.html">
+                <a href="${pageContext.request.contextPath}/manager/banner">
                     <i class="fa fa-sliders"></i> <span>Banner</span>
                 </a>
+            </li>
+            <li>
+                <a href="${pageContext.request.contextPath}/manager/brand">
+                    <i class="fa fa-edit"></i> <span>Brand</span>
+                </a>
+            </li>
+
+            <li>
+
+                <form style="margin-left: 20px" action="<c:url value="/j_spring_security_logout" />" method="post">              
+                    <div class="form-group">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Logout" />
+                </form>
             </li>
 
         </ul>

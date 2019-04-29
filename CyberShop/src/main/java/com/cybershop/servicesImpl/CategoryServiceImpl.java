@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.cybershop.servicesImpl;
 
 import com.cybershop.daos.CategoryDAO;
@@ -54,6 +49,11 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CountProductByCateDTO> getCountproduct() {
         return  dao.getCountproduct();
     }
+
+//    @Override
+//    public int addCategory(String cateName, int type) {
+//        return dao.addCategory(cateName, type);
+//    }
 
  
 }

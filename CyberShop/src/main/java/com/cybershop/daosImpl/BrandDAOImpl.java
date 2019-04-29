@@ -1,6 +1,7 @@
 package com.cybershop.daosImpl;
 
 import com.cybershop.daos.BrandDAO;
+import com.cybershop.dto.CountProductByBrandDTO;
 import com.cybershop.models.Brand;
 import com.cybershop.models.Product;
 import com.cybershop.services.ProductService;
@@ -16,9 +17,9 @@ public class BrandDAOImpl implements BrandDAO {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     @Autowired
-    private ProductService service;
+    ProductService service;
 
     @Override
     public void create(Brand obj) {
@@ -42,22 +43,21 @@ public class BrandDAOImpl implements BrandDAO {
 
     @Override
     public Brand getById(int id) {
-        Brand brand = em.find(Brand.class, id);
-        Brand newBrand = new Brand();
-        if (brand != null) {
-            newBrand.setBrandID(brand.getBrandID());
-            newBrand.setBrandName(brand.getBrandName());
-            newBrand.setImageURL(brand.getImageURL());
-            List<Product> list = (List<Product>) brand.getProductCollection();
-            List<Product> newList = new ArrayList<>();
-            for (Product item : list) {
-                Product pro = service.findById(item.getProductID());
-                newList.add(pro);
-            }
-            newBrand.setProductCollection(newList);
-//            newBrand.setProductCollection(brand.getProductCollection());
+        return em.find(Brand.class, id);
+    }
+
+    @Override
+    public List<CountProductByBrandDTO> getCountproduct() {
+        List<Brand> list = em.createQuery("from Brand").getResultList();
+        List<CountProductByBrandDTO> listCount = new ArrayList<>();
+        CountProductByBrandDTO dto;
+        for (Brand item : list) {
+            dto = new CountProductByBrandDTO();
+            dto.setBrandID(item.getBrandID());
+            dto.setCount(service.countPdByBrandID(item.getBrandID()));
+            listCount.add(dto);
         }
-        return newBrand;
+        return listCount;
     }
 
 }

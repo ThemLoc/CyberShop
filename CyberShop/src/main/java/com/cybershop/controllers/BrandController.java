@@ -1,9 +1,8 @@
 package com.cybershop.controllers;
 
-import com.cybershop.models.Banner;
 import com.cybershop.models.Brand;
-import com.cybershop.models.Product;
 import com.cybershop.services.BrandService;
+import com.cybershop.services.ProductService;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -27,10 +26,14 @@ public class BrandController {
     @Autowired
     private BrandService service;
 
+    @Autowired
+    private ProductService productService;
+    
     @RequestMapping(method = RequestMethod.GET)
     private String list(Model model) {
         model.addAttribute("newBrand", new Brand());
         model.addAttribute("listBrand", service.getByAll());
+        model.addAttribute("count", service.getCountproduct());
         return "manager/brand/brandList";
     }
 
@@ -55,15 +58,13 @@ public class BrandController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     private String delete(@PathVariable("id") int id, RedirectAttributes ra) {
-        Brand abrand = service.findById(id);
-        System.out.println("abrand: " + abrand.getProductCollection());
-        if (abrand.getProductCollection().isEmpty()) {
-            service.remove(abrand.getBrandID());
+        int check = productService.countPdByBrandID(id);
+        if (check == 0) {
+            service.remove(id);
+            ra.addFlashAttribute("msg", "Delete Successful!");
         } else {
-            ra.addFlashAttribute("msg", "Can't delete this brand, because !");
+            ra.addFlashAttribute("msg", "Delete Fail!");
         }
-//        service.remove(abrand.getBrandID());
-        ra.addFlashAttribute("msg", "Deleted!");
         return "redirect:/manager/brand";
     }
 }

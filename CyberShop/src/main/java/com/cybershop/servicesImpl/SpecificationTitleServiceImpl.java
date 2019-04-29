@@ -52,6 +52,11 @@ public class SpecificationTitleServiceImpl implements SpecificationTitleService 
         return dao.getByCateID(id);
     }
 
+//    @Override
+//    public void addSpec(String specName, int cateID) {
+//        dao.addSpec(specName, cateID);
+//    }
+
    
     
 }

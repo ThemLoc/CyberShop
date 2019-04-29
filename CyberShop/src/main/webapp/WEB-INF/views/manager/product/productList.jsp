@@ -948,7 +948,8 @@
             }
 
             $('#btnUpdateImageModal').click(function (event) {
-                event.preventDefault();
+                alert(event);
+//                event.preventDefault();
                 var form = $('#fileUploadForm')[0];
                 var data = new FormData(form);
                 $.ajax({
@@ -958,7 +959,7 @@
                     processData: false,
                     contentType: false,
                     data: data,
-                    timeout: 600000,
+                    timeout: 100000,
                     success: function (result) {
                         //                        $('#updateOtherInfo').modal('hide');
                         //                        if (result === "success") {
@@ -1030,7 +1031,7 @@
                         id = 'l' + $(this).attr('id');
                         detail += $('#' + id).text() + "*";
                         detail += $(this).val() + "#";
-                        console.log(detail);
+//                        console.log(detail);
                     });
                     $("#modal_spec_detail").val(detail);
                     var cateID = $('#modal_cate_id').val();

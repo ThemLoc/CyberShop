@@ -72,7 +72,6 @@ public class CategoryDAOImpl implements CategoryDAO {
                 category.setCateName(item.getCateName());
                 category.setType(item.getType());
                 List<SpecificationTitle> listSPec = (List<SpecificationTitle>) specificationTitleService.getByCategory(item.getCateID());
-                System.out.println(listSPec);
                 if (listSPec != null) {
                     List<SpecificationTitle> newListSPec = new ArrayList<>();
                     SpecificationTitle st;
@@ -104,5 +103,14 @@ public class CategoryDAOImpl implements CategoryDAO {
         }
         return listCount;
     }
+
+//    @Override
+//    public int addCategory(String cateName,int type) {
+//       this.em.createQuery("INSERT INTO Category (CateName,Type) values (?,?)")
+//               .setParameter(1, cateName)
+//               .setParameter(2, type)
+//               .executeUpdate();
+//       return (int) this.em.createQuery("SELECT SCOPE_IDENTITY();]").getSingleResult();
+//    }
 
 }

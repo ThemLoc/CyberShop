@@ -158,7 +158,8 @@
                                                 <th>Sex</th>
                                                 <th>Status</th>
                                                 <th>Day of birth</th>
-                                                <th>Action</th>
+                                                <th></th>
+                                                <th></th>
                                             </tr>
                                         </thead>
 
@@ -187,16 +188,22 @@
                                                         </c:if>                                                       
                                                     </td>
                                                     <td>${a.dob}</td>
-                                                    <c:if test="${a.status == false}">
-                                                        <td>
 
+                                                    <c:if test="${a.adminID != sessionScope.USER.adminID}">
+
+                                                        <td>
+                                                            <a class="btn btn-danger"  href="${pageContext.request.contextPath}/manager/admin/delete/${a.adminID}/${a.status}" onclick="return confirm('Are you sure?');">change status</a>
+                                                        </td>
+                                                    </c:if>
+                                                    <c:if test="${a.adminID == sessionScope.USER.adminID}">
+
+                                                        <td>
+                                                            
                                                         </td>
                                                     </c:if>
                                                     <c:if test="${a.status == true}">
                                                         <td>
                                                             <a class="btn btn-warning"  href="${pageContext.request.contextPath}/manager/admin/edit/${a.adminID}">Edit</a> 
-                                                            <a class="btn btn-danger"  href="${pageContext.request.contextPath}/manager/admin/delete/${a.adminID}">Delete</a>
-
                                                         </td>
                                                     </c:if>
 
@@ -312,27 +319,27 @@
         <script src="<c:url value="/resources/adminsource/support_template/dist/js/demo.js" />" type="text/javascript"></script>
         <!-- page script -->
         <script>
-                $(function () {
-                    $('#example1').DataTable()
-                    $('#example2').DataTable({
-                        'paging': true,
-                        'lengthChange': false,
-                        'searching': false,
-                        'ordering': true,
-                        'info': true,
-                        'autoWidth': false
-                    })
-                })
+                                                                $(function () {
+                                                                    $('#example1').DataTable()
+                                                                    $('#example2').DataTable({
+                                                                        'paging': true,
+                                                                        'lengthChange': false,
+                                                                        'searching': false,
+                                                                        'ordering': true,
+                                                                        'info': true,
+                                                                        'autoWidth': false
+                                                                    })
+                                                                })
 
 
-                $(document).ready(function () {
-                    $("#btnAdd").click(function () {
-                        $("#form").toggle();
-                    });
-                });
-                //                function ConfirmEmail(){
-                //                    $("#checkEmail").modal("show");
-                //                }
+                                                                $(document).ready(function () {
+                                                                    $("#btnAdd").click(function () {
+                                                                        $("#form").toggle();
+                                                                    });
+                                                                });
+                                                                //                function ConfirmEmail(){
+                                                                //                    $("#checkEmail").modal("show");
+                                                                //                }
         </script>
     </body>
 </html>
