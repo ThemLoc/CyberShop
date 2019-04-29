@@ -43,7 +43,7 @@
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
-                 <h4 style="color: red">{err}</h4>
+                 <h4 style="color: red">${err}</h4>
 
                 <!-- Add Product -->
                 <section class="content-header">

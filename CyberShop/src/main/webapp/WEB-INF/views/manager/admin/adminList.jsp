@@ -41,16 +41,9 @@
             }
         </style>
     </head>
-    <body class="hold-transition skin-blue sidebar-mini" onload="notifi()">
+    <body class="hold-transition skin-blue sidebar-mini">
 
 
-        <c:if test="${msg != null}">
-            <script>
-                function notifi() {
-                    window.alert(${msg});
-                }
-            </script>
-        </c:if>
         <div class="wrapper">
 
             <%@include file="../home/header.jsp" %>
@@ -67,7 +60,7 @@
                                 <div class="box-body">
                                     <div class="col-xs-8">
                                         <button id="btnAdd" type="button" class="btn btn-danger">+ Add Admin </button>
-                                        <!-- form start -->
+
 
                                         <sf:form id="form" method="POST" action="${pageContext.request.contextPath}/manager/admin/save" role="form" style="display: none" modelAttribute="adminForm">
                                             <div class="box-body">
@@ -118,10 +111,10 @@
 
 
                                             </div>
-                                            <!-- /.box-body -->
+
 
                                             <div class="box-footer">
-                                                <!--                                            <a onclick="ConfirmEmail()" style="cursor: pointer" class="btn btn-danger">Conform Email</a>-->
+<!--                                                <a onclick="ConfirmEmail()" style="cursor: pointer" class="btn btn-danger">Conform Email</a>-->
                                                 <button type="submit" class="btn btn-primary">Submit</button>
                                             </div>
                                         </sf:form>
@@ -131,8 +124,7 @@
                         </div>
                     </div>
                 </section>
-                <!-- Add Product -->
-                <!-- Content Header (Page header) -->
+
                 <section class="content-header">
                     <h1>Admin Tables</h1>
 
@@ -198,7 +190,7 @@
                                                     <c:if test="${a.adminID == sessionScope.USER.adminID}">
 
                                                         <td>
-                                                            
+
                                                         </td>
                                                     </c:if>
                                                     <c:if test="${a.status == true}">
@@ -229,77 +221,7 @@
 
 
         </div>
-        <!-- ./wrapper -->
 
-        <!-- Update modal -->
-        <!--        <div class="modal fade col-xs-4"  id="checkEmail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="vertical-alignment-helper">
-                        <div class="modal-dialog vertical-align-center">
-        
-                            <div class="modal-content">
-                                <form id="form" role="form" action="simple.html">
-        
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-        
-                                        </button>
-                                        <h4 class="modal-title" id="myModalLabel">Xác Thực Email </h4>
-        
-                                    </div>
-                                    <div class="modal-body">
-        
-                                        <div class="box-body">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Code Confirm: </label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Code">
-                                            </div>
-                                            
-                                        </div>
-                                         
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </form>
-        
-                            </div>
-        
-                        </div>
-                    </div>
-                </div>-->
-
-        <!--/Update modal -->
-
-        <!-- Delete modal -->
-        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="vertical-alignment-helper">
-                <div class="modal-dialog vertical-align-center">
-
-                    <div class="modal-content">
-                        <form id="form" role="form" action="simple.html">
-
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">Delete product</h4>
-
-                            </div>
-                            <div class="modal-body">
-                                Are you sure delete this product ?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Delete</button>
-                            </div>
-                        </form>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
 
         <!--/Delete modal -->
         <!-- jQuery 3 -->
