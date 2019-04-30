@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.cybershop.servicesImpl;
 
 import com.cybershop.daos.BrandDAO;
+import com.cybershop.dto.CountProductByBrandDTO;
 import com.cybershop.models.Brand;
 import com.cybershop.services.BrandService;
 import java.util.List;
@@ -41,6 +37,12 @@ public class BrandServiceImpl implements BrandService{
     @Override
     public List<Brand> getByAll() {
         return dao.getAll();
+    }
+
+    @Transactional
+    @Override
+    public List<CountProductByBrandDTO> getCountproduct() {
+        return dao.getCountproduct();
     }
     
 }

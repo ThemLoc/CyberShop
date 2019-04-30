@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.cybershop.servicesImpl;
 
 import com.cybershop.daos.ProductDAO;
@@ -70,13 +65,17 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     @Override
     public int countByCateID(int cateID) {
-        
         return dao.countPdByCateID(cateID);
     }
 
     @Override
     public List<Product> findTop6ProductWithCateID(int cateID) {
         return dao.findTop6ProductWithCateID(cateID);
+
+    @Transactional
+    @Override
+    public int countPdByBrandID(int brandID) {
+        return dao.countPdByBrandID(brandID);
     }
 
 }

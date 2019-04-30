@@ -1,5 +1,6 @@
 package com.cybershop.daos;
 
+import com.cybershop.dto.CountProductByBrandDTO;
 import com.cybershop.models.Brand;
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface BrandDAO {
     List<Brand> getAll();
 
     Brand getById(int id);
+    
+    List<CountProductByBrandDTO> getCountproduct();
 }

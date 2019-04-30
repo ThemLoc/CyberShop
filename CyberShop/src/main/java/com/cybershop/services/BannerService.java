@@ -13,8 +13,12 @@ import java.util.List;
  * @author chungnguyen
  */
 public interface BannerService {
-     void save(Banner obj);
+
+    void save(Banner obj);
+
     void remove(int id);
+
     Banner findById(int id);
+
     List<Banner> getByAll();
 }

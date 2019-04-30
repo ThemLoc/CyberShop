@@ -9,7 +9,7 @@ public interface AdminDAO {
 
     void update(Admin obj);
 
-    void delete(int id);
+    void delete(int id, boolean status);
 
     List<Admin> getAll();
 

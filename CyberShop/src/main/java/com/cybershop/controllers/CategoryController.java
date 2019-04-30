@@ -33,5 +33,4 @@ public class CategoryController {
         model.addAttribute("count", categoryService.getCountproduct());
         return "manager/category/category_page";
     }
-   
 }

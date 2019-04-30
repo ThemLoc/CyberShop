@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <header class="main-header">
     <!-- Logo -->
     <a href="../../index2.html" class="logo">
@@ -23,7 +24,7 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="<c:url value="/resources/adminsource/support_template/dist/img/user2-160x160.jpg"/>" class="user-image" alt="User Image">
-                             <span class="hidden-xs">${sessionScope.USER.username}</span>
+                             <span class="hidden-xs">${sessionScope.USER.fullname}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
@@ -80,7 +81,7 @@
                 <img src="<c:url value="/resources/adminsource/support_template/dist/img/user2-160x160.jpg"/>" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>${sessionScope.USER.username}</p>
+                <p>${sessionScope.USER.fullname}</p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
@@ -88,19 +89,19 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
-<!--            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-user-o"></i> <span>Admin</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                    <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-                </ul>
-            </li>-->
-             <li>
+            <!--            <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-user-o"></i> <span>Admin</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                                <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                            </ul>
+                        </li>-->
+            <li>
                 <a href="${pageContext.request.contextPath}/manager/admin">
                     <i class="fa fa-user-o"></i> <span>Admin</span>
                 </a>
@@ -119,9 +120,9 @@
             <li>
                 <a href="${pageContext.request.contextPath}/manager/order">
                     <i class="fa fa-book"></i> <span>Order</span>
-<!--                    <small class="label pull-right bg-red">3</small>
-                    <small class="label pull-right bg-yellow">2</small>
-                    <small class="label pull-right bg-green">1</small>-->
+                    <!--                    <small class="label pull-right bg-red">3</small>
+                                        <small class="label pull-right bg-yellow">2</small>
+                                        <small class="label pull-right bg-green">1</small>-->
 
                 </a>
             </li>
@@ -144,9 +145,13 @@
                 </a>
             </li>
             <li>
-                <a href="${pageContext.request.contextPath}/logout">
-                    <i></i> <span>Logout</span>
-                </a>
+
+                <form style="margin-left: 20px" action="<c:url value="/j_spring_security_logout" />" method="post">              
+                    <div class="form-group">
+                      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Logout" />
+                </form>
             </li>
         </ul>
     </section>
