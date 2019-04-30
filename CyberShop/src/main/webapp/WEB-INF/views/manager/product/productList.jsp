@@ -948,8 +948,7 @@
             }
 
             $('#btnUpdateImageModal').click(function (event) {
-                alert(event);
-//                event.preventDefault();
+                event.preventDefault();
                 var form = $('#fileUploadForm')[0];
                 var data = new FormData(form);
                 $.ajax({

@@ -14,6 +14,9 @@ public interface SpecificationTitleDAO {
     List<SpecificationTitle> getAll();
 
     SpecificationTitle getById(int id);
+
     List<SpecificationTitle> getByCateID(int id);
+
+    void deleteByCateID(int cateID);
 //    void addSpec(String specName,int cateID);
 }

@@ -33,4 +33,6 @@ public interface ProductService {
     int countPdByBrandID(int brandID);
 
     List<Product> findProductNotInBanner();
+    
+    List<Product> findTop6ProductWithCateID(int cateID);
 }

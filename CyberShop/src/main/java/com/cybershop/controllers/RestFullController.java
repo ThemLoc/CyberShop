@@ -255,7 +255,6 @@ public class RestFullController {
                 specTitle.setCateID(category);
                 newlistSpec.add(specTitle);
             }
-            System.out.println(newlistSpec);
             category.setSpecificationTitleCollection(newlistSpec);
             categoryService.save(category);
         } catch (Exception e) {
@@ -285,4 +284,57 @@ public class RestFullController {
         return new ResponseEntity("success", HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/getCategoryByIDWithSpec/{id}", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity getCategoryByIDWithSpec(@PathVariable("id") int id) {
+        Category category = new Category();
+        try {
+            category = categoryService.findById(id);
+            List<SpecificationTitle> listSpec = specificationTitleService.getByCategory(id);
+            category.setSpecificationTitleCollection(listSpec);
+        } catch (Exception e) {
+            System.out.println("ERROR in deleteCategory :" + e.getMessage());
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity(category, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/updateCategory", method = RequestMethod.POST,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity updateCategory(
+            @RequestParam("listSpec[]") List<String> listSpec,
+            @RequestParam("cateName") String cateName,
+            @RequestParam("selectType") int type,
+            @RequestParam("cateID") int cateID) {
+        try {
+            Category category = new Category();
+            category.setCateName(cateName);
+            category.setCateID(cateID);
+            if (type == 1) {
+                category.setType(Boolean.TRUE);
+            } else {
+                category.setType(Boolean.FALSE);
+            }
+            List<SpecificationTitle> newlistSpec = new ArrayList<>();
+            SpecificationTitle specTitle = new SpecificationTitle();
+            for (String spec : listSpec) {
+                specTitle = new SpecificationTitle();
+                specTitle.setSpecName(spec);
+                specTitle.setCateID(category);
+                newlistSpec.add(specTitle);
+            }
+            System.out.println(newlistSpec);
+            category.setSpecificationTitleCollection(newlistSpec);
+            specificationTitleService.removeByCateID(cateID);
+            categoryService.save(category);
+        } catch (Exception e) {
+            System.out.println("===========> ERROR in UpdateCategory :" + e.getMessage());
+            return new ResponseEntity("fail", HttpStatus.OK);
+        }
+
+        return new ResponseEntity("success", HttpStatus.OK);
+    }
 }

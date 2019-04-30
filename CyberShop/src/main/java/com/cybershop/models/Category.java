@@ -51,7 +51,7 @@ public class Category implements Serializable {
     private Collection<Product> productCollection;
     
     @OneToMany(mappedBy = "cateID", cascade = CascadeType.ALL)
-    @JsonIgnore
+//    @JsonIgnore
     private Collection<SpecificationTitle> specificationTitleCollection;
 
     public Category() {

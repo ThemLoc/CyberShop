@@ -47,6 +47,7 @@ public class SpecificationTitleServiceImpl implements SpecificationTitleService 
         return dao.getAll();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<SpecificationTitle> getByCategory(int id) {
         return dao.getByCateID(id);
@@ -56,6 +57,12 @@ public class SpecificationTitleServiceImpl implements SpecificationTitleService 
 //    public void addSpec(String specName, int cateID) {
 //        dao.addSpec(specName, cateID);
 //    }
+
+    @Transactional
+    @Override
+    public void removeByCateID(int cateID) {
+        dao.deleteByCateID(cateID);
+    }
 
    
     

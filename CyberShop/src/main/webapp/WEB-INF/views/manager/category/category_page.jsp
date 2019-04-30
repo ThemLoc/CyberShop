@@ -44,7 +44,6 @@
                                             </div>
                                             <label>Specification Title</label>
                                             <div class="input-group control-group after-add-more">
-
                                                 <input type="text" name="addmore" class="form-control inputSpec" placeholder="Enter Specification" required>
                                                 <div class="input-group-btn"> 
                                                     <button class="btn btn-success add-more " type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
@@ -114,7 +113,7 @@
                                                     </c:forEach>
 
                                                     <td>
-                                                        <button class="btn btn-danger">Update</button>
+                                                        <button onclick="getByCateID(${cate.cateID})" class="btn btn-warning" data-toggle="modal" data-target="#updateModel">Update</button>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -178,7 +177,7 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                             </button>
-                            <h4 class="modal-title" id="myModalLabel">Disable product</h4>
+                            <h4 class="modal-title" id="myModalLabel">Delete Category</h4>
                         </div>
                         <div class="modal-body">
                             Are you sure delete this product ?
@@ -213,13 +212,63 @@
                 </div>
             </div>
         </div>
+        <!-- Update category modal -->
+        <div class="modal fade" id="updateModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="vertical-alignment-helper">
+                <div class="modal-dialog vertical-align-center" >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">Update Category</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="showCateNameAndType">
+
+                            </div>
+                            <div class="input-group-btn">
+                                <button class="btn btn-success add-more-modal" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                            </div>
+                            <div id="showSpecModal">
+
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button id="btnSubmitUpdate" onclick="" type="button" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <%@include file="/WEB-INF/views/fragment/footer.jsp" %>
 
         <script type="text/javascript">
 
+            //Add Remove input auto in Update category
+            $(document).ready(function () {
+                $(".add-more-modal").click(function () {
+                    var html = "";
+                    html += '<div class="control-group input-group" style="margin-top:10px">';
+                    html += '<input type="text" name="addmore" class="form-control inputSpecModal" placeholder="Enter Specification"" required>';
+                    html += '<div class="input-group-btn"> ';
+                    html += '<button class="btn btn-danger remove-modal" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += ' </div>';
+                    $(".after-add-more-modal").after(html);
+                });
+
+
+                $("body").on("click", ".remove-modal", function () {
+                    $(this).parents(".control-group").remove();
+                });
+            });
+
+            //Add Remove input auto in Add category
             $(document).ready(function () {
                 $(".add-more").click(function () {
-//                    var html = $(".copy").html();
                     var html = "";
                     html += '<div class="control-group input-group" style="margin-top:10px">';
                     html += '<input type="text" name="addmore" class="form-control inputSpec" placeholder="Enter Specification"" required>';
@@ -235,10 +284,9 @@
                 $("body").on("click", ".remove", function () {
                     $(this).parents(".control-group").remove();
                 });
-
-
             });
 
+            //Table category
             $(function () {
                 $('#tableCategory').DataTable({
                     'paging': true,
@@ -250,12 +298,14 @@
                 });
             });
 
+            //Tohhle Add button
             $(document).ready(function () {
                 $("#showFormAddCategory").click(function () {
                     $("#divAdd").toggle();
                 });
             });
 
+            //Validate + Submit add
             $(document).ready(function () {
                 $('#btnSubmitAdd').click(function (e) {
                     e.preventDefault();
@@ -268,12 +318,6 @@
                         $('#cateNameInput').css({"border": ""});
                     }
                     var selectType = $('#selectType').val();
-                    if (cateName === "") {
-                        $('#cateNameInput').css({"border": "1px solid red"});
-                        check = false;
-                    } else {
-                        $('#cateNameInput').css({"border": ""});
-                    }
                     var listSpec = [];
                     $(".inputSpec").each(function () {
                         if ($(this).val() === "") {
@@ -303,6 +347,10 @@
                                 } else {
                                     html += "<span style='color:red'>Update fail!</span";
                                 }
+                            }
+                            ,
+                            error: function (e) {
+                                console.log("ERROR: ", e);
                             },
                             complete: function () {
                                 $('#alertADDModalBody').html(html);
@@ -315,14 +363,17 @@
                 });
             });
 
+            //Reload page after add
             $('#btnCloseReload').click(function () {
                 location.reload();
             });
+
+            //show confirm before delete
             function showConfirm(cateID) {
                 var func = 'deleteCategory(' + cateID + ')';
                 $('#btnDeleteCategory').attr('onclick', func);
             }
-
+            //Delete category
             function deleteCategory(cateID) {
                 var html = "";
                 $.ajax({
@@ -340,13 +391,137 @@
                             html += "<span style='color:red'>Delete fail!</span";
                         }
                     },
+                    error: function (e) {
+                        console.log("ERROR: ", e);
+                    },
                     complete: function () {
                         $('#deleteModel').modal('hide');
                         $('#alertDELETEmodalBody').html(html);
-                        $('#alertDELETEmodal').modal('show')
+                        $('#alertDELETEmodal').modal('show');
                     }
                 });
             }
+
+            //get Cate and Spec by ID to push in modal
+            function getByCateID(cateID) {
+                html = "";
+                html2 = "";
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json",
+                    url: "${pageContext.request.contextPath}/api/getCategoryByIDWithSpec/" + cateID,
+                    dataType: 'json',
+                    timeout: 100000,
+                    success: function (result) {
+                        html2 += '<div>';
+                        html2 += '<label>Type</label>';
+                        html2 += '<select id="selectTypeModal" class="form-control">';
+                        if (result['type'] === true) {
+                            html2 += '<option value="1" selected>Linh kiện</option>';
+                            html2 += '<option value="0">Phụ kiện</option>';
+                        } else {
+                            html2 += '<option value="1" Linh kiện</option>';
+                            html2 += '<option value="0" selected>Phụ kiện</option>';
+                        }
+                        html2 += '<option value="0">Phụ kiện</option>';
+
+                        html2 += '</select>';
+                        html2 += '<br>';
+                        html2 += '</div>';
+                        html2 += '<input type="hidden" id="cateIDInputModal" value="' + result['cateID'] + '"><br/>';
+                        html2 += '<label>Category Name</label>';
+                        html2 += '<input type="text" id="cateNameInputModal" class="form-control" placeholder="Enter Category Name" value="' + result['cateName'] + '" required><br/>';
+                        html2 += '<label>Specification Title</label>';
+
+
+                        var listSpec = result['specificationTitleCollection'];
+
+                        html += '<div class="input-group control-group after-add-more-modal">';
+                        html += '</div>';
+
+
+                        for (var i = 0; i < listSpec.length; i++) {
+
+                            html += '<div class="control-group input-group" style="margin-top:10px">';
+                            html += '<input type="text" name="addmoreModal" class="form-control inputSpecModal" placeholder="Enter Specification" required value="' + listSpec[i]['specName'] + '">';
+                            html += '<div class="input-group-btn"> ';
+                            html += '<button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>';
+                            html += '</div>';
+                            html += '</div>';
+                        }
+                        $('#showCateNameAndType').html(html2);
+                        $('#showSpecModal').html(html);
+                    },
+                    error: function (e) {
+                        console.log("ERROR: ", e);
+                    }
+                });
+
+            }
+
+            //Validate + update category
+            $(document).ready(function () {
+                $('#btnSubmitUpdate').click(function (e) {
+                    e.preventDefault();
+                    var check = true;
+                    var cateName = $('#cateNameInputModal').val();
+                    var cateID = $('#cateIDInputModal').val();
+                    if (cateName === "") {
+                        $('#cateNameInputModal').css({"border": "1px solid red"});
+                        check = false;
+                    } else {
+                        $('#cateNameInputModal').css({"border": ""});
+                    }
+                    var selectType = $('#selectTypeModal').val();
+                    var listSpec = [];
+                    $(".inputSpecModal").each(function () {
+                        if ($(this).val() === "") {
+                            check = false;
+                            $(this).css({"border": "1px solid red"});
+                        } else {
+                            listSpec.push($(this).val());
+                            $(this).css({"border": ""});
+                        }
+                    });
+                    console.log(listSpec);
+                    console.log(selectType);
+                    console.log(cateName);
+                    console.log(cateID);
+                    if (check) {
+                        var html = "";
+                        $.ajax({
+                            url: "${pageContext.request.contextPath}/api/updateCategory",
+                            type: "POST",
+                            data: {
+                                cateID: cateID,
+                                cateName: cateName,
+                                listSpec: listSpec,
+                                selectType: selectType
+                            },
+                            dataType: 'text',
+                            cache: false,
+                            success: function (result) {
+                                if (result === 'success') {
+                                    html += "<h3 style='color:green'>Update Success!</h3";
+                                } else {
+                                    html += "<span style='color:red'>Update fail!</span";
+                                }
+                            },
+                            error: function (e) {
+                                console.log("ERROR: ", e);
+                            },
+                            complete: function () {
+                                $('#updateModel').modal('hide');
+                                $('#alertADDModalBody').html(html);
+                                $('#alertADDModal').modal('show');
+                            }
+                        });
+                    }
+
+
+                });
+            });
+
         </script>
 
     </body>

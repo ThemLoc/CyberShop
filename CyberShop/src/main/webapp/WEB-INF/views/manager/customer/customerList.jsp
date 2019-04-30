@@ -36,14 +36,8 @@
         <!--modify css-->
         <link href="<c:url value="/resources/adminsource/support_template/stylemodify.css" />" rel="stylesheet">
     </head>
-    <body class="hold-transition skin-blue sidebar-mini" onload="notifi()">
-        <c:if test="${msg != null}">
-            <script>
-                function notifi() {
-                    window.alert(${msg});
-                }
-            </script>
-        </c:if>
+    <body class="hold-transition skin-blue sidebar-mini">
+       
         <div class="wrapper">
 
             <%@include file="../home/header.jsp" %>
@@ -90,7 +84,8 @@
                                                 <th>Day of Birth</th>
                                                 <th>Date Registration</th>
                                                 <th>Status</th>
-                                                <th>Action</th>
+                                                <th></th>
+                                               
                                             </tr>
                                         </thead>
 
@@ -132,7 +127,9 @@
 
                                                     <td>
                                                         <a class="btn btn-warning"  href="${pageContext.request.contextPath}/manager/customer/status/${a.customerID}/${a.status}" onclick="return confirm('Are you sure?');">Change status</a> 
-                                                        <a class="btn btn-warning"  href="${pageContext.request.contextPath}/manager/order/getbyCus/${a.customerID}">view Order </a> 
+                                                        <br/>
+                                                        <br/>
+                                                        <a class="btn btn-danger"  href="${pageContext.request.contextPath}/manager/order/getbyCus/${a.customerID}">view Order </a> 
 
                                                     </td>
                                                 </tr>
