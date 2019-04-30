@@ -31,4 +31,6 @@ public interface ProductService {
     int countByCateID(int cateID);
 
     List<Product> findProductNotInBanner();
+    
+    List<Product> findTop6ProductWithCateID(int cateID);
 }

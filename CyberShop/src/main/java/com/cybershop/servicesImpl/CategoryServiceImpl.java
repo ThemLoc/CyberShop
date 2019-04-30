@@ -23,7 +23,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     @Override
     public void save(Category obj) {
-        dao.create(obj);
+        if(obj.getCateID() == null){
+                    dao.create(obj);
+        }else{
+            dao.update(obj);
+        }
     }
 
     @Transactional
@@ -50,6 +54,7 @@ public class CategoryServiceImpl implements CategoryService {
         return dao.getAllWithSpec();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<CountProductByCateDTO> getCountproduct() {
         return  dao.getCountproduct();
@@ -59,6 +64,7 @@ public class CategoryServiceImpl implements CategoryService {
 //    public int addCategory(String cateName, int type) {
 //        return dao.addCategory(cateName, type);
 //    }
+
 
  
 }

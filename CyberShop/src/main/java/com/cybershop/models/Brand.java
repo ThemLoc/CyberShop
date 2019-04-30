@@ -103,7 +103,7 @@ public class Brand implements Serializable {
 
     @Override
     public String toString() {
-        return "Brand{" + "brandID=" + brandID + ", imageURL=" + imageURL + ", brandName=" + brandName + ", productCollection=" + productCollection + '}';
+        return "Brand{" + "brandID=" + brandID + ", imageURL=" + imageURL + ", brandName=" + brandName ;
     }
 
 }

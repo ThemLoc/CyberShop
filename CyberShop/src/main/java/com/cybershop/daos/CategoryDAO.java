@@ -20,4 +20,5 @@ public interface CategoryDAO {
     
     List<CountProductByCateDTO> getCountproduct();
 //    int addCategory(String cateName,int type);
+    
 }

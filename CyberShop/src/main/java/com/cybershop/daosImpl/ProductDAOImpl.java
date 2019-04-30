@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import com.cybershop.daos.ProductDAO;
 import com.cybershop.models.Banner;
+import com.cybershop.models.Category;
 import com.cybershop.models.Image;
 import com.cybershop.services.BannerService;
 import com.cybershop.services.ProductService;
@@ -18,10 +19,10 @@ public class ProductDAOImpl implements ProductDAO {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     @Autowired
     private ProductService proService;
-    
+
     @Autowired
     private BannerService banService;
 
@@ -59,7 +60,13 @@ public class ProductDAOImpl implements ProductDAO {
         dto.setBrandID(product.getBrandID());
         dto.setDownPrice(product.getDownPrice());
         dto.setDetail(product.getDetail());
-        dto.setCategoryID(product.getCategoryID());
+        Category category = product.getCategoryID();
+        Category category1 = new Category();
+        category1.setCateID(category.getCateID());
+        category1.setCateName(category.getCateName());
+        category1.setType(category.getType());
+        dto.setCategoryID(category1);
+
         List<Image> listImages = (List<Image>) product.getImagesCollection();
         List<Image> newList;
         if (!listImages.isEmpty()) {
@@ -121,11 +128,10 @@ public class ProductDAOImpl implements ProductDAO {
         long resultL = (long) this.em.createQuery("Select COUNT(categoryID) from Product where CategoryID = ?")
                 .setParameter(1, cateID)
                 .getSingleResult();
-        int resultInt = (int)resultL;
+        int resultInt = (int) resultL;
         return resultInt;
     }
 
-  
     public List<Product> getProductNotInBanner() {
         List<Product> list = em.createQuery("from Product").getResultList();
         List<Product> newList = new ArrayList<>();
@@ -144,6 +150,20 @@ public class ProductDAOImpl implements ProductDAO {
             }
         }
         return newList;
+    }
+
+    @Override
+    public List<Product> findTop6ProductWithCateID(int cateID) {
+        List<Product> listPro = this.em.createQuery("from Product where CategoryID = ? and Status = 1 order by ProductID DESC")
+                .setParameter(1, cateID).getResultList();
+        List<Product> newListPro = new ArrayList<>();
+        Product newpProduct;
+        for (Product product : listPro) {
+//            newpProduct = new Product();
+            newpProduct = proService.findById(product.getProductID());
+            newListPro.add(newpProduct);
+        }
+        return newListPro;
     }
 
 }

@@ -74,4 +74,9 @@ public class ProductServiceImpl implements ProductService {
         return dao.countPdByCateID(cateID);
     }
 
+    @Override
+    public List<Product> findTop6ProductWithCateID(int cateID) {
+        return dao.findTop6ProductWithCateID(cateID);
+    }
+
 }

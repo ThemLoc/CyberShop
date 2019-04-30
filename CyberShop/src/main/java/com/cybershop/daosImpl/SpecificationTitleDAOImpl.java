@@ -54,4 +54,9 @@ public class SpecificationTitleDAOImpl implements SpecificationTitleDAO {
 //
 //    }
 
+    @Override
+    public void deleteByCateID(int cateID) {
+        this.em.createQuery("Delete from SpecificationTitle where CateID = ?").setParameter(1, cateID).executeUpdate();
+    }
+
 }

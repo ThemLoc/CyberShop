@@ -1,444 +1,182 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Product Page - Ustora Demo</title>
-
-        <!-- Google Fonts -->
-        <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
-
-        <!-- Bootstrap -->
-        <link href="<c:url value="/resources/websource/css/bootstrap.min.css" />" rel="stylesheet">
-        <!-- Font Awesome -->
-        <link href="<c:url value="/resources/websource/css/font-awesome.min.css" />" rel="stylesheet">
-        <!-- Custom CSS -->
-        <link href="<c:url value="/resources/websource/css/owl.carousel.css" />" rel="stylesheet">
-        <link href="<c:url value="/resources/websource/style.css" />" rel="stylesheet">
-        <link href="<c:url value="/resources/websource/css/responsive.css" />" rel="stylesheet">
-        <link href="<c:url value="/resources/websource/css/modify.css" />" rel="stylesheet">
-        <link href="<c:url value="/resources/websource/img/c_icon.png" />" rel="icon">
-
-
+        <%@include file="/WEB-INF/views/website/fragment/css.jsp" %>
     </head>
     <body>
-
-        <div class="header-area">
+        <%@include file="/WEB-INF/views/website/fragment/webHeader.jsp" %>
+        <div class="single-product-area">
+            <div class="zigzag-bottom"></div>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-7">
-                        <div class="user-menu">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-user"></i> Tài khoản</a></li>
-                                <li><a href="#"><i class="fa fa-heart"></i> Danh sách yêu thích</a></li>
-                                <li><a href="#"><i class="fa fa-user"></i> Đăng nhập</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="user-menu">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-phone"></i> 0964 303 637</a></li>
-                                <li><a href="#"><i class="fa fa-location-arrow"></i> Innovation Building - Quang Trung Software City</a></li>
-                            </ul>
-                        </div>
-                    </div>
 
-                </div>
-            </div>
-        </div> <!-- End header area -->
+                    <div class="col-md-12">
+                        <div class="product-content-right">
+                            </br>
+                            <div class="row">
+                                <div class="col-sm-5">
 
-        <div class="site-branding-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="logo">
-                            <h1><a href="index.html"><img src="<c:url value="/resources/websource/img/logo.jpg"/>"></a></h1>
-                        </div>
-                    </div>
-                    <div class="col-sm-7" id="test">
-                        <div class="btn-group" >
-                            <button  type="button" class="btn btn-primary dropdown-toggle category" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Categories
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Thuơng hiệu</a>
-                                <br/>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
-                            </div>
-                        </div>
-                        <div class="test">
-                            <form class="search">
-                                <input class="inputSearch"  type="text" placeholder="Tìm kiếm.." name="search" />
-                                <button type="submit"><i  class="fa fa-search"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="shopping-item">
-                            <a href="cart.html">Giỏ hàng<span class="cart-amunt"></span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
-                        </div>
-                    </div>
-                </div>
+                                    <c:forEach var="lImg" items="${product.imagesCollection}">
+                                        <c:if test="${lImg.mainImage == true}" >
+                                            <img class="mySlides" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;height: 400px">
+                                        </c:if>
+                                        <c:if test="${lImg.mainImage == false}" >  
+                                            <img class="mySlides" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100% ;height: 400px;display:none">
+                                        </c:if>
 
-            </div>
-        </div>
-    </div> <!-- End site branding area -->
+                                    </c:forEach>
 
-    <div class="mainmenu-area">
-        <div class="container">
-            <div class="row">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div> 
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active" ><a href="index.html">TRANG CHỦ</a></li>
-                        <li class="active">
-                            <div class="dropdown">
-                                <button  class="dropbtn">LINH KIỆN MÁY TÍNH</button>
-                                <div class="dropdown-content">
-                                    <a href="#">Bộ xử lí - CPU</a>
-                                    <a href="#">Bo mạnh - Mainboard</a>
-                                    <a href="#">RAM</a>
-                                    <a href="#">Card màn hình - VGA</a>
-                                    <a href="#">Vỏ - Case</a>
-                                    <a href="#">Tản nhiệt</a>
-                                    <a href="#">Tản nhiệt</a>
-                                    <a href="#">Linh kiện khác</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="active">
-                            <div class="dropdown">
-                                <button  class="dropbtn">THƯƠNG HIỆU</button>
-                                <div class="dropdown-content">
-                                    <a href="#">Intel</a>
-                                    <a href="#">AMD</a>
-                                    <a href="#">Asus</a>
-                                    <a href="#">Gigabyte</a>
-                                    <a href="#">MSI</a>
-                                    <a href="#">EVGA</a>
-                                    <a href="#">Palit</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="active">
-                            <div class="dropdown">
-                                <button  class="dropbtn">Ổ CỨNG</button>
-                                <div class="dropdown-content">
-                                    <a href="#">Ổ cứng HĐ</a>
-                                    <a href="#">Ổ cứng SSD</a>
-                                    <a href="#">Ổ cứng laptop</a>
-                                    <a href="#">Ổ cúng di động</a>
-                                    <a href="#">Ổ ứng Intel Optance</a>
-                                    <a href="#">Phụ kiện ở cứng</a>
-                                    <a href="#">Xem tất cả </a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="active">
-                            <div class="dropdown">
-                                <button  class="dropbtn">PHỤ KIỆN MÁY TÍNH</button>
-                                <div class="dropdown-content">
-                                    <a href="#">Chuột gaming</a>
-                                    <a href="#">Bàn phím gaming</a>
-                                    <a href="#">Tay game</a>
-                                    <a href="#">Tai nghe gaming</a>
-                                    <a href="#">Tai nghe bluetooth</a>
-                                    <a href="#">Tai nghe phiỉ tông</a>
-                                    <a href="#">Chuột văn phòng</a>
-                                    <a href="#">Bàn phím văn phòng</a>
-                                    <a href="#">Phụ kiện ở cứng</a>
-                                    <a href="#">Loa vi tính</a>
-                                    <a href="#">Loa bluetooth</a>
-                                    <a href="#">Xem tất cả </a>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li><a href="#">HÀNG TRƯNG BÀY</a></li>
-                        <li><a href="#">KHUYẾN MẠI</a></li>
-                        <li><a href="#">LIÊN HỆ</a></li>
-                    </ul>
-                </div>  
-            </div>
-        </div>
-    </div> <!-- End mainmenu area -->
-
-    <div class="single-product-area">
-        <div class="zigzag-bottom"></div>
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-12">
-                    <div class="product-content-right">
-                        <div class="product-breadcroumb">
-                            <a href="">Home</a>
-                            <a href="">Sản phẩm</a>
-                            <a href="">Đoán xem</a>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="product-images">
-                                    <div class="product-main-img">
-                                        <img src="img/detail.jpg" alt="">
-                                    </div>
-
-                                    <div class="product-gallery">
-                                        <img src="img/detail.jpg" alt="">
-                                        <img src="img/detail1.png" alt="">
-                                        <img src="img/detail2.png" alt="">
-                                        <img src="img/detail4.png" alt="">
-                                        <img src="img/detail5.png" alt="">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="product-inner">
-                                    <h2 class="product-name">MSI RTX 2080 GAMING X TRIO 8G</h2>
-                                    <div class="product-inner-price">
-                                        <ins>26,400,000₫</ins>
-                                    </div>    
-
-                                    <form action="" class="cart">
-                                        <div class="quantity">
-                                            <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
-                                        </div>
-                                        <button class="add_to_cart_button" type="submit">Thêm vào giỏ hàng</button>
-                                    </form>   
-                                    <div class="desc" role="tabpanel">
-                                        <ul class="product-tab" role="tablist">
-                                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Mô tả</a></li>
-                                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Đánh giá</a></li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div role="tabpanel" class="tab-pane fade in active" id="home">
-                                                <img src="img/des.png" alt="">
+                                    <div class="w3-row-padding w3-section">
+                                        <c:forEach var="lImg" items="${product.imagesCollection}" varStatus="counter">
+                                            <div class="w3-col s2">
+                                                <img class="demo w3-opacity w3-hover-opacity-off" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;cursor:pointer" onclick="currentDiv(${counter.count})">
                                             </div>
-                                            <div role="tabpanel" class="tab-pane fade" id="profile">
-                                                <h2>Đánh giá</h2>
-                                                <div class="submit-review">
-                                                    <p><label for="name">Họ và tên</label> <input name="name" type="text"></p>
-                                                    <p><label for="email">Email</label> <input name="email" type="eail"></p>
-                                                    <div class="rating-chooser">
-                                                        <p>Đánh giá của bạn</p>
 
-                                                        <div class="rating-wrap-post">
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                        </div>
-                                                    </div>
-                                                    <p><label for="review">Bình luận</label> <textarea name="review" id="" cols="30" rows="10"></textarea></p>
-                                                    <p><input type="submit" value="Đăng"></p>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-6">
+                                    <div class="product-inner">
+                                        <h2 class="product-name">${product.productName}</h2>
+                                        <div class="product-inner-price">
+                                            <ins>${product.price}₫</ins>
+                                        </div>    
+
+                                        <form action="" class="cart">
+                                            <div class="quantity">
+                                                <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
+                                            </div>
+                                            <button onclick="addToCart(${product.productID})" class="add_to_cart_button" type="button" >Thêm vào giỏ hàng</button>
+                                        </form>   
+                                        <div class="desc" role="tabpanel">
+                                            <ul class="product-tab" role="tablist">
+                                                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông số kĩ thuật</a></li>
+                                                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Đánh giá</a></li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                                    <table border="1" class="table table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Specification Title</th>
+                                                                <th>Value</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <c:forEach items="${listSpec}" var="spec">
+                                                                <tr>
+                                                                    <td>${spec.title}</td>
+                                                                    <td>${spec.value}</td>
+                                                                </tr>
+                                                            </c:forEach>
+                                                        </tbody>
+                                                    </table>
+
+
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane fade" id="profile">
+                                                    <!--<h2>Đánh gi</h2>-->
+                                                    <div class="fb-comments" data-href="http://localhost:8084/CyberShop/singleproduct/${product.productID}" data-width="" data-numposts="5"></div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                        <div class="related-products-wrapper">
-                            <h2 class="related-products-title">Sản phẩm liên quan</h2>
-                            <div class="related-products-carousel">
-                                <div class="single-product">
-                                    <div class="product-f-image">
-                                        <img src="img/lien1.jpg" alt="">
-                                        <div class="product-hover">
-                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> Xem chi tiết</a>
+                            <div class="related-products-wrapper">
+                                <h2 class="related-products-title">Sản phẩm liên quan</h2>
+                                <div class="related-products-carousel">
+                                    <c:forEach items="${listSame}" var="item">
+                                        <div class="single-product">
+                                            <div class="product-f-image">
+                                                <c:forEach items="${item.imagesCollection}" var="img">
+                                                    <c:if test="${img.mainImage == true}">
+                                                        <img src="<c:url value="/resources/image/img_product/${img.urlImage}"/>" alt="" class="img-thumbnail">
+                                                    </c:if>
+                                                </c:forEach>
+                                                <div class="product-hover">
+                                                    <a onclick="addToCart(${item.productID})" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
+                                                    <a href="${pageContext.request.contextPath}/website/singleproduct/${item.productID}" class="view-details-link"><i class="fa fa-link"></i> Xem chi tiết</a>
+                                                </div>
+                                            </div>
+
+                                            <h2><a href="">${item.productName}</a></h2>
+
+                                            <div class="product-carousel-price">
+                                                <ins>${item.price}₫</ins> 
+                                            </div> 
                                         </div>
-                                    </div>
-
-                                    <h2><a href="">ASUS Dual GeForce® RTX 2080 OC edition 8GB GDDR65</a></h2>
-
-                                    <div class="product-carousel-price">
-                                        <ins>25,360,000₫</ins> 
-                                    </div> 
-                                </div>
-                                <div class="single-product">
-                                    <div class="product-f-image">
-                                        <img src="img/lien2.jpg" alt="">
-                                        <div class="product-hover">
-                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> Xem chi tiết</a>
-                                        </div>
-                                    </div>
-
-                                    <h2><a href="">AORUS GeForce® RTX 2080 XTREME 8G</a></h2>
-                                    <div class="product-carousel-price">
-                                        <ins>27,950,000₫</ins> 
-                                    </div> 
-                                </div>
-                                <div class="single-product">
-                                    <div class="product-f-image">
-                                        <img src="img/lien3.jpg" alt="">
-                                        <div class="product-hover">
-                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> Xem chi tiết</a>
-                                        </div>
-                                    </div>
-
-                                    <h2><a href="">ROG Strix GeForce® RTX 2080 OC edition 8GB GDDR6</a></h2>
-
-                                    <div class="product-carousel-price">
-                                        <ins>28,350,000₫</ins> 
-                                    </div>                                 
-                                </div>
-                                <div class="single-product">
-                                    <div class="product-f-image">
-                                        <img src="img/lien4.jpg" alt="">
-                                        <div class="product-hover">
-                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> Xem chi tiết</a>
-                                        </div>
-                                    </div>
-
-                                    <h2><a href="">ZOTAC GAMING GeForce® RTX 2080 Twin Fan</a></h2>
-
-                                    <div class="product-carousel-price">
-                                        <ins>23,900,000₫</ins> 
-                                    </div>                            
-                                </div>
-                                <div class="single-product">
-                                    <div class="product-f-image">
-                                        <img src="img/lien5.jpg" alt="">
-                                        <div class="product-hover">
-                                            <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                            <a href="" class="view-details-link"><i class="fa fa-link"></i> Xem chi tiết</a>
-                                        </div>
-                                    </div>
-
-                                    <h2><a href="">GIGABYTE RTX 2080 Ti WINDFORCE OC 11G</a></h2>
-
-                                    <div class="product-carousel-price">
-                                        <ins>36,490,000₫</ins> 
-                                    </div>                                 
+                                    </c:forEach>
                                 </div>
                             </div>
-                        </div>
-                    </div>                    
+                        </div>                    
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-
-    <div class="footer-top-area">
-        <div class="zigzag-bottom"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-about-us">
-                        <h2>Cyber<span>Shop</span></h2>
-                        <p>Được thành lập vào 26 tháng 2 năm 1997, CeyberShop lúc đó là một cửa hàng buôn bán máy tính nhỏ. Qua nhiều năm CeyberShop đã từng bước lớn mạnh và phát triển trong lĩnh vực kinh doanh các sản phẩm, linh kiện máy tính và giải trí do các hãng điện tử hàng đầu trên thế giới. Và đến tháng 7 năm 2007, Phong Vũ chính thức thành lập Công ty Cô phần Thương mại - Dịch vụ CeyberShop.</p>
-                        <div class="footer-social">
-                            <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
-                            <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
-                            <a href="#" target="_blank"><i class="fa fa-youtube"></i></a>
-                            <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-menu">
-                        <h2 >Hỗ trợ Khách hàng </h2>
-                        <ul>
-                            <li><a href="#">Thẻ ưu đãi</a></li>
-                            <li><a href="#">Phiếu mua bảo hành</a></li>
-                            <li><a href="#">trung tâm bảo hành</a></li>
-                            <li><a href="#">Thanh toán và giao hàng</a></li>
-                            <li><a href="#">Dịch vụ sửa chữa và bảo hành</a></li>
-                        </ul>                        
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-menu">
-                        <h2 >Chính sách hỗ trợ</h2>
-                        <ul>
-                            <li><a href="#">Chính sách điện máy</a></li>
-                            <li><a href="#">Chính sách ổi hàng</a></li>
-                            <li><a href="#">Chính sách bảo hành</a></li>
-                            <li><a href="#">Chính sách thanh toán</a></li>
-                            <li><a href="#">Chính sách trả góp</a></li>
-                        </ul>                        
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-newsletter">
-                        <h2 >Đăng ký nhận tin</h2>
-                        <p>Đăng ký nhận bản tin của chúng tôi và nhận các ưu đãi độc quyền mà bạn sẽ không tìm thấy ở bất kỳ nơi nào khác ngoài ngay trong hộp thư đến của mình!</p>
-                        <div class="newsletter-form">
-                            <form action="#">
-                                <input type="email" placeholder="Nhập email của bạn">
-                                <input type="submit" value="Đăng ký">
-                            </form>
+        <!--Alert Result-->
+        <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="vertical-alignment-helper">
+                <div class="modal-dialog vertical-align-center modal-sm"  >
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <img src="<c:url value="/resources/image/icon/checked.png"/>"/> <a style="color: #02acea"> Thêm vào giỏ hàng thành công!</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div> <!-- End footer top area -->
-    <div class="footer-bottom-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="copyright">
-                        <p>&copy; 2018 E-Commerce SE62607. All Rights Reserved.</p>
-                    </div>
-                </div>
+        <%@include file="/WEB-INF/views/website/fragment/webFooter.jsp" %>
+        <script>
 
-                <div class="col-md-4">
-                    <div class="footer-card-icon">
-                        <i class="fa fa-cc-discover"></i>
-                        <i class="fa fa-cc-mastercard"></i>
-                        <i class="fa fa-cc-paypal"></i>
-                        <i class="fa fa-cc-visa"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> <!-- End footer bottom area -->
 
-    <!-- Latest jQuery form server -->
-    <script src="https://code.jquery.com/jquery.min.js"></script>
-    <!-- Bootstrap JS form CDN -->
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+            function currentDiv(n) {
+                showDivs(slideIndex = n);
+            }
 
-    <!-- jQuery sticky menu -->
-    <script src="<c:url value="/resources/websource/js/owl.carousel.min.js" />" ></script>
-    <script src="<c:url value="/resources/websource/js/jquery.sticky.js" />" ></script>
-    <!-- jQuery easing -->
-    <script src="<c:url value="/resources/websource/js/jquery.easing.1.3.min.js" />" ></script>
-    <!-- Main Script -->
-    <script src="<c:url value="/resources/websource/js/main.js" />" ></script>
-    <!-- Slider -->
-    <script src="<c:url value="/resources/websource/js/bxslider.min.js" />" type="text/javascript"></script>
-    <script src="<c:url value="/resources/websource/js/script.slider.js" />" type="text/javascript"></script>
-</body>
+            function showDivs(n) {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                var dots = document.getElementsByClassName("demo");
+                if (n > x.length) {
+                    slideIndex = 1
+                }
+                if (n < 1) {
+                    slideIndex = x.length
+                }
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" w3-opacity-off", "");
+                }
+                x[slideIndex - 1].style.display = "block";
+                dots[slideIndex - 1].className += " w3-opacity-off";
+            }
+
+            function addToCart(productID) {
+                $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                    $("#alertModal").slideUp(500);
+                });
+                var count = $('#product-count').text();
+                count++;
+                $('#product-count').text(count);
+
+            }
+
+
+        </script>
+    </body>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.2"></script>
 </html>
