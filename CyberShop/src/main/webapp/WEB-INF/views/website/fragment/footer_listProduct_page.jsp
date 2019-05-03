@@ -79,22 +79,22 @@
             </div>
         </div>
     </div>
-</div> <!-- End footer bottom area -->
+</div>
 
 <!-- Latest jQuery form server -->
 <script src="https://code.jquery.com/jquery.min.js"></script>
-<!-- Bootstrap JS form CDN -->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 <!-- jQuery sticky menu -->
 <script src="<c:url value="/resources/websource/js/owl.carousel.min.js" />" ></script>
 <script src="<c:url value="/resources/websource/js/jquery.sticky.js" />" ></script>
 
 <!-- jQuery easing -->
-<!--<script src="<c:url value="/resources/websource/js/jquery.easing.1.3.min.js"/>"></script>-->
+<script src="<c:url value="/resources/websource/js/jquery.easing.1.3.min.js"/>"></script>
 
 <!-- Main Script -->
 <script src="<c:url value="/resources/websource/js/main.js" />"></script>
 
 
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
 
+<script src="<c:url value="/resources/adminsource/support_template/jquery.twbsPagination.js" />" type="text/javascript"></script>

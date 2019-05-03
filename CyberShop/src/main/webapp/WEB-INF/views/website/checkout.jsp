@@ -154,14 +154,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="cart_item">
-                                        <td class="product-name">
-                                            MSI RTX 2080 GAMING X TRIO 8G <strong class="product-quantity">× 1</strong> </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="product-total">
-                                            <span class="amount">26,400,000₫</span> </td>
-                                    </tr>
+                                    <c:forEach var="item" items="${sessionScope.cart.detail}" varStatus="counter">
+                                        <tr class="cart_item">
+                                            <td class="product-name">
+                                               ${item.value.item.productName} 
+                                            </td>
+                                            <td> ${item.value.qty} 
+                                            </td>
+                                            <td>${item.value.item.price}</td>
+                                            <td class="product-total">
+                                                <span class="amount">{item.value.total}</span> 
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+
                                 </tbody>
                                 <tfoot>
 
@@ -186,7 +192,7 @@
                                         <th>Tổng hóa đơn</th>
                                         <td></td>
                                         <td></td>
-                                        <td><strong><span class="amount">26,400,000₫</span></strong> </td>
+                                        <td><strong><span class="amount">${sessionScope.cart.totalOrder}</span></strong> </td>
                                     </tr>
 
                                 </tfoot>

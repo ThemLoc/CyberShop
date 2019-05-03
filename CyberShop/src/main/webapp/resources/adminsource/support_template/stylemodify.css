@@ -18,10 +18,18 @@
     /*overflow:auto;*/
 }
 #modal_body_Spec{
-     width:inherit;
+    width:inherit;
     height:auto;
     max-height:700px;
     /* To center horizontally */
     margin: 0 auto;
     overflow:auto;
+}
+.img-list-product:hover{
+    transform: scale(1.07);
+    
+}
+.product-upper{
+    width: 100%;
+    height: 250px;
 }
