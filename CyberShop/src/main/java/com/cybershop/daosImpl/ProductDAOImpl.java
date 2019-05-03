@@ -164,13 +164,15 @@ public class ProductDAOImpl implements ProductDAO {
             newListPro.add(newpProduct);
         }
         return newListPro;
+    }
 
+    @Override
     public int countPdByBrandID(int brandID) {
         long resultL = (long) this.em.createQuery("Select COUNT(BrandID) from Product where BrandID = ?")
                 .setParameter(1, brandID)
                 .getSingleResult();
-        int resultInt = (int)resultL;
-        return resultInt;                  
+        int resultInt = (int) resultL;
+        return resultInt;
     }
 
 }

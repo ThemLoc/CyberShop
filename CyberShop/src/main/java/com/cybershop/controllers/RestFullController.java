@@ -47,6 +47,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api")
 public class RestFullController {
 
+    final String saveDirectory = "/Users/chungnguyen/Google Drive/NANO/CyberShop/";
     Logger log = Logger.getLogger(RestFullController.class.getName());
 
     @Autowired
@@ -168,7 +169,7 @@ public class RestFullController {
         try {
             if (!mainImage.isEmpty()) {
                 fileName = mainImage.getOriginalFilename();
-                file = new File("/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/webapp/resources/image/img_product", fileName);
+                file = new File(saveDirectory+"CyberShop/src/main/webapp/resources/image/img_product", fileName);
                 mainImage.transferTo(file);
                 img = new Image();
                 img.setUrlImage(fileName);
@@ -176,10 +177,11 @@ public class RestFullController {
                 img.setProductID(product);
                 imageService.updateMainImage(img);
             }
-            if (!subImage.get(0).isEmpty()) {
+           
                 for (MultipartFile subImg : subImage) {
+                     if (!subImage.isEmpty()) {
                     fileName = subImg.getOriginalFilename();
-                    file = new File("/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/webapp/resources/image/img_product", fileName);
+                    file = new File(saveDirectory + "CyberShop/src/main/webapp/resources/image/img_product", fileName);
                     subImg.transferTo(file);
                     img = new Image();
                     img.setUrlImage(fileName);
@@ -337,4 +339,6 @@ public class RestFullController {
 
         return new ResponseEntity("success", HttpStatus.OK);
     }
+    
+    
 }

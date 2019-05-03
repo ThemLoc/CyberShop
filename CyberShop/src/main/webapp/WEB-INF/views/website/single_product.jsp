@@ -18,7 +18,7 @@
                         <div class="product-content-right">
                             </br>
                             <div class="row">
-                                <div class="col-sm-5">
+                                <div class="col-sm-6" style="padding-right: 40px">
 
                                     <c:forEach var="lImg" items="${product.imagesCollection}">
                                         <c:if test="${lImg.mainImage == true}" >
@@ -33,14 +33,13 @@
                                     <div class="w3-row-padding w3-section">
                                         <c:forEach var="lImg" items="${product.imagesCollection}" varStatus="counter">
                                             <div class="w3-col s2">
-                                                <img class="demo w3-opacity w3-hover-opacity-off" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;cursor:pointer" onclick="currentDiv(${counter.count})">
+                                                <img class="demo w3-opacity w3-hover-opacity-off" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;height: 50px;cursor:pointer" onclick="currentDiv(${counter.count})">
                                             </div>
 
                                         </c:forEach>
                                     </div>
                                 </div>
 
-                                <div class="col-sm-1"></div>
                                 <div class="col-sm-6">
                                     <div class="product-inner">
                                         <h2 class="product-name">${product.productName}</h2>
@@ -109,7 +108,7 @@
                                                 </div>
                                             </div>
 
-                                            <h2><a href="">${item.productName}</a></h2>
+                                            <h2><a href="${pageContext.request.contextPath}/website/singleproduct/${item.productID}">${item.productName}</a></h2>
 
                                             <div class="product-carousel-price">
                                                 <ins>${item.price}₫</ins> 

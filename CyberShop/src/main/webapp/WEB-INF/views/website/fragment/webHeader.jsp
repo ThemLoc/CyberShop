@@ -5,16 +5,15 @@
     <div class="header-area">
         <div class="container">
             <div class="row">
-                <div class="col-md-7">
+                <div class="col-md-6">
                     <div class="user-menu">
                         <ul>
                             <li><a href="#"><i class="fa fa-user"></i> Tài khoản</a></li>
-                            <li><a href="#"><i class="fa fa-heart"></i> Danh sách yêu thích</a></li>
                             <li><a href="#"><i class="fa fa-user"></i> Đăng nhập</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <div class="user-menu">
                         <ul>
                             <li><a href="#"><i class="fa fa-phone"></i> 0964 303 637</a></li>

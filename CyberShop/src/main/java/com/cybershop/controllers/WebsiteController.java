@@ -3,6 +3,7 @@ package com.cybershop.controllers;
 import com.cybershop.dto.SpecificationShowDTO;
 import com.cybershop.models.Product;
 import com.cybershop.services.ProductService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +47,9 @@ public class WebsiteController {
         }
         model.addAttribute("listSpec", list);
         List<Product> listSame = productService.findTop6ProductWithCateID(3);
-         System.out.println(listSame.size());
-        if(listSame.size() > 6){
-            for (int i = 6; i < listSame.size(); ) {
+        System.out.println(listSame.size());
+        if (listSame.size() > 6) {
+            for (int i = 6; i < listSame.size();) {
                 listSame.remove(i);
             }
         }
@@ -67,7 +68,24 @@ public class WebsiteController {
             newProduct = productService.findById(product.getProductID());
             newList.add(newProduct);
         }
-        model.addAttribute("listProduct", newList);
+        ObjectMapper mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(newList);
+            System.out.println(json);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int totalPage = newList.size()/12;
+//        if (newList.size() > 12) {
+//            for (int i = 12; i < newList.size();) {
+//                newList.remove(i);
+//            }
+//        }
+//        model.addAttribute("listProduct", newList);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("listProductJson", json);
+
         return "website/list_product";
     }
 
@@ -79,5 +97,9 @@ public class WebsiteController {
     @RequestMapping(value = {"/website/checkout"}, method = RequestMethod.GET)
     public String check_out() {
         return "website/checkout";
+    }
+    @RequestMapping(value = {"/website/test"}, method = RequestMethod.GET)
+    public String test() {
+        return "website/test";
     }
 }
