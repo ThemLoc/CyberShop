@@ -23,8 +23,10 @@ public class CartDTO {
     public void addItem(Product product, int qty) {
         if (detail.containsKey(product.getProductID())) {
             detail.get(product.getProductID()).qty++;
+            detail.get(product.getProductID()).getTotal();
         } else {
             detail.put(product.getProductID(), new CartItem(product, qty));
+            
         }
     }
     
