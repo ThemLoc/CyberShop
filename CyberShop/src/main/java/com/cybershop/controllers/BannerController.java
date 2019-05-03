@@ -29,9 +29,9 @@ public class BannerController {
         return "manager/banner/bannerList";
     }
     
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    private String add(HttpServletRequest request) {
-        Product pro = productService.findById(Integer.parseInt(request.getParameter("productID")));
+    @RequestMapping(value = "/add/{id}", method = RequestMethod.GET)
+    private String add(@PathVariable("id") int id) {
+        Product pro = productService.findById(id);
         Banner banner = new Banner();
         banner.setProductID(pro);
         service.save(banner);

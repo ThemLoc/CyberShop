@@ -2,10 +2,16 @@ package com.cybershop.controllers;
 
 import com.cybershop.services.BrandService;
 import com.cybershop.dto.SpecificationShowDTO;
+import com.cybershop.models.Brand;
+import com.cybershop.models.Category;
 import com.cybershop.models.Product;
+import com.cybershop.services.BannerService;
+import com.cybershop.services.CategoryService;
 import com.cybershop.services.ProductService;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,19 +23,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class WebsiteController {
     
     @Autowired
-    private BrandService service;
+    BrandService service;
 
     @Autowired
     ProductService productService;
+    
+    @Autowired
+    CategoryService categoryService;
+    
+    @Autowired
+    BannerService bannerService;
 
     @RequestMapping(value = {"/website/home"}, method = RequestMethod.GET)
     public String home(Model model) {
         model.addAttribute("listBrand", service.getByAll());
+        model.addAttribute("listBanner", bannerService.getByAll());
         return "website/home";
     }
 
     @RequestMapping(value = {"/website/singleproduct/{id}"}, method = RequestMethod.GET)
     public String single_product(@PathVariable("id") int id, Model model) {
+        model.addAttribute("listBrand", service.getByAll());
         Product product = productService.findById(id);
         model.addAttribute("product", product);
         String detail = product.getDetail();
@@ -64,6 +78,10 @@ public class WebsiteController {
 
     @RequestMapping(value = {"/website/listproduct"}, method = RequestMethod.GET)
     public String list_product(Model model) {
+        model.addAttribute("listBrand", service.getByAll());
+        Map<String, List<Category>> mapCategory = listMap();
+        model.addAttribute("listPKCate", mapCategory.get("listPKCate"));
+        model.addAttribute("listLKCate", mapCategory.get("listLKCate"));
         List<Product> list = productService.getByAll();
         List<Product> newList = new ArrayList<>();
         Product newProduct;
@@ -84,6 +102,24 @@ public class WebsiteController {
     @RequestMapping(value = {"/website/checkout"}, method = RequestMethod.GET)
     public String check_out() {
         return "website/checkout";
+    }
+    
+    public Map<String, List<Category>> listMap() {
+        List<Category> listCate = categoryService.getByAll();
+        System.out.println("listCate: " + listCate);
+        List<Category> listPKCate = new ArrayList<>();
+        List<Category> listLKCate = new ArrayList<>();
+        for (Category cate : listCate) {
+            if (cate.getType() == true) {
+                listLKCate.add(cate);
+            } else {
+                listPKCate.add(cate);
+            }
+        }
+        Map<String, List<Category>> mapCate = new HashMap<>();
+        mapCate.put("listLKCate", listLKCate);
+        mapCate.put("listPKCate", listPKCate);
+        return mapCate;
     }
     
 }

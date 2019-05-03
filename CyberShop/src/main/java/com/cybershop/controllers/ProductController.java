@@ -14,6 +14,7 @@ import com.cybershop.services.SpecificationTitleService;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("manager/product")
 public class ProductController {
+
+    final String saveDirectory = "/Users/chungnguyen/Google Drive/NANO/CyberShop/";
 
     @Autowired
     private ProductService productService;
@@ -49,7 +52,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = {"/add"}, method = RequestMethod.POST)
-    private String add(@ModelAttribute("product") CreateProductDTO product, Model model) {
+    private String add(@ModelAttribute("product") CreateProductDTO product, Model model, HttpServletRequest request) {
         Image img;
         List<Image> listImg = new ArrayList<>();
 
@@ -60,7 +63,6 @@ public class ProductController {
 
         Category category = new Category();
         category.setCateID(product.getCategoryID());
-        System.out.println("___________Detail :" + product.getDetail());
         dbProduct.setProductName(product.getProductName());
         dbProduct.setDetail(product.getDetail());
         dbProduct.setPrice(product.getPrice());
@@ -73,10 +75,9 @@ public class ProductController {
             File file;
             List<MultipartFile> listSubImg = product.getSubImg();
             MultipartFile mainImg = product.getMainImg();
-
             if (!mainImg.isEmpty()) {
                 fileName = mainImg.getOriginalFilename();
-                file = new File("/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/webapp/resources/image/img_product", fileName);
+                file = new File(saveDirectory + "CyberShop/src/main/webapp/resources/image/img_product", fileName);
                 mainImg.transferTo(file);
                 img = new Image();
                 img.setUrlImage(fileName);
@@ -84,10 +85,10 @@ public class ProductController {
                 img.setProductID(dbProduct);
                 listImg.add(img);
             }
-            if (!listSubImg.isEmpty()) {
-                for (MultipartFile subImg : listSubImg) {
+            for (MultipartFile subImg : listSubImg) {
+                if (!subImg.isEmpty()) {
                     fileName = subImg.getOriginalFilename();
-                    file = new File("/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/webapp/resources/image/img_product", fileName);
+                    file = new File(saveDirectory + "CyberShop/src/main/webapp/resources/image/img_product", fileName);
                     subImg.transferTo(file);
                     img = new Image();
                     img.setUrlImage(fileName);
@@ -97,7 +98,7 @@ public class ProductController {
                 }
             }
         } catch (Exception e) {
-            System.out.println("EROR :" + e.getMessage());
+            System.out.println("ERROR :" + e.getMessage());
             e.printStackTrace();
             model.addAttribute("message", "upload failed");
         }

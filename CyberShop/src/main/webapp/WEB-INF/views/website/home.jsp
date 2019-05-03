@@ -1,7 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -188,46 +187,30 @@
         <!-- Slider -->
         <div class="block-slider block-slider4">
             <ul class="" id="bxslider-home4">
-                <li>
-                    <img class="km3" src="<c:url value="/resources/websource/img/nzxt.png"/>" alt="Slide">
-                    <div class="caption-group">
-                        <h2 class="caption title">
-                            NZXT AER 2 <span class="primary">RGB  </span>
-                        </h2>
-                        <h4 class="caption subtitle">3FAN 120mm + HUE 2</h4>
-                        <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
-                    </div>
-                </li>
-                <li><img class="km" src="<c:url value="/resources/websource/img/km.png"/>" alt="Slide">
-                    <div class="caption-group">
-                        <h2 class="caption title">
-                            Thêm vào giỏ VGA ,<span class="primary">giảm ngay <strong>500 k</strong></span>
-                        </h2>
-                        <h4 class="caption subtitle">Asus GTX 1060 3GB</h4>
-                        <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
-                    </div>
-                </li>
-                <li>
-                    <img class="km2" src="<c:url value="/resources/websource/img/km2.png"/>" alt="Slide">
-                    <div class="caption-group">
-                        <h2 class="caption title">
-                            Intel <span class="primary">Core i3 <strong>8100</strong></span>
-                        </h2>
-                        <h4 class="caption subtitle">Giảm ngay 200k</h4>
-                        <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
-                    </div>
-                </li>
-                <li>
-                    <img class="threadripper" src="<c:url value="/resources/websource/img/threadripper.jpg"/>" alt="Slide">
-                    <div class="caption-group">
-                        <h2 class="caption title">
-                            AMD <span class="primary">Threaripper <strong>1950X</strong></span>
-                        </h2>
-                        <!-- <h4 class="caption subtitle">Dual SIM</h4> -->
-                        <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
-                    </div>
-                </li>
-
+                <c:forEach items="${listBanner}" var="a" varStatus="Counter" >
+                    <li style="float: left; list-style: none; position: relative; width: 692px;">
+                        <div class="col-md-12">
+                            <div class="col-md-7">
+                                <c:forEach items="${a.productID.imagesCollection}" var="b">
+                                    <c:if test="${b.mainImage == true}">
+                                        <img class="km" src="${pageContext.request.contextPath}/resources/image/img_product/${b.urlImage}" alt="slide"/>
+                                    </c:if>
+                                </c:forEach>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="caption-group" style="margin-top: 150px; margin-left: 20px">
+                                    <h2 class="caption title">
+                                        <p class="caption title animated fadeInRight" style="display: block;">
+                                            <span class="primary"><strong>${a.productID.productName}</strong></span><br/>
+                                            <span style="color: red;font-size: 20px;margin-left: 10px;"><strong>${a.productID.price}</strong><strong> VNĐ</strong></span>
+                                        </p>
+                                    </h2>
+                                    <a class="caption button-radius" href="${pageContext.request.contextPath}/website/singleproduct/${a.productID.productID}"><span class="icon"></span>Shop now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </c:forEach>
 
             </ul>
         </div>
@@ -235,7 +218,7 @@
     </div> <!-- End slider area -->
 
 
-    <!-- End promo area --> -->
+    <!-- End promo area -->
 
     <div class="maincontent-area">
         <div class="zigzag-bottom"></div>
@@ -427,12 +410,9 @@
             <div class="col-md-12">
                 <div class="brand-wrapper">
                     <div class="brand-list">
-                        <img src="img/nvidia.png" alt="">
-                        <img src="img/AMD_Logo_old.png" alt="">
-                        <img src="img/aorus-logo-transparent.png" alt="">
-                        <img src="img/asus.png" alt="">
-                        <img src="img/msi.png" alt="">
-                        <img src="img/640px-Intel-logo.svg.png" alt="">
+                        <c:forEach items="${listBrand}" var="brandList">
+                            <img style="width: 250px;height: 140px" src="${pageContext.request.contextPath}/resources/image/img_brand/${brandList.imageURL}"/>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
