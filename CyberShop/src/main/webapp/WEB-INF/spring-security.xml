@@ -14,6 +14,13 @@
 <!--        <intercept-url pattern="/login" access="permitAll"/>-->
         <access-denied-handler error-page="/403" />
         <intercept-url pattern="/manager/admin/**" access="ROLE_ADMIN" />
+        <intercept-url pattern="/manager/order/**" access="ROLE_ADMIN, ROLE_EMPLOYEE" />
+        <intercept-url pattern="/manager/customer/**" access="ROLE_ADMIN, ROLE_EMPLOYEE" />
+        <intercept-url pattern="/manager/banner/**" access="ROLE_ADMIN, ROLE_EMPLOYEE" />
+        <intercept-url pattern="/manager/brand/**" access="ROLE_ADMIN, ROLE_EMPLOYEE" />
+        <intercept-url pattern="/manager/product/**" access="ROLE_ADMIN, ROLE_EMPLOYEE" />
+        <intercept-url pattern="/manager/promotion/**" access="ROLE_ADMIN, ROLE_EMPLOYEE" />
+        <intercept-url pattern="/manager/storeinfo/**" access="ROLE_ADMIN, ROLE_EMPLOYEE" />
         <form-login  login-page="/login" login-processing-url="/j_spring_security_login"
                     default-target-url="/manager/order" authentication-failure-url="/login?error"
                     username-parameter="username" password-parameter="password"/>

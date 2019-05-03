@@ -6,6 +6,10 @@ public class CartItem {
     Product item;
     int qty;
 
+    public CartItem() {
+    }
+    
+
     CartItem(Product product, int qty) {
         this.item = product;
         this.qty = qty;
