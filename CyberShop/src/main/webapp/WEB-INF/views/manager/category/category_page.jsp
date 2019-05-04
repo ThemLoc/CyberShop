@@ -343,9 +343,9 @@
                             cache: false,
                             success: function (result) {
                                 if (result === 'success') {
-                                    html += "<h3 style='color:green'>Update Success!</h3";
+                                    html += "<h3 style='color:green'>Add Success!</h3";
                                 } else {
-                                    html += "<span style='color:red'>Update fail!</span";
+                                    html += "<span style='color:red'>Add fail!</span";
                                 }
                             }
                             ,

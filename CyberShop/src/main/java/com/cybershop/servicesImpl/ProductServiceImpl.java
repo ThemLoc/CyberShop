@@ -68,6 +68,7 @@ public class ProductServiceImpl implements ProductService {
         return dao.countPdByCateID(cateID);
     }
 
+    @Transactional
     @Override
     public List<Product> findTop6ProductWithCateID(int cateID) {
         return dao.findTop6ProductWithCateID(cateID);
@@ -77,6 +78,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int countPdByBrandID(int brandID) {
         return dao.countPdByBrandID(brandID);
+    }
+
+    @Transactional
+    @Override
+    public List<Product> findNewProduct(int number) {
+        return dao.getNewProduct(number);
+    }
+
+    @Transactional
+    @Override
+    public List<Product> findHotSaleProduct(int number) {
+        return dao.getHotSaleProduct(number);
     }
 
 }

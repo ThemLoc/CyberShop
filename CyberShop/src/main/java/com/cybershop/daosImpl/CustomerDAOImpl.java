@@ -27,7 +27,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public void delete(int id, boolean status) {
-      
+
         this.em.createNamedQuery("UpdateStatusCustomer").setParameter("id", id).setParameter("sta", !status).executeUpdate();
 //        em.remove(getById(id));
     }
@@ -64,8 +64,51 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public Customer getByUsername(String username) {
-          try {          
-             return this.em.createNamedQuery("Customer.findByUsername", Customer.class).setParameter("username", username).getSingleResult();
+        try {
+            Customer cus = this.em.createNamedQuery("Customer.findByUsername", Customer.class).setParameter("username", username).getSingleResult();
+            Customer newCus = new Customer();
+            newCus.setCustomerID(cus.getCustomerID());
+            newCus.setUsername(cus.getUsername());
+            newCus.setPassword(cus.getPassword());
+            newCus.setSex(cus.getSex());
+            newCus.setEmail(cus.getEmail());
+            newCus.setFullname(cus.getFullname());
+            newCus.setIsGuest(cus.getIsGuest());
+            newCus.setToken(cus.getToken());
+            newCus.setStatus(cus.getStatus());
+            newCus.setDateRegistration(cus.getDateRegistration());
+            newCus.setPhone(cus.getPhone());
+            newCus.setAddress(cus.getAddress());
+            newCus.setDob(cus.getDob());
+            List<Order> listOrder = (List<Order>) cus.getOrder1Collection();
+            List<Order> newList;
+            if (!listOrder.isEmpty()) {
+                Order order;
+                newList = new ArrayList<>();
+                for (Order item : listOrder) {
+                    order = new Order();
+                    order.setCustomerID(item.getCustomerID());
+                    newList.add(order);
+                }
+                newCus.setOrder1Collection(newList);
+            }
+            return newCus;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Customer checkLogin(String user, String pass) {
+        try {
+            Customer cus = (Customer) this.em.createQuery("from Customer Where Username = ? and Password = ? and Status = 1")
+                    .setParameter(1, user).setParameter(2, pass).getSingleResult();
+            Customer newCus = new Customer();
+            newCus.setCustomerID(cus.getCustomerID());
+            newCus.setUsername(cus.getUsername());
+            newCus.setPassword(cus.getPassword());
+            newCus.setFullname(cus.getFullname());
+            return newCus;
         } catch (Exception e) {
             return null;
         }

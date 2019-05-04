@@ -49,6 +49,9 @@ public class CustomerServiceImpl implements CustomerService{
         return dao.getByUsername(username);
     }
 
-   
-    
+    @Transactional
+    @Override
+    public Customer checkLogin(String user, String pass) {
+        return dao.checkLogin(user, pass);
+    }
 }

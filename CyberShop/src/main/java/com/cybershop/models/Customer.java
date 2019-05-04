@@ -46,7 +46,7 @@ public class Customer implements Serializable {
     @Column(name = "CustomerID")
     private Integer customerID;
 
-    @Column(name = "Username")
+    @Column(name = "Username", unique = true)
     private String username;
 
     @Column(name = "Password")

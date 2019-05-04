@@ -89,16 +89,117 @@
 <!-- jQuery sticky menu -->
 <script src="<c:url value="/resources/websource/js/owl.carousel.min.js" />" ></script>
 <script src="<c:url value="/resources/websource/js/jquery.sticky.js" />" ></script>
-<!-- jQuery sticky menu -->
-<script src="<c:url value="/resources/websource/js/owl.carousel.min.js" />"></script>
-<script src="<c:url value="/resources/websource/js/jquery.sticky.js" />"></script>
 
 <!-- jQuery easing -->
-<script src="<c:url value="/resources/websource/js/jquery.easing.1.3.min.js"/>"></script>
+<!--<script src="<c:url value="/resources/websource/js/jquery.easing.1.3.min.js"/>"></script>-->
 
 <!-- Main Script -->
 <script src="<c:url value="/resources/websource/js/main.js" />"></script>
 
-<script src="https://pagination.js.org/dist/2.1.4/pagination.min.js"></script>
-<script src="https://pagination.js.org/dist/2.1.4/pagination.js"></script>
 
+
+
+<script>
+    $('#login').click(function () {
+        var user = $('#userLogin').val();
+        var pass = $('#passwordLogin').val();
+        console.log(user + pass);
+        $.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/api/userLogin",
+            dataType: 'text',
+            data: {
+                user: user,
+                pass: pass
+            },
+            timeout: 100000,
+            success: function (result) {
+                if (result == "success") {
+                    window.location.reload();
+                } else {
+                    $('#loginFail').text('Username or Password Not Correct!!!')
+                }
+            }
+            , error: function (e) {
+                console.log("ERROR: ", e);
+            }
+        }
+        );
+    });
+
+    $('#forgotPass').click(function () {
+        $('#loginModal').modal('hide');
+        $('#forgotModal').modal('show');
+    });
+
+    $('#renewPass').click(function () {
+        var user = $('#forgotUser').val();
+        console.log(user);
+        $.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/api/forgotPass",
+            dataType: 'text',
+            data: {
+                userForgot: user
+            },
+            timeout: 100000,
+            success: function (result) {
+                if (result == "success") {
+                    $('#forgotModal').modal('hide');
+                    $('#loginModal').modal('show');
+                } else {
+                    $('#userFail').text('Username Is Not EXIST!!!')
+                }
+            }
+            , error: function (e) {
+                console.log("ERROR: ", e);
+            }
+        }
+        );
+    });
+
+    $('#passwordcreate, #confirmpassword').on('keyup', function () {
+        if ($('#passwordcreate').val() == $('#confirmpassword').val()) {
+            $('#message').html('Matching').css('color', 'green');
+        } else
+            $('#message').html('Not Matching').css('color', 'red');
+    });
+
+    $('#confirmsignup').click(function (event) {
+        event.preventDefault();
+//        var form = $('#myCreateForm')[0];
+//        var data = new FormData(form);
+//        console.log(data);
+        var username = $('#usernamecreate').val();
+        var password = $('#passwordcreate').val();
+        var email = $('#emailcreate').val();
+        var fullname = $('#fullnamecreate').val();
+        var address = $('#addresscreate').val();
+        var phone = $('#phonecreate').val();
+        var dob = $('#dobcreate').val();
+        var sex = $('#sexCheck').val();
+        $.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/api/createCus",
+            dataType: 'text',
+            data: {
+                usernamecreate: username,
+                passwordcreate: password,
+                emailcreate: email,
+                fullnamecreate: fullname,
+                addresscreate: address,
+                phonecreate: phone,
+                dobcreate: dob,
+                sexCheck: sex
+            },
+            timeout: 100000,
+            success: function (result) {
+                alert(result);
+            }
+            , error: function (e) {
+                console.log("ERROR: ", e);
+            }
+        }
+        );
+    });
+</script>

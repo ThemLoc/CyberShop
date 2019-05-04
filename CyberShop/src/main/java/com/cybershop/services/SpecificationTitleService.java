@@ -1,17 +1,8 @@
-/*
- * SpecificationTitleo change this license header, choose License Headers in Project Properties.
- * SpecificationTitleo change this template file, choose SpecificationTitleools | SpecificationTitleemplates
- * and open the template in the editor.
- */
 package com.cybershop.services;
 
 import com.cybershop.models.SpecificationTitle;
 import java.util.List;
 
-/**
- *
- * @author chungnguyen
- */
 public interface SpecificationTitleService {
 
     void save(SpecificationTitle obj);

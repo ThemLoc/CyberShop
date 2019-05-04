@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.cybershop.controllers;
 
 import com.cybershop.models.Brand;
 import com.cybershop.models.Category;
+import com.cybershop.models.Customer;
 import com.cybershop.models.Image;
 import com.cybershop.models.Product;
 import com.cybershop.models.SpecificationTitle;
@@ -20,13 +16,21 @@ import com.cybershop.models.OrderDetail;
 import com.cybershop.models.Product;
 import com.cybershop.models.SpecificationTitle;
 import com.cybershop.services.CategoryService;
+import com.cybershop.services.CustomerService;
 import com.cybershop.services.OrderDetailService;
 import com.cybershop.services.OrderService;
 import com.cybershop.services.ProductService;
 import com.cybershop.services.SpecificationTitleService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,14 +43,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- *
- * @author chungnguyen
- */
 @Controller
 @RequestMapping("/api")
 public class RestFullController {
 
+    final String saveDirectory = "E:/FNano/ProjectNANO/newCyberShop/";
     Logger log = Logger.getLogger(RestFullController.class.getName());
 
     @Autowired
@@ -69,6 +70,9 @@ public class RestFullController {
 
     @Autowired
     CategoryService categoryService;
+
+    @Autowired
+    CustomerService customerService;
 
     @RequestMapping(value = "/findSpec/{id}", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -168,7 +172,7 @@ public class RestFullController {
         try {
             if (!mainImage.isEmpty()) {
                 fileName = mainImage.getOriginalFilename();
-                file = new File("/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/webapp/resources/image/img_product", fileName);
+                file = new File(saveDirectory + "CyberShop/src/main/webapp/resources/image/img_product", fileName);
                 mainImage.transferTo(file);
                 img = new Image();
                 img.setUrlImage(fileName);
@@ -176,10 +180,11 @@ public class RestFullController {
                 img.setProductID(product);
                 imageService.updateMainImage(img);
             }
-            if (!subImage.get(0).isEmpty()) {
-                for (MultipartFile subImg : subImage) {
+
+            for (MultipartFile subImg : subImage) {
+                if (!subImage.isEmpty()) {
                     fileName = subImg.getOriginalFilename();
-                    file = new File("/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/webapp/resources/image/img_product", fileName);
+                    file = new File(saveDirectory + "CyberShop/src/main/webapp/resources/image/img_product", fileName);
                     subImg.transferTo(file);
                     img = new Image();
                     img.setUrlImage(fileName);
@@ -337,4 +342,92 @@ public class RestFullController {
 
         return new ResponseEntity("success", HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/userLogin", method = RequestMethod.POST,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<String> checkLogin(@RequestParam("user") String username, @RequestParam("pass") String password, HttpSession session) {
+        System.out.println("User: " + username + "Pass: " + password);
+        Customer cus = customerService.checkLogin(username, password);
+        System.out.println("Customer: " + cus);
+        if (cus != null) {
+            session.setAttribute("CUSTOMER_INFO", cus);
+            return new ResponseEntity("success", HttpStatus.OK);
+        } else {
+            return new ResponseEntity("fail", HttpStatus.OK);
+        }
+    }
+
+    @RequestMapping(value = "/forgotPass", method = RequestMethod.POST,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<String> refreshPassword(@RequestParam("userForgot") String username) {
+        Customer cus = customerService.getByUser(username);
+        System.out.println("Customer: " + cus);
+        if (cus != null) {
+            cus.setPassword(randomPassword(10));
+            customerService.save(cus);
+            orderService.sendEmailOrder("cybershop.nano@gmail.com", cus.getEmail(), "Your Password is: ", cus.getPassword());
+            return new ResponseEntity("success", HttpStatus.OK);
+        } else {
+            return new ResponseEntity("fail", HttpStatus.OK);
+        }
+    }
+
+    String randomPassword(int len) {
+        String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        Random rnd = new Random();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i <= len; i++) {
+            sb.append(AB.charAt(rnd.nextInt(AB.length())));
+        }
+        return sb.toString();
+    }
+
+    @RequestMapping(value = "/createCus", method = RequestMethod.POST,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity createCustomer(
+            @RequestParam("usernamecreate") String username,
+            @RequestParam("passwordcreate") String password,
+            @RequestParam("emailcreate") String email,
+            @RequestParam("fullnamecreate") String fullname,
+            @RequestParam("addresscreate") String address,
+            @RequestParam("phonecreate") String phone,
+            @RequestParam("dobcreate") String dob,
+            @RequestParam("sexCheck") String sex) throws IOException {
+        System.out.println("username: " + username);
+        System.out.println("password: " + password);
+        System.out.println("email: " + email);
+        System.out.println("fullname: " + fullname);
+        System.out.println("address: " + address);
+        System.out.println("phone: " + phone);
+        System.out.println("dob: " + dob);
+        System.out.println("SEX: " + sex);
+        try {
+            Customer cus = new Customer();
+            cus.setUsername(username);
+            cus.setPassword(password);
+            cus.setFullname(fullname);
+            if (sex.equals("1")) {
+                cus.setSex(true);
+            } else {
+                cus.setSex(false);
+            }
+            cus.setAddress(address);
+            cus.setPhone(phone);
+            cus.setIsGuest(false);
+            cus.setStatus(true);
+            cus.setEmail(email);
+            cus.setDateRegistration(new Date());
+            cus.setToken(randomPassword(10));
+            cus.setDob(new SimpleDateFormat("yyyy-MM-dd").parse(dob));
+            System.out.println("Customer: " + cus);
+            customerService.save(cus);
+        } catch (ParseException ex) {
+            System.out.println("ERROR: " + ex.getMessage());
+        }
+        return new ResponseEntity("success", HttpStatus.OK);
+    }
+
 }

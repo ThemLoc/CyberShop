@@ -171,7 +171,67 @@ public class ProductDAOImpl implements ProductDAO {
         long resultL = (long) this.em.createQuery("Select COUNT(BrandID) from Product where BrandID = ?")
                 .setParameter(1, brandID)
                 .getSingleResult();
-        int resultInt = (int)resultL;
-        return resultInt;     
+        int resultInt = (int) resultL;
+        return resultInt;
+    }
+
+    @Override
+    public List<Product> getNewProduct(int number) {
+        List<Product> listPro = this.em.createQuery("from Product Where Status = 1 Order By ProductID DESC").setMaxResults(number).getResultList();
+        List<Product> newListPro = new ArrayList<>();
+        Product newProduct;
+        for (Product product : listPro) {
+            newProduct = new Product();
+            newProduct.setProductID(product.getProductID());
+            newProduct.setProductName(product.getProductName());
+            newProduct.setPrice(product.getPrice());
+            newProduct.setDownPrice(product.getDownPrice());
+            List<Image> listImages = (List<Image>) product.getImagesCollection();
+            List<Image> newList;
+            if (!listImages.isEmpty()) {
+                Image image;
+                newList = new ArrayList<>();
+                for (Image item : listImages) {
+                    image = new Image();
+                    image.setImageID(item.getImageID());
+                    image.setUrlImage(item.getUrlImage());
+                    image.setMainImage(item.getMainImage());
+                    newList.add(image);
+                }
+                newProduct.setImagesCollection(newList);
+            }
+            newListPro.add(newProduct);
+        }
+        return newListPro;
+    }
+
+    @Override
+    public List<Product> getHotSaleProduct(int number) {
+        List<Product> listPro = this.em.createQuery("from Product  Where DownPrice IS NOT NULL and Status = 1 ORDER BY (Price - DownPrice) DESC").setMaxResults(number).getResultList();
+        List<Product> newListPro = new ArrayList<>();
+        Product newProduct;
+        for (Product product : listPro) {
+            newProduct = new Product();
+            newProduct.setProductID(product.getProductID());
+            newProduct.setProductName(product.getProductName());
+            newProduct.setPrice(product.getPrice());
+            newProduct.setDownPrice(product.getDownPrice());
+            List<Image> listImages = (List<Image>) product.getImagesCollection();
+            List<Image> newList;
+            if (!listImages.isEmpty()) {
+                Image image;
+                newList = new ArrayList<>();
+                for (Image item : listImages) {
+                    image = new Image();
+                    image.setImageID(item.getImageID());
+                    image.setUrlImage(item.getUrlImage());
+                    image.setMainImage(item.getMainImage());
+                    newList.add(image);
+                }
+                newProduct.setImagesCollection(newList);
+            }
+            newListPro.add(newProduct);
+        }
+        return newListPro;
     }
 }
