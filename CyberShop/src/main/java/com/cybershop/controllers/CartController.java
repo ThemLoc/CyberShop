@@ -79,7 +79,8 @@ public class CartController {
         } else {
             cart = (CartDTO) session.getAttribute("cart");
         }
-        cart.addItem(product, qty);  
+        cart.addItem(product, qty);
+        cart.getTotalOrder();
         session.setAttribute("cart", cart);
     }
 
@@ -87,7 +88,8 @@ public class CartController {
         CartDTO cart = null;
         if (session.getAttribute("cart") != null) {
             cart = (CartDTO) session.getAttribute("cart");
-             cart.removeItem(productId);  
+             cart.removeItem(productId); 
+             cart.getTotalOrder();
              session.setAttribute("cart", cart);
         }
     }
@@ -97,6 +99,7 @@ public class CartController {
         if (session.getAttribute("cart") != null) {
             cart = (CartDTO) session.getAttribute("cart");
              cart.updateItem(product, qty);
+             cart.getTotalOrder();
              session.setAttribute("cart", cart);
         }
     }

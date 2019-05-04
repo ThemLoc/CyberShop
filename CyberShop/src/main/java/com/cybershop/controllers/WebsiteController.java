@@ -2,6 +2,7 @@ package com.cybershop.controllers;
 
 import com.cybershop.dto.SpecificationShowDTO;
 import com.cybershop.models.Category;
+import com.cybershop.models.Customer;
 import com.cybershop.models.Product;
 import com.cybershop.services.CategoryService;
 import com.cybershop.services.ProductService;
@@ -112,7 +113,8 @@ public class WebsiteController {
     }
 
     @RequestMapping(value = {"/website/checkout"}, method = RequestMethod.GET)
-    public String check_out() {
+    public String check_out(Model model) {
+        model.addAttribute("CusomerInfor", new Customer());
         return "website/checkout";
     }
 
