@@ -20,14 +20,16 @@ public class CartDTO {
     
     
 
-    public void addItem(Product product, int qty) {
+    public String addItem(Product product, int qty) {
         if (detail.containsKey(product.getProductID())) {
             detail.get(product.getProductID()).qty++;
             detail.get(product.getProductID()).getTotal();
+            return "duplicate";
         } else {
             detail.put(product.getProductID(), new CartItem(product, qty));
-            
+            return "addSuccess";
         }
+        
     }
     
      public void removeItem(int productId) {

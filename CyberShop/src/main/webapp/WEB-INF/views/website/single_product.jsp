@@ -37,7 +37,6 @@
                                             <div class="w3-col s2">
                                                 <img class="demo w3-opacity w3-hover-opacity-off" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;height: 50px;cursor:pointer" onclick="currentDiv(${counter.count})">
                                             </div>
-
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -62,9 +61,9 @@
                                         </div>    
                                         <br/>
                                         <div class="quantity">
-                                            <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1" max="${product.quantity}">
+                                            <input id="inputQuantity" type="number"  class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1" max="${product.quantity}">
                                         </div>
-                                        <button onclick="addToCart(${product.productID})" class="add_to_cart_button" type="button" >Thêm vào giỏ hàng</button>
+                                        <button onclick="addToCart(${product.productID},${product.productID})" class="add_to_cart_button" type="button" >Thêm vào giỏ hàng</button>
                                         <div style="height: 100px;"></div>
                                         <div class="desc" role="tabpanel">
                                             <ul class="product-tab" role="tablist">
@@ -155,7 +154,7 @@
                 <div class="modal-dialog vertical-align-center modal-sm"  >
                     <div class="modal-content">
                         <div class="modal-body">
-                            <img src="<c:url value="/resources/image/icon/checked.png"/>"/> <a style="color: #02acea"> Thêm vào giỏ hàng thành công!</a>
+                            <img src="<c:url value="/resources/image/icon/checked.png"/>"/> <a id="alertContent" style="color: #02acea"> Thêm vào giỏ hàng thành công!</a>
                         </div>
                     </div>
                 </div>
@@ -189,14 +188,49 @@
                 dots[slideIndex - 1].className += " w3-opacity-off";
             }
 
-            function addToCart(productID) {
-                $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#alertModal").slideUp(500);
-                });
-                var count = $('#product-count').text();
-                count++;
-                $('#product-count').text(count);
+            function addToCart(productID, maxQuantity) {
 
+                var quantity = $("#inputQuantity").val();
+                if (quantity < 0 || quantity > maxQuantity) {
+                    $("#alertContent").text("Lỗi ! Thêm thất bại.");
+                    $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                        $("#alertModal").slideUp(500);
+                    });
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: "${pageContext.request.contextPath}/api/cart/add",
+                        dataType: 'text',
+                        data: {
+                            productId: productID,
+                            qty: quantity},
+                        timeout: 100000,
+                        success: function (result) {
+                            if (result == "addSuccess") {
+                                var count = $('#product-count').text();
+                                count++;
+                                $('#product-count').text(count);
+                                $("#alertContent").text("Thêm vào giỏ hàng thành công!");
+                                $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                    $("#alertModal").slideUp(500);
+                                });
+                            } else if (result == "duplicate") {
+                                $("#alertContent").text("Thêm vào giỏ hàng thành công!");
+                                $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                    $("#alertModal").slideUp(500);
+                                });
+                            } else {
+                                $("#alertContent").text("Lỗi ! Thêm thất bại.");
+                                $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                    $("#alertModal").slideUp(500);
+                                });
+                            }
+                        },
+                        error: function (e) {
+                            console.log("ERROR: ", e);
+                        }
+                    });
+                }
             }
 
 

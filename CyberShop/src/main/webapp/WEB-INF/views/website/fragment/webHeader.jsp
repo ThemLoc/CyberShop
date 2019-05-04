@@ -31,7 +31,7 @@
         <div class="row">
             <div class="col-sm-3">
                 <div class="logo">
-                    <h1><a href="index.html"><img src="<c:url value="/resources/websource/img/logo.jpg"/>"></a></h1>
+                    <h1><a href="${pageContext.request.contextPath}/website/home"><img src="<c:url value="/resources/websource/img/logo.jpg"/>"></a></h1>
                 </div>
             </div>
             <div class="col-sm-7" id="test">
@@ -57,7 +57,16 @@
             </div>
             <div class="col-sm-2">
                 <div class="shopping-item">
-                    <a href="cart.html">Giỏ hàng<span class="cart-amunt"></span> <i class="fa fa-shopping-cart"></i> <span id="product-count" class="product-count">0</span></a>
+                    <a  href="${pageContext.request.contextPath}/website/cart">Giỏ hàng<span class="cart-amunt"></span> <i class="fa fa-shopping-cart"></i> 
+                        <span id="product-count" class="product-count">
+                            <c:if test="${sessionScope.cart.detail.size() == null}">
+                                0
+                            </c:if>
+                             <c:if test="${sessionScope.cart.detail.size() != null}">
+                                 ${sessionScope.cart.detail.size()}
+                             </c:if>
+                        </span>
+                    </a>
                 </div>
             </div>
         </div>

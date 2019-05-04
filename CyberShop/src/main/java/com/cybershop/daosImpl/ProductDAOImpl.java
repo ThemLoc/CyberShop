@@ -183,6 +183,7 @@ public class ProductDAOImpl implements ProductDAO {
         dto.setProductName(product.getProductName());
         dto.setSell(product.getSell());
         dto.setPrice(product.getPrice());
+        dto.setQuantity(product.getQuantity());
         dto.setDownPrice(product.getDownPrice());
         dto.setBrandID(product.getBrandID());
 

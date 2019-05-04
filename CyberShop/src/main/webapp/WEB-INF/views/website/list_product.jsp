@@ -332,7 +332,7 @@
                             }
                             html += '</div> ';
                             html += '<div class="product-option-shop">';
-                            html += '<a onclick="addToCart(' + data[i]['productID'] + ')" class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" >Add to cart</a>';
+                            html += '<a onclick="addToCart(' + data[i]['productID'] +')" class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" >Add to cart</a>';
                             html += '</div>';
                             html += '</div>';
                             html += '</div>';
@@ -551,12 +551,39 @@
 
             //add to cart
             function addToCart(productID) {
-                $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#alertModal").slideUp(500);
-                });
-                var count = $('#product-count').text();
-                count++;
-                $('#product-count').text(count);
+                    $.ajax({
+                        type: "POST",
+                        url: "${pageContext.request.contextPath}/api/cart/add",
+                        dataType: 'text',
+                        data: {
+                            productId: productID,
+                            qty: 1},
+                        timeout: 100000,
+                        success: function (result) {
+                            if (result == "addSuccess") {
+                                var count = $('#product-count').text();
+                                count++;
+                                $('#product-count').text(count);
+                                $("#alertContent").text("Thêm vào giỏ hàng thành công!");
+                                $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                    $("#alertModal").slideUp(500);
+                                });
+                            } else if (result == "duplicate") {
+                                $("#alertContent").text("Thêm vào giỏ hàng thành công!");
+                                $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                    $("#alertModal").slideUp(500);
+                                });
+                            } else {
+                                $("#alertContent").text("Lỗi ! Thêm thất bại.");
+                                $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                    $("#alertModal").slideUp(500);
+                                });
+                            }
+                        },
+                        error: function (e) {
+                            console.log("ERROR: ", e);
+                        }
+                    });
             }
         </script>
     </body>
