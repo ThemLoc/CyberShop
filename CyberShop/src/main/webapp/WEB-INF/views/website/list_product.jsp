@@ -106,7 +106,7 @@
                 <div class="modal-dialog vertical-align-center modal-sm"  >
                     <div class="modal-content">
                         <div class="modal-body">
-                            <img src="<c:url value="/resources/image/icon/checked.png"/>"/> <a style="color: #02acea"> Thêm vào giỏ hàng thành công!</a>
+                            <img src="<c:url value="/resources/image/icon/checked.png"/>"/> <a id="alertContent" style="color: #02acea"> Thêm vào giỏ hàng thành công!</a>
                         </div>
                     </div>
                 </div>

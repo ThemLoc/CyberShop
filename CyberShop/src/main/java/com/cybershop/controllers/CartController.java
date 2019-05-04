@@ -47,36 +47,69 @@ public class CartController {
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.GET)
-    public String updateToCart(@RequestParam("productId") int productId,
-            @RequestParam("qty") int qty,
+    @RequestMapping(value = "/remove/{id}", method = RequestMethod.POST,
+            produces = {MediaType.ALL_VALUE})
+    @ResponseBody
+    public ResponseEntity<Product> removeCart(@PathVariable("id") int productId,
             HttpSession session, RedirectAttributes ra) {
-
-        Product product = productService.findById(productId);
-        if (qty <= 0) {
+        try {
             removeItem(session, productId);
-        } else {
-            updateItem(session, product, qty);
+        } catch (Exception e) {
+            return new ResponseEntity("fail", HttpStatus.OK);
         }
 
-        ra.addFlashAttribute("msg", "Updated cart successfully!");
-
-        return "redirect:/home";
-
+        return new ResponseEntity("success", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/remove", method = RequestMethod.GET)
-    public String removeCart(@RequestParam("productId") int productId,
+    @RequestMapping(value = "/update", method = RequestMethod.POST,
+            produces = {MediaType.ALL_VALUE})
+    @ResponseBody
+    public ResponseEntity<Product> updateCart(@RequestParam("productId") int productId,
+            @RequestParam("qty") int qty,
             HttpSession session, RedirectAttributes ra) {
-
-        removeItem(session, productId);
-
-        ra.addFlashAttribute("msg", "Removed item successfully!");
-
-        return "redirect:/cart";
-
+        System.out.println("ID:"+productId + "|Quantity : " + qty);
+        try {
+            Product product = productService.findById(productId);
+            if (qty <= 0) {
+                removeItem(session, productId);
+            } else {
+                updateItem(session, product, qty);
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR :" +e.getMessage());
+            return new ResponseEntity("fail", HttpStatus.OK);
+        }
+        return new ResponseEntity("success", HttpStatus.OK);
     }
 
+//    @RequestMapping(value = "/update", method = RequestMethod.GET)
+//    public String updateToCart(@RequestParam("productId") int productId,
+//            @RequestParam("qty") int qty,
+//            HttpSession session, RedirectAttributes ra) {
+//
+//        Product product = productService.findById(productId);
+//        if (qty <= 0) {
+//            removeItem(session, productId);
+//        } else {
+//            updateItem(session, product, qty);
+//        }
+//
+//        ra.addFlashAttribute("msg", "Updated cart successfully!");
+//
+//        return "redirect:/home";
+//
+//    }
+//    @RequestMapping(value = "/remove", method = RequestMethod.GET)
+//    public String removeCart(@RequestParam("productId") int productId,
+//            HttpSession session, RedirectAttributes ra) {
+//
+//        removeItem(session, productId);
+//
+//        ra.addFlashAttribute("msg", "Removed item successfully!");
+//
+//        return "redirect:/cart";
+//
+//    }
     private String addItem(HttpSession session, Product product, int qty) {
         CartDTO cart = null;
         if (session.getAttribute("cart") == null) {
