@@ -1,6 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -39,20 +41,31 @@
                                         </c:forEach>
                                     </div>
                                 </div>
-
                                 <div class="col-sm-6">
                                     <div class="product-inner">
                                         <h2 class="product-name">${product.productName}</h2>
                                         <div class="product-inner-price">
-                                            <ins>${product.price}₫</ins>
-                                        </div>    
+                                            <c:if test="${not empty product.downPrice}">
+                                                <del>
+                                                    <fmt:formatNumber type="number" pattern="###,###" value="${product.price}" />₫
+                                                </del>
+                                                <ins>
+                                                    <fmt:formatNumber type="number" pattern="###,###" value="${product.downPrice}" />₫
+                                                </ins>
 
-                                        <form action="" class="cart">
-                                            <div class="quantity">
-                                                <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
-                                            </div>
-                                            <button onclick="addToCart(${product.productID})" class="add_to_cart_button" type="button" >Thêm vào giỏ hàng</button>
-                                        </form>   
+                                            </c:if>
+                                            <c:if test="${empty product.downPrice}">
+                                                <ins>
+                                                    <fmt:formatNumber type="number" pattern="###,###" value="${product.price}" />₫
+                                                </ins>
+                                            </c:if>
+                                        </div>    
+                                        <br/>
+                                        <div class="quantity">
+                                            <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1" max="${product.quantity}">
+                                        </div>
+                                        <button onclick="addToCart(${product.productID})" class="add_to_cart_button" type="button" >Thêm vào giỏ hàng</button>
+                                        <div style="height: 100px;"></div>
                                         <div class="desc" role="tabpanel">
                                             <ul class="product-tab" role="tablist">
                                                 <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông số kĩ thuật</a></li>
@@ -111,7 +124,20 @@
                                             <h2><a href="${pageContext.request.contextPath}/website/singleproduct/${item.productID}">${item.productName}</a></h2>
 
                                             <div class="product-carousel-price">
-                                                <ins>${item.price}₫</ins> 
+                                                <c:if test="${not empty item.downPrice}">
+                                                    <del>
+                                                        <fmt:formatNumber type="number" pattern="###,###" value="${item.price}" />₫
+                                                    </del>
+                                                    <ins>
+                                                        <fmt:formatNumber type="number" pattern="###,###" value="${item.downPrice}" />₫
+                                                    </ins>
+
+                                                </c:if>
+                                                <c:if test="${empty item.downPrice}">
+                                                    <ins>
+                                                        <fmt:formatNumber type="number" pattern="###,###" value="${item.price}" />₫
+                                                    </ins>
+                                                </c:if>
                                             </div> 
                                         </div>
                                     </c:forEach>

@@ -31,4 +31,6 @@ public interface ProductDAO {
     List<Product> getProductNotInBanner();
     
     List<Product> findTop6ProductWithCateID(int cateID);
+    
+    Product getByIDSimple(int id);
 }

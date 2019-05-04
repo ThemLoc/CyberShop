@@ -80,4 +80,10 @@ public class ProductServiceImpl implements ProductService {
         return dao.countPdByBrandID(brandID);
     }
 
+    @Transactional
+    @Override
+    public Product findByIdSimple(int id) {
+        return dao.getByIDSimple(id);
+    }
+
 }

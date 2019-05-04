@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -135,8 +136,12 @@
                                                     <td onclick="rowClick(${pd.productID})">${pd.categoryID.cateName}</td>
                                                     <td id="tbRow_pquantity${pd.productID}" onclick="rowClick(${pd.productID})">${pd.quantity}</td>
                                                     <td onclick="rowClick(${pd.productID})">${pd.sell}</td>
-                                                    <td id="tbRow_pprice${pd.productID}" onclick="rowClick(${pd.productID})">${pd.price}</td>
-                                                    <td id="tbRow_pdownPrice${pd.productID}" onclick="rowClick(${pd.productID})">${pd.downPrice}</td>
+                                                    <td id="tbRow_pprice${pd.productID}" onclick="rowClick(${pd.productID})">
+                                                       <fmt:formatNumber type="number" pattern="###,###" value="${pd.price}" />₫
+                                                    </td>
+                                                    <td id="tbRow_pdownPrice${pd.productID}" onclick="rowClick(${pd.productID})">
+                                                        <fmt:formatNumber type="number" pattern="###,###" value="${pd.downPrice}" />₫
+                                                    </td>
                                                     <td id="rowStatus${pd.productID}" onclick="rowClick(${pd.productID})"> 
                                                         <c:if test="${pd.status}">Enable</c:if>
                                                         <c:if test="${!pd.status}">Disable</c:if>

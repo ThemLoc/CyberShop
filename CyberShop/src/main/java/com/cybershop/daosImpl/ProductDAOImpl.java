@@ -175,4 +175,34 @@ public class ProductDAOImpl implements ProductDAO {
         return resultInt;
     }
 
+    @Override
+    public Product getByIDSimple(int id) {
+        Product product = em.find(Product.class, id);
+        final Product dto = new Product();
+        dto.setProductID(product.getProductID());
+        dto.setProductName(product.getProductName());
+        dto.setSell(product.getSell());
+        dto.setPrice(product.getPrice());
+        dto.setDownPrice(product.getDownPrice());
+        dto.setBrandID(product.getBrandID());
+
+        List<Image> listImages = (List<Image>) product.getImagesCollection();
+        List<Image> newList;
+        if (!listImages.isEmpty()) {
+            Image image;
+            newList = new ArrayList<>();
+            for (Image item : listImages) {
+                if (item.getMainImage() == true) {
+                    image = new Image();
+                    image.setImageID(item.getImageID());
+                    image.setUrlImage(item.getUrlImage());
+                    image.setMainImage(item.getMainImage());
+                    newList.add(image);
+                }
+            }
+            dto.setImagesCollection(newList);
+        }
+        return dto;
+    }
+
 }

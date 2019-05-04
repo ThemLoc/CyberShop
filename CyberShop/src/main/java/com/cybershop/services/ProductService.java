@@ -35,4 +35,6 @@ public interface ProductService {
     List<Product> findProductNotInBanner();
     
     List<Product> findTop6ProductWithCateID(int cateID);
+    
+    Product findByIdSimple(int id);
 }
