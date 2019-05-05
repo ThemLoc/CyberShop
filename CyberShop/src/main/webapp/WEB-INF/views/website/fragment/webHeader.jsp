@@ -10,7 +10,15 @@
                     <ul>
                         <c:set var="customerInfo" value="${sessionScope.CUSTOMER_INFO}"/>
                         <c:if test="${not empty customerInfo}">
-                            <li><a href="#" style="text-decoration: none"><i class="fa fa-user"></i> ${customerInfo.fullname}</a></li>
+                            <li>
+                                <div class="dropdown">
+                                    <a href="" style="text-align: center;text-decoration: none"><i class="fa fa-user"></i> ${customerInfo.fullname}</a>
+                                    <div class="dropdown-content">
+                                        <a href="${pageContext.request.contextPath}/website/profile">Thông tin cá nhân</a>
+                                        <a href="${pageContext.request.contextPath}/website/orderhistory">Lịch sử mua hàng</a>
+                                    </div>
+                                </div>
+                            </li>
                             <li><a href="${pageContext.request.contextPath}/website/logout" style="text-decoration: none">Logout</a></li>
                             </c:if>
                             <c:if test="${empty customerInfo}">
@@ -39,39 +47,45 @@
         <div class="row">
             <div class="col-sm-3">
                 <div class="logo">
-                    <h1><a href="index.html"><img src="<c:url value="/resources/websource/img/logo.jpg"/>"></a></h1>
+                    <h1><a href="${pageContext.request.contextPath}/website/home"><img src="<c:url value="/resources/websource/img/logo.jpg"/>"></a></h1>
                 </div>
             </div>
             <div class="col-sm-7" id="test">
                 <div class="btn-group" >
-                    <button  type="button" class="btn btn-primary dropdown-toggle category" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Categories
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Thuơng hiệu</a>
-                        <br/>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Separated link</a>
-                    </div>
+                    <select class="btn btn-primary dropdown-toggle category">
+                        <option value="All">Categories</option>
+                        <c:forEach var="selectCate" items="${selectCate}">
+                            <option value="${selectCate.cateID}">${selectCate.cateName}</option>
+                        </c:forEach>
+                    </select>
                 </div>
                 <div class="test">
                     <form class="search">
                         <input class="inputSearch"  type="text" placeholder="Tìm kiếm.." name="search" />
-                        <button type="submit"><i  class="fa fa-search"></i></button>
+                        <button type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
             </div>
             <div class="col-sm-2">
                 <div class="shopping-item">
-                    <a href="cart.html">Giỏ hàng<span class="cart-amunt"></span> <i class="fa fa-shopping-cart"></i> <span id="product-count" class="product-count">0</span></a>
+                    <a  href="${pageContext.request.contextPath}/website/cart">Giỏ hàng<span class="cart-amunt"></span> <i class="fa fa-shopping-cart"></i> 
+                        <span id="product-count" class="product-count">
+                            <c:if test="${sessionScope.cart.detail.size() == null}">
+                                0
+                            </c:if>
+                            <c:if test="${sessionScope.cart.detail.size() != null}">
+                                ${sessionScope.cart.detail.size()}
+                            </c:if>
+                        </span>
+                    </a>
                 </div>
             </div>
         </div>
 
     </div>
 </div>
+<div id="scrollPoint"></div>
+
 <!-- End site branding area -->
 
 <div class="mainmenu-area">
@@ -87,13 +101,13 @@
             </div> 
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active" ><a href="index.html">TRANG CHỦ</a></li>
+                    <li class="active" ><a href="${pageContext.request.contextPath}/website/home">TRANG CHỦ</a></li>
                     <li class="active">
                         <div class="dropdown">
                             <button  class="dropbtn">LINH KIỆN MÁY TÍNH</button>
-                            <div class="dropdown-content">
+                            <div style="overflow:scroll; height:370px;" class="dropdown-content">
                                 <c:forEach items="${listLKCate}" var="cateList">
-                                    <a href="#">${cateList.cateName}</a>
+                                    <a href="${pageContext.request.contextPath}/website/listproduct/${cateList.cateID}">${cateList.cateName}</a>
                                 </c:forEach>
                             </div>
                         </div>
@@ -101,19 +115,18 @@
                     <li class="active">
                         <div class="dropdown">
                             <button class="dropbtn">THƯƠNG HIỆU</button>
-                            <div class="dropdown-content">
+                            <div style="overflow:scroll; height:370px;" class="dropdown-content">
                                 <c:forEach items="${listBrand}" var="brandList">
-                                    <a href="#">${brandList.brandName}</a>
+                                    <a href="${pageContext.request.contextPath}/website/listproduct/brand/${brandList.brandID}">${brandList.brandName}</a>
                                 </c:forEach>
                             </div>
-                        </div>
                     </li>
                     <li class="active">
                         <div class="dropdown">
                             <button  class="dropbtn">PHỤ KIỆN MÁY TÍNH</button>
-                            <div class="dropdown-content">
+                            <div style="overflow:scroll; height:370px;" class="dropdown-content">
                                 <c:forEach items="${listPKCate}" var="cateList">
-                                    <a href="#">${cateList.cateName}</a>
+                                    <a href="${pageContext.request.contextPath}/website/listproduct/${cateList.cateID}">${cateList.cateName}</a>
                                 </c:forEach>
                             </div>
                         </div>
@@ -172,7 +185,7 @@
                         <div class="control-group" style="text-align: center">
                             <label class="control-label" for="signin"></label>
                             <div class="controls">
-                                <button id="login" name="signin" class="btn btn-success">Đăng nhập</button>
+                                <button id="loginFunction" name="signin" class="btn btn-success">Đăng nhập</button>
                             </div>
                         </div>
                         <!--</fieldset>-->
@@ -183,6 +196,7 @@
                             <!-- Sign Up Form -->
                             <!-- Text input-->
                             <div class="control-group">
+                                <strong id="usernameError" style="color: red"></strong><br/>
                                 <label class="control-label">Tài khoản</label>
                                 <div class="controls">
                                     <input id="usernamecreate" name="username" class="form-control" type="text" placeholder="Tên tài khoản" class="input-large" required="">
@@ -191,6 +205,7 @@
 
                             <!-- Password input-->
                             <div class="control-group">
+                                <strong id="passError" style="color: red"></strong><br/>
                                 <label class="control-label">Mật khẩu</label>
                                 <div class="controls">
                                     <input id="passwordcreate" class="form-control" type="password" placeholder="********" class="input-large" required="">
@@ -207,13 +222,15 @@
                             <p id="message"></p>
 
                             <div class="control-group">
+                                <strong id="emailError" style="color: red"></strong><br/>
                                 <label class="control-label">Email</label>
                                 <div class="controls">
-                                    <input id="emailcreate" class="form-control" type="text" placeholder="Email của bạn" class="input-large" required="">
+                                    <input id="emailcreate" class="form-control" type="email" placeholder="Email của bạn" class="input-large" required="">
                                 </div>
                             </div>
 
                             <div class="control-group">
+                                <strong id="fullnameError" style="color: red"></strong><br/>
                                 <label class="control-label">Họ & Tên</label>
                                 <div class="controls">
                                     <input id="fullnamecreate" class="form-control" type="text" placeholder="Họ & tên của bạn" class="input-large" required="">
@@ -231,6 +248,7 @@
                             </div>
 
                             <div class="control-group">
+                                <strong id="addressError" style="color: red"></strong><br/>
                                 <label class="control-label">Địa chỉ</label>
                                 <div class="controls">
                                     <input id="addresscreate" class="form-control" type="text" placeholder="Địa chỉ của bạn" class="input-large" required="">
@@ -238,23 +256,24 @@
                             </div>
 
                             <div class="control-group">
+                                <strong id="phoneError" style="color: red"></strong><br/>
                                 <label class="control-label">Số điện thoại</label>
                                 <div class="controls">
-                                    <input id="phonecreate" class="form-control" type="text" placeholder="Số điện thoại" class="input-large" required="">
+                                    <input id="phonecreate" class="form-control" type="number"  pattern="\d*" maxlength="10" minlength="10" placeholder="Số điện thoại" class="input-large" required="">
                                 </div>
                             </div>
 
                             <div class="control-group">
+                                <strong id="dateError" style="color: red"></strong><br/>
                                 <label class="control-label">Ngày sinh</label>
                                 <div class="controls">
                                     <input id="dobcreate" class="form-control" type="date" placeholder="Ngày sinh" class="input-large" required="">
                                 </div>
                             </div>
-
                             <br>
-
                             <!-- Button -->
                             <div class="control-group">
+                                <strong id="usernameExist" style="color: red"></strong><br/>
                                 <label class="control-label" for="confirmsignup"></label>
                                 <div class="controls">
                                     <button id="confirmsignup" name="confirmsignup" class="btn btn-success">Đăng ký</button>
@@ -292,6 +311,70 @@
                             <label class="control-label" for="signin"></label>
                             <div class="controls">
                                 <button id="renewPass" class="btn btn-success">Cấp lại mật khẩu</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Confirm Email-->
+<div class="modal fade" id="confirmEmail" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="bs-example bs-example-tabs">
+                <button style="float: right; margin-top: -20px;margin-right: -18px; border-radius: 50%" type="button" class="btn btn-danger" data-dismiss="modal">X</button>
+            </div>
+            <br>
+            <h2 style="margin-left: 20px;">Xác thực Email</h2>
+            <div class="modal-body">
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="signin">
+                        <div class="control-group">
+                            <strong id="confirmEmailFail" style="color: red"></strong>
+                            <input type="hidden" id="userCus"/>
+                            <div class="controls">
+                                <input required="" id="confirmCode" type="text" class="form-control" placeholder="Mã xác thực" class="input-medium" required="">
+                            </div>
+                        </div>
+                        <div class="control-group" style="text-align: center">
+                            <label class="control-label" for="signin"></label>
+                            <div class="controls">
+                                <button id="confirmEmailButton" class="btn btn-success">Xác thực</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Confirm Email After Register-->
+<div class="modal fade" id="confirmEmailAfterRegister" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="bs-example bs-example-tabs">
+                <button style="float: right; margin-top: -20px;margin-right: -18px; border-radius: 50%" type="button" class="btn btn-danger" data-dismiss="modal">X</button>
+            </div>
+            <br>
+            <h2 style="margin-left: 20px;">Xác thực Email</h2>
+            <div class="modal-body">
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="signin">
+                        <div class="control-group">
+                            <strong id="confirmEmailFailAfter" style="color: red"></strong>
+                            <input type="hidden" id="userCusAfter"/>
+                            <div class="controls">
+                                <input required="" id="confirmCodeAfter" type="text" class="form-control" placeholder="Mã xác thực" class="input-medium" required="">
+                            </div>
+                        </div>
+                        <div class="control-group" style="text-align: center">
+                            <label class="control-label" for="signin"></label>
+                            <div class="controls">
+                                <button id="confirmEmailButtonAfter" class="btn btn-success">Xác thực</button>
                             </div>
                         </div>
                     </div>

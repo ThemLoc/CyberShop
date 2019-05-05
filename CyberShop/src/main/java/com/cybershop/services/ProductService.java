@@ -20,14 +20,22 @@ public interface ProductService {
     void updateSpecification(int productID, int cateID, String detail);
 
     int countByCateID(int cateID);
-    
+
     int countPdByBrandID(int brandID);
 
     List<Product> findProductNotInBanner();
-    
+
     List<Product> findTop6ProductWithCateID(int cateID);
     
+    List<Product> findAllProductWithBrandID(int brandID);
+
     List<Product> findNewProduct(int number);
-    
+
     List<Product> findHotSaleProduct(int number);
+    
+    List<Product> findSellProduct(int number);
+    
+    List<Product> searchProduct(int cateID, String search);
+
+    Product findByIdSimple(int id);
 }

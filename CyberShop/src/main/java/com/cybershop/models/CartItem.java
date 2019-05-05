@@ -5,10 +5,16 @@ public class CartItem {
     
     Product item;
     int qty;
+    double total;
+
+    public CartItem() {
+    }
+    
 
     CartItem(Product product, int qty) {
         this.item = product;
         this.qty = qty;
+        this.total = item.getPrice() * this.qty;
     }
 
     public Product getItem() {
@@ -26,6 +32,12 @@ public class CartItem {
     public void setQty(int qty) {
         this.qty = qty;
     }
+
+    public double getTotal() {
+        return total = qty * item.getPrice();
+    }
+
+    
     
     
 }

@@ -8,13 +8,28 @@ import com.cybershop.models.Product;
 public class CartDTO {
     
     private Map<Integer, CartItem> detail = new HashMap<>();
+    private double totalOrder;
 
-    public void addItem(Product product, int qty) {
+    public double getTotalOrder() {
+        double tmp = 0;
+        for (Map.Entry<Integer, CartItem> entry : detail.entrySet()) {
+            tmp += entry.getValue().total;
+        }
+        return totalOrder = tmp;
+    }
+    
+    
+
+    public String addItem(Product product, int qty) {
         if (detail.containsKey(product.getProductID())) {
             detail.get(product.getProductID()).qty++;
+            detail.get(product.getProductID()).getTotal();
+            return "duplicate";
         } else {
             detail.put(product.getProductID(), new CartItem(product, qty));
+            return "addSuccess";
         }
+        
     }
     
      public void removeItem(int productId) {

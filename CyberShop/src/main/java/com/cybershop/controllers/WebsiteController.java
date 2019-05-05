@@ -3,17 +3,19 @@ package com.cybershop.controllers;
 import com.cybershop.services.BrandService;
 import com.cybershop.dto.SpecificationShowDTO;
 import com.cybershop.models.Brand;
-import com.cybershop.models.Category;
-import com.cybershop.models.Product;
 import com.cybershop.services.BannerService;
+import com.cybershop.models.Category;
+import com.cybershop.models.Customer;
+import com.cybershop.models.Product;
 import com.cybershop.services.CategoryService;
+import com.cybershop.services.OrderService;
 import com.cybershop.services.ProductService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,50 +26,61 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class WebsiteController {
-    
+
     private List<Integer> listInt = new ArrayList<>();
-    
     @Autowired
     BrandService service;
 
     @Autowired
     ProductService productService;
-    
+
     @Autowired
     CategoryService categoryService;
-    
+
     @Autowired
     BannerService bannerService;
 
+    @Autowired
+    OrderService orderService;
+
+    @Autowired
+    BrandService brandService;
+
     @RequestMapping(value = {"/website/home"}, method = RequestMethod.GET)
-    public String home(Model model) {
-        Map<String, List<Category>> mapCategory = listMap();
-        model.addAttribute("listPKCate", mapCategory.get("listPKCate"));
-        model.addAttribute("listLKCate", mapCategory.get("listLKCate"));
+    public String home(Model model, HttpSession session) {
+        loadModel(model);
+        List<Product> products = addViewedPro(session);
+        if (products.isEmpty()) {
+            model.addAttribute("viewedProduct", "Không có sản phẩm");
+        } else {
+            List<Product> productViewed = new ArrayList<>();
+            if (products.size() > 3) {
+                for (int i = (products.size() - 1); i > (products.size() - 4); i--) {
+                    productViewed.add(products.get(i));
+                }
+            } else {
+                for (int i = (products.size() - 1); i >= 0; i--) {
+                    productViewed.add(products.get(i));
+                }
+            }
+            model.addAttribute("viewedProduct", productViewed);
+        }
+        model.addAttribute("sellProduct", productService.findSellProduct(3));
         model.addAttribute("hotProduct", productService.findHotSaleProduct(10));
         model.addAttribute("newProduct", productService.findNewProduct(10));
-        model.addAttribute("listBrand", service.getByAll());
+        model.addAttribute("hot3Product", productService.findHotSaleProduct(3));
         model.addAttribute("listBanner", bannerService.getByAll());
-//        model.addAttribute("listCategory", categoryService.getByAll());
         return "website/home";
     }
 
     @RequestMapping(value = {"/website/singleproduct/{id}"}, method = RequestMethod.GET)
-    public String single_product(@PathVariable("id") int id, Model model) {
-//        listInt.clear();
-        if (listInt.size() == 3) {
-            System.out.println("Before ListViewed: " + listInt.toString());
-            listInt.remove(0);
-            System.out.println("After ListViewed: " + listInt.toString());
+    public String single_product(@PathVariable("id") int id, Model model, HttpSession session) {
+        if (!listInt.contains(id)) {
+            listInt.add(id);
         }
-        for (int i = 0; i < listInt.size(); i++) {
-            if (listInt.get(i) != id) {
-                listInt.add(id);
-            }
-        }
-        System.out.println("ListView ID: " + listInt.toString());
-        Map<String, List<Integer>> listProViewed = new HashMap<>();
-        model.addAttribute("listBrand", service.getByAll());
+        System.out.println("ListInt: " + listInt);
+        session.setAttribute("viewedPro", listInt);
+        loadModel(model);
         Product product = productService.findById(id);
         model.addAttribute("product", product);
         String detail = product.getDetail();
@@ -89,60 +102,163 @@ public class WebsiteController {
         }
         model.addAttribute("listSpec", list);
         List<Product> listSame = productService.findTop6ProductWithCateID(product.getCategoryID().getCateID());
-        System.out.println(listSame.size());
+//        System.out.println(listSame.size());
         if (listSame.size() > 6) {
             for (int i = 6; i < listSame.size();) {
                 listSame.remove(i);
             }
         }
-        System.out.println(listSame.size());
+//        System.out.println(listSame.size());
         model.addAttribute("listSame", listSame);
         return "website/single_product";
     }
 
-    @RequestMapping(value = {"/website/listproduct"}, method = RequestMethod.GET)
-    public String list_product(Model model) {
-//        model.addAttribute("listBrand", service.getByAll());
-//        Map<String, List<Category>> mapCategory = listMap();
-//        model.addAttribute("listPKCate", mapCategory.get("listPKCate"));
-//        model.addAttribute("listLKCate", mapCategory.get("listLKCate"));
-        List<Product> list = productService.getByAll();
+    @RequestMapping(value = {"/website/listproduct/{cateID}"}, method = RequestMethod.GET)
+    public String list_product(@PathVariable("cateID") int cateID, Model model) throws JsonProcessingException {
+        loadModel(model);
+        Category category = categoryService.findById(cateID);
+        List<Product> list = productService.findTop6ProductWithCateID(cateID);
+        String json = processListToJSON(list);
+        int totalPage = processCaculatorPage(list.size());
+
+        model.addAttribute("cateName", category.getCateName());
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("listProductJson", json);
+        return "website/list_product";
+    }
+
+    @RequestMapping(value = {"/website/listproduct/brand/{brandID}"}, method = RequestMethod.GET)
+    public String list_productbybrand(@PathVariable("brandID") int brandID, Model model) throws JsonProcessingException {
+        loadModel(model);
+        Brand brand = brandService.findById(brandID);
+        List<Product> list = productService.findAllProductWithBrandID(brandID);
+        String json = processListToJSON(list);
+        int totalPage = processCaculatorPage(list.size());
+
+        model.addAttribute("cateName", brand.getBrandName());
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("listProductJson", json);
+        return "website/list_product";
+    }
+
+    @RequestMapping(value = {"/website/listproduct/hot"}, method = RequestMethod.GET)
+    public String list_hotproduct(Model model) throws JsonProcessingException {
+        loadModel(model);
+        List<Product> list = productService.findHotSaleProduct(10);
+        String json = processListToJSON(list);
+        int totalPage = processCaculatorPage(list.size());
+
+        model.addAttribute("cateName", "Khuyến mãi hot");
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("listProductJson", json);
+        return "website/list_product";
+    }
+
+    @RequestMapping(value = {"/website/listproduct/new"}, method = RequestMethod.GET)
+    public String list_newproduct(Model model) throws JsonProcessingException {
+        loadModel(model);
+        List<Product> list = productService.findNewProduct(10);
+        String json = processListToJSON(list);
+        int totalPage = processCaculatorPage(list.size());
+
+        model.addAttribute("cateName", "Hàng mới về");
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("listProductJson", json);
+        return "website/list_product";
+    }
+    
+    @RequestMapping(value = {"/website/listproduct/sell"}, method = RequestMethod.GET)
+    public String list_sellproduct(Model model) throws JsonProcessingException {
+        loadModel(model);
+        List<Product> list = productService.findSellProduct(10);
+        String json = processListToJSON(list);
+        int totalPage = processCaculatorPage(list.size());
+
+        model.addAttribute("cateName", "Bán chạy");
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("listProductJson", json);
+        return "website/list_product";
+    }
+    
+    @RequestMapping(value = {"/website/listproduct/viewed"}, method = RequestMethod.GET)
+    public String list_viewedproduct(Model model, HttpSession session) throws JsonProcessingException {
+        loadModel(model);
+        List<Product> list = addViewedPro(session);
+        String json = processListToJSON(list);
+        int totalPage = processCaculatorPage(list.size());
+
+        model.addAttribute("cateName", "Vừa xem");
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("listProductJson", json);
+        return "website/list_product";
+    }
+
+    public String processListToJSON(List<Product> list) throws JsonProcessingException {
         List<Product> newList = new ArrayList<>();
         Product newProduct;
         for (Product product : list) {
             newProduct = new Product();
-            newProduct = productService.findById(product.getProductID());
+            newProduct = productService.findByIdSimple(product.getProductID());
+            String str = newProduct.getProductName();
+            String strNew = str.replace("\"", "");
+            newProduct.setProductName(strNew);
             newList.add(newProduct);
         }
         ObjectMapper mapper = new ObjectMapper();
         String json = null;
-        try {
-            json = mapper.writeValueAsString(newList);
-            System.out.println(json);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        int totalPage = newList.size()/12;
-//        if (newList.size() > 12) {
-//            for (int i = 12; i < newList.size();) {
-//                newList.remove(i);
-//            }
-//        }
-//        model.addAttribute("listProduct", newList);
-        model.addAttribute("totalPage", totalPage);
-        model.addAttribute("listProductJson", json);
+        json = mapper.writeValueAsString(newList);
+        return json;
+    }
 
-        return "website/list_product";
+    public int processCaculatorPage(int size) {
+        int totalPage = 1;
+        if (size > 12) {
+            float page = (float) size / (float) 12;
+            totalPage = size / 12;
+            if (page > totalPage) {
+                totalPage++;
+            }
+        }
+        return totalPage;
     }
 
     @RequestMapping(value = {"/website/cart"}, method = RequestMethod.GET)
-    public String cart() {
+    public String cart(Model model) {
+        loadModel(model);
         return "website/cart";
     }
 
     @RequestMapping(value = {"/website/checkout"}, method = RequestMethod.GET)
-    public String check_out() {
+    public String check_out(Model model) {
+        loadModel(model);
+        model.addAttribute("CusomerInfor", new Customer());
         return "website/checkout";
+    }
+
+    @RequestMapping(value = {"/website/profile"}, method = RequestMethod.GET)
+    public String profile(Model model, HttpSession session) {
+        loadModel(model);
+        Customer cus = (Customer) session.getAttribute("CUSTOMER_INFO");
+//        System.out.println("acount: " + adminService.findById(id));
+        model.addAttribute("customerForm", cus);
+        return "website/profile";
+    }
+
+    @RequestMapping(value = {"/website/orderhistory"}, method = RequestMethod.GET)
+    public String orderhistory(Model model, HttpSession session) {
+        Customer cus = (Customer) session.getAttribute("CUSTOMER_INFO");
+        System.out.println("Customer in history: " + cus.getCustomerID());
+        model.addAttribute("listOrder", orderService.findByCusID(cus.getCustomerID()));
+        loadModel(model);
+        return "website/orderhistory";
+    }
+
+    public void loadModel(Model model) {
+        Map<String, List<Category>> mapCategory = listMap();
+        model.addAttribute("listPKCate", mapCategory.get("listPKCate"));
+        model.addAttribute("listLKCate", mapCategory.get("listLKCate"));
+        model.addAttribute("listBrand", service.getByAll());
+        model.addAttribute("selectCate", categoryService.getByAll());
     }
 
     public Map<String, List<Category>> listMap() {
@@ -161,24 +277,46 @@ public class WebsiteController {
         mapCate.put("listPKCate", listPKCate);
         return mapCate;
     }
-    
+
     @RequestMapping(value = {"/website/test"}, method = RequestMethod.GET)
     public String test() {
         return "website/test";
     }
-    
-    @RequestMapping(value = {"/website/login"}, method = RequestMethod.GET)
-    public String checkLogin(HttpServletRequest request) {
-        String username = request.getParameter("usernameLogin");
-        String password = request.getParameter("passwordLogin");
-        System.out.println("User: " + username+ "Pass: " + password);
-        return "website/test";
-    }
-    
+
     @RequestMapping(value = "website/logout", method = RequestMethod.GET)
     private String logout(HttpSession session) {
         session.removeAttribute("CUSTOMER_INFO");
         session.invalidate();
         return "redirect:/website/home";
     }
+    
+    @RequestMapping(value = "website/search/{cateID}&{search}", method = RequestMethod.GET)
+    private String search(@PathVariable("cateID") int cateID,@PathVariable("search") String search, Model model) throws JsonProcessingException {
+        loadModel(model);
+        List<Product> list = productService.searchProduct(cateID, search);
+        String json = processListToJSON(list);
+        int totalPage = processCaculatorPage(list.size());
+
+        model.addAttribute("cateName", "Vừa xem");
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("listProductJson", json);
+        return "website/list_product";
+    }
+
+    public List<Product> addViewedPro(HttpSession session) {
+        Product product;
+        List<Product> listPro = new ArrayList<>();
+        if (session.getAttribute("viewedPro") == null) {
+            return listPro;
+        }
+        List<Integer> listId = (List<Integer>) session.getAttribute("viewedPro");
+        if (!listId.isEmpty()) {
+            for (int id : listId) {
+                product = productService.findById(id);
+                listPro.add(product);
+            }
+        }
+        return listPro;
+    }
+    
 }

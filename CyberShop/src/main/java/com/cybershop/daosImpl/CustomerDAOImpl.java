@@ -101,13 +101,20 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public Customer checkLogin(String user, String pass) {
         try {
-            Customer cus = (Customer) this.em.createQuery("from Customer Where Username = ? and Password = ? and Status = 1")
+            Customer cus = (Customer) this.em.createQuery("from Customer Where Username = ? and Password = ?")
                     .setParameter(1, user).setParameter(2, pass).getSingleResult();
             Customer newCus = new Customer();
             newCus.setCustomerID(cus.getCustomerID());
             newCus.setUsername(cus.getUsername());
             newCus.setPassword(cus.getPassword());
             newCus.setFullname(cus.getFullname());
+            newCus.setToken(cus.getToken());
+            newCus.setStatus(cus.getStatus());
+            newCus.setEmail(cus.getEmail());
+            newCus.setPhone(cus.getPhone());
+            newCus.setAddress(cus.getAddress());
+            newCus.setDob(cus.getDob());
+            newCus.setSex(cus.getSex());
             return newCus;
         } catch (Exception e) {
             return null;

@@ -95,6 +95,7 @@
 <script src="<c:url value="/resources/websource/js/main.js" />"></script>
 
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>-->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 <script src="<c:url value="/resources/adminsource/support_template/jquery.twbsPagination.js" />" type="text/javascript"></script>

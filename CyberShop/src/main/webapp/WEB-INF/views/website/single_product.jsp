@@ -1,6 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -35,24 +37,34 @@
                                             <div class="w3-col s2">
                                                 <img class="demo w3-opacity w3-hover-opacity-off" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;height: 50px;cursor:pointer" onclick="currentDiv(${counter.count})">
                                             </div>
-
                                         </c:forEach>
                                     </div>
                                 </div>
-
                                 <div class="col-sm-6">
                                     <div class="product-inner">
                                         <h2 class="product-name">${product.productName}</h2>
                                         <div class="product-inner-price">
-                                            <ins>${product.price}₫</ins>
-                                        </div>    
+                                            <c:if test="${not empty product.downPrice}">
+                                                <del>
+                                                    <fmt:formatNumber type="number" pattern="###,###" value="${product.price}" />₫
+                                                </del>
+                                                <ins>
+                                                    <fmt:formatNumber type="number" pattern="###,###" value="${product.downPrice}" />₫
+                                                </ins>
 
-                                        <form action="" class="cart">
-                                            <div class="quantity">
-                                                <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
-                                            </div>
-                                            <button onclick="addToCart(${product.productID})" class="add_to_cart_button" type="button" >Thêm vào giỏ hàng</button>
-                                        </form>   
+                                            </c:if>
+                                            <c:if test="${empty product.downPrice}">
+                                                <ins>
+                                                    <fmt:formatNumber type="number" pattern="###,###" value="${product.price}" />₫
+                                                </ins>
+                                            </c:if>
+                                        </div>    
+                                        <br/>
+                                        <div class="quantity">
+                                            <input id="inputQuantity" type="number"  class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1" max="${product.quantity}">
+                                        </div>
+                                        <button onclick="addToCart(${product.productID},${product.productID})" class="add_to_cart_button" type="button" >Thêm vào giỏ hàng</button>
+                                        <div style="height: 100px;"></div>
                                         <div class="desc" role="tabpanel">
                                             <ul class="product-tab" role="tablist">
                                                 <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông số kĩ thuật</a></li>
@@ -111,7 +123,20 @@
                                             <h2><a href="${pageContext.request.contextPath}/website/singleproduct/${item.productID}">${item.productName}</a></h2>
 
                                             <div class="product-carousel-price">
-                                                <ins>${item.price}₫</ins> 
+                                                <c:if test="${not empty item.downPrice}">
+                                                    <del>
+                                                        <fmt:formatNumber type="number" pattern="###,###" value="${item.price}" />₫
+                                                    </del>
+                                                    <ins>
+                                                        <fmt:formatNumber type="number" pattern="###,###" value="${item.downPrice}" />₫
+                                                    </ins>
+
+                                                </c:if>
+                                                <c:if test="${empty item.downPrice}">
+                                                    <ins>
+                                                        <fmt:formatNumber type="number" pattern="###,###" value="${item.price}" />₫
+                                                    </ins>
+                                                </c:if>
                                             </div> 
                                         </div>
                                     </c:forEach>
@@ -129,7 +154,7 @@
                 <div class="modal-dialog vertical-align-center modal-sm"  >
                     <div class="modal-content">
                         <div class="modal-body">
-                            <img src="<c:url value="/resources/image/icon/checked.png"/>"/> <a style="color: #02acea"> Thêm vào giỏ hàng thành công!</a>
+                            <img src="<c:url value="/resources/image/icon/checked.png"/>"/> <a id="alertContent" style="color: #02acea"> Thêm vào giỏ hàng thành công!</a>
                         </div>
                     </div>
                 </div>
@@ -163,14 +188,49 @@
                 dots[slideIndex - 1].className += " w3-opacity-off";
             }
 
-            function addToCart(productID) {
-                $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#alertModal").slideUp(500);
-                });
-                var count = $('#product-count').text();
-                count++;
-                $('#product-count').text(count);
+            function addToCart(productID, maxQuantity) {
 
+                var quantity = $("#inputQuantity").val();
+                if (quantity < 0 || quantity > maxQuantity) {
+                    $("#alertContent").text("Lỗi ! Thêm thất bại.");
+                    $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                        $("#alertModal").slideUp(500);
+                    });
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: "${pageContext.request.contextPath}/api/cart/add",
+                        dataType: 'text',
+                        data: {
+                            productId: productID,
+                            qty: quantity},
+                        timeout: 100000,
+                        success: function (result) {
+                            if (result == "addSuccess") {
+                                var count = $('#product-count').text();
+                                count++;
+                                $('#product-count').text(count);
+                                $("#alertContent").text("Thêm vào giỏ hàng thành công!");
+                                $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                    $("#alertModal").slideUp(500);
+                                });
+                            } else if (result == "duplicate") {
+                                $("#alertContent").text("Thêm vào giỏ hàng thành công!");
+                                $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                    $("#alertModal").slideUp(500);
+                                });
+                            } else {
+                                $("#alertContent").text("Lỗi ! Thêm thất bại.");
+                                $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                    $("#alertModal").slideUp(500);
+                                });
+                            }
+                        },
+                        error: function (e) {
+                            console.log("ERROR: ", e);
+                        }
+                    });
+                }
             }
 
 

@@ -73,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findTop6ProductWithCateID(int cateID) {
         return dao.findTop6ProductWithCateID(cateID);
     }
-
+    
     @Transactional
     @Override
     public int countPdByBrandID(int brandID) {
@@ -91,5 +91,28 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findHotSaleProduct(int number) {
         return dao.getHotSaleProduct(number);
     }
+    
+    @Transactional
+    @Override
+    public Product findByIdSimple(int id) {
+        return dao.getByIDSimple(id);
+    }
 
+    @Transactional
+    @Override
+    public List<Product> findAllProductWithBrandID(int brandID) {
+        return dao.findAllProductWithBrandID(brandID);
+    }
+
+    @Transactional
+    @Override
+    public List<Product> findSellProduct(int number) {
+        return dao.getSellProduct(number);
+    }
+
+    @Transactional
+    @Override
+    public List<Product> searchProduct(int cateID, String search) {
+        return dao.searchProduct(cateID, search);
+    }
 }

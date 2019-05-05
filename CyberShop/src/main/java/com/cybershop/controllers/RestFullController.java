@@ -4,12 +4,8 @@ import com.cybershop.models.Brand;
 import com.cybershop.models.Category;
 import com.cybershop.models.Customer;
 import com.cybershop.models.Image;
-import com.cybershop.models.Product;
-import com.cybershop.models.SpecificationTitle;
 import com.cybershop.services.BrandService;
 import com.cybershop.services.ImageService;
-import com.cybershop.services.ProductService;
-import com.cybershop.services.SpecificationTitleService;
 import java.io.File;
 import java.io.IOException;
 import com.cybershop.models.OrderDetail;
@@ -27,9 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -348,11 +342,22 @@ public class RestFullController {
     @ResponseBody
     public ResponseEntity<String> checkLogin(@RequestParam("user") String username, @RequestParam("pass") String password, HttpSession session) {
         System.out.println("User: " + username + "Pass: " + password);
-        Customer cus = customerService.checkLogin(username, password);
+        final Customer cus = customerService.checkLogin(username, password);
         System.out.println("Customer: " + cus);
         if (cus != null) {
-            session.setAttribute("CUSTOMER_INFO", cus);
-            return new ResponseEntity("success", HttpStatus.OK);
+            if (cus.getStatus()) {
+                session.setAttribute("CUSTOMER_INFO", cus);
+                return new ResponseEntity("success", HttpStatus.OK);
+            } else {
+                Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        orderService.sendEmailOrder("cybershop.nano@gmail.com", cus.getEmail(), "Mã xác thực ", "Mã xác thực tài khoản của bạn là: " + cus.getToken());
+                    }
+                });
+                t.start();
+                return new ResponseEntity("notyetconfirm", HttpStatus.OK);
+            }
         } else {
             return new ResponseEntity("fail", HttpStatus.OK);
         }
@@ -396,16 +401,11 @@ public class RestFullController {
             @RequestParam("phonecreate") String phone,
             @RequestParam("dobcreate") String dob,
             @RequestParam("sexCheck") String sex) throws IOException {
-        System.out.println("username: " + username);
-        System.out.println("password: " + password);
-        System.out.println("email: " + email);
-        System.out.println("fullname: " + fullname);
-        System.out.println("address: " + address);
-        System.out.println("phone: " + phone);
-        System.out.println("dob: " + dob);
-        System.out.println("SEX: " + sex);
         try {
-            Customer cus = new Customer();
+            if (customerService.getByUser(username) != null) {
+                return new ResponseEntity("usernameExist", HttpStatus.OK);
+            }
+            final Customer cus = new Customer();
             cus.setUsername(username);
             cus.setPassword(password);
             cus.setFullname(fullname);
@@ -417,17 +417,46 @@ public class RestFullController {
             cus.setAddress(address);
             cus.setPhone(phone);
             cus.setIsGuest(false);
-            cus.setStatus(true);
+            cus.setStatus(false);
             cus.setEmail(email);
             cus.setDateRegistration(new Date());
             cus.setToken(randomPassword(10));
             cus.setDob(new SimpleDateFormat("yyyy-MM-dd").parse(dob));
             System.out.println("Customer: " + cus);
             customerService.save(cus);
+            Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        orderService.sendEmailOrder("cybershop.nano@gmail.com", cus.getEmail(), "Mã xác thực ", "Mã xác thực tài khoản của bạn là: " + cus.getToken());
+                    }
+                });
+                t.start();
         } catch (ParseException ex) {
             System.out.println("ERROR: " + ex.getMessage());
         }
         return new ResponseEntity("success", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/confirmEmail", method = RequestMethod.POST,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<String> confirmEmail(@RequestParam("confirmCode") String confirmCode,
+            @RequestParam("userCus") String userCus, HttpSession session) {
+        Customer cus = customerService.getByUser(userCus);
+        System.out.println("Customer: " + cus);
+        if (cus != null) {
+            String token = cus.getToken();
+            if (confirmCode.equals(token)) {
+                cus.setStatus(true);
+                customerService.save(cus);
+                session.setAttribute("CUSTOMER_INFO", cus);
+                return new ResponseEntity("success", HttpStatus.OK);
+            } else {
+                return new ResponseEntity("failConfirm", HttpStatus.OK);
+            }
+        } else {
+            return new ResponseEntity("fail", HttpStatus.OK);
+        }
     }
 
 }
