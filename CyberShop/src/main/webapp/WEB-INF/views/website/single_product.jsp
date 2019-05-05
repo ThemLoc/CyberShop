@@ -24,10 +24,10 @@
 
                                     <c:forEach var="lImg" items="${product.imagesCollection}">
                                         <c:if test="${lImg.mainImage == true}" >
-                                            <img class="mySlides" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;height: 400px">
+                                            <img class="mySlides" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;height: 450px">
                                         </c:if>
                                         <c:if test="${lImg.mainImage == false}" >  
-                                            <img class="mySlides" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100% ;height: 400px;display:none">
+                                            <img class="mySlides" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100% ;height: 450px;display:none">
                                         </c:if>
 
                                     </c:forEach>
@@ -61,9 +61,11 @@
                                         </div>    
                                         <br/>
                                         <div class="quantity">
-                                            <input id="inputQuantity" type="number"  class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1" max="${product.quantity}">
+                                            <input id="inputQuantity" size="10" type="number"  class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1" max="${product.quantity}">
                                         </div>
-                                        <button onclick="addToCart(${product.productID},${product.productID})" class="add_to_cart_button" type="button" >Thêm vào giỏ hàng</button>
+                                        <button onclick="addToCart(${product.productID},${product.quantity})" class="add_to_cart_button" type="button" >Thêm vào giỏ hàng</button>
+                                        <br/><br/>
+                                        <p style="color: #999;font-size: 12px">  Còn ${product.quantity} sản phẩm</p>
                                         <div style="height: 100px;"></div>
                                         <div class="desc" role="tabpanel">
                                             <ul class="product-tab" role="tablist">
@@ -192,7 +194,8 @@
 
                 var quantity = $("#inputQuantity").val();
                 if (quantity < 0 || quantity > maxQuantity) {
-                    $("#alertContent").text("Lỗi ! Thêm thất bại.");
+                    console.log(maxQuantity);
+                    $("#alertContent").text("Lỗi ! Thêm thất bại. Quantity not invalid!");
                     $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
                         $("#alertModal").slideUp(500);
                     });

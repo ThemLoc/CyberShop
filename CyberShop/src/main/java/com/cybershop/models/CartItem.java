@@ -1,20 +1,25 @@
 package com.cybershop.models;
 
 import com.cybershop.models.Product;
+
 public class CartItem {
-    
+
     Product item;
     int qty;
     double total;
 
     public CartItem() {
     }
-    
 
     CartItem(Product product, int qty) {
         this.item = product;
         this.qty = qty;
-        this.total = item.getPrice() * this.qty;
+        if (item.getDownPrice() == null) {
+            this.total = item.getPrice() * this.qty;
+        } else {
+            this.total = item.getDownPrice() * this.qty;
+
+        }
     }
 
     public Product getItem() {
@@ -34,10 +39,13 @@ public class CartItem {
     }
 
     public double getTotal() {
-        return total = qty * item.getPrice();
+        if (item.getDownPrice() == null) {
+            this.total = item.getPrice() * this.qty;
+        } else {
+            this.total = item.getDownPrice() * this.qty;
+
+        }
+        return this.total;
     }
 
-    
-    
-    
 }
