@@ -38,4 +38,13 @@ public class PromotionDAOImpl implements PromotionDAO {
         return em.find(Promotion.class, id);
     }
 
+    @Override
+    public Promotion getByPromoCode(String promoCode) {
+        try {
+            return (Promotion) em.createNamedQuery("Promotion.findByPromoCode").setParameter("promoCode", promoCode).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }
