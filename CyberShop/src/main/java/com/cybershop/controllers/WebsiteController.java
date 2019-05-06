@@ -246,19 +246,21 @@ public class WebsiteController {
     @RequestMapping(value = {"/website/profile"}, method = RequestMethod.GET)
     public String profile(Model model, HttpSession session) {
         loadModel(model);
-        Customer cus = (Customer) session.getAttribute("CUSTOMER_INFO");
-        Customer customer = customerService.getByUser(cus.getUsername());
-        CustomerDTO newCus = new CustomerDTO();
-        newCus.setCustomerID(customer.getCustomerID());
-        newCus.setAddress(customer.getAddress());
-        newCus.setDob(new SimpleDateFormat("yyyy-MM-dd").format(customer.getDob()));
-        newCus.setEmail(customer.getEmail());
-        newCus.setFullname(customer.getFullname());
-        newCus.setPhone(customer.getPhone());
-        newCus.setPassword(customer.getPassword());
-        newCus.setSex(customer.getSex());
-        newCus.setUsername(customer.getUsername());
-        model.addAttribute("customerForm", newCus);
+        if (session.getAttribute("CUSTOMER_INFO") != null) {
+            Customer cus = (Customer) session.getAttribute("CUSTOMER_INFO");
+            Customer customer = customerService.getByUser(cus.getUsername());
+            CustomerDTO newCus = new CustomerDTO();
+            newCus.setCustomerID(customer.getCustomerID());
+            newCus.setAddress(customer.getAddress());
+            newCus.setDob(new SimpleDateFormat("yyyy-MM-dd").format(customer.getDob()));
+            newCus.setEmail(customer.getEmail());
+            newCus.setFullname(customer.getFullname());
+            newCus.setPhone(customer.getPhone());
+            newCus.setPassword(customer.getPassword());
+            newCus.setSex(customer.getSex());
+            newCus.setUsername(customer.getUsername());
+            model.addAttribute("customerForm", newCus);
+        }
         return "website/profile";
     }
 
@@ -318,13 +320,6 @@ public class WebsiteController {
     @RequestMapping(value = {"/website/test"}, method = RequestMethod.GET)
     public String test() {
         return "website/test";
-    }
-
-    @RequestMapping(value = "website/logout", method = RequestMethod.GET)
-    private String logout(HttpSession session) {
-        session.removeAttribute("CUSTOMER_INFO");
-        session.invalidate();
-        return "redirect:/website/home";
     }
 
     @RequestMapping(value = "website/search/{cateID}&{search}", method = RequestMethod.GET)

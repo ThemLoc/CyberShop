@@ -362,6 +362,15 @@ public class RestFullController {
             return new ResponseEntity("fail", HttpStatus.OK);
         }
     }
+    
+    @RequestMapping(value = "/logout", method = RequestMethod.POST,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<String> logout(HttpSession session) {
+        session.removeAttribute("CUSTOMER_INFO");
+        session.invalidate();
+        return new ResponseEntity("success", HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/forgotPass", method = RequestMethod.POST,
             produces = {MediaType.APPLICATION_JSON_VALUE})

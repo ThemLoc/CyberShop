@@ -19,7 +19,7 @@
                                     </div>
                                 </div>
                             </li>
-                            <li><a href="${pageContext.request.contextPath}/website/logout" style="text-decoration: none">Logout</a></li>
+                            <li><a id="logoutHere" style="text-decoration: none;cursor: pointer">Logout</a></li>
                             </c:if>
                             <c:if test="${empty customerInfo}">
                             <li>

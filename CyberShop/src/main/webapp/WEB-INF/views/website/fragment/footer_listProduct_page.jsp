@@ -294,4 +294,23 @@
         var url = '${pageContext.request.contextPath}/website/search/' + selectTag + '&' + strSearch;
         $(this).attr('href', url);
     });
+    
+    $('#logoutHere').click(function(){
+        $.ajax({
+            type: "POST",
+            url: "${pageContext.request.contextPath}/api/logout",
+            dataType: 'text',
+            data: {
+            },
+            timeout: 100000,
+            success: function (result) {
+                if (result == "success") {
+                    window.location.reload();
+                }
+            }
+            , error: function (e) {
+                console.log("ERROR: ", e);
+            }
+        });
+    });
 </script>
