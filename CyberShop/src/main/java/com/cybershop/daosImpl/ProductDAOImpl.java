@@ -206,4 +206,11 @@ public class ProductDAOImpl implements ProductDAO {
         return dto;
     }
 
+    @Override
+    public void updateProductQuantity(int idProduct, int quantity, int sell) {
+        this.em.createQuery("update Product set Sell = ?, Quantity = ? where ProductID = ?")
+                .setParameter(1, sell).setParameter(2, quantity).setParameter(3, idProduct).executeUpdate();
+    }
+    
+
 }

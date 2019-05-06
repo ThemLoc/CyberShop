@@ -4,12 +4,16 @@ import com.cybershop.dto.SpecificationShowDTO;
 import com.cybershop.models.Category;
 import com.cybershop.models.Customer;
 import com.cybershop.models.Product;
+import com.cybershop.models.Promotion;
 import com.cybershop.services.CategoryService;
 import com.cybershop.services.ProductService;
+import com.cybershop.services.PromotionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.DefaultProperty;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +28,8 @@ public class WebsiteController {
     ProductService productService;
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    PromotionService promotionService;
 
     @RequestMapping(value = {"/website/home"}, method = RequestMethod.GET)
     public String home() {
@@ -67,11 +73,11 @@ public class WebsiteController {
     @RequestMapping(value = {"/website/listproduct/{cateID}"}, method = RequestMethod.GET)
     public String list_product(@PathVariable("cateID") int cateID, Model model) throws JsonProcessingException {
         Category category = categoryService.findById(cateID);
-        
+
         List<Product> list = productService.getByAll();
         String json = processListToJSON(list);
         int totalPage = processCaculatorPage(list.size());
-        
+
         model.addAttribute("cateName", category.getCateName());
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("listProductJson", json);
@@ -94,8 +100,8 @@ public class WebsiteController {
         json = mapper.writeValueAsString(newList);
         return json;
     }
-    
-    public int processCaculatorPage(int size){
+
+    public int processCaculatorPage(int size) {
         int totalPage = 1;
         if (size > 12) {
             float page = (float) size / (float) 12;

@@ -37,4 +37,6 @@ public interface ProductService {
     List<Product> findTop6ProductWithCateID(int cateID);
     
     Product findByIdSimple(int id);
+    
+    void UpdateQuantityProduct(int idProduct, int quantity, int sell);
 }

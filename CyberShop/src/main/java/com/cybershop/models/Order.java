@@ -52,7 +52,7 @@ public class Order implements Serializable {
     @Column(name = "DeliveryFee")
     private Double deliveryFee;
     @JoinColumn(name = "CustomerID", referencedColumnName = "CustomerID")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Customer customerID;
     @JoinColumn(name = "PromotionID", referencedColumnName = "PromoID")
     @ManyToOne

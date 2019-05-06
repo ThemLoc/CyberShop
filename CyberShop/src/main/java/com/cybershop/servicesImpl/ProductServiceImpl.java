@@ -86,4 +86,10 @@ public class ProductServiceImpl implements ProductService {
         return dao.getByIDSimple(id);
     }
 
+    @Transactional
+    @Override
+    public void UpdateQuantityProduct(int idProduct, int quantity, int sell) {
+        dao.updateProductQuantity(idProduct, quantity, sell);
+    }
+
 }

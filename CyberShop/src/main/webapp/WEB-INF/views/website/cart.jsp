@@ -16,6 +16,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
+                        <span style="color: red; font-size: 20px;" >${errOrder}</span>
                         <div class="product-content-right">
                             <div class="woocommerce">
                                 <form method="post" action="#">
@@ -110,7 +111,8 @@
 
                                 </div>
                                 <div class="col-md-12 checkOut">
-                                    <input id="checkout" type="submit" value="Thanh toán" name="proceed" class="checkout-button button alt">
+                                    <!--                                    <input id="checkout" type="submit" value="Thanh toán" name="proceed" class="checkout-button button alt">-->
+                                    <a href="${pageContext.request.contextPath}/website/checkout" class="btn btn-primary checkout-button button alt">Check out</a>
                                 </div>
                             </div>                        
                         </div>                    
@@ -131,7 +133,7 @@
         function addQuantity(productID) {
             var quantity = $('#quantity' + productID).val();
 //            if (quantity > 1) {
-                quantity++;
+            quantity++;
 //            }
             $('#quantity' + productID).val(quantity);
         }

@@ -33,4 +33,6 @@ public interface ProductDAO {
     List<Product> findTop6ProductWithCateID(int cateID);
     
     Product getByIDSimple(int id);
+    
+    void updateProductQuantity(int idProduct, int quantity, int sell);
 }
