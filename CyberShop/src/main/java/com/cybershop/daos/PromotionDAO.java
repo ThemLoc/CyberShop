@@ -14,4 +14,6 @@ public interface PromotionDAO {
     List<Promotion> getAll();
 
     Promotion getById(int id);
+    
+    Promotion getByPromoCode(String promoCode);
 }

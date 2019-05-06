@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class PromotionServiceImpl implements PromotionService{
-    
+public class PromotionServiceImpl implements PromotionService {
+
     @Autowired
     private PromotionDAO dao;
 
@@ -45,5 +45,11 @@ public class PromotionServiceImpl implements PromotionService{
     public List<Promotion> getByAll() {
         return dao.getAll();
     }
-    
+
+    @Transactional(readOnly = true)
+    @Override
+    public Promotion getByPromoCode(String promoCode) {
+        return dao.getByPromoCode(promoCode);
+    }
+
 }
