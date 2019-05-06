@@ -6,20 +6,25 @@ import com.cybershop.models.Brand;
 import com.cybershop.services.BannerService;
 import com.cybershop.models.Category;
 import com.cybershop.models.Customer;
+import com.cybershop.models.CustomerDTO;
 import com.cybershop.models.Product;
 import com.cybershop.services.CategoryService;
+import com.cybershop.services.CustomerService;
 import com.cybershop.services.OrderService;
 import com.cybershop.services.ProductService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,12 +51,15 @@ public class WebsiteController {
     @Autowired
     BrandService brandService;
 
+    @Autowired
+    CustomerService customerService;
+
     @RequestMapping(value = {"/website/home"}, method = RequestMethod.GET)
     public String home(Model model, HttpSession session) {
         loadModel(model);
         List<Product> products = addViewedPro(session);
         if (products.isEmpty()) {
-            model.addAttribute("viewedProduct", "Không có sản phẩm");
+            model.addAttribute("viewedProduct", products);
         } else {
             List<Product> productViewed = new ArrayList<>();
             if (products.size() > 3) {
@@ -166,7 +174,7 @@ public class WebsiteController {
         model.addAttribute("listProductJson", json);
         return "website/list_product";
     }
-    
+
     @RequestMapping(value = {"/website/listproduct/sell"}, method = RequestMethod.GET)
     public String list_sellproduct(Model model) throws JsonProcessingException {
         loadModel(model);
@@ -179,7 +187,7 @@ public class WebsiteController {
         model.addAttribute("listProductJson", json);
         return "website/list_product";
     }
-    
+
     @RequestMapping(value = {"/website/listproduct/viewed"}, method = RequestMethod.GET)
     public String list_viewedproduct(Model model, HttpSession session) throws JsonProcessingException {
         loadModel(model);
@@ -239,9 +247,38 @@ public class WebsiteController {
     public String profile(Model model, HttpSession session) {
         loadModel(model);
         Customer cus = (Customer) session.getAttribute("CUSTOMER_INFO");
-//        System.out.println("acount: " + adminService.findById(id));
-        model.addAttribute("customerForm", cus);
+        Customer customer = customerService.getByUser(cus.getUsername());
+        CustomerDTO newCus = new CustomerDTO();
+        newCus.setCustomerID(customer.getCustomerID());
+        newCus.setAddress(customer.getAddress());
+        newCus.setDob(new SimpleDateFormat("yyyy-MM-dd").format(customer.getDob()));
+        newCus.setEmail(customer.getEmail());
+        newCus.setFullname(customer.getFullname());
+        newCus.setPhone(customer.getPhone());
+        newCus.setPassword(customer.getPassword());
+        newCus.setSex(customer.getSex());
+        newCus.setUsername(customer.getUsername());
+        model.addAttribute("customerForm", newCus);
         return "website/profile";
+    }
+
+    @RequestMapping(value = {"/website/customer/save"}, method = RequestMethod.POST)
+    private String saveCus(@ModelAttribute CustomerDTO cus) {
+        try {
+            Customer newCus = customerService.getByUser(cus.getUsername());
+            newCus.setAddress(cus.getAddress());
+            newCus.setDob(new SimpleDateFormat("yyyy-MM-dd").parse(cus.getDob()));
+            newCus.setEmail(cus.getEmail());
+            newCus.setFullname(cus.getFullname());
+            newCus.setPhone(cus.getPhone());
+            newCus.setPassword(cus.getPassword());
+            newCus.setSex(cus.getSex());
+            newCus.setUsername(cus.getUsername());
+            newCus.setOrder1Collection(null);
+            customerService.save(newCus);
+        } catch (Exception e) {
+        }
+        return "redirect:/website/profile";
     }
 
     @RequestMapping(value = {"/website/orderhistory"}, method = RequestMethod.GET)
@@ -289,9 +326,9 @@ public class WebsiteController {
         session.invalidate();
         return "redirect:/website/home";
     }
-    
+
     @RequestMapping(value = "website/search/{cateID}&{search}", method = RequestMethod.GET)
-    private String search(@PathVariable("cateID") int cateID,@PathVariable("search") String search, Model model) throws JsonProcessingException {
+    private String search(@PathVariable("cateID") int cateID, @PathVariable("search") String search, Model model) throws JsonProcessingException {
         loadModel(model);
         List<Product> list = productService.searchProduct(cateID, search);
         String json = processListToJSON(list);
@@ -318,5 +355,5 @@ public class WebsiteController {
         }
         return listPro;
     }
-    
+
 }

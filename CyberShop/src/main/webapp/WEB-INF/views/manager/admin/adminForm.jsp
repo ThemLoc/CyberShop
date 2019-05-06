@@ -72,11 +72,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label >Day of birth:   </label>
-                                                <c:set var = "now" value = "<%= new java.util.Date()%>" />
-                                                <s:bind path="dob">
-                                                    <fmt:formatDate value="${dob}" pattern="dd/MM/yyyy" var="myDate" />
-                                                    <sf:input path="dob" type="text" value="${myDate}" />
-                                                </s:bind>
+                                                <input name="dobCus" type="text" value="dob"/>
 
                                             </div>
                                             <s:bind path="sex">

@@ -18,7 +18,7 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public void save(Customer obj) {
         if(obj.getCustomerID() == null){
-             dao.create(obj);
+            dao.create(obj);
         }else{
             dao.update(obj);
         }

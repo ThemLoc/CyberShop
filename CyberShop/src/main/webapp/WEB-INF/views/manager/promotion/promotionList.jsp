@@ -84,7 +84,7 @@
                                                 <th>End Date</th>
                                                 <th>Used Turn</th>
                                                 <th>Update</th>
-                                                <th>Delete</th>
+                                                <!--<th>Delete</th>-->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -99,9 +99,9 @@
                                                     <td>
                                                         <a onclick="editPromo('${pageContext.request.contextPath}/manager/promotion/update', '${a.promoID}', '${a.promoCode}', '${a.discount}', '${a.usedTurn}')" class="btn btn-warning">Update</a>
                                                     </td>
-                                                    <td>
+<!--                                                    <td>
                                                         <a href="${pageContext.request.contextPath}/manager/promotion/delete/${a.promoID}" class="btn btn-danger">Delete</a>
-                                                    </td>
+                                                    </td>-->
                                                 </tr>
                                             </c:forEach>
                                         </tbody>

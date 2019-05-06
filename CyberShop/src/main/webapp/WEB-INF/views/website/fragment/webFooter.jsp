@@ -79,7 +79,6 @@
         event.preventDefault();
         var user = $('#userLogin').val();
         var pass = $('#passwordLogin').val();
-//        console.log(user + pass);
         if (user == "") {
             $('#loginFail').text('Please Input Username!!!');
         } else if (pass == "") {
@@ -163,19 +162,26 @@
         var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
         if ($('#usernamecreate').val() === "") {
             $('#usernameError').text('Please input your username!!!');
-        } else if ($('#passwordcreate').val() === "" || $('#confirmpassword').val() === "") {
+        } else if ($('#passwordcreate').val() === "" || $('#confirmpassword').val() === "" || $('#passwordcreate').val() != $('#confirmpassword').val()) {
             $('#passError').text('Please input your password!!!');
-        } else if ($('#emailcreate').val() === "" || $('#emailcreate').val().indexOf('@') === false) {
+            $('#usernameError').text('');
+        } else if ($('#emailcreate').val() === "" || !re.test($('#emailcreate').val())) {
+            $('#passError').text('');
             $('#emailError').text('Please input your email again!!!');
         } else if ($('#fullnamecreate').val() === "") {
+            $('#emailError').text('');
             $('#fullnameError').text('Please input your fullname!!!');
         } else if ($('#addresscreate').val() === "") {
+            $('#fullnameError').text('');
             $('#addressError').text('Please input your address!!!');
-        } else if ($('#phonecreate').val() === "" || $('phonecreate').val().length != 10) {
+        } else if ($('#phonecreate').val() === "" || $('#phonecreate').val().length !== 10) {
+            $('#addressError').text('');
             $('#phoneError').text('Please input your phone again!!!');
         } else if ($('#dobcreate').val() === "") {
+            $('#phoneError').text('');
             $('#dateError').text('Please select your date of birth again!!!');
         } else if ($('#passwordcreate').val() == $('#confirmpassword').val()) {
+            $('#dateError').text('');
             $.ajax({
                 type: "POST",
                 url: "${pageContext.request.contextPath}/api/createCus",
@@ -203,8 +209,6 @@
                     console.log("ERROR: ", e);
                 }
             });
-        } else {
-            $('#message').html('Not Matching').css('color', 'red');
         }
     });
 
@@ -262,4 +266,10 @@
         );
     });
 
+    $('#searchProduct').click(function () {
+        var selectTag = $('#selectCategories').val();
+        var strSearch = $('#inputSearch').val();
+        var url = '${pageContext.request.contextPath}/website/search/' + selectTag + '&' + strSearch;
+        $(this).attr('href', url);
+    });
 </script>

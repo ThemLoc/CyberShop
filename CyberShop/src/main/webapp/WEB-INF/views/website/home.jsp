@@ -46,9 +46,6 @@
             <!-- ./Slider -->
         </div> <!-- End slider area -->
 
-
-        <!-- End promo area -->
-
         <div class="maincontent-area">
             <div class="zigzag-bottom"></div>
             <div class="container">
@@ -140,7 +137,7 @@
                         <div class="brand-list">
                             <c:forEach items="${listBrand}" var="brandList">
                                 <a href="${pageContext.request.contextPath}/website/listproduct/brand/${brandList.brandID}"><img style="width: 250px;height: 140px" src="${pageContext.request.contextPath}/resources/image/img_brand/${brandList.imageURL}"/></a>
-                                </c:forEach>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
@@ -212,6 +209,7 @@
                     <div class="single-product-widget">
                         <h2 >Vừa xem</h2>
                         <a href="${pageContext.request.contextPath}/website/listproduct/viewed" class="wid-view-more">Xem tất cả</a>
+                        
                         <c:forEach var="viewedPro" items="${viewedProduct}">
                             <div class="single-wid-product">
                                 <a href="${pageContext.request.contextPath}/website/singleproduct/${viewedPro.productID}">

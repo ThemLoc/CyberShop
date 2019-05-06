@@ -14,8 +14,8 @@
                                 <div class="dropdown">
                                     <a href="" style="text-align: center;text-decoration: none"><i class="fa fa-user"></i> ${customerInfo.fullname}</a>
                                     <div class="dropdown-content">
-                                        <a href="${pageContext.request.contextPath}/website/profile">Thông tin cá nhân</a>
-                                        <a href="${pageContext.request.contextPath}/website/orderhistory">Lịch sử mua hàng</a>
+                                        <a href="${pageContext.request.contextPath}/website/profile"><i class="fa fa-user"></i> Thông tin cá nhân</a>
+                                        <a href="${pageContext.request.contextPath}/website/orderhistory"><i class="fa fa-history"></i> Lịch sử mua hàng</a>
                                     </div>
                                 </div>
                             </li>
@@ -51,19 +51,23 @@
                 </div>
             </div>
             <div class="col-sm-7" id="test">
-                <div class="btn-group" >
-                    <select class="btn btn-primary dropdown-toggle category">
-                        <option value="All">Categories</option>
-                        <c:forEach var="selectCate" items="${selectCate}">
-                            <option value="${selectCate.cateID}">${selectCate.cateName}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-                <div class="test">
-                    <form class="search">
-                        <input class="inputSearch"  type="text" placeholder="Tìm kiếm.." name="search" />
-                        <button type="submit"><i class="fa fa-search"></i></button>
-                    </form>
+                <div class="row" style="margin-top: 15%">
+                    <div class="col-sm-2">
+                        <select id="selectCategories" class="btn btn-primary" style="height: 44px;">
+                            <option value="0">Categories</option>
+                            <c:forEach var="selectCate" items="${selectCate}">
+                                <option value="${selectCate.cateID}">${selectCate.cateName}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="col-sm-7">
+                        <input id="inputSearch" class="inputSearch"  type="text" placeholder="Tìm kiếm.." name="search" />
+                    </div>
+                    <div class="col-sm-3">
+                        <a id="searchProduct" href="">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-2">
@@ -195,86 +199,85 @@
                         <form id="myCreateForm" class="form-horizontal" method="POST">
                             <!-- Sign Up Form -->
                             <!-- Text input-->
-                            <div class="control-group">
-                                <strong id="usernameError" style="color: red"></strong><br/>
-                                <label class="control-label">Tài khoản</label>
+                            <div class="control-group col-md-6">
+                                <label class="control-label">Tài khoản</label><br/>
+                                <strong id="usernameError" style="color: red"> </strong>
                                 <div class="controls">
                                     <input id="usernamecreate" name="username" class="form-control" type="text" placeholder="Tên tài khoản" class="input-large" required="">
                                 </div>
                             </div>
+                            
+                            <div class="control-group col-md-6">
+                                <label class="control-label">Email</label><br/>
+                                <strong id="emailError" style="color: red"> </strong>
+                                <div class="controls">
+                                    <input id="emailcreate" class="form-control" type="email" placeholder="Email của bạn" class="input-large" required="">
+                                </div>
+                            </div>
 
                             <!-- Password input-->
-                            <div class="control-group">
-                                <strong id="passError" style="color: red"></strong><br/>
-                                <label class="control-label">Mật khẩu</label>
+                            <div class="control-group col-md-6">
+                                <label class="control-label">Mật khẩu</label><br/>
+                                <strong id="passError" style="color: red"> </strong>
                                 <div class="controls">
                                     <input id="passwordcreate" class="form-control" type="password" placeholder="********" class="input-large" required="">
                                 </div>
                             </div>
 
                             <!-- Text input-->
-                            <div class="control-group">
+                            <div class="control-group col-md-6">
                                 <label class="control-label">Xác nhận mật khẩu</label>
                                 <div class="controls">
                                     <input id="confirmpassword" class="form-control" type="password" placeholder="********" class="input-large" required="">
                                 </div>
                             </div>
-                            <p id="message"></p>
 
-                            <div class="control-group">
-                                <strong id="emailError" style="color: red"></strong><br/>
-                                <label class="control-label">Email</label>
-                                <div class="controls">
-                                    <input id="emailcreate" class="form-control" type="email" placeholder="Email của bạn" class="input-large" required="">
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                <strong id="fullnameError" style="color: red"></strong><br/>
-                                <label class="control-label">Họ & Tên</label>
+                            <div class="control-group col-md-6">
+                                <label class="control-label">Họ & Tên</label><br/>
+                                <strong id="fullnameError" style="color: red"> </strong>
                                 <div class="controls">
                                     <input id="fullnamecreate" class="form-control" type="text" placeholder="Họ & tên của bạn" class="input-large" required="">
                                 </div>
                             </div>
 
-                            <div class="control-group">
-                                <label class="control-label">Giới tính</label>
+                            <div class="control-group col-md-6">
+                                <label class="control-label">Giới tính</label><br/>
+                                <strong id="" style="color: red"> </strong>
                                 <div class="controls">
-                                    <select id="sexCheck">
+                                    <select id="sexCheck" class="form-control">
                                         <option value="1">Nam</option>
                                         <option value="2">Nữ</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="control-group">
-                                <strong id="addressError" style="color: red"></strong><br/>
-                                <label class="control-label">Địa chỉ</label>
+                            <div class="control-group col-md-6">
+                                <label class="control-label">Địa chỉ</label><br/>
+                                <strong id="addressError" style="color: red"></strong>
                                 <div class="controls">
                                     <input id="addresscreate" class="form-control" type="text" placeholder="Địa chỉ của bạn" class="input-large" required="">
                                 </div>
                             </div>
 
-                            <div class="control-group">
-                                <strong id="phoneError" style="color: red"></strong><br/>
-                                <label class="control-label">Số điện thoại</label>
+                            <div class="control-group col-md-6">
+                                <label class="control-label">Số điện thoại</label><br/>
+                                <strong id="phoneError" style="color: red"></strong>
                                 <div class="controls">
                                     <input id="phonecreate" class="form-control" type="number"  pattern="\d*" maxlength="10" minlength="10" placeholder="Số điện thoại" class="input-large" required="">
                                 </div>
                             </div>
 
-                            <div class="control-group">
-                                <strong id="dateError" style="color: red"></strong><br/>
-                                <label class="control-label">Ngày sinh</label>
+                            <div class="control-group col-md-6">
+                                <label class="control-label">Ngày sinh</label><br/>
+                                <strong id="dateError" style="color: red"></strong>
                                 <div class="controls">
                                     <input id="dobcreate" class="form-control" type="date" placeholder="Ngày sinh" class="input-large" required="">
                                 </div>
                             </div>
-                            <br>
-                            <!-- Button -->
-                            <div class="control-group">
-                                <strong id="usernameExist" style="color: red"></strong><br/>
-                                <label class="control-label" for="confirmsignup"></label>
+                            <br/>
+                            <div class="control-group text-center">
+                                <label class="control-label" for="confirmsignup"></label><br/>
+                                <strong id="usernameExist" style="color: red"></strong>
                                 <div class="controls">
                                     <button id="confirmsignup" name="confirmsignup" class="btn btn-success">Đăng ký</button>
                                 </div>

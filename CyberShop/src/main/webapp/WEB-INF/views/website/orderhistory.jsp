@@ -9,11 +9,9 @@
         <%@include file="/WEB-INF/views/fragment/header.jsp" %>
         <style>
             #outer {
-                width: 100%;
-            }
-            #inner {
-                display: table;
-                margin: 0 auto;
+                width: 90%;
+                margin-left: 5%;
+                margin-right: 5%;
             }
         </style>
     </head>
