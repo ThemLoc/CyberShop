@@ -138,7 +138,7 @@
 
                     <li><a href="#">HÀNG TRƯNG BÀY</a></li>
                     <li><a href="#">KHUYẾN MẠI</a></li>
-                    <li><a href="#">LIÊN HỆ</a></li>
+                    <li><a href="${pageContext.request.contextPath}/website/contact">LIÊN HỆ</a></li>
                 </ul>
             </div>  
         </div>
