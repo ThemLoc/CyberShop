@@ -456,10 +456,7 @@ public class RestFullController {
         if (cus != null) {
             String token = cus.getToken();
             if (confirmCode.equals(token)) {
-//                cus.setCartCollection(cus.getCartCollection());
-//                cus.setOrder1Collection(cus.getOrder1Collection());
-//                cus.setStatus(true);
-                customerService.remove(cus.getCustomerID(), false);
+                customerService.updateStatus(cus.getCustomerID(), false);
                 session.setAttribute("CUSTOMER_INFO", cus);
                 return new ResponseEntity("success", HttpStatus.OK);
             } else {

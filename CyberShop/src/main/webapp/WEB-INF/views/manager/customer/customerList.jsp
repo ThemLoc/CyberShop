@@ -1,9 +1,3 @@
-<%-- 
-    Document   : admin
-    Created on : Apr 15, 2019, 1:39:28 PM
-    Author     : ngthe
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
@@ -91,7 +85,7 @@
                                                             <input disabled="true" type="checkbox" checked="checked" />
                                                         </c:if>
                                                         <c:if test="${a.isGuest == false}">
-                                                            <input disabled="true" type="checkbox" checked="checked" />
+                                                            <input disabled="true" type="checkbox" />
                                                         </c:if>
                                                     </td>
 

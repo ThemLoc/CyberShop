@@ -9,7 +9,7 @@ public interface CustomerDAO {
 
     void update(Customer obj);
 
-    void delete(int id, boolean status);
+    void updateStatus(int id, boolean status);
 
     List<Customer> getAll();
 

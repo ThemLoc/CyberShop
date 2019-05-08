@@ -1,9 +1,3 @@
-<%-- 
-    Document   : login
-    Created on : Apr 22, 2019, 3:53:34 PM
-    Author     : ngthe
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>

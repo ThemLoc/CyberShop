@@ -7,7 +7,7 @@ public interface CustomerService {
 
     void save(Customer obj);
 
-    void remove(int id, boolean status);
+    void updateStatus(int id, boolean status);
 
     Customer findById(int id);
 
