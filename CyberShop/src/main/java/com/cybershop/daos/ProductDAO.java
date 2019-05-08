@@ -1,6 +1,5 @@
 package com.cybershop.daos;
 
-import com.cybershop.models.Image;
 import com.cybershop.models.Product;
 import java.util.List;
 
@@ -29,8 +28,18 @@ public interface ProductDAO {
     int countPdByBrandID(int brandID);
 
     List<Product> getProductNotInBanner();
-    
+
     List<Product> findTop6ProductWithCateID(int cateID);
+    
+    List<Product> findAllProductWithBrandID(int brandID);
+
+    List<Product> getNewProduct(int number);
+
+    List<Product> getHotSaleProduct(int number);
+
+    List<Product> getSellProduct(int number);
+    
+    List<Product> searchProduct(int cateID, String search);
     
     Product getByIDSimple(int id);
 }

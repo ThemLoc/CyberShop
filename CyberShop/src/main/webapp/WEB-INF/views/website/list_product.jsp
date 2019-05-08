@@ -10,9 +10,6 @@
     <body>
         <a id="topDiv"></a>
         <%@include file="/WEB-INF/views/website/fragment/webHeader.jsp" %>
-
-
-
         <div class="single-product-area" >
             <div class="container" >
 
@@ -20,7 +17,6 @@
                     <div class="col-sm-2 wrap-sort-by"></div>
                     <div class="col-sm-3 wrap-sort-by">
                         <strong><h3 style="color: #005983;"> ${cateName}</h3></strong>
-
                     </div>
                     <div class="col-sm-7 wrap-sort-by">
                         <div class="browse-tags pull-right">

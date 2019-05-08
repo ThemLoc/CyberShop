@@ -21,7 +21,7 @@
                                 <div class="box-body">
                                     <button id="btnAdd" type="button" class="btn btn-danger">Show List Product</button>
                                     <!-- form start -->
-                                    <form id="form" action="${pageContext.request.contextPath}/manager/banner/add" method="POST" enctype="multipart/form-data" style="display:none">
+                                    <form id="form" action="#" method="POST" enctype="multipart/form-data" style="display:none">
                                         <section class="content">
                                             <div class="row">
                                                 <div class="col-xs-12">
@@ -40,22 +40,23 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     <c:forEach items="${listProduct}" var="a" varStatus="Counter" >
-                                                                        <tr>
-                                                                            <td>${Counter.count}</td>
-                                                                    <input type="hidden" name="productID" value="${a.productID}"/>
-                                                                    <td>
-                                                                        <c:forEach items="${a.imagesCollection}" var="b">
-                                                                            <c:if test="${b.mainImage == true}">
-                                                                                <img src="${pageContext.request.contextPath}/resources/image/img_product/${b.urlImage}" style="width: 150px ; height:80px;vertical-align: middle;"/>
-                                                                            </c:if>
-                                                                        </c:forEach>
-                                                                    </td>
-                                                                    <td>${a.productName}</td>
-                                                                    <td>
-                                                                        <input type="submit" class="btn btn-warning" value="Add to Banner"/>
-                                                                    </td>
-                                                                    </tr>
-                                                                </c:forEach>
+                                                                        <c:if test="${a.status == true}">
+                                                                            <tr>
+                                                                                <td>${Counter.count}</td>
+                                                                                <td style="text-align: center">
+                                                                                    <c:forEach items="${a.imagesCollection}" var="b">
+                                                                                        <c:if test="${b.mainImage == true}">
+                                                                                            <img src="${pageContext.request.contextPath}/resources/image/img_product/${b.urlImage}" style="width: 100px ; height:100px;"/>
+                                                                                        </c:if>
+                                                                                    </c:forEach>
+                                                                                </td>
+                                                                                <td>${a.productName}</td>
+                                                                                <td>
+                                                                                    <a href="${pageContext.request.contextPath}/manager/banner/add/${a.productID}" class="btn btn-warning">Add to Banner</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </c:if>
+                                                                    </c:forEach>
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -102,10 +103,10 @@
                                                 <tr>
                                                     <td>${Counter.count}</td>
                                                     <td hidden="true">${a.banerID}</td>
-                                                    <td>
+                                                    <td style="text-align: center">
                                                         <c:forEach items="${a.productID.imagesCollection}" var="b">
                                                             <c:if test="${b.mainImage == true}">
-                                                                <img src="${pageContext.request.contextPath}/resources/image/img_product/${b.urlImage}" style="width: 150px ; height:80px;vertical-align: middle;"/>
+                                                                <img src="${pageContext.request.contextPath}/resources/image/img_product/${b.urlImage}" style="width: 100px ; height:100px;vertical-align: middle;"/>
                                                             </c:if>
                                                         </c:forEach>
                                                     </td>
@@ -140,23 +141,6 @@
         </div>
         <%@include file="/WEB-INF/views/fragment/footer.jsp" %>
 
-        <!--/Delete modal -->
-        <!-- jQuery 3 -->
-        <script src="<c:url value="/resources/adminsource/support_template/jquery/dist/jquery.min.js" />" type="text/javascript"></script>
-        <!-- Bootstrap 3.3.7 -->
-        <script src="<c:url value="/resources/adminsource/support_template/bootstrap/dist/js/bootstrap.min.js" />" type="text/javascript"></script>
-        <!-- DataTables -->
-        <script src="<c:url value="/resources/adminsource/support_template/datatables.net/js/jquery.dataTables.min.js" />" type="text/javascript"></script>
-        <script src="<c:url value="/resources/adminsource/support_template/datatables.net-bs/js/dataTables.bootstrap.min.js" />" type="text/javascript"></script>
-        <!-- SlimScroll -->
-        <script src="<c:url value="/resources/adminsource/support_template/jquery-slimscroll/jquery.slimscroll.min.js" />" type="text/javascript"></script>
-        <!-- FastClick -->
-        <script src="<c:url value="/resources/adminsource/support_template/fastclick/lib/fastclick.js" />" type="text/javascript"></script>
-        <!-- AdminLTE App -->
-        <script src="<c:url value="/resources/adminsource/support_template/dist/js/adminlte.min.js" />" type="text/javascript"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="<c:url value="/resources/adminsource/support_template/dist/js/demo.js" />" type="text/javascript"></script>
-        <!-- page script -->
         <script>
             $(function () {
                 $('#tableProduct').DataTable()

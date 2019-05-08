@@ -1,9 +1,3 @@
-<%-- 
-    Document   : admin
-    Created on : Apr 15, 2019, 1:39:28 PM
-    Author     : ngthe
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
@@ -78,11 +72,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label >Day of birth:   </label>
-                                                <c:set var = "now" value = "<%= new java.util.Date()%>" />
-                                                <s:bind path="dob">
-                                                    <fmt:formatDate value="${dob}" pattern="dd/MM/yyyy" var="myDate" />
-                                                    <sf:input path="dob" type="text" value="${myDate}" />
-                                                </s:bind>
+                                                <input name="dobCus" type="text" value="dob"/>
 
                                             </div>
                                             <s:bind path="sex">

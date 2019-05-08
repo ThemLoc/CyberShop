@@ -71,7 +71,6 @@ public class OrderDAOImpl implements OrderDAO {
             newOrder.setStatus(order.getStatus());
             newOrder.setTotal(order.getTotal());
             newOrder.setCustomerID(order.getCustomerID());
-//            List<OrderDetail> listOD = (List<OrderDetail>) order.getOrderDetailCollection();
             List<OrderDetail> newListOD = ods.findByOrderID(order.getOrderID());
             newOrder.setOrderDetailCollection(newListOD);
         }

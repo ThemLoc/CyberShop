@@ -38,7 +38,7 @@ public class BrandDAOImpl implements BrandDAO {
 
     @Override
     public List<Brand> getAll() {
-        return em.createQuery("from Brand").getResultList();
+        return em.createQuery("from Brand ORDER BY brandName ASC").getResultList();
     }
 
     @Override

@@ -84,7 +84,7 @@
                                                 <th>End Date</th>
                                                 <th>Used Turn</th>
                                                 <th>Update</th>
-                                                <th>Delete</th>
+                                                <!--<th>Delete</th>-->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -99,9 +99,9 @@
                                                     <td>
                                                         <a onclick="editPromo('${pageContext.request.contextPath}/manager/promotion/update', '${a.promoID}', '${a.promoCode}', '${a.discount}', '${a.usedTurn}')" class="btn btn-warning">Update</a>
                                                     </td>
-                                                    <td>
+<!--                                                    <td>
                                                         <a href="${pageContext.request.contextPath}/manager/promotion/delete/${a.promoID}" class="btn btn-danger">Delete</a>
-                                                    </td>
+                                                    </td>-->
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
@@ -170,23 +170,6 @@
             </div>
         </div>
 
-        <!--/Delete modal -->
-        <!-- jQuery 3 -->
-        <script src="<c:url value="/resources/adminsource/support_template/jquery/dist/jquery.min.js" />" type="text/javascript"></script>
-        <!-- Bootstrap 3.3.7 -->
-        <script src="<c:url value="/resources/adminsource/support_template/bootstrap/dist/js/bootstrap.min.js" />" type="text/javascript"></script>
-        <!-- DataTables -->
-        <script src="<c:url value="/resources/adminsource/support_template/datatables.net/js/jquery.dataTables.min.js" />" type="text/javascript"></script>
-        <script src="<c:url value="/resources/adminsource/support_template/datatables.net-bs/js/dataTables.bootstrap.min.js" />" type="text/javascript"></script>
-        <!-- SlimScroll -->
-        <script src="<c:url value="/resources/adminsource/support_template/jquery-slimscroll/jquery.slimscroll.min.js" />" type="text/javascript"></script>
-        <!-- FastClick -->
-        <script src="<c:url value="/resources/adminsource/support_template/fastclick/lib/fastclick.js" />" type="text/javascript"></script>
-        <!-- AdminLTE App -->
-        <script src="<c:url value="/resources/adminsource/support_template/dist/js/adminlte.min.js" />" type="text/javascript"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="<c:url value="/resources/adminsource/support_template/dist/js/demo.js" />" type="text/javascript"></script>
-        <!-- page script -->
         <script>
                                                             $(function () {
                                                                 $('#tableOrder').DataTable()

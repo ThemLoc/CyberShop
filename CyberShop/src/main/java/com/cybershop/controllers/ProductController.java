@@ -27,7 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("manager/product")
 public class ProductController {
 
-    final String saveDirectory = "/Users/chungnguyen/Google Drive/NANO/CyberShop/";
+    final String saveDirectory = "E:/FNano/ProjectNANO/newCyberShop/";
 
     @Autowired
     private ProductService productService;

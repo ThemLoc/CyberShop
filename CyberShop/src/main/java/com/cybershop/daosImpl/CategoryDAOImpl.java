@@ -49,6 +49,7 @@ public class CategoryDAOImpl implements CategoryDAO {
                 category = new Category();
                 category.setCateID(item.getCateID());
                 category.setCateName(item.getCateName());
+                category.setType(item.getType());
                 newList.add(category);
             }
         }
