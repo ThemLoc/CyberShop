@@ -267,6 +267,12 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
+
+    public void updateProductQuantity(int idProduct, int quantity, int sell) {
+        this.em.createQuery("update Product set Sell = ?, Quantity = ? where ProductID = ?")
+                .setParameter(1, sell).setParameter(2, quantity).setParameter(3, idProduct).executeUpdate();
+    }
+    
     public List<Product> findAllProductWithBrandID(int brandID) {
         List<Product> listPro = this.em.createQuery("from Product where BrandID = ? and Status = 1 order by ProductID DESC")
                 .setParameter(1, brandID).getResultList();
@@ -352,4 +358,6 @@ public class ProductDAOImpl implements ProductDAO {
         }
         return newListPro;
     }
+
+    
 }

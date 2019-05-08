@@ -14,6 +14,7 @@
         <h1 style="text-align: center">Thông tin cá nhân</h1>
         <br/>
         <div style="margin-left: 7%;margin-bottom: 7%;margin-right: 7%">
+            <strong style="color: red">${successUpdate}</strong>
             <c:if test="${not empty customerForm}">
                 <form:form id="form" method="POST" action="${pageContext.request.contextPath}/website/customer/save" role="form" modelAttribute="customerForm">
                 <div class="box-body">

@@ -42,4 +42,6 @@ public interface ProductDAO {
     List<Product> searchProduct(int cateID, String search);
     
     Product getByIDSimple(int id);
+    
+    void updateProductQuantity(int idProduct, int quantity, int sell);
 }

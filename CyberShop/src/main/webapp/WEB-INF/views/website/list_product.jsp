@@ -101,8 +101,8 @@
             <div class="vertical-alignment-helper">
                 <div class="modal-dialog vertical-align-center modal-sm"  >
                     <div class="modal-content">
-                        <div class="modal-body">
-                            <img src="<c:url value="/resources/image/icon/checked.png"/>"/> <a id="alertContent" style="color: #02acea"> Thêm vào giỏ hàng thành công!</a>
+                        <div class="modal-body" id="alertContent">
+                            <img src="<c:url value="/resources/image/icon/checked.png"/>"/> <a  style="color: #02acea"> Thêm vào giỏ hàng thành công!</a>
                         </div>
                     </div>
                 </div>
@@ -328,7 +328,7 @@
                             }
                             html += '</div> ';
                             html += '<div class="product-option-shop">';
-                            html += '<a onclick="addToCart(' + data[i]['productID'] +')" class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" >Add to cart</a>';
+                            html += '<a style="cursor:pointer" onclick="addToCart(' + data[i]['productID'] + ')" class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" >Add to cart</a>';
                             html += '</div>';
                             html += '</div>';
                             html += '</div>';
@@ -547,39 +547,43 @@
 
             //add to cart
             function addToCart(productID) {
-                    $.ajax({
-                        type: "POST",
-                        url: "${pageContext.request.contextPath}/api/cart/add",
-                        dataType: 'text',
-                        data: {
-                            productId: productID,
-                            qty: 1},
-                        timeout: 100000,
-                        success: function (result) {
-                            if (result == "addSuccess") {
-                                var count = $('#product-count').text();
-                                count++;
-                                $('#product-count').text(count);
-                                $("#alertContent").text("Thêm vào giỏ hàng thành công!");
-                                $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
-                                    $("#alertModal").slideUp(500);
-                                });
-                            } else if (result == "duplicate") {
-                                $("#alertContent").text("Thêm vào giỏ hàng thành công!");
-                                $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
-                                    $("#alertModal").slideUp(500);
-                                });
-                            } else {
-                                $("#alertContent").text("Lỗi ! Thêm thất bại.");
-                                $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
-                                    $("#alertModal").slideUp(500);
-                                });
-                            }
-                        },
-                        error: function (e) {
-                            console.log("ERROR: ", e);
+                var html = "";
+                $.ajax({
+                    type: "POST",
+                    url: "${pageContext.request.contextPath}/api/cart/add",
+                    dataType: 'text',
+                    data: {
+                        productId: productID,
+                        qty: 1},
+                    timeout: 100000,
+                    success: function (result) {
+                        if (result == "addSuccess") {
+                            var count = $('#product-count').text();
+                            count++;
+                            $('#product-count').text(count);
+                            html += '<img src="<c:url value="/resources/image/icon/checked.png"/>"/> <a style="color: #02acea"> Thêm vào giỏ hàng thành công!</a>';
+                            $("#alertContent").html(html);
+                            $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                $("#alertModal").slideUp(500);
+                            });
+                        } else if (result == "duplicate") {
+                            html += '<img src="<c:url value="/resources/image/icon/checked.png"/>"/> <a style="color: #02acea"> Thêm vào giỏ hàng thành công!</a>';
+                            $("#alertContent").html(html);
+                            $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                $("#alertModal").slideUp(500);
+                            });
+                        } else {
+                            html += '<img src="<c:url value="/resources/image/icon/cancel.png"/>"/> <a style="color: red"> Lỗi ! Thêm thất bại!</a>';
+                            $("#alertContent").html(html);
+                            $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                $("#alertModal").slideUp(500);
+                            });
                         }
-                    });
+                    },
+                    error: function (e) {
+                        console.log("ERROR: ", e);
+                    }
+                });
             }
         </script>
     </body>

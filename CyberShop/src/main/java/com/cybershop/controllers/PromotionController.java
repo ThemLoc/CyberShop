@@ -35,7 +35,7 @@ public class PromotionController {
     private String add(HttpServletRequest request) throws ParseException {
         Promotion promotion = new Promotion();
         promotion.setPromoCode(request.getParameter("promoCode"));
-        promotion.setDiscount(request.getParameter("discount") + "%");
+        promotion.setDiscount(request.getParameter("discount"));
         promotion.setStartTime(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("startTime")));
         promotion.setEndTime(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("endTime")));
         promotion.setUsedTurn(Integer.parseInt(request.getParameter("usedTurn")));
@@ -54,7 +54,7 @@ public class PromotionController {
         Promotion promotion = new Promotion();
         promotion.setPromoID(id);
         promotion.setPromoCode(request.getParameter("promoCodeUpdate"));
-        promotion.setDiscount(request.getParameter("discountUpdate") + "%");
+        promotion.setDiscount(request.getParameter("discountUpdate"));
         promotion.setStartTime(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("startTimeUpdate")));
         promotion.setEndTime(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("endTimeUpdate")));
         promotion.setUsedTurn(Integer.parseInt(request.getParameter("usedTurnUpdate")));

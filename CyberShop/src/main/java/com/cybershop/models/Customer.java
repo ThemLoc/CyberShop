@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -33,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Customer.findByPhone", query = "SELECT c FROM Customer c WHERE c.phone = :phone")
     , @NamedQuery(name = "Customer.findByToken", query = "SELECT c FROM Customer c WHERE c.token = :token")
     , @NamedQuery(name = "Customer.findByIsGuest", query = "SELECT c FROM Customer c WHERE c.isGuest = :isGuest")
-    , @NamedQuery(name = "Customer.findByStatus", query = "SELECT c FROM Customer c WHERE c.status = :status")
+    , @NamedQuery(name = "Customer.updateStatus", query = "Update Customer SET Status = ? WHERE CustomerID = ?")
     , @NamedQuery(name = "Customer.findByDateRegistration", query = "SELECT c FROM Customer c WHERE c.dateRegistration = :dateRegistration")
     , @NamedQuery(name = "Customer.findByDob", query = "SELECT c FROM Customer c WHERE c.dob = :dob")
     , @NamedQuery(name = "UpdateStatusCustomer", query = "update Customer set status = :sta where customerID = :id ")
@@ -45,7 +46,7 @@ public class Customer implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "CustomerID")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer customerID;
 
     @Column(name = "Username", unique = true)
@@ -233,7 +234,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "Customer{" + "customerID=" + customerID + ", username=" + username + ", password=" + password + ", fullname=" + fullname + ", sex=" + sex + ", address=" + address + ", email=" + email + ", phone=" + phone + ", token=" + token + ", isGuest=" + isGuest + ", status=" + status + ", dateRegistration=" + dateRegistration + ", dob=" + dob + ", order1Collection=" + order1Collection + ", cartCollection=" + cartCollection + '}';
+        return "Customer{" + "customerID=" + customerID + ", username=" + username + ", password=" + password + ", fullname=" + fullname + ", sex=" + sex + ", address=" + address + ", email=" + email + ", phone=" + phone + ", token=" + token + ", isGuest=" + isGuest + ", status=" + status + ", dateRegistration=" + dateRegistration + ", dob=" + dob + '}';
     }
 
     

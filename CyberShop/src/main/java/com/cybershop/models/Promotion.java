@@ -138,7 +138,7 @@ public class Promotion implements Serializable {
 
     @Override
     public String toString() {
-        return "Promotion{" + "promoID=" + promoID + ", promoCode=" + promoCode + ", discount=" + discount + ", startTime=" + startTime + ", endTime=" + endTime + ", usedTurn=" + usedTurn + ", order1Collection=" + order1Collection + '}';
+        return "Promotion{" + "promoID=" + promoID + ", promoCode=" + promoCode + ", discount=" + discount + ", startTime=" + startTime + ", endTime=" + endTime + ", usedTurn=" + usedTurn + '}';
     }
 
     

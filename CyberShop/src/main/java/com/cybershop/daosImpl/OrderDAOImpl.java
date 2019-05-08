@@ -106,4 +106,15 @@ public class OrderDAOImpl implements OrderDAO {
         em.createNamedQuery("Order.updateStatus").setParameter(1, status).setParameter(2, id).executeUpdate();
     }
 
+    @Override
+    public Order OrderCurrent() {
+        return (Order) em.createNativeQuery("select * from [Order] ORDER BY OrderID DESC", Order.class).setMaxResults(1).getSingleResult();
+    }
+
+    @Override
+    public void updateOrderByCustomer(int idOrder, int idCustomer) {
+        em.createNativeQuery("Update [Order]  Set CustomerID = ? where OrderID = ? ").setParameter(1, idCustomer).setParameter(2, idOrder)
+                .executeUpdate();
+    }
+
 }

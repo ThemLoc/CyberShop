@@ -36,7 +36,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">username: </label>
                                                 <s:bind path="username">
-                                                    <sf:input type="text" class="form-control" required="true" path="username" placeholder="Enter Username"/>
+                                                    <sf:input type="text" readonly="true" class="form-control" required="true" path="username" placeholder="Enter Username"/>
                                                 </s:bind>
 
                                             </div>

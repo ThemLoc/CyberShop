@@ -100,7 +100,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public List<Product> findAllProductWithBrandID(int brandID) {
+
+    public void UpdateQuantityProduct(int idProduct, int quantity, int sell) {
+        dao.updateProductQuantity(idProduct, quantity, sell);
+    }
+
+       public List<Product> findAllProductWithBrandID(int brandID) {
         return dao.findAllProductWithBrandID(brandID);
     }
 
@@ -115,4 +120,5 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> searchProduct(int cateID, String search) {
         return dao.searchProduct(cateID, search);
     }
+
 }

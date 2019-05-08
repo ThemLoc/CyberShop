@@ -38,4 +38,6 @@ public interface ProductService {
     List<Product> searchProduct(int cateID, String search);
 
     Product findByIdSimple(int id);
+    
+    void UpdateQuantityProduct(int idProduct, int quantity, int sell);
 }

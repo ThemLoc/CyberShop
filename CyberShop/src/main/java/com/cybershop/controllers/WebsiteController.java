@@ -8,17 +8,20 @@ import com.cybershop.models.Category;
 import com.cybershop.models.Customer;
 import com.cybershop.models.CustomerDTO;
 import com.cybershop.models.Product;
+import com.cybershop.models.Promotion;
 import com.cybershop.services.CategoryService;
 import com.cybershop.services.CustomerService;
 import com.cybershop.services.OrderService;
 import com.cybershop.services.ProductService;
 import com.cybershop.services.StoreInformationService;
+import com.cybershop.services.PromotionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -43,6 +46,8 @@ public class WebsiteController {
 
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    PromotionService promotionService;
 
     @Autowired
     BannerService bannerService;
@@ -130,7 +135,9 @@ public class WebsiteController {
     public String list_product(@PathVariable("cateID") int cateID, Model model) throws JsonProcessingException {
         loadModel(model);
         Category category = categoryService.findById(cateID);
+
         List<Product> list = productService.findTop6ProductWithCateID(cateID);
+
         String json = processListToJSON(list);
         int totalPage = processCaculatorPage(list.size());
 
@@ -283,6 +290,7 @@ public class WebsiteController {
             newCus.setUsername(cus.getUsername());
             newCus.setOrder1Collection(null);
             customerService.save(newCus);
+            ra.addFlashAttribute("successUpdate", "Cập nhật thông tin cá nhân thành công!!!");
         } catch (Exception e) {
             ra.addFlashAttribute("saveError", "");
         }

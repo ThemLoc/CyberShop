@@ -11,8 +11,15 @@
             }
         </style>
     </head>
-    <body>
+    <body onload="testSuccess()">
         <%@include file="/WEB-INF/views/website/fragment/webHeader.jsp" %>
+        <script>
+            function testSuccess() {
+                if (${not empty successOrder}) {
+                    window.alert('Đặt hàng thành công.');
+                }
+            }
+        </script>
         <div class="slider-area">
             <!-- Slider -->
             <div class="block-slider block-slider4">

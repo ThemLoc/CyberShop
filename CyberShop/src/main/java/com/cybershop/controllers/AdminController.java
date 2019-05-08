@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("manager/admin")
+@RequestMapping("/manager/admin")
 public class AdminController {
 
     @Autowired
