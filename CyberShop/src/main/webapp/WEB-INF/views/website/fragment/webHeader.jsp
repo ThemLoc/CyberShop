@@ -139,7 +139,7 @@
                     </li>
 
                     <li><a href="${pageContext.request.contextPath}/website/listproduct/hot">KHUYẾN MẠI</a></li>
-                    <li><a href="#">LIÊN HỆ</a></li>
+                    <li><a href="${pageContext.request.contextPath}/website/contact">LIÊN HỆ</a></li>
                 </ul>
             </div>  
         </div>

@@ -120,13 +120,11 @@ public class WebsiteController {
         }
         model.addAttribute("listSpec", list);
         List<Product> listSame = productService.findTop6ProductWithCateID(product.getCategoryID().getCateID());
-//        System.out.println(listSame.size());
         if (listSame.size() > 6) {
             for (int i = 6; i < listSame.size();) {
                 listSame.remove(i);
             }
         }
-//        System.out.println(listSame.size());
         model.addAttribute("listSame", listSame);
         return "website/single_product";
     }
@@ -332,9 +330,10 @@ public class WebsiteController {
         return mapCate;
     }
 
-    @RequestMapping(value = {"/website/test"}, method = RequestMethod.GET)
-    public String test() {
-        return "website/test";
+    @RequestMapping(value = {"/website/contact"}, method = RequestMethod.GET)
+    public String contact(Model model) {
+        loadModel(model);
+        return "website/contact";
     }
 
     @RequestMapping(value = "website/search/{cateID}&{search}", method = RequestMethod.GET)
