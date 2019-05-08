@@ -9,6 +9,7 @@ import com.cybershop.models.Customer;
 import com.cybershop.models.CustomerDTO;
 import com.cybershop.models.Product;
 import com.cybershop.models.Promotion;
+import com.cybershop.models.StoreInformation;
 import com.cybershop.services.CategoryService;
 import com.cybershop.services.CustomerService;
 import com.cybershop.services.OrderService;
@@ -60,12 +61,12 @@ public class WebsiteController {
 
     @Autowired
     CustomerService customerService;
-    
+
     @Autowired
     StoreInformationService sis;
 
     @RequestMapping(value = {"/website/home"}, method = RequestMethod.GET)
-    public String home(Model model, HttpSession session) {
+    public String home(Model model, HttpSession session) throws JsonProcessingException {
         loadModel(model);
         List<Product> products = addViewedPro(session);
         if (products.isEmpty()) {
@@ -92,7 +93,7 @@ public class WebsiteController {
     }
 
     @RequestMapping(value = {"/website/singleproduct/{id}"}, method = RequestMethod.GET)
-    public String single_product(@PathVariable("id") int id, Model model, HttpSession session) {
+    public String single_product(@PathVariable("id") int id, Model model, HttpSession session) throws JsonProcessingException {
         if (!listInt.contains(id)) {
             listInt.add(id);
         }
@@ -120,8 +121,8 @@ public class WebsiteController {
         }
         model.addAttribute("listSpec", list);
         List<Product> listSame = productService.findTop6ProductWithCateID(product.getCategoryID().getCateID());
-        for (int i = 0;i < listSame.size();i ++) {
-            if(listSame.get(i).getProductID() == id){
+        for (int i = 0; i < listSame.size(); i++) {
+            if (listSame.get(i).getProductID() == id) {
                 listSame.remove(i);
             }
         }
@@ -246,20 +247,20 @@ public class WebsiteController {
     }
 
     @RequestMapping(value = {"/website/cart"}, method = RequestMethod.GET)
-    public String cart(Model model) {
+    public String cart(Model model) throws JsonProcessingException {
         loadModel(model);
         return "website/cart";
     }
 
     @RequestMapping(value = {"/website/checkout"}, method = RequestMethod.GET)
-    public String check_out(Model model) {
+    public String check_out(Model model) throws JsonProcessingException {
         loadModel(model);
         model.addAttribute("CusomerInfor", new Customer());
         return "website/checkout";
     }
 
     @RequestMapping(value = {"/website/profile"}, method = RequestMethod.GET)
-    public String profile(Model model, HttpSession session) {
+    public String profile(Model model, HttpSession session) throws JsonProcessingException {
         loadModel(model);
         if (session.getAttribute("CUSTOMER_INFO") != null) {
             Customer cus = (Customer) session.getAttribute("CUSTOMER_INFO");
@@ -301,7 +302,7 @@ public class WebsiteController {
     }
 
     @RequestMapping(value = {"/website/orderhistory"}, method = RequestMethod.GET)
-    public String orderhistory(Model model, HttpSession session) {
+    public String orderhistory(Model model, HttpSession session) throws JsonProcessingException {
         Customer cus = (Customer) session.getAttribute("CUSTOMER_INFO");
         System.out.println("Customer in history: " + cus.getCustomerID());
         model.addAttribute("listOrder", orderService.findByCusID(cus.getCustomerID()));
@@ -309,13 +310,19 @@ public class WebsiteController {
         return "website/orderhistory";
     }
 
-    public void loadModel(Model model) {
+    public void loadModel(Model model) throws JsonProcessingException {
         Map<String, List<Category>> mapCategory = listMap();
+        List<StoreInformation> listStore = sis.getByAll();
+
         model.addAttribute("listPKCate", mapCategory.get("listPKCate"));
         model.addAttribute("listLKCate", mapCategory.get("listLKCate"));
-        model.addAttribute("storeinfo", sis.getByAll());
+        model.addAttribute("storeinfo",listStore);
         model.addAttribute("listBrand", service.getByAll());
         model.addAttribute("selectCate", categoryService.getByAll());
+        ObjectMapper mapper = new ObjectMapper();
+        String storeJSON = null;
+        storeJSON = mapper.writeValueAsString(listStore.get(0));
+        model.addAttribute("storeJSON", storeJSON);
     }
 
     public Map<String, List<Category>> listMap() {
@@ -336,7 +343,7 @@ public class WebsiteController {
     }
 
     @RequestMapping(value = {"/website/contact"}, method = RequestMethod.GET)
-    public String contact(Model model) {
+    public String contact(Model model) throws JsonProcessingException {
         loadModel(model);
         return "website/contact";
     }

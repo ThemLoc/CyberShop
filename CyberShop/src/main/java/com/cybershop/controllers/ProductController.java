@@ -67,6 +67,7 @@ public class ProductController {
         dbProduct.setDetail(product.getDetail());
         dbProduct.setPrice(product.getPrice());
         dbProduct.setQuantity(product.getQuantity());
+        dbProduct.setSell(0);
         dbProduct.setStatus(product.getStatus());
         dbProduct.setBrandID(brand);
         dbProduct.setCategoryID(category);
