@@ -30,16 +30,18 @@
                                 <div class="col-md-7">
                                     <c:forEach items="${a.productID.imagesCollection}" var="b">
                                         <c:if test="${b.mainImage == true}">
+                                            <a href="${pageContext.request.contextPath}/website/singleproduct/${a.productID.productID}">
                                             <img class="km" src="${pageContext.request.contextPath}/resources/image/img_product/${b.urlImage}" alt="slide"/>
+                                            </a>
                                         </c:if>
                                     </c:forEach>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="caption-group" style="margin-top: 150px; margin-left: 20px">
                                         <h2 class="caption title">
-                                            <p class="caption title animated fadeInRight" style="display: block;">
+                                            <a href="${pageContext.request.contextPath}/website/singleproduct/${a.productID.productID}" class="caption title animated fadeInRight" style="display: block;text-decoration: none">
                                                 <span class="primary"><strong>${a.productID.productName}</strong></span><br/>
-                                            </p>
+                                            </a>
                                         </h2>
                                         <a class="caption button-radius" href="${pageContext.request.contextPath}/website/singleproduct/${a.productID.productID}"><span class="icon"></span>Shop now</a>
                                     </div>

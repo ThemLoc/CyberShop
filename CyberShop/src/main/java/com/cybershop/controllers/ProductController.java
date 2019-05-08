@@ -103,55 +103,7 @@ public class ProductController {
             model.addAttribute("message", "upload failed");
         }
         dbProduct.setImagesCollection(listImg);
-//        model.addAttribute("product", dbProduct);
         productService.save(dbProduct);
         return "redirect:/manager/product/";
-//        return "manager/product/productForm";
     }
-
-//    @RequestMapping(value = {"/uploadfile"}, method = RequestMethod.POST)
-//    private String uploadFile(@ModelAttribute("myFile") MyFile myFile, Model model) {
-//        model.addAttribute("message", "upload success");
-//        model.addAttribute("description", myFile.getDescription());
-//
-//        try {
-//            List<MultipartFile> list = myFile.getMultipartFile();
-//            for (MultipartFile subImg : list) {
-//                System.out.println("######Path :" + subImg);
-//                String fileName = subImg.getOriginalFilename();
-//                File file = new File("/Users/chungnguyen/Google Drive/NANO/CyberShop/CyberShop/src/main/webapp/resources/image/img_product", fileName);
-//                subImg.transferTo(file);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            model.addAttribute("message", "upload failed");
-//        }
-//        return "manager/product/resultest";
-//    }
-//
-//    @RequestMapping(value = "/create", method = RequestMethod.GET)
-//    private String create(Model model) {
-//        model.addAttribute("listProduct", new Product());
-//        return "manager/product/productForm";
-//    }
-//
-//    @RequestMapping(value = "manager/product/save", method = RequestMethod.POST)
-//    private String save(@ModelAttribute("productForm") Product obj, RedirectAttributes ratts) {
-//        productService.save(obj);
-//        ratts.addFlashAttribute("msg", "saved");
-//        return "manager/product/productList";
-//    }
-//
-//    @RequestMapping(value = "/manager/product/edit/{id}", method = RequestMethod.GET)
-//    private String edit(@PathVariable("id") int id, Model model) {
-//        model.addAttribute("productForm", productService.findById(id));
-//        return "manager/product/productForm";
-//    }
-//
-//    @RequestMapping(value = "/manager/product/delete/{id}", method = RequestMethod.GET)
-//    private String delete(@PathVariable("id") int id, RedirectAttributes ratts) {
-//        productServiceImpl.remove(id);
-//        ratts.addFlashAttribute("msg", "deleted");
-//        return "manager/product/productList";
-//    }
 }

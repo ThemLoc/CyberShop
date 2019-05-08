@@ -9,12 +9,15 @@
             <div class="col-md-5 col-sm-6">
                 <div class="footer-about-us">
                     <h2>Cyber<span>Shop</span></h2>
-                    <p>Được thành lập vào 26 tháng 2 năm 1997, CyberShop lúc đó là một cửa hàng buôn bán máy tính nhỏ. Qua nhiều năm CeyberShop đã từng bước lớn mạnh và phát triển trong lĩnh vực kinh doanh các sản phẩm, linh kiện máy tính và giải trí do các hãng điện tử hàng đầu trên thế giới. Và đến tháng 7 năm 2007, Phong Vũ chính thức thành lập Công ty Cô phần Thương mại - Dịch vụ CeyberShop.</p>
+                      <p>Được thành lập vào 26 tháng 2 năm 1997,
+                        CyberShop lúc đó là một cửa hàng buôn bán máy tính nhỏ. 
+                        Qua nhiều năm CyberShop đã từng bước lớn mạnh và phát triển trong lĩnh vực kinh doanh các sản phẩm,
+                        linh kiện máy tính và giải trí do các hãng điện tử hàng đầu trên thế giới. 
+                        Và đến tháng 7 năm 2007, chính thức thành lập Công ty Cô phần Thương mại - Dịch vụ CyberShop.</p>
                     <div class="footer-social">
-                        <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
-                        <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
-                        <a href="#" target="_blank"><i class="fa fa-youtube"></i></a>
-                        <a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
+                        <a  target="_blank"><i class="fa fa-facebook"></i></a>
+                        <a  target="_blank"><i class="fa fa-twitter"></i></a>
+                        <a  target="_blank"><i class="fa fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
@@ -23,11 +26,11 @@
                 <div class="footer-menu">
                     <h2 >Hỗ trợ Khách hàng </h2>
                     <ul>
-                        <li><a href="#">Thẻ ưu đãi</a></li>
-                        <li><a href="#">Phiếu mua bảo hành</a></li>
-                        <li><a href="#">Trung tâm bảo hành</a></li>
-                        <li><a href="#">Thanh toán và giao hàng</a></li>
-                        <li><a href="#">Dịch vụ sửa chữa và bảo hành</a></li>
+                        <li><a >Thẻ ưu đãi</a></li>
+                        <li><a >Phiếu mua bảo hành</a></li>
+                        <li><a >Trung tâm bảo hành</a></li>
+                        <li><a >Thanh toán và giao hàng</a></li>
+                        <li><a >Dịch vụ sửa chữa và bảo hành</a></li>
                     </ul>                        
                 </div>
             </div>
@@ -36,11 +39,11 @@
                 <div class="footer-menu">
                     <h2 >Chính sách hỗ trợ</h2>
                     <ul>
-                        <li><a href="#">Chính sách điện máy</a></li>
-                        <li><a href="#">Chính sách đổi hàng</a></li>
-                        <li><a href="#">Chính sách bảo hành</a></li>
-                        <li><a href="#">Chính sách thanh toán</a></li>
-                        <li><a href="#">Chính sách trả góp</a></li>
+                        <li><a >Chính sách điện máy</a></li>
+                        <li><a >Chính sách đổi hàng</a></li>
+                        <li><a >Chính sách bảo hành</a></li>
+                        <li><a >Chính sách thanh toán</a></li>
+                        <li><a >Chính sách trả góp</a></li>
                     </ul>                        
                 </div>
             </div>

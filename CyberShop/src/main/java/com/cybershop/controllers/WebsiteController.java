@@ -115,6 +115,11 @@ public class WebsiteController {
         }
         model.addAttribute("listSpec", list);
         List<Product> listSame = productService.findTop6ProductWithCateID(product.getCategoryID().getCateID());
+        for (int i = 0;i < listSame.size();i ++) {
+            if(listSame.get(i).getProductID() == id){
+                listSame.remove(i);
+            }
+        }
         if (listSame.size() > 6) {
             for (int i = 6; i < listSame.size();) {
                 listSame.remove(i);

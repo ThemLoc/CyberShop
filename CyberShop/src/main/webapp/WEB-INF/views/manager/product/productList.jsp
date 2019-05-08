@@ -870,6 +870,19 @@
             function selectClick() {
                 $('#inputBrand').val($('#selectionChange').find(":selected").attr('value'));
             }
+            //format price
+            function formatNumber(nStr, decSeperate, groupSeperate) {
+                nStr += '';
+                var x = nStr.split(decSeperate);
+                var x1 = x[0];
+                var x2 = x.length > 1 ? '.' + x[1] : '';
+                var rgx = /(\d+)(\d{3})/;
+                while (rgx.test(x1)) {
+                    x1 = x1.replace(rgx, '$1' + groupSeperate + '$2');
+                }
+                return x1 + x2;
+            }
+            
             //Update other by rest
             $('#btnUpdateOther').click(function () {
                 var html = '';
@@ -927,9 +940,9 @@
                             $('#updateOtherInfo').modal('hide');
                             if (result === "success") {
                                 $('#tbRow_pname' + id).text(name.val());
-                                $('#tbRow_pprice' + id).text(price.val());
+                                $('#tbRow_pprice' + id).text(formatNumber(price.val(), ',', '.', )+'₫');
                                 $('#tbRow_pquantity' + id).text(quantity.val());
-                                $('#tbRow_pdownPrice' + id).text(downPrice.val());
+                                $('#tbRow_pdownPrice' + id).text(formatNumber(downPrice.val(), ',', '.', )+'₫');
                                 html += "<h3 style='color:green'>Update Success!</h3";
                             } else {
                                 html += "<span style='color:red'>Update fail!</span";
@@ -1107,6 +1120,7 @@
                     return false;
                 }
             }
+            
         </script>
     </body>
 

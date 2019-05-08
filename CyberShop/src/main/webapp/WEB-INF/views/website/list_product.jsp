@@ -266,9 +266,9 @@
             //format price
             function formatNumber(nStr, decSeperate, groupSeperate) {
                 nStr += '';
-                x = nStr.split(decSeperate);
-                x1 = x[0];
-                x2 = x.length > 1 ? '.' + x[1] : '';
+                var x = nStr.split(decSeperate);
+                var x1 = x[0];
+                var x2 = x.length > 1 ? '.' + x[1] : '';
                 var rgx = /(\d+)(\d{3})/;
                 while (rgx.test(x1)) {
                     x1 = x1.replace(rgx, '$1' + groupSeperate + '$2');
@@ -322,9 +322,9 @@
                             html += '</div>';
                             html += '<div class="product-carousel-price">';
                             if (data[i]['downPrice'] !== null) {
-                                html += '<ins>' + formatNumber(data[i]['downPrice'], '.', ',', ) + 'đ</ins> <del>' + formatNumber(data[i]['price'], '.', ',', ) + 'đ</del>';
+                                html += '<ins>' + formatNumber(data[i]['downPrice'], ',', '.', ) + 'đ</ins> <del>' + formatNumber(data[i]['price'], '.', ',', ) + 'đ</del>';
                             } else {
-                                html += ' <ins>' + formatNumber(data[i]['price'], '.', ',', ) + 'đ</ins>';
+                                html += ' <ins>' + formatNumber(data[i]['price'], ',', '.', ) + 'đ</ins>';
                             }
                             html += '</div> ';
                             html += '<div class="product-option-shop">';
