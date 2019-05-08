@@ -17,4 +17,6 @@ public interface PromotionService {
     void remove(int id);
     Promotion findById(int id);
     List<Promotion> getByAll();
+    
+    Promotion getByPromoCode(String promoCode);
 }

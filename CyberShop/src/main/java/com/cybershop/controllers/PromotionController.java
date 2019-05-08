@@ -1,16 +1,21 @@
 package com.cybershop.controllers;
 
+import com.cybershop.models.Product;
 import com.cybershop.models.Promotion;
 import com.cybershop.services.PromotionService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/manager/promotion")
@@ -37,13 +42,13 @@ public class PromotionController {
         service.save(promotion);
         return "redirect:/manager/promotion";
     }
-    
+
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     private String delete(@PathVariable("id") int id) {
         service.remove(id);
         return "redirect:/manager/promotion";
     }
-    
+
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     private String update(@PathVariable("id") int id, HttpServletRequest request) throws ParseException {
         Promotion promotion = new Promotion();
@@ -56,4 +61,6 @@ public class PromotionController {
         service.save(promotion);
         return "redirect:/manager/promotion";
     }
+
+
 }
