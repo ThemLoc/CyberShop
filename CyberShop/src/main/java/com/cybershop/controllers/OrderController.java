@@ -7,13 +7,12 @@ import com.cybershop.models.Order;
 import com.cybershop.services.AdminService;
 import com.cybershop.services.CustomerService;
 import com.cybershop.services.OrderService;
+import java.util.Date;
 
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.hibernate.annotations.Parameter;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,12 +31,9 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
     private CustomerService customerService;
-    
+
     @Autowired
     private AdminService adminService;
-
-    private ExecutorService service = Executors.newFixedThreadPool(2);
-
 
     @RequestMapping(value = "/order/member/save", method = RequestMethod.POST)
     private String checkout(@ModelAttribute("cart") Order obj, RedirectAttributes ratts) {
@@ -61,12 +57,12 @@ public class OrderController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Admin a = adminService.getByUser(username);
-        if(a != null){
+        if (a != null) {
             session.setAttribute("USER", a);
-        }else{
-            
+        } else {
+
         }
-        
+
         return "manager/order/orderList";
     }
 
@@ -77,47 +73,40 @@ public class OrderController {
     }
 
     @RequestMapping(value = "update/{status}&{id}", method = RequestMethod.GET)
-    private String updateStatus(@PathVariable("status") String status, @PathVariable("id") int id) {
+    private String updateStatus(@PathVariable("status") String status, @PathVariable("id") int id, RedirectAttributes ratts) {
         final Order o = orderService.findById(id);
-        if (status.equals("Confirm")) {
-            Runnable r1 = new Runnable() {
-                @Override
-                public void run() {
-                    try {
+        if (status.equals("Confirm") || status.equals("Ready To Delivery") || status.equals("Delivery") || status.equals("Completed")) {
+            if (status.equals("Confirm")) {
+                Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
                         orderService.sendEmailOrder("cybershop.nano@gmail.com", o.getCustomerID().getEmail(), "Đơn đặt hàng #" + o.getOrderID(),
-                                "Đặt hàng thành công.\nThông tin của đơn hàng: Đơn hàng mã #" + o.getOrderID() + "\nNgày đặt hàng: " + o.getOrderDate()
+                                "Đặt hàng thành công.\nThông tin của đơn hàng: Đơn hàng mã #" + o.getOrderID() + "\nGiờ đặt hàng: " + new Date() + "\nNgày đặt hàng: " + o.getOrderDate()
                                 + "\nĐịa chỉ giao hàng: " + o.getShipAddress() + "\nTổng cộng: " + o.getTotal() + " VNĐ");
-                    } catch (Exception e) {
-                        System.out.println("Send mail fail " + e.getMessage());
                     }
-                }
-            };
-            service.submit(r1);
-            service.shutdown();
+                });
+                t.start();
+            }
+            orderService.updateStatus(status, id);
+        } else {
+            ratts.addFlashAttribute("errorUpdate", "Wrong Status!");
         }
-        orderService.updateStatus(status, id);
-
         return "redirect:/manager/order";
     }
 
     @RequestMapping(value = "/deniedform", method = RequestMethod.GET)
     private String updateDeniedStatus(@ModelAttribute("deniedForm") final DeniedForm deniedForm) {
         final Order o = orderService.findById(deniedForm.getId());
-        Runnable r1 = new Runnable() {
+        Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    orderService.sendEmailOrder("cybershop.nano@gmail.com", o.getCustomerID().getEmail(), "Đã hủy đơn đặt hàng #" + o.getOrderID(),
-                            "Đơn hàng đã bị hủy.\nThông tin của đơn hàng: Đơn hàng mã #" + o.getOrderID() + "\nNgày đặt hàng: " + o.getOrderDate()
-                            + "\nĐịa chỉ giao hàng: " + o.getShipAddress() + "\nTổng cộng: " + o.getTotal() + " VNĐ" + "\n\n Lý do hủy đơn hàng: " + deniedForm.getReason());
-                } catch (Exception e) {
-                    System.out.println("Send mail fail " + e.getMessage());
-                }
+                orderService.sendEmailOrder("cybershop.nano@gmail.com", o.getCustomerID().getEmail(), "Đã hủy đơn đặt hàng #" + o.getOrderID(),
+                        "Đơn hàng đã bị hủy.\nThông tin của đơn hàng: Đơn hàng mã #" + o.getOrderID() + "\nGiờ đặt hàng: " + new Date() + "\nNgày đặt hàng: " + o.getOrderDate()
+                        + "\nĐịa chỉ giao hàng: " + o.getShipAddress() + "\nTổng cộng: " + o.getTotal() + " VNĐ" + "\n\n Lý do hủy đơn hàng: " + deniedForm.getReason());
             }
-        };
+        });
+        t.start();
         orderService.updateStatus("Denied", deniedForm.getId());
-        service.submit(r1);
-        service.shutdown();
         return "redirect:/manager/order";
     }
 

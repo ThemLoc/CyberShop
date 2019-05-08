@@ -5,7 +5,7 @@
 <div class="header-area">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="user-menu">
                     <ul>
                         <c:set var="customerInfo" value="${sessionScope.CUSTOMER_INFO}"/>
@@ -29,11 +29,13 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <div class="user-menu">
                     <ul>
-                        <li><a href="#"><i class="fa fa-phone"></i> 0964 303 637</a></li>
-                        <li><a href="#"><i class="fa fa-location-arrow"></i> Innovation Building - Quang Trung Software City</a></li>
+                        <c:forEach items="${storeinfo}" var="storeInfo">
+                            <li><a href="#"><i class="fa fa-phone"></i> ${storeInfo.phone1}</a></li>
+                            <li><a href="#"><i class="fa fa-location-arrow"></i> ${storeInfo.address}</a></li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>
@@ -136,8 +138,7 @@
                         </div>
                     </li>
 
-                    <li><a href="#">HÀNG TRƯNG BÀY</a></li>
-                    <li><a href="#">KHUYẾN MẠI</a></li>
+                    <li><a href="${pageContext.request.contextPath}/website/listproduct/hot">KHUYẾN MẠI</a></li>
                     <li><a href="${pageContext.request.contextPath}/website/contact">LIÊN HỆ</a></li>
                 </ul>
             </div>  

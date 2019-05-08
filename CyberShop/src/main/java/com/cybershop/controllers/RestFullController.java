@@ -434,12 +434,12 @@ public class RestFullController {
             System.out.println("Customer: " + cus);
             customerService.save(cus);
             Thread t = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        orderService.sendEmailOrder("cybershop.nano@gmail.com", cus.getEmail(), "Mã xác thực ", "Mã xác thực tài khoản của bạn là: " + cus.getToken());
-                    }
-                });
-                t.start();
+                @Override
+                public void run() {
+                    orderService.sendEmailOrder("cybershop.nano@gmail.com", cus.getEmail(), "Mã xác thực ", "Mã xác thực tài khoản của bạn là: " + cus.getToken());
+                }
+            });
+            t.start();
         } catch (ParseException ex) {
             System.out.println("ERROR: " + ex.getMessage());
         }
@@ -456,8 +456,10 @@ public class RestFullController {
         if (cus != null) {
             String token = cus.getToken();
             if (confirmCode.equals(token)) {
-                cus.setStatus(true);
-                customerService.save(cus);
+//                cus.setCartCollection(cus.getCartCollection());
+//                cus.setOrder1Collection(cus.getOrder1Collection());
+//                cus.setStatus(true);
+                customerService.remove(cus.getCustomerID(), false);
                 session.setAttribute("CUSTOMER_INFO", cus);
                 return new ResponseEntity("success", HttpStatus.OK);
             } else {

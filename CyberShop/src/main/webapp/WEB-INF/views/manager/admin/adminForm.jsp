@@ -36,7 +36,7 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">username: </label>
                                                 <s:bind path="username">
-                                                    <sf:input type="text" class="form-control" required="true" path="username" placeholder="Enter Username"/>
+                                                    <sf:input type="text" readonly="true" class="form-control" required="true" path="username" placeholder="Enter Username"/>
                                                 </s:bind>
 
                                             </div>
@@ -72,8 +72,9 @@
                                             </div>
                                             <div class="form-group">
                                                 <label >Day of birth:   </label>
-                                                <input name="dobCus" type="text" value="dob"/>
-
+                                                <s:bind path="dobString">
+                                                    <sf:input type="text" class="form-control" required="true" path="dobString" placeholder="DOB"/>
+                                                </s:bind>
                                             </div>
                                             <s:bind path="sex">
                                                 <sf:radiobutton path="sex" value="true"/>Male 

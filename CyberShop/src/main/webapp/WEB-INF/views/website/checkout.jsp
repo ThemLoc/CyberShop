@@ -161,7 +161,7 @@
                                                 <c:forEach var="image" items="${pd.value.item.imagesCollection}">
                                                     <c:if test="${image.mainImage == true}">
                                                         <td class="product-thumbnail">
-                                                            <a href="single-product.html">
+                                                            <a href="${pageContext.request.contextPath}/website/singleproduct/${pd.value.item.productID}">
                                                                 <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" 
                                                                      src="<c:url value="/resources/image/img_product/${image.urlImage}"/>">
                                                             </a>
@@ -170,7 +170,7 @@
                                                 </c:forEach>
 
                                                 <td class="product-name" style="text-align: left">
-                                                    <a href="single-product.html">${pd.value.item.productName}</a> 
+                                                    <a href="${pageContext.request.contextPath}/website/singleproduct/${pd.value.item.productID}">${pd.value.item.productName}</a> 
                                                 </td>
 
                                                 <td class="product-price">

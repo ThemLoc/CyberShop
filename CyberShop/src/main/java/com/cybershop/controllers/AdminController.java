@@ -46,19 +46,25 @@ public class AdminController {
             String yob = request.getParameter("dayYob");
             System.out.println("yob" + yob);
             if (yob != null) {
-                try {
-                    Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(yob);
-                    if (dob != null) {
-                        obj.setDob(dob);
-                        obj.setStatus(true);
-                        adminService.save(obj);
-                        ratts.addFlashAttribute("msg", "saved");
+                Admin admin = adminService.getByUser(obj.getUsername());
+                if (admin != null) {
+                    ratts.addFlashAttribute("userExist", "Username Existed!");
+                } else {
+                    try {
+                        Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(yob);
+                        if (dob != null) {
+                            obj.setDob(dob);
+                            obj.setStatus(true);
+                            adminService.save(obj);
+                            ratts.addFlashAttribute("msg", "saved");
+                        }
+                    } catch (ParseException ex) {
+                        Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } catch (ParseException ex) {
-                    Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 obj.setStatus(true);
+                obj.setDob(new SimpleDateFormat("yyyy-MM-dd").parse(obj.getDobString()));
                 adminService.save(obj);
                 ratts.addFlashAttribute("msg", "saved");
             }
@@ -71,8 +77,10 @@ public class AdminController {
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     private String edit(@PathVariable("id") int id, Model model) {
-        System.out.println("acount: " + adminService.findById(id));
-        model.addAttribute("adminForm", adminService.findById(id));
+        Admin admin = adminService.findById(id);
+        admin.setDobString(new SimpleDateFormat("yyyy-MM-dd").format(admin.getDob()));
+        System.out.println("acount: " + admin.getDobString());
+        model.addAttribute("adminForm", admin);
         return "manager/admin/adminForm";
     }
 

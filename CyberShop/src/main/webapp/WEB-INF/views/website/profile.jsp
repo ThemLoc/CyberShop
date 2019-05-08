@@ -14,6 +14,7 @@
         <h1 style="text-align: center">Thông tin cá nhân</h1>
         <br/>
         <div style="margin-left: 7%;margin-bottom: 7%;margin-right: 7%">
+            <strong style="color: red">${successUpdate}</strong>
             <c:if test="${not empty customerForm}">
                 <form:form id="form" method="POST" action="${pageContext.request.contextPath}/website/customer/save" role="form" modelAttribute="customerForm">
                 <div class="box-body">
@@ -30,31 +31,31 @@
                     <div class="form-group col-md-6">
                         <label for="exampleInputPassword1">Password</label>
                         <s:bind path="password">
-                            <form:input type="password" required="true" class="form-control" path="password"  placeholder="password"/>
+                            <form:input type="password" required="true" class="form-control" path="password"  placeholder="Password"/>
                         </s:bind>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="exampleInputPassword1">Fullname</label>
                         <s:bind path="fullname">
-                            <form:input type="text" class="form-control" path="fullname" required="true"  placeholder="fullname"/>
+                            <form:input type="text" class="form-control" path="fullname" required="true"  placeholder="Fullname"/>
                         </s:bind>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="exampleInputPassword1">Phone</label>
                         <s:bind path="phone">
-                            <form:input type="text" pattern="\d*" maxlength="10" required="true" minlength="10" class="form-control" path="phone" placeholder="phone"/>
+                            <form:input type="text" pattern="\d*" maxlength="10" required="true" minlength="10" class="form-control" path="phone" placeholder="Phone"/>
                         </s:bind>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="exampleInputPassword1">Email</label>
                         <s:bind path="email">
-                            <form:input type="email" class="form-control" required="true" path="email" placeholder="email"/>
+                            <form:input type="email" class="form-control" required="true" path="email" placeholder="Email"/>
                         </s:bind>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="exampleInputPassword1">Address</label>
                         <s:bind path="address">
-                            <form:input type="text" class="form-control" required="true" path="address" placeholder="address"/>
+                            <form:input type="text" class="form-control" required="true" path="address" placeholder="Address"/>
                         </s:bind>
                     </div>
                     <div class="form-group col-md-6">
@@ -62,7 +63,7 @@
                         <c:set var = "now" value = "<%= new java.util.Date()%>" />
                         <s:bind path="dob">
                             <fmt:formatDate value="${dob}" pattern="dd/MM/yyyy" var="myDate" />
-                            <form:input path="dob" type="text" value="${myDate}" />
+                            <form:input path="dob" type="text" required="true" value="${myDate}" />
                         </s:bind>
 
                     </div><br/>
