@@ -26,26 +26,26 @@
 
                                             <div class="form-group">
                                                 <label >Product Code</label>
-                                                <input type="text" name="promoCode" class="form-control" placeholder="Enter promotion code"/>
+                                                <input type="text" name="promoCode" class="form-control" required="true" placeholder="Enter promotion code"/>
                                             </div>
 
                                             <div class="form-group">
-                                                <label >Discount</label>
-                                                <input type="number" name="discount" class="form-control" id="" placeholder="Discount"/>
+                                                <label >Discount</label><p style="color: red" id="errorDiscount"></p>
+                                                <input type="number" name="discount" class="form-control" id="discountValue" placeholder="Discount < 100"/>
                                             </div>
                                             <div class="form-group">
                                                 <label>Start Time</label>
-                                                <input type="date" name="startTime" class="form-control" id="" placeholder="Start Time"/>
+                                                <input type="date" name="startTime" class="form-control" id="" required="true" placeholder="Start Time"/>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>End Time</label>
-                                                <input type="date" name="endTime" class="form-control" id="" placeholder="End Time"/>
+                                                <input type="date" name="endTime" class="form-control" required="true" id="" placeholder="End Time"/>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Used Turn</label>
-                                                <input type="text" name="usedTurn" class="form-control" id="" placeholder="Used Turn"/>
+                                                <input type="text" name="usedTurn" class="form-control" required="true" id="" placeholder="Used Turn"/>
                                             </div>
 
                                         </div>
@@ -99,9 +99,9 @@
                                                     <td>
                                                         <a onclick="editPromo('${pageContext.request.contextPath}/manager/promotion/update', '${a.promoID}', '${a.promoCode}', '${a.discount}', '${a.usedTurn}')" class="btn btn-warning">Update</a>
                                                     </td>
-<!--                                                    <td>
-                                                        <a href="${pageContext.request.contextPath}/manager/promotion/delete/${a.promoID}" class="btn btn-danger">Delete</a>
-                                                    </td>-->
+                                                    <!--                                                    <td>
+                                                                                                            <a href="${pageContext.request.contextPath}/manager/promotion/delete/${a.promoID}" class="btn btn-danger">Delete</a>
+                                                                                                        </td>-->
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
@@ -140,22 +140,22 @@
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 
                                 </button>
-                                <h4 class="modal-title" id="myModalLabel">Update Store Information</h4>
+                                <h4 class="modal-title" id="myModalLabel">Update Promotion</h4>
 
                             </div>
                             <form id="updatePromotionForm" method="GET">
                                 <div class="modal-body">
                                     <input type="hidden" name="promoIDUpdate" id="promoID"/>
                                     <label>Promotion Code</label>
-                                    <input class="form-control" type="text" name="promoCodeUpdate" id="promoCode" required/>
+                                    <input class="form-control" type="text" name="promoCodeUpdate" placeholder="Promotion Code" id="promoCode" required="true"/>
                                     <label>Discount</label><br/>
-                                    <input class="form-control" type="number" name="discountUpdate" id="discount" required/>
+                                    <input class="form-control" type="number" name="discountUpdate" placeholder="Discount < 100" id="discount" required="true"/>
                                     <label>Start Date</label><br/>
-                                    <input class="form-control" type="date" name="startTimeUpdate" id="startTime" required/>
+                                    <input class="form-control" type="date" name="startTimeUpdate" id="startTime" required="true"/>
                                     <label>End Date</label><br/>
-                                    <input class="form-control" type="date" name="endTimeUpdate" id="endTime" required/>
+                                    <input class="form-control" type="date" name="endTimeUpdate" id="endTime" required="true"/>
                                     <label>Used Turn</label><br/>
-                                    <input class="form-control" type="number" name="usedTurnUpdate" id="usedTurn" required/>
+                                    <input class="form-control" type="number" name="usedTurnUpdate" placeholder="Used Turn" id="usedTurn" required="true"/>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -171,33 +171,42 @@
         </div>
 
         <script>
-                                                            $(function () {
-                                                                $('#tableOrder').DataTable()
-                                                                $('#example2').DataTable({
-                                                                    'paging': true,
-                                                                    'lengthChange': false,
-                                                                    'searching': false,
-                                                                    'ordering': true,
-                                                                    'info': true,
-                                                                    'autoWidth': false
-                                                                });
-                                                            });
+            $(function () {
+                $('#tableOrder').DataTable()
+                $('#example2').DataTable({
+                    'paging': true,
+                    'lengthChange': false,
+                    'searching': false,
+                    'ordering': true,
+                    'info': true,
+                    'autoWidth': false
+                });
+            });
 
-                                                            $(document).ready(function () {
-                                                                $("#btnAdd").click(function () {
-                                                                    $("#form").toggle();
-                                                                });
-                                                            });
+            $(document).ready(function () {
+                $("#btnAdd").click(function () {
+                    $("#form").toggle();
+                });
+            });
 
-                                                            function editPromo(link, id, promoCode, discount, usedTurn) {
-                                                                $("#editPromoForm").modal('show');
-                                                                $("#promoID").val(id);
-                                                                document.getElementById("updatePromotionForm").action = link + '/' + id;
-                                                                $("#promoCode").val(promoCode);
-                                                                $("#discount").val(discount.substring(0, discount.length - 1));
-                                                                $("#usedTurn").val(usedTurn);
-                                                            }
-                                                            ;
+            function editPromo(link, id, promoCode, discount, usedTurn) {
+                $("#editPromoForm").modal('show');
+                $("#promoID").val(id);
+                document.getElementById("updatePromotionForm").action = link + '/' + id;
+                $("#promoCode").val(promoCode);
+                $("#discount").val(discount.substring(0, discount.length - 1));
+                $("#usedTurn").val(usedTurn);
+            }
+            ;
+
+            $('#discountValue').on('keydown keyup', function (e) {
+                $('#errorDiscount').text('');
+                if ($(this).val() > 100) {
+                    e.preventDefault();
+                    $(this).val('');
+                    $('#errorDiscount').text('Please input discount again!!!');
+                }
+            });
         </script>
     </body>
 </html>

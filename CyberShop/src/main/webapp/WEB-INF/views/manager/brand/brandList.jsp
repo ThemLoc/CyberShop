@@ -25,11 +25,11 @@
                                         <div class="box-body">
                                             <div class="form-group">
                                                 <label >Brand Name</label>
-                                                <form:input type="text" path="brandName" class="form-control" placeholder="Enter brand name"/>
+                                                <form:input type="text" path="brandName" required="true" class="form-control" placeholder="Enter brand name"/>
                                             </div>
                                             <div class="form-group">
                                                 <label>Brand Image</label>
-                                                <input name="urlImage"  type="file" class="file" data-show-upload="false" accept="image/*"/>
+                                                <input name="urlImage"  type="file" required="true" class="file" data-show-upload="false" accept="image/*"/>
                                             </div>
                                         </div>
                                         <!-- /.box-body -->

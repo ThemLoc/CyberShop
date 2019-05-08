@@ -63,7 +63,7 @@
                                                 </c:if>
                                             </c:forEach>
                                             <div class="product-hover">
-                                                <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                                <a onclick="addToCart('${hotPro.productID}')" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
                                                 <a href="${pageContext.request.contextPath}/website/singleproduct/${hotPro.productID}" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
                                             </div>
                                         </div>
@@ -106,7 +106,7 @@
                                                         </c:if>
                                                     </c:forEach>
                                                     <div class="product-hover">
-                                                        <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                                                        <a onclick="addToCart('${newPro.productID}')" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
                                                         <a href="${pageContext.request.contextPath}/website/singleproduct/${newPro.productID}" class="view-details-link"><i class="fa fa-link"></i>Xem chi tiết</a>
                                                     </div>
                                                 </div>
@@ -137,7 +137,7 @@
                         <div class="brand-list">
                             <c:forEach items="${listBrand}" var="brandList">
                                 <a href="${pageContext.request.contextPath}/website/listproduct/brand/${brandList.brandID}"><img style="width: 250px;height: 140px" src="${pageContext.request.contextPath}/resources/image/img_brand/${brandList.imageURL}"/></a>
-                            </c:forEach>
+                                </c:forEach>
                         </div>
                     </div>
                 </div>
@@ -209,7 +209,7 @@
                     <div class="single-product-widget">
                         <h2 >Vừa xem</h2>
                         <a href="${pageContext.request.contextPath}/website/listproduct/viewed" class="wid-view-more">Xem tất cả</a>
-                        
+
                         <c:forEach var="viewedPro" items="${viewedProduct}">
                             <div class="single-wid-product">
                                 <a href="${pageContext.request.contextPath}/website/singleproduct/${viewedPro.productID}">
@@ -269,9 +269,58 @@
             </div>
         </div>
     </div> 
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog vertical-align-center modal-sm"  >
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <img src="<c:url value="/resources/image/icon/checked.png"/>"/> <a id="alertContent" style="color: #02acea"> Thêm vào giỏ hàng thành công!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <%@include file="/WEB-INF/views/website/fragment/webFooter.jsp" %>
     <!-- Slider -->
     <script src="<c:url value="/resources/websource/js/bxslider.min.js" />" type="text/javascript"></script>
     <script src="<c:url value="/resources/websource/js/script.slider.js" />" type="text/javascript"></script>
+    <script>
+                                                    //add to cart
+                                                    function addToCart(productID) {
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: "${pageContext.request.contextPath}/api/cart/add",
+                                                            dataType: 'text',
+                                                            data: {
+                                                                productId: productID,
+                                                                qty: 1},
+                                                            timeout: 100000,
+                                                            success: function (result) {
+                                                                if (result == "addSuccess") {
+                                                                    var count = $('#product-count').text();
+                                                                    count++;
+                                                                    $('#product-count').text(count);
+                                                                    $("#alertContent").text("Thêm vào giỏ hàng thành công!");
+                                                                    $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                                                        $("#alertModal").slideUp(500);
+                                                                    });
+                                                                } else if (result == "duplicate") {
+                                                                    $("#alertContent").text("Thêm vào giỏ hàng thành công!");
+                                                                    $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                                                        $("#alertModal").slideUp(500);
+                                                                    });
+                                                                } else {
+                                                                    $("#alertContent").text("Lỗi ! Thêm thất bại.");
+                                                                    $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                                                        $("#alertModal").slideUp(500);
+                                                                    });
+                                                                }
+                                                            },
+                                                            error: function (e) {
+                                                                console.log("ERROR: ", e);
+                                                            }
+                                                        });
+                                                    }
+    </script>
 </body>
 </html>

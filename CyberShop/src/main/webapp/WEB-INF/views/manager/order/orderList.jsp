@@ -16,7 +16,10 @@
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>Order List</h1>
+                    <h1>Order List</h1><br/>
+                    <c:if test="${not empty errorUpdate}">
+                        <span style="color: red">${errorUpdate}</span>
+                    </c:if>
                 </section>
                 <!-- Main content -->
                 <section class="content">
@@ -58,7 +61,7 @@
                                                     <td>
                                                         <c:if test="${a.status == 'Create'}">
                                                             <a href="${pageContext.request.contextPath}/manager/order/update/Confirm&${a.orderID}" class="btn btn-warning">Confirm</a>
-                                                            <a  onclick="statusChange(${a.orderID})" class="btn btn-danger">Denied</a>
+                                                            <a onclick="statusChange(${a.orderID})" class="btn btn-danger">Denied</a>
                                                         </c:if>
                                                         <c:if test="${a.status == 'Confirm'}">
                                                             <a href="${pageContext.request.contextPath}/manager/order/update/Ready To Delivery&${a.orderID}" class="btn btn-warning">Ready To Delivery</a>

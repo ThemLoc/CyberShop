@@ -12,6 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -45,7 +46,7 @@ public class Admin implements Serializable {
     @Column(name = "Role")
     private String role;
 
-    @Column(name = "Username")
+    @Column(name = "Username", unique = true)
     private String username;
 
     @Column(name = "Password")
@@ -69,6 +70,17 @@ public class Admin implements Serializable {
     @Column(name = "DOB")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dob;
+    
+    @Transient
+    private String dobString;
+
+    public String getDobString() {
+        return dobString;
+    }
+
+    public void setDobString(String dobString) {
+        this.dobString = dobString;
+    }
 
     public Admin() {
     }

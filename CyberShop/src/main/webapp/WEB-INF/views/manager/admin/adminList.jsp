@@ -27,7 +27,7 @@
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <h4 style="color: red">${msg}</h4>
-
+                <h4 style="color: red">${userExist}</h4>
                 <!-- Add Product -->
                 <section class="content-header">
                     <div class="row">
@@ -67,7 +67,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Day of birth:   </label>
-                                                    <input type="date" name="dayYob"/>
+                                                    <input type="date" name="dayYob" required/>
 
                                                 </div>
                                                 <div class="radio">

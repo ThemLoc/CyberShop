@@ -434,12 +434,12 @@ public class RestFullController {
             System.out.println("Customer: " + cus);
             customerService.save(cus);
             Thread t = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        orderService.sendEmailOrder("cybershop.nano@gmail.com", cus.getEmail(), "Mã xác thực ", "Mã xác thực tài khoản của bạn là: " + cus.getToken());
-                    }
-                });
-                t.start();
+                @Override
+                public void run() {
+                    orderService.sendEmailOrder("cybershop.nano@gmail.com", cus.getEmail(), "Mã xác thực ", "Mã xác thực tài khoản của bạn là: " + cus.getToken());
+                }
+            });
+            t.start();
         } catch (ParseException ex) {
             System.out.println("ERROR: " + ex.getMessage());
         }

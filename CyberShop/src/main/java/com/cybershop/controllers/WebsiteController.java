@@ -12,6 +12,7 @@ import com.cybershop.services.CategoryService;
 import com.cybershop.services.CustomerService;
 import com.cybershop.services.OrderService;
 import com.cybershop.services.ProductService;
+import com.cybershop.services.StoreInformationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.text.SimpleDateFormat;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class WebsiteController {
@@ -53,6 +55,9 @@ public class WebsiteController {
 
     @Autowired
     CustomerService customerService;
+    
+    @Autowired
+    StoreInformationService sis;
 
     @RequestMapping(value = {"/website/home"}, method = RequestMethod.GET)
     public String home(Model model, HttpSession session) {
@@ -265,7 +270,7 @@ public class WebsiteController {
     }
 
     @RequestMapping(value = {"/website/customer/save"}, method = RequestMethod.POST)
-    private String saveCus(@ModelAttribute CustomerDTO cus) {
+    private String saveCus(@ModelAttribute CustomerDTO cus, RedirectAttributes ra) {
         try {
             Customer newCus = customerService.getByUser(cus.getUsername());
             newCus.setAddress(cus.getAddress());
@@ -279,6 +284,7 @@ public class WebsiteController {
             newCus.setOrder1Collection(null);
             customerService.save(newCus);
         } catch (Exception e) {
+            ra.addFlashAttribute("saveError", "");
         }
         return "redirect:/website/profile";
     }
@@ -296,6 +302,7 @@ public class WebsiteController {
         Map<String, List<Category>> mapCategory = listMap();
         model.addAttribute("listPKCate", mapCategory.get("listPKCate"));
         model.addAttribute("listLKCate", mapCategory.get("listLKCate"));
+        model.addAttribute("storeinfo", sis.getByAll());
         model.addAttribute("listBrand", service.getByAll());
         model.addAttribute("selectCate", categoryService.getByAll());
     }
@@ -329,7 +336,7 @@ public class WebsiteController {
         String json = processListToJSON(list);
         int totalPage = processCaculatorPage(list.size());
 
-        model.addAttribute("cateName", "Vừa xem");
+        model.addAttribute("cateName", "Kết quả tìm kiếm");
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("listProductJson", json);
         return "website/list_product";
