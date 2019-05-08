@@ -328,7 +328,7 @@
                             }
                             html += '</div> ';
                             html += '<div class="product-option-shop">';
-                            html += '<a onclick="addToCart(' + data[i]['productID'] + ')" class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" >Add to cart</a>';
+                            html += '<a style="cursor:pointer" onclick="addToCart(' + data[i]['productID'] + ')" class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" >Add to cart</a>';
                             html += '</div>';
                             html += '</div>';
                             html += '</div>';

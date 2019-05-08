@@ -17,6 +17,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
+                                <span style="color: red; font-size: 20px;">${errOrder}</span>
                                 <div class="product-content-right">
                                     <div class="woocommerce">
                                         <table cellspacing="0" class="shop_table cart">

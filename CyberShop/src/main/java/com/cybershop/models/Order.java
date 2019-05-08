@@ -3,6 +3,8 @@ package com.cybershop.models;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -52,15 +55,29 @@ public class Order implements Serializable {
     @Column(name = "DeliveryFee")
     private Double deliveryFee;
     @JoinColumn(name = "CustomerID", referencedColumnName = "CustomerID")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Customer customerID;
+
+    @Transient
+    @JoinColumn(name = "CustomerID", referencedColumnName = "CustomerID")
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    private Customer customerID_NotGuest;
+
     @JoinColumn(name = "PromotionID", referencedColumnName = "PromoID")
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Promotion promotionID;
     @OneToMany(mappedBy = "orderID", cascade = CascadeType.ALL)
     private Collection<OrderDetail> orderDetailCollection;
 
     public Order() {
+    }
+
+    public Customer getCustomerID_NotGuest() {
+        return customerID_NotGuest;
+    }
+
+    public void setCustomerID_NotGuest(Customer customerID_NotGuest) {
+        this.customerID_NotGuest = customerID_NotGuest;
     }
 
     public Order(Integer orderID) {
@@ -160,5 +177,4 @@ public class Order implements Serializable {
         return true;
     }
 
-  
 }
