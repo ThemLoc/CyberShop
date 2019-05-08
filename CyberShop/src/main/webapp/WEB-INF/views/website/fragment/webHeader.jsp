@@ -34,8 +34,9 @@
                     <ul>
                         <c:forEach items="${storeinfo}" var="storeInfo">
                             <li><a href="#"><i class="fa fa-phone"></i> ${storeInfo.phone1}</a></li>
+                            <!--<li><a href="#"><i class="fa fa-phone"></i> ${storeInfo.phone2}</a></li>-->
                             <li><a href="#"><i class="fa fa-location-arrow"></i> ${storeInfo.address}</a></li>
-                        </c:forEach>
+                            </c:forEach>
                     </ul>
                 </div>
             </div>
@@ -207,7 +208,7 @@
                                     <input id="usernamecreate" name="username" class="form-control" type="text" placeholder="Tên tài khoản" class="input-large" required="">
                                 </div>
                             </div>
-                            
+
                             <div class="control-group col-md-6">
                                 <label class="control-label">Email</label><br/>
                                 <strong id="emailError" style="color: red"> </strong>
