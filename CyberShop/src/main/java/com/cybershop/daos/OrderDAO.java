@@ -16,4 +16,6 @@ public interface OrderDAO {
     Order getById(int id);
     List<Order> getByCusID(int id);
     void updateStatus(String status, int id);
+    Order OrderCurrent();
+    void updateOrderByCustomer(int idOrder, int idCustomer);
 }

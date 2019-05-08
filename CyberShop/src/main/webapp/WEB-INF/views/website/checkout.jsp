@@ -11,8 +11,6 @@
 
         <%@include file="/WEB-INF/views/website/fragment/webHeader.jsp" %>
 
-
-
         <div class="single-product-area">
             <div class="zigzag-bottom"></div>
             <div class="container">
@@ -22,7 +20,7 @@
                     </div>
 
                     <div class="col-md-10">
-                        <c:set var="cus" value="${sessionScope.CUSTOMER}"/>
+                        <c:set var="cus" value="${sessionScope.CUSTOMER_INFO}"/>
                         <sf:form method="post" action="${pageContext.request.contextPath}/website/checkout/add" modelAttribute="CusomerInfor">
                             <c:if test="${ not empty cus}">
                                 <div class="product-content-right">
@@ -36,14 +34,14 @@
                                                         <p id="billing_first_name_field" class="form-row form-row-first validate-required">
                                                             <label class="" for="billing_first_name">Họ và tên <abbr title="required" class="required">*</abbr>
                                                             </label>
-                                                            <input type="text" disabled="true" value="${sessionScope.CUSTOMER.fullname}" placeholder="" id="billing_first_name" class="input-text ">
+                                                            <input type="text" disabled="true" value="${cus.fullname}" placeholder="" id="billing_first_name" class="input-text ">
                                                         </p>
 
                                                         <!--                                            <div class="clear"></div>-->
                                                         <p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
                                                             <label class="" for="billing_address_1">Địa chỉ <abbr title="required" class="required">*</abbr>
                                                             </label>
-                                                            <input type="text" disabled="true" value="${sessionScope.CUSTOMER.address}" placeholder="" id="billing_address_1"  class="input-text ">
+                                                            <input type="text"  value="${cus.address}" placeholder="" id="billing_address_1"  class="input-text ">
                                                         </p>
                                                         <!--                                                    <p id="billing_company_field" class="form-row form-row-wide">
                                                         
@@ -58,7 +56,7 @@
                                                         <p id="billing_first_name_field" class="form-row form-row-first validate-required">
                                                             <label class=""  for="billing_first_name">Email: 
                                                             </label>
-                                                            <input type="text" disabled="true" value="${sessionScope.CUSTOMER.email}" placeholder="" id="billing_first_name"  class="input-text ">
+                                                            <input type="text" disabled="true" value="${cus.email}" placeholder="" id="billing_first_name"  class="input-text ">
 
                                                         </p>
 
@@ -66,7 +64,7 @@
                                                         <p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
                                                             <label class="" for="billing_address_1">Số điện thoại:  <abbr title="required" class="required">*</abbr>
                                                             </label>
-                                                            <input type="text" disabled="true" value="${sessionScope.CUSTOMER.phone}" placeholder="" id="billing_address_1"  class="input-text ">
+                                                            <input type="text" disabled="true" value="${cus.phone}" placeholder="" id="billing_address_1"  class="input-text ">
                                                         </p>
 
                                                     </div>
@@ -117,7 +115,7 @@
                                                         <p id="billing_first_name_field" class="form-row form-row-first validate-required">
                                                             <label class="" for="billing_first_name">Email: 
                                                             </label>
-                                                            <input type="text" value="" placeholder="" id="billing_first_name" name="email" class="input-text ">
+                                                            <input type="text" value="" required="true" placeholder="" id="billing_first_name" name="email" class="input-text ">
 
                                                         </p>
 
@@ -125,7 +123,7 @@
                                                         <p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
                                                             <label class="" for="billing_address_1">Số điện thoại:  <abbr title="required" class="required">*</abbr>
                                                             </label>
-                                                            <input type="text" value="" placeholder="" id="billing_address_1" name="phone" class="input-text ">
+                                                            <input type="text" pattern="\d*" maxlength="10" minlength="10" class="form-control" required name="phone" placeholder="phone">
                                                         </p>
 
                                                     </div>
@@ -209,30 +207,29 @@
                                                                             </tr>-->
 
                                         <tr class="shipping">
-                                            <th>Phí vận chuyển</th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <th colspan="4">Phí vận chuyển</th>
+                                            
                                             <td>
                                                 Miễn phí
                                                 <input type="hidden" class="shipping_method" value="free_shipping" id="shipping_method_0" data-index="0" name="shipping_method[0]">
                                             </td>
                                         </tr>
                                          <tr class="order-total">
-                                            <th>Mã Giảm Giá</th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>abc</td>
+                                             <th colspan="4">Tổng tiền Sản Phẩm</th>
+                                            
+                                            <td><strong><span class="amount"> <fmt:formatNumber type="number" pattern="###,###" value=" ${sessionScope.cart.totalOrder}" />₫</span></td>
+                                        </tr>
+                                         <tr class="order-total">
+                                             <th colspan="4">Mã Giảm Giá (<strong> ${sessionScope.cart.promotion.promoCode}</strong>)</th>
+                                           
+                                            <td>${sessionScope.cart.promotion.discount}%</td>
                                         </tr>
 
 
                                         <tr class="order-total">
-                                            <th>Tổng hóa đơn</th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td><strong><span class="amount"> <fmt:formatNumber type="number" pattern="###,###" value=" ${sessionScope.cart.totalOrder}" />₫</span></strong> </td>
+                                            <th colspan="4">Tổng hóa đơn</th>
+                                            
+                                            <td><strong><span class="amount"> <fmt:formatNumber type="number" pattern="###,###" value=" ${sessionScope.cart.totalAfterDiscount}" />₫</span></strong> </td>
                                         </tr>
 
                                     </tfoot>

@@ -1,8 +1,3 @@
-/*
- * Ordero change this license header, choose License Headers in Project Properties.
- * Ordero change this template file, choose Orderools | Orderemplates
- * and open the template in the editor.
- */
 package com.cybershop.services;
 
 import com.cybershop.models.Customer;
@@ -11,10 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author chungnguyen
- */
 public interface OrderService {
 
     void save(Order obj);
@@ -34,4 +25,6 @@ public interface OrderService {
     String collectItems(HttpSession session, Order order, HttpServletRequest request, Customer cust);
 
     void emptyCart(HttpSession session);
+    void updateOrderBycus(int idOrder, int idCustomer);
+    Order getOrderCurrent();
 }

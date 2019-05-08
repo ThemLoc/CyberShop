@@ -1,17 +1,8 @@
-/*
- * Producto change this license header, choose License Headers in Project Properties.
- * Producto change this template file, choose Productools | Productemplates
- * and open the template in the editor.
- */
 package com.cybershop.services;
 
 import com.cybershop.models.Product;
 import java.util.List;
 
-/**
- *
- * @author chungnguyen
- */
 public interface ProductService {
 
     void save(Product obj);
@@ -29,13 +20,23 @@ public interface ProductService {
     void updateSpecification(int productID, int cateID, String detail);
 
     int countByCateID(int cateID);
-    
+
     int countPdByBrandID(int brandID);
 
     List<Product> findProductNotInBanner();
-    
+
     List<Product> findTop6ProductWithCateID(int cateID);
     
+    List<Product> findAllProductWithBrandID(int brandID);
+
+    List<Product> findNewProduct(int number);
+
+    List<Product> findHotSaleProduct(int number);
+    
+    List<Product> findSellProduct(int number);
+    
+    List<Product> searchProduct(int cateID, String search);
+
     Product findByIdSimple(int id);
     
     void UpdateQuantityProduct(int idProduct, int quantity, int sell);

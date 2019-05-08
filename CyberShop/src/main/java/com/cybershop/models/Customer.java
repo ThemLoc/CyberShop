@@ -49,7 +49,7 @@ public class Customer implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer customerID;
 
-    @Column(name = "Username")
+    @Column(name = "Username", unique = true)
     private String username;
 
     @Column(name = "Password")

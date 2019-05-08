@@ -33,21 +33,31 @@ public class CheckoutController {
     PromotionService promotionService;
 
     @RequestMapping(value = "/checkout/add")
-    public String placeOrder(@ModelAttribute("CusomerInfor") Customer cust,
+    public String placeOrder(@ModelAttribute("CusomerInfor") final Customer cust,
             HttpSession session, RedirectAttributes ra, HttpServletRequest request) {
 
-        // Customer c = (Customer)session.getAttribute("CUSTOMER_INFO");
-        Customer c = new Customer();
-        c = null;
-        Order order = new Order();
+        final Customer c = (Customer) session.getAttribute("CUSTOMER_INFO");
+        final Order order = new Order();
         if (c != null) {
             Customer customer = customerService.findById(c.getCustomerID());
-            orderService.collectItems(session, order, request, c);
-            if (order != null) {
-                orderService.sendEmailOrder("cybershop.nano@gmail.com", c.getEmail(), "Cybershop Order", "Order : " + order.getStatus() + "Order date: " + order.getOrderDate());
-                 ra.addFlashAttribute("errOrder", "");
-            }else{
-                ra.addFlashAttribute("errOrder", "Products do not enough to provide!");
+            String checkOrder = orderService.collectItems(session, order, request, customer);
+            if (checkOrder.equalsIgnoreCase("ok")) {
+                Order o = orderService.getOrderCurrent();
+                System.out.println("or===========der" + o.getOrderID());
+                System.out.println("CusOrderID: " + customer.getCustomerID());
+                orderService.updateOrderBycus(o.getOrderID(), customer.getCustomerID());
+                Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        orderService.sendEmailOrder("cybershop.nano@gmail.com", c.getEmail(), "Cybershop Order", "Order : " + order.getStatus() + "Order date: " + order.getOrderDate());
+                    }
+                });
+                t.start();
+                ra.addFlashAttribute("successOrder", "success");
+                ra.addFlashAttribute("errOrder", "");
+
+            } else {
+                ra.addFlashAttribute("errOrder", "Sản phẩm không đủ cung cấp!!");
                 return "redirect:/website/cart";
             }
 
@@ -58,17 +68,22 @@ public class CheckoutController {
             String checkOrder = orderService.collectItems(session, order, request, cust);
             if (checkOrder.equalsIgnoreCase("ok")) {
                 if (cust.getEmail() != null) {
-                    orderService.sendEmailOrder("cybershop.nano@gmail.com", cust.getEmail(), "Cybershop Order", "Order : " + order);
+                    Thread t = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            orderService.sendEmailOrder("cybershop.nano@gmail.com", cust.getEmail(), "Cybershop Order", "Order : " + order);
+                        }
+                    });
                     ra.addFlashAttribute("errOrder", "");
+                    ra.addFlashAttribute("successOrder", "success");
                 }
-            }else{
-                ra.addFlashAttribute("errOrder", "Products do not enough to provide!");
+            } else {
+                ra.addFlashAttribute("errOrder", "Sản phẩm không đủ cung cấp!");
                 return "redirect:/website/cart";
             }
 
         }
         orderService.emptyCart(session);
-//          System.out.println("cust" + cust);
 
         return "redirect:/website/home";
 

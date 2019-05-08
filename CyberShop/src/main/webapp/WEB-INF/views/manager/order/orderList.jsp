@@ -2,6 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -52,12 +53,9 @@
                                                     <td onclick="rowClick(${a.orderID})">${a.orderDate}</td>
                                                     <td onclick="rowClick(${a.orderID})">${a.shipAddress}</td>
                                                     <td onclick="rowClick(${a.orderID})">${a.deliveryFee}</td>
-                                                    <td onclick="rowClick(${a.orderID})">${a.total}</td>
+                                                    <td onclick="rowClick(${a.orderID})"><fmt:formatNumber type="number" pattern="###,###" value="${a.total}" /> ₫</td>
                                                     <td onclick="rowClick(${a.orderID})">${a.status}</td>
                                                     <td>
-                                                        <!--                                                        <button type="submit" class="btn btn-warning" data-toggle="modal" data-target="#update">Update</button>
-                                                                                                                <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete</button>-->
-
                                                         <c:if test="${a.status == 'Create'}">
                                                             <a href="${pageContext.request.contextPath}/manager/order/update/Confirm&${a.orderID}" class="btn btn-warning">Confirm</a>
                                                             <a  onclick="statusChange(${a.orderID})" class="btn btn-danger">Denied</a>
@@ -74,8 +72,6 @@
                                                     </td>
                                                 </tr>
                                             </c:forEach>
-
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -196,114 +192,97 @@
             </div>
         </div>
 
-        <!--/Delete modal -->
-        <!-- jQuery 3 -->
-        <script src="<c:url value="/resources/adminsource/support_template/jquery/dist/jquery.min.js" />" type="text/javascript"></script>
-        <!-- Bootstrap 3.3.7 -->
-        <script src="<c:url value="/resources/adminsource/support_template/bootstrap/dist/js/bootstrap.min.js" />" type="text/javascript"></script>
-        <!-- DataTables -->
-        <script src="<c:url value="/resources/adminsource/support_template/datatables.net/js/jquery.dataTables.min.js" />" type="text/javascript"></script>
-        <script src="<c:url value="/resources/adminsource/support_template/datatables.net-bs/js/dataTables.bootstrap.min.js" />" type="text/javascript"></script>
-        <!-- SlimScroll -->
-        <script src="<c:url value="/resources/adminsource/support_template/jquery-slimscroll/jquery.slimscroll.min.js" />" type="text/javascript"></script>
-        <!-- FastClick -->
-        <script src="<c:url value="/resources/adminsource/support_template/fastclick/lib/fastclick.js" />" type="text/javascript"></script>
-        <!-- AdminLTE App -->
-        <script src="<c:url value="/resources/adminsource/support_template/dist/js/adminlte.min.js" />" type="text/javascript"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="<c:url value="/resources/adminsource/support_template/dist/js/demo.js" />" type="text/javascript"></script>
-        <!-- page script -->
         <script>
-                                                                $(function () {
-                                                                    $('#tableOrder').DataTable()
-                                                                    $('#example2').DataTable({
-                                                                        'paging': true,
-                                                                        'lengthChange': false,
-                                                                        'searching': false,
-                                                                        'ordering': true,
-                                                                        'info': true,
-                                                                        'autoWidth': false
-                                                                    });
-                                                                });
+            $(function () {
+                $('#tableOrder').DataTable()
+                $('#example2').DataTable({
+                    'paging': true,
+                    'lengthChange': false,
+                    'searching': false,
+                    'ordering': true,
+                    'info': true,
+                    'autoWidth': false
+                });
+            });
 
 
-                                                                $(document).ready(function () {
-                                                                    $("#btnAdd").click(function () {
-                                                                        $("#form").toggle();
-                                                                    });
-                                                                });
+            $(document).ready(function () {
+                $("#btnAdd").click(function () {
+                    $("#form").toggle();
+                });
+            });
 
-                                                                function statusChange(id) {
-                                                                    $("#deniedOrder").modal('show');
-                                                                    $("#OrderID").val(id);
-                                                                }
-                                                                ;
+            function statusChange(id) {
+                $("#deniedOrder").modal('show');
+                $("#OrderID").val(id);
+            }
+            ;
 
-                                                                $(document).ready(function () {
-                                                                    var table = document.getElementById("tableOrder");
-                                                                    var rows = table.getElementsByTagName("tr");
-                                                                    for (i = 0; i < rows.length; i++) {
-                                                                        var currentRow = table.rows[i];
-                                                                        var createClickHandler = function (row) {
-                                                                            return function () {
-                                                                                var cell = row.getElementsByTagName("td")[1];
-                                                                                var id = cell.innerHTML;
-                                                                            };
-                                                                        };
-                                                                        currentRow.onclick = createClickHandler(currentRow);
-                                                                    }
-                                                                });
+            $(document).ready(function () {
+                var table = document.getElementById("tableOrder");
+                var rows = table.getElementsByTagName("tr");
+                for (i = 0; i < rows.length; i++) {
+                    var currentRow = table.rows[i];
+                    var createClickHandler = function (row) {
+                        return function () {
+                            var cell = row.getElementsByTagName("td")[1];
+                            var id = cell.innerHTML;
+                        };
+                    };
+                    currentRow.onclick = createClickHandler(currentRow);
+                }
+            });
 
-                                                                function rowClick(id) {
-                                                                    $("#showDetail").modal('show');
-                                                                    //                var cateID = $(this).val();
-                                                                    var html = '';
-                                                                    $('#detailModelBody').empty();
-                                                                    $.ajax({
-                                                                        type: "GET",
-                                                                        contentType: "application/json",
-                                                                        url: "${pageContext.request.contextPath}/api/findOrderDetail/" + id,
-                                                                        dataType: 'json',
-                                                                        timeout: 100000,
-                                                                        success: function (result) {
-                                                                            html += "<div col-md-12>";
-                                                                            html += "<table class='table table-bordered table-hover' style='text-align: center'>";
-                                                                            html += "<thead>";
-                                                                            html += "<tr>";
-                                                                            html += "<th style='text-align: center'>Product Name</th>";
-                                                                            html += "<th style='text-align: center'>Product Image</th>";
-                                                                            html += "<th style='text-align: center'>Quantity</th>";
-                                                                            html += "<th style='text-align: center'>Price</th>";
-                                                                            html += "</tr>";
-                                                                            html += "</thead>";
-                                                                            html += "<tbody>";
-                                                                            for (var i = 0; i < result.length; i++) {
-                                                                                html += "<tr>";
-                                                                                html += "<td>";
-                                                                                html += result[i]['productID']['productName'];
-                                                                                html += "</td><td>";
-                                                                                var listImg = result[i]['productID']['imagesCollection'];
-                                                                                for (var j = 0; j < listImg.length; j++) {
-                                                                                    var check = listImg[j]['mainImage'];
-                                                                                    if (check) {
-                                                                                        html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + listImg[j]['urlImage'] + "' style='width: 150px ; height:80px;vertical-align: middle;'/>";
-                                                                                    }
-                                                                                }
-                                                                                html += "</td>";
-                                                                                html += "<td>" + result[i]['quantity'] + "</td>";
-                                                                                html += "<td>" + result[i]['productID']['price'] + " VNĐ" + "</td>";
-                                                                                html += "</tr>";
-                                                                            }
-                                                                            html += "</tbody>"
-                                                                            html += "</table>"
-                                                                            html += "</div>";
-                                                                            $('#detailModelBody').html(html);
-                                                                        },
-                                                                        error: function (e) {
-                                                                            console.log("ERROR: ", e);
-                                                                        }
-                                                                    });
-                                                                }
+            function rowClick(id) {
+                $("#showDetail").modal('show');
+                //                var cateID = $(this).val();
+                var html = '';
+                $('#detailModelBody').empty();
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json",
+                    url: "${pageContext.request.contextPath}/api/findOrderDetail/" + id,
+                    dataType: 'json',
+                    timeout: 100000,
+                    success: function (result) {
+                        html += "<div col-md-12>";
+                        html += "<table class='table table-bordered table-hover' style='text-align: center'>";
+                        html += "<thead>";
+                        html += "<tr>";
+                        html += "<th style='text-align: center'>Product Name</th>";
+                        html += "<th style='text-align: center'>Product Image</th>";
+                        html += "<th style='text-align: center'>Quantity</th>";
+                        html += "<th style='text-align: center'>Price</th>";
+                        html += "</tr>";
+                        html += "</thead>";
+                        html += "<tbody>";
+                        for (var i = 0; i < result.length; i++) {
+                            html += "<tr>";
+                            html += "<td>";
+                            html += result[i]['productID']['productName'];
+                            html += "</td><td>";
+                            var listImg = result[i]['productID']['imagesCollection'];
+                            for (var j = 0; j < listImg.length; j++) {
+                                var check = listImg[j]['mainImage'];
+                                if (check) {
+                                    html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + listImg[j]['urlImage'] + "' style='width: 150px ; height:80px;vertical-align: middle;'/>";
+                                }
+                            }
+                            html += "</td>";
+                            html += "<td>" + result[i]['quantity'] + "</td>";
+                            html += "<td>" + result[i]['productID']['price'] + " VNĐ" + "</td>";
+                            html += "</tr>";
+                        }
+                        html += "</tbody>"
+                        html += "</table>"
+                        html += "</div>";
+                        $('#detailModelBody').html(html);
+                    },
+                    error: function (e) {
+                        console.log("ERROR: ", e);
+                    }
+                });
+            }
         </script>
     </body>
 </html>

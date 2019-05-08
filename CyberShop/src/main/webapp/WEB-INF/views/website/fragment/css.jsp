@@ -23,4 +23,4 @@
 <link href="<c:url value="/resources/websource/css/modify.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/websource/img/c_icon.png" />" rel="icon">
 <link href="<c:url value="/resources/adminsource/support_template/stylemodify.css" />" rel="stylesheet">
- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">

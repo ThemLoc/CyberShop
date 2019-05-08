@@ -82,14 +82,43 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
+    public List<Product> findNewProduct(int number) {
+        return dao.getNewProduct(number);
+    }
+
+    @Transactional
+    @Override
+    public List<Product> findHotSaleProduct(int number) {
+        return dao.getHotSaleProduct(number);
+    }
+    
+    @Transactional
+    @Override
     public Product findByIdSimple(int id) {
         return dao.getByIDSimple(id);
     }
 
     @Transactional
     @Override
+
     public void UpdateQuantityProduct(int idProduct, int quantity, int sell) {
         dao.updateProductQuantity(idProduct, quantity, sell);
+    }
+
+       public List<Product> findAllProductWithBrandID(int brandID) {
+        return dao.findAllProductWithBrandID(brandID);
+    }
+
+    @Transactional
+    @Override
+    public List<Product> findSellProduct(int number) {
+        return dao.getSellProduct(number);
+    }
+
+    @Transactional
+    @Override
+    public List<Product> searchProduct(int cateID, String search) {
+        return dao.searchProduct(cateID, search);
     }
 
 }

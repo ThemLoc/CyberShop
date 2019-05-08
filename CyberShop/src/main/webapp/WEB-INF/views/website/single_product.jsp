@@ -195,7 +195,7 @@
                 var quantity = $("#inputQuantity").val();
                 if (quantity < 0 || quantity > maxQuantity) {
                     console.log(maxQuantity);
-                    $("#alertContent").text("Lỗi ! Thêm thất bại. Quantity not invalid!");
+                    $("#alertContent").text("Lỗi ! Thêm thất bại. Sản phẩm đã hết hàng!");
                     $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
                         $("#alertModal").slideUp(500);
                     });

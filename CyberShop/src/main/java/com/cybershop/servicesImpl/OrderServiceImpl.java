@@ -9,6 +9,7 @@ import com.cybershop.models.Order;
 import com.cybershop.models.OrderDetail;
 import com.cybershop.models.Product;
 import com.cybershop.models.Promotion;
+import com.cybershop.services.CustomerService;
 import com.cybershop.services.OrderService;
 import com.cybershop.services.ProductService;
 import com.cybershop.services.PromotionService;
@@ -43,6 +44,7 @@ public class OrderServiceImpl implements OrderService {
     private ProductService productService;
 
     private CartController cartController;
+    
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
@@ -100,12 +102,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String collectItems(HttpSession session, Order order, HttpServletRequest request, Customer cust) {
         CartDTO cart = (CartDTO) session.getAttribute("cart");
-        System.out.println("cart" + cart.getDetail().values());
+        
         List<OrderDetail> details = new ArrayList<>();
-        Promotion promotion = promotionService.findById(1);
+        
+        order.setPromotionID(cart.getPromotion());
         order.setOrderDate(new Date());
         order.setStatus("Create");
-        order.setPromotionID(null);
         order.setShipAddress(cust.getAddress());
         if (cart != null) {
             for (Map.Entry<Integer, CartItem> entry : cart.getDetail().entrySet()) {
@@ -118,23 +120,23 @@ public class OrderServiceImpl implements OrderService {
                 }else{
                     detail.setPrice(p.getPrice());
                 }
-//                detail.setQuantity(entry.getValue().getQty());
-                detail.setQuantity(120);
+                detail.setQuantity(entry.getValue().getQty());
                 details.add(detail);
             }
         }
         String check = checkOrder(details, session);
         if (check.equals("ok")) {
-            double total = 0;
+
             order.setOrderDetailCollection(details);
-            for (OrderDetail detail : details) {
-                double a = 0;
-                a = detail.getPrice() * detail.getQuantity();
-                total += a;
+
+            order.setTotal(cart.getTotalAfterDiscount());
+            if(cust.getCustomerID() != null){
+                order.setCustomerID_NotGuest(cust);
+            }else{
+                order.setCustomerID(cust);
             }
-            order.setTotal(total);
-            order.setCustomerID(cust);
-            order.setDeliveryFee(20.0);
+            
+            order.setDeliveryFee(0.0);
             if (order != null) {
                     save(order);
             }
@@ -152,6 +154,7 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
+    @Transactional
     @Override
     public void emptyCart(HttpSession session) {
         CartDTO cart = (CartDTO) session.getAttribute("cart");
@@ -185,5 +188,17 @@ public class OrderServiceImpl implements OrderService {
         } else {
             return "fail";
         }
+    }
+
+    @Transactional
+    @Override
+    public Order getOrderCurrent() {
+        return dao.OrderCurrent();
+    }
+
+    @Transactional
+    @Override
+    public void updateOrderBycus(int idOrder, int idCustomer) {
+       dao.updateOrderByCustomer(idOrder, idCustomer);
     }
 }

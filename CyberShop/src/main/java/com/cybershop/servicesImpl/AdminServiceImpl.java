@@ -47,7 +47,6 @@ public class AdminServiceImpl implements AdminService{
     @Transactional(readOnly = true)
     @Override
     public Admin login(Admin admin) {
-       
         return dao.checkLogin(admin);
     }
 
