@@ -27,8 +27,8 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Transactional
     @Override
-    public void remove(int id, boolean status) {
-        dao.delete(id, status);
+    public void updateStatus(int id, boolean status) {
+        dao.updateStatus(id, status);
     }
 
     @Transactional(readOnly = true)

@@ -31,7 +31,7 @@
                                     <c:forEach items="${a.productID.imagesCollection}" var="b">
                                         <c:if test="${b.mainImage == true}">
                                             <a href="${pageContext.request.contextPath}/website/singleproduct/${a.productID.productID}">
-                                            <img class="km" src="${pageContext.request.contextPath}/resources/image/img_product/${b.urlImage}" alt="slide"/>
+                                                <img class="km" src="${pageContext.request.contextPath}/resources/image/img_product/${b.urlImage}" alt="slide"/>
                                             </a>
                                         </c:if>
                                     </c:forEach>
@@ -180,7 +180,12 @@
                                     <i class="fa fa-star"></i>
                                 </div>
                                 <div class="product-wid-price">
-                                    <ins><fmt:formatNumber type="number" pattern="###,###" value="${sellProduct.price}" /> ₫</ins>
+                                    <c:if test="${sellProduct.downPrice != null}">
+                                        <ins><fmt:formatNumber type="number" pattern="###,###" value="${sellProduct.downPrice}" /> ₫</ins> <del><fmt:formatNumber type="number" pattern="###,###" value="${sellProduct.price}" /> ₫</del>
+                                    </c:if>
+                                    <c:if test="${sellProduct.downPrice == null}">
+                                        <ins><fmt:formatNumber type="number" pattern="###,###" value="${sellProduct.price}" /> ₫</ins>
+                                    </c:if>
                                 </div>                            
                             </div>
                         </c:forEach>
@@ -208,7 +213,12 @@
                                     <i class="fa fa-star"></i>
                                 </div>
                                 <div class="product-wid-price">
-                                    <ins><fmt:formatNumber type="number" pattern="###,###" value="${listHotPro.price}" /> ₫</ins>
+                                    <c:if test="${listHotPro.downPrice != null}">
+                                        <ins><fmt:formatNumber type="number" pattern="###,###" value="${listHotPro.downPrice}" /> ₫</ins> <del><fmt:formatNumber type="number" pattern="###,###" value="${listHotPro.price}" /> ₫</del>
+                                    </c:if>
+                                    <c:if test="${listHotPro.downPrice == null}">
+                                        <ins><fmt:formatNumber type="number" pattern="###,###" value="${listHotPro.price}" /> ₫</ins>
+                                    </c:if>
                                 </div>                            
                             </div>
                         </c:forEach>
@@ -237,7 +247,12 @@
                                     <i class="fa fa-star"></i>
                                 </div>
                                 <div class="product-wid-price">
-                                    <ins><fmt:formatNumber type="number" pattern="###,###" value="${viewedPro.price}" /> ₫</ins>
+                                    <c:if test="${viewedPro.downPrice != null}">
+                                        <ins><fmt:formatNumber type="number" pattern="###,###" value="${viewedPro.downPrice}" /> ₫</ins> <del><fmt:formatNumber type="number" pattern="###,###" value="${viewedPro.price}" /> ₫</del>
+                                    </c:if>
+                                    <c:if test="${viewedPro.downPrice == null}">
+                                        <ins><fmt:formatNumber type="number" pattern="###,###" value="${viewedPro.price}" /> ₫</ins>
+                                    </c:if>
                                 </div>                            
                             </div>
                         </c:forEach>
@@ -294,42 +309,42 @@
     <script src="<c:url value="/resources/websource/js/bxslider.min.js" />" type="text/javascript"></script>
     <script src="<c:url value="/resources/websource/js/script.slider.js" />" type="text/javascript"></script>
     <script>
-                                                    //add to cart
-                                                    function addToCart(productID) {
-                                                        $.ajax({
-                                                            type: "POST",
-                                                            url: "${pageContext.request.contextPath}/api/cart/add",
-                                                            dataType: 'text',
-                                                            data: {
-                                                                productId: productID,
-                                                                qty: 1},
-                                                            timeout: 100000,
-                                                            success: function (result) {
-                                                                if (result == "addSuccess") {
-                                                                    var count = $('#product-count').text();
-                                                                    count++;
-                                                                    $('#product-count').text(count);
-                                                                    $("#alertContent").text("Thêm vào giỏ hàng thành công!");
-                                                                    $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
-                                                                        $("#alertModal").slideUp(500);
-                                                                    });
-                                                                } else if (result == "duplicate") {
-                                                                    $("#alertContent").text("Thêm vào giỏ hàng thành công!");
-                                                                    $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
-                                                                        $("#alertModal").slideUp(500);
-                                                                    });
-                                                                } else {
-                                                                    $("#alertContent").text("Lỗi ! Thêm thất bại.");
-                                                                    $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
-                                                                        $("#alertModal").slideUp(500);
-                                                                    });
-                                                                }
-                                                            },
-                                                            error: function (e) {
-                                                                console.log("ERROR: ", e);
+                                                            //add to cart
+                                                            function addToCart(productID) {
+                                                                $.ajax({
+                                                                    type: "POST",
+                                                                    url: "${pageContext.request.contextPath}/api/cart/add",
+                                                                    dataType: 'text',
+                                                                    data: {
+                                                                        productId: productID,
+                                                                        qty: 1},
+                                                                    timeout: 100000,
+                                                                    success: function (result) {
+                                                                        if (result == "addSuccess") {
+                                                                            var count = $('#product-count').text();
+                                                                            count++;
+                                                                            $('#product-count').text(count);
+                                                                            $("#alertContent").text("Thêm vào giỏ hàng thành công!");
+                                                                            $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                                                                $("#alertModal").slideUp(500);
+                                                                            });
+                                                                        } else if (result == "duplicate") {
+                                                                            $("#alertContent").text("Thêm vào giỏ hàng thành công!");
+                                                                            $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                                                                $("#alertModal").slideUp(500);
+                                                                            });
+                                                                        } else {
+                                                                            $("#alertContent").text("Lỗi ! Thêm thất bại.");
+                                                                            $("#alertModal").fadeTo(2000, 500).slideUp(500, function () {
+                                                                                $("#alertModal").slideUp(500);
+                                                                            });
+                                                                        }
+                                                                    },
+                                                                    error: function (e) {
+                                                                        console.log("ERROR: ", e);
+                                                                    }
+                                                                });
                                                             }
-                                                        });
-                                                    }
     </script>
 </body>
 </html>

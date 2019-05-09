@@ -1,9 +1,3 @@
-<%-- 
-    Document   : admin
-    Created on : Apr 15, 2019, 1:39:28 PM
-    Author     : ngthe
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
@@ -101,17 +95,17 @@
                                 <div class="modal-body">
                                     <input type="hidden" name="storeID" id="storeID"/>
                                     <label>Store Name</label>
-                                    <input class="form-control" type="text" name="storeName" id="storeName" required/>
+                                    <input class="form-control" placeholder="Store Name" type="text" name="storeName" id="storeName" required/>
                                     <label>Address</label><br/>
-                                    <input class="form-control" type="text" name="address" id="address" required/>
+                                    <input class="form-control" placeholder="Address" type="text" name="address" id="address" required/>
                                     <label>Phone 1</label><br/>
-                                    <input class="form-control" type="text" name="phone1" pattern="\d*" maxlength="10" minlength="10" id="phone1" required/>
+                                    <input class="form-control" placeholder="Phone 1" type="text" name="phone1" pattern="\d*" maxlength="10" minlength="10" id="phone1" required/>
                                     <label>Phone 2</label><br/>
-                                    <input class="form-control" type="number" name="phone2" pattern="\d*" maxlength="10" minlength="10" id="phone2" required/>
+                                    <input class="form-control" placeholder="Phone 2" type="number" name="phone2" pattern="\d*" maxlength="10" minlength="10" id="phone2" required/>
                                     <label>Location X</label><br/>
-                                    <input class="form-control" type="number" name="locationX" id="locationX" required/>
+                                    <input class="form-control" placeholder="Location X" type="number" step="any" name="locationX" id="locationX" required/>
                                     <label>Location Y</label><br/>
-                                    <input class="form-control" type="number" name="locationY" id="locationY" required/>
+                                    <input class="form-control" placeholder="Location Y" type="number" step="any" name="locationY" id="locationY" required/>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

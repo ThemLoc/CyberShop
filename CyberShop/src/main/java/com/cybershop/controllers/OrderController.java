@@ -4,14 +4,15 @@ import com.cybershop.models.Admin;
 
 import com.cybershop.models.DeniedForm;
 import com.cybershop.models.Order;
+import com.cybershop.models.OrderDetail;
+import com.cybershop.other.CurrencyManager;
 import com.cybershop.services.AdminService;
-import com.cybershop.services.CustomerService;
 import com.cybershop.services.OrderService;
+import com.cybershop.services.ProductService;
 import java.util.Date;
 
 import java.util.List;
 import javax.servlet.http.HttpSession;
-import org.hibernate.annotations.Parameter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -30,10 +31,12 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
-    private CustomerService customerService;
 
     @Autowired
     private AdminService adminService;
+    
+    @Autowired
+    ProductService productService;
 
     @RequestMapping(value = "/order/member/save", method = RequestMethod.POST)
     private String checkout(@ModelAttribute("cart") Order obj, RedirectAttributes ratts) {
@@ -80,9 +83,10 @@ public class OrderController {
                 Thread t = new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        String total = CurrencyManager.getPrice(o.getTotal(), " ₫");
                         orderService.sendEmailOrder("cybershop.nano@gmail.com", o.getCustomerID().getEmail(), "Đơn đặt hàng #" + o.getOrderID(),
                                 "Đặt hàng thành công.\nThông tin của đơn hàng: Đơn hàng mã #" + o.getOrderID() + "\nGiờ đặt hàng: " + new Date() + "\nNgày đặt hàng: " + o.getOrderDate()
-                                + "\nĐịa chỉ giao hàng: " + o.getShipAddress() + "\nTổng cộng: " + o.getTotal() + " VNĐ");
+                                + "\nĐịa chỉ giao hàng: " + o.getShipAddress() + "\nTổng cộng: " + total);
                     }
                 });
                 t.start();
@@ -100,12 +104,20 @@ public class OrderController {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
+                String total = CurrencyManager.getPrice(o.getTotal(), " ₫");
                 orderService.sendEmailOrder("cybershop.nano@gmail.com", o.getCustomerID().getEmail(), "Đã hủy đơn đặt hàng #" + o.getOrderID(),
                         "Đơn hàng đã bị hủy.\nThông tin của đơn hàng: Đơn hàng mã #" + o.getOrderID() + "\nGiờ đặt hàng: " + new Date() + "\nNgày đặt hàng: " + o.getOrderDate()
-                        + "\nĐịa chỉ giao hàng: " + o.getShipAddress() + "\nTổng cộng: " + o.getTotal() + " VNĐ" + "\n\n Lý do hủy đơn hàng: " + deniedForm.getReason());
+                        + "\nĐịa chỉ giao hàng: " + o.getShipAddress() + "\nTổng cộng: " + total + "\n\n Lý do hủy đơn hàng: " + deniedForm.getReason());
             }
         });
         t.start();
+        List<OrderDetail> orderDetails = (List<OrderDetail>) o.getOrderDetailCollection();
+        for (OrderDetail detail : orderDetails) {
+            int newQuantity = detail.getProductID().getQuantity() + detail.getQuantity();
+            int newSell = detail.getProductID().getSell() - detail.getQuantity();
+            productService.UpdateQuantityProduct(detail.getProductID().getProductID(), newQuantity, newSell);
+        }
+        System.out.println("Order in denied: " + o.getOrderDetailCollection());
         orderService.updateStatus("Denied", deniedForm.getId());
         return "redirect:/manager/order";
     }

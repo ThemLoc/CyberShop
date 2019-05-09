@@ -1,9 +1,3 @@
-<%-- 
-    Document   : home
-    Created on : Apr 13, 2019, 7:08:01 PM
-    Author     : ngthe
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

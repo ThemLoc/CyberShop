@@ -55,7 +55,7 @@
                                                     <td onclick="rowClick(${a.orderID})">${a.promotionID.discount}</td>
                                                     <td onclick="rowClick(${a.orderID})">${a.orderDate}</td>
                                                     <td onclick="rowClick(${a.orderID})">${a.shipAddress}</td>
-                                                    <td onclick="rowClick(${a.orderID})">${a.deliveryFee}</td>
+                                                    <td onclick="rowClick(${a.orderID})"><fmt:formatNumber type="number" pattern="###,###" value="${a.deliveryFee}" /> ₫</td>
                                                     <td onclick="rowClick(${a.orderID})"><fmt:formatNumber type="number" pattern="###,###" value="${a.total}" /> ₫</td>
                                                     <td onclick="rowClick(${a.orderID})">${a.status}</td>
                                                     <td>
@@ -268,7 +268,7 @@
                             for (var j = 0; j < listImg.length; j++) {
                                 var check = listImg[j]['mainImage'];
                                 if (check) {
-                                    html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + listImg[j]['urlImage'] + "' style='width: 150px ; height:80px;vertical-align: middle;'/>";
+                                    html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + listImg[j]['urlImage'] + "' style='width: 100px ; height:80px;vertical-align: middle;'/>";
                                 }
                             }
                             html += "</td>";
