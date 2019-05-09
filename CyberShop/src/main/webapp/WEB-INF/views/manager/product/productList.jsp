@@ -21,6 +21,12 @@
                         <div class="col-xs-12">
                             <div class="box">
                                 <div class="box-body">
+                                    <c:if test="${msgFail != null}">
+                                        <h5 style="color: red"><strong>${msgFail}</strong></h5><br/>
+                                            </c:if>
+                                            <c:if test="${msgSuccess != null}">
+                                        <h5 style="color: green"><strong>${msgSuccess}</strong></h5><br/>
+                                            </c:if>
                                     <button id="btnAdd" type="button" class="btn btn-danger"> + Add New Product</button>
                                     <!-- form start -->
                                     <form:form id="form" action="${pageContext.request.contextPath}/manager/product/add"  onsubmit="return validateForm()"
@@ -137,7 +143,7 @@
                                                     <td id="tbRow_pquantity${pd.productID}" onclick="rowClick(${pd.productID})">${pd.quantity}</td>
                                                     <td onclick="rowClick(${pd.productID})">${pd.sell}</td>
                                                     <td id="tbRow_pprice${pd.productID}" onclick="rowClick(${pd.productID})">
-                                                       <fmt:formatNumber type="number" pattern="###,###" value="${pd.price}" />₫
+                                                        <fmt:formatNumber type="number" pattern="###,###" value="${pd.price}" />₫
                                                     </td>
                                                     <td id="tbRow_pdownPrice${pd.productID}" onclick="rowClick(${pd.productID})">
                                                         <fmt:formatNumber type="number" pattern="###,###" value="${pd.downPrice}" />₫
@@ -882,7 +888,7 @@
                 }
                 return x1 + x2;
             }
-            
+
             //Update other by rest
             $('#btnUpdateOther').click(function () {
                 var html = '';
@@ -940,9 +946,9 @@
                             $('#updateOtherInfo').modal('hide');
                             if (result === "success") {
                                 $('#tbRow_pname' + id).text(name.val());
-                                $('#tbRow_pprice' + id).text(formatNumber(price.val(), ',', '.', )+'₫');
+                                $('#tbRow_pprice' + id).text(formatNumber(price.val(), ',', '.', ) + '₫');
                                 $('#tbRow_pquantity' + id).text(quantity.val());
-                                $('#tbRow_pdownPrice' + id).text(formatNumber(downPrice.val(), ',', '.', )+'₫');
+                                $('#tbRow_pdownPrice' + id).text(formatNumber(downPrice.val(), ',', '.', ) + '₫');
                                 html += "<h3 style='color:green'>Update Success!</h3";
                             } else {
                                 html += "<span style='color:red'>Update fail!</span";
@@ -1120,7 +1126,7 @@
                     return false;
                 }
             }
-            
+
         </script>
     </body>
 

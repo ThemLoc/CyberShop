@@ -48,6 +48,7 @@
                                                 <del>
                                                     <fmt:formatNumber type="number" pattern="###,###" value="${product.price}" />₫
                                                 </del>
+                                                &nbsp;
                                                 <ins>
                                                     <fmt:formatNumber type="number" pattern="###,###" value="${product.downPrice}" />₫
                                                 </ins>
@@ -60,12 +61,18 @@
                                             </c:if>
                                         </div>    
                                         <br/>
+                                        <c:if test="${product.quantity > 0}">
+                                        
                                         <div class="quantity">
                                             <input id="inputQuantity" size="10" type="number"  class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1" max="${product.quantity}">
                                         </div>
                                         <button onclick="addToCart(${product.productID},${product.quantity})" class="add_to_cart_button" type="button" >Thêm vào giỏ hàng</button>
                                         <br/><br/>
                                         <p style="color: #999;font-size: 12px">  Còn ${product.quantity} sản phẩm</p>
+                                        </c:if>
+                                        <c:if test="${product.quantity == 0}">
+                                            <h3 style="color: red"><strong>Sản phẩm tạm hết hàng</strong></h3>
+                                        </c:if>
                                         <div style="height: 100px;"></div>
                                         <div class="desc" role="tabpanel">
                                             <ul class="product-tab" role="tablist">

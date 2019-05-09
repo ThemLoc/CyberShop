@@ -75,3 +75,10 @@
     /*height: 200px;*/
     font-size: 22px
 }
+.div_contact_shadow_2{
+    /*border-radius: 5px;*/
+    /*margin-bottom: 20px;*/
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 10px 0px rgba(184,184,184,0.58);
+}
