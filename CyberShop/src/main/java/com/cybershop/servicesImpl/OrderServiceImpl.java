@@ -44,7 +44,6 @@ public class OrderServiceImpl implements OrderService {
     private ProductService productService;
 
     private CartController cartController;
-    
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
@@ -73,17 +72,21 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void sendEmailOrder(final String from, final String to, final String subject, final String content) {
-        MimeMessagePreparator preparator = new MimeMessagePreparator() {
-            @Override
-            public void prepare(MimeMessage mimeMessage) throws Exception {
-                MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-                message.setFrom(from);
-                message.setTo(to);
-                message.setSubject(subject);
-                message.setText(content);
-            }
-        };
-        mailSender.send(preparator);
+        try {
+            MimeMessagePreparator preparator = new MimeMessagePreparator() {
+                @Override
+                public void prepare(MimeMessage mimeMessage) throws Exception {
+                    MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+                    message.setFrom(from);
+                    message.setTo(to);
+                    message.setSubject(subject);
+                    message.setText(content);
+                }
+            };
+            mailSender.send(preparator);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     @Transactional(readOnly = true)
@@ -102,9 +105,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String collectItems(HttpSession session, Order order, HttpServletRequest request, Customer cust) {
         CartDTO cart = (CartDTO) session.getAttribute("cart");
-        
+
         List<OrderDetail> details = new ArrayList<>();
-        
+
         order.setPromotionID(cart.getPromotion());
         order.setOrderDate(new Date());
         order.setStatus("Create");
@@ -117,7 +120,7 @@ public class OrderServiceImpl implements OrderService {
                 detail.setOrderID(order);
                 if (p.getDownPrice() != null) {
                     detail.setPrice(p.getDownPrice());
-                }else{
+                } else {
                     detail.setPrice(p.getPrice());
                 }
                 detail.setQuantity(entry.getValue().getQty());
@@ -130,15 +133,15 @@ public class OrderServiceImpl implements OrderService {
             order.setOrderDetailCollection(details);
 
             order.setTotal(cart.getTotalAfterDiscount());
-            if(cust.getCustomerID() != null){
+            if (cust.getCustomerID() != null) {
                 order.setCustomerID_NotGuest(cust);
-            }else{
+            } else {
                 order.setCustomerID(cust);
             }
-            
+
             order.setDeliveryFee(0.0);
             if (order != null) {
-                    save(order);
+                save(order);
             }
 
             for (OrderDetail detail : details) {
@@ -199,6 +202,6 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     @Override
     public void updateOrderBycus(int idOrder, int idCustomer) {
-       dao.updateOrderByCustomer(idOrder, idCustomer);
+        dao.updateOrderByCustomer(idOrder, idCustomer);
     }
 }
