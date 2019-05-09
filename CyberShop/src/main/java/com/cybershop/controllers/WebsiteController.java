@@ -97,11 +97,9 @@ public class WebsiteController {
         if (!listInt.contains(id)) {
             listInt.add(id);
         }
-        System.out.println("ListInt: " + listInt);
         session.setAttribute("viewedPro", listInt);
         loadModel(model);
         Product product = productService.findById(id);
-        System.out.println("Product in single: " + product);
         if (product.getProductID() != null) {
             if (product.getStatus() == false) {
                 model.addAttribute("product", new Product());
