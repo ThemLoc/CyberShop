@@ -71,7 +71,7 @@ public class CheckoutController {
                     Thread t = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            orderService.sendEmailOrder("cybershop.nano@gmail.com", cust.getEmail(), "Cybershop Order", "Order : " + order);
+                            orderService.sendEmailOrder("cybershop.nano@gmail.com", cust.getEmail(),  "Cybershop Order", "Order : " + order.getStatus() + "Order date: " + order.getOrderDate());
                         }
                     });
                     t.start();
