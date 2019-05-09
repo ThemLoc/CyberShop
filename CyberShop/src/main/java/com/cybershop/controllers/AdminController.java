@@ -79,6 +79,7 @@ public class AdminController {
     private String edit(@PathVariable("id") int id, Model model) {
         Admin admin = adminService.findById(id);
         admin.setDobString(new SimpleDateFormat("yyyy-MM-dd").format(admin.getDob()));
+//        admin.setDobString("abc");
         System.out.println("acount: " + admin.getDobString());
         model.addAttribute("adminForm", admin);
         return "manager/admin/adminForm";

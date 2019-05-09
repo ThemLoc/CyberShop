@@ -74,6 +74,7 @@ public class CheckoutController {
                             orderService.sendEmailOrder("cybershop.nano@gmail.com", cust.getEmail(), "Cybershop Order", "Order : " + order);
                         }
                     });
+                    t.start();
                     ra.addFlashAttribute("errOrder", "");
                     ra.addFlashAttribute("successOrder", "success");
                 }

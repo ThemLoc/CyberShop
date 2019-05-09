@@ -3,19 +3,20 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>AdminLTE 2 | Data Tables</title>
-         <%@include file="/WEB-INF/views/fragment/header.jsp" %>
+        <%@include file="/WEB-INF/views/fragment/header.jsp" %>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
 
         <div class="wrapper">
 
-             <%@include file="/WEB-INF/views/fragment/slideAndTop.jsp" %>
+            <%@include file="/WEB-INF/views/fragment/slideAndTop.jsp" %>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
 
@@ -72,7 +73,14 @@
 
                                                     <td>${a.fullname}</td>
                                                     <td>${a.phone}</td>
-                                                    <td>${a.email}</td>
+                                                    <c:set var="mail" value="${a.email}"/>
+                                                    <td><c:if test="${fn:length(mail) > 20}">
+                                                               ${fn:substring(mail,0,10)}...
+                                                        </c:if>
+                                                        <c:if test="${fn:length(mail) < 20}">
+                                                            ${mail}
+                                                        </c:if>
+                                                    </td>
                                                     <td>${a.address}</td>
                                                     <td><c:if test="${a.sex == true}">
                                                             Male
