@@ -298,7 +298,7 @@
                             }
                         }
                         for (var i = start; i < end; i++) {
-                            html += ' <div class="col-md-3" >';
+                            html += ' <div class="col-md-3 " >';
                             html += '<div class="single-shop-product">';
                             html += '<div class="product-upper">';
                             var listImage = data[i]['imagesCollection'];
@@ -328,7 +328,11 @@
                             }
                             html += '</div> ';
                             html += '<div class="product-option-shop">';
-                            html += '<a style="cursor:pointer" onclick="addToCart(' + data[i]['productID'] + ')" class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" >Add to cart</a>';
+                            if (data[i]['quantity'] > 0) {
+                                html += '<a style="cursor:pointer" onclick="addToCart(' + data[i]['productID'] + ')" class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" >Add to cart</a>';
+                            }else{
+                                 html +=  '<h5 style="color: red"><strong>Tạm hết hàng</strong></h5>';
+                            }
                             html += '</div>';
                             html += '</div>';
                             html += '</div>';

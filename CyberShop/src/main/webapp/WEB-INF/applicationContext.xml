@@ -19,7 +19,7 @@
         <!--<property name="url" value="jdbc:sqlserver://10.211.55.6:1433;databaseName=CyberShop"/>-->
          <property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=CyberShop"/> 
         <property name="username" value="sa"/>
-        <property name="password" value="123456789"/>
+        <property name="password" value="01679431597"/>
     </bean>
     
     <bean id="emf"
