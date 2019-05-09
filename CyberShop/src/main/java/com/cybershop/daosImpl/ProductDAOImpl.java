@@ -50,38 +50,42 @@ public class ProductDAOImpl implements ProductDAO {
     public Product getById(int id) {
         Product product = em.find(Product.class, id);
         final Product dto = new Product();
-        dto.setProductID(product.getProductID());
-        dto.setProductName(product.getProductName());
-        dto.setQuantity(product.getQuantity());
-        dto.setSell(product.getSell());
-        dto.setPrice(product.getPrice());
-        dto.setDownPrice(product.getDownPrice());
-        dto.setStatus(product.getStatus());
-        dto.setBrandID(product.getBrandID());
-        dto.setDownPrice(product.getDownPrice());
-        dto.setDetail(product.getDetail());
-        Category category = product.getCategoryID();
-        Category category1 = new Category();
-        category1.setCateID(category.getCateID());
-        category1.setCateName(category.getCateName());
-        category1.setType(category.getType());
-        dto.setCategoryID(category1);
+        if (product != null) {
+            dto.setProductID(product.getProductID());
+            dto.setProductName(product.getProductName());
+            dto.setQuantity(product.getQuantity());
+            dto.setSell(product.getSell());
+            dto.setPrice(product.getPrice());
+            dto.setDownPrice(product.getDownPrice());
+            dto.setStatus(product.getStatus());
+            dto.setBrandID(product.getBrandID());
+            dto.setDownPrice(product.getDownPrice());
+            dto.setDetail(product.getDetail());
+            Category category = product.getCategoryID();
+            Category category1 = new Category();
+            category1.setCateID(category.getCateID());
+            category1.setCateName(category.getCateName());
+            category1.setType(category.getType());
+            dto.setCategoryID(category1);
 
-        List<Image> listImages = (List<Image>) product.getImagesCollection();
-        List<Image> newList;
-        if (!listImages.isEmpty()) {
-            Image image;
-            newList = new ArrayList<>();
-            for (Image item : listImages) {
-                image = new Image();
-                image.setImageID(item.getImageID());
-                image.setUrlImage(item.getUrlImage());
-                image.setMainImage(item.getMainImage());
-                newList.add(image);
+            List<Image> listImages = (List<Image>) product.getImagesCollection();
+            List<Image> newList;
+            if (!listImages.isEmpty()) {
+                Image image;
+                newList = new ArrayList<>();
+                for (Image item : listImages) {
+                    image = new Image();
+                    image.setImageID(item.getImageID());
+                    image.setUrlImage(item.getUrlImage());
+                    image.setMainImage(item.getMainImage());
+                    newList.add(image);
+                }
+                dto.setImagesCollection(newList);
             }
-            dto.setImagesCollection(newList);
+            return dto;
+        } else {
+            return new Product();
         }
-        return dto;
     }
 
     @Override
@@ -272,7 +276,7 @@ public class ProductDAOImpl implements ProductDAO {
         this.em.createQuery("update Product set Sell = ?, Quantity = ? where ProductID = ?")
                 .setParameter(1, sell).setParameter(2, quantity).setParameter(3, idProduct).executeUpdate();
     }
-    
+
     public List<Product> findAllProductWithBrandID(int brandID) {
         List<Product> listPro = this.em.createQuery("from Product where BrandID = ? and Status = 1 order by ProductID DESC")
                 .setParameter(1, brandID).getResultList();
@@ -359,5 +363,4 @@ public class ProductDAOImpl implements ProductDAO {
         return newListPro;
     }
 
-    
 }

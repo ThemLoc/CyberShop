@@ -101,37 +101,47 @@ public class WebsiteController {
         session.setAttribute("viewedPro", listInt);
         loadModel(model);
         Product product = productService.findById(id);
-        model.addAttribute("product", product);
-        String detail = product.getDetail();
-        List<SpecificationShowDTO> list = new ArrayList<>();
-        SpecificationShowDTO dto;
-        String str[] = detail.split("#");
-        for (int i = 0; i < str.length - 1; i++) {
-
-            dto = new SpecificationShowDTO();
-            String arr[] = str[i].split("\\*");
-            if (arr.length == 2) {
-                dto.setTitle(arr[0]);
-                dto.setValue(arr[1]);
+        System.out.println("Product in single: " + product);
+        if (product.getProductID() != null) {
+            if (product.getStatus() == false) {
+                model.addAttribute("product", new Product());
             } else {
-                dto.setTitle(arr[0]);
-                dto.setValue("");
+                model.addAttribute("product", product);
+                String detail = product.getDetail();
+                List<SpecificationShowDTO> list = new ArrayList<>();
+                SpecificationShowDTO dto;
+                String str[] = detail.split("#");
+                for (int i = 0; i < str.length - 1; i++) {
+
+                    dto = new SpecificationShowDTO();
+                    String arr[] = str[i].split("\\*");
+                    if (arr.length == 2) {
+                        dto.setTitle(arr[0]);
+                        dto.setValue(arr[1]);
+                    } else {
+                        dto.setTitle(arr[0]);
+                        dto.setValue("");
+                    }
+                    list.add(dto);
+                }
+                model.addAttribute("listSpec", list);
+                List<Product> listSame = productService.findTop6ProductWithCateID(product.getCategoryID().getCateID());
+                for (int i = 0; i < listSame.size(); i++) {
+                    if (listSame.get(i).getProductID() == id) {
+                        listSame.remove(i);
+                    }
+                }
+                if (listSame.size() > 6) {
+                    for (int i = 6; i < listSame.size();) {
+                        listSame.remove(i);
+                    }
+                }
+                model.addAttribute("listSame", listSame);
             }
-            list.add(dto);
+        } else {
+            model.addAttribute("product", new Product());
         }
-        model.addAttribute("listSpec", list);
-        List<Product> listSame = productService.findTop6ProductWithCateID(product.getCategoryID().getCateID());
-        for (int i = 0; i < listSame.size(); i++) {
-            if (listSame.get(i).getProductID() == id) {
-                listSame.remove(i);
-            }
-        }
-        if (listSame.size() > 6) {
-            for (int i = 6; i < listSame.size();) {
-                listSame.remove(i);
-            }
-        }
-        model.addAttribute("listSame", listSame);
+
         return "website/single_product";
     }
 
@@ -316,7 +326,7 @@ public class WebsiteController {
 
         model.addAttribute("listPKCate", mapCategory.get("listPKCate"));
         model.addAttribute("listLKCate", mapCategory.get("listLKCate"));
-        model.addAttribute("storeinfo",listStore);
+        model.addAttribute("storeinfo", listStore);
         model.addAttribute("listBrand", service.getByAll());
         model.addAttribute("selectCate", categoryService.getByAll());
         ObjectMapper mapper = new ObjectMapper();

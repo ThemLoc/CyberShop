@@ -203,6 +203,7 @@
                 success: function (result) {
                     if (result == "success") {
                         $('#confirmEmailAfterRegister').modal('show');
+                        $('#userCusAfter').val(username);
                         $('#loginModal').modal('hide');
                     } else if (result == "usernameExist") {
                         $('#usernameExist').text('Username is Existed!!!');
