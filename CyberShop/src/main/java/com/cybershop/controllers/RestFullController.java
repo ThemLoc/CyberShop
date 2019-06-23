@@ -1,5 +1,6 @@
 package com.cybershop.controllers;
 
+import com.cybershop.models.Banner;
 import com.cybershop.models.Brand;
 import com.cybershop.models.Category;
 import com.cybershop.models.Customer;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import com.cybershop.models.OrderDetail;
 import com.cybershop.models.Product;
 import com.cybershop.models.SpecificationTitle;
+import com.cybershop.services.BannerService;
 import com.cybershop.services.CategoryService;
 import com.cybershop.services.CustomerService;
 import com.cybershop.services.OrderDetailService;
@@ -68,6 +70,8 @@ public class RestFullController {
     @Autowired
     CustomerService customerService;
 
+    @Autowired
+    BannerService bannerService;
     @RequestMapping(value = "/findSpec/{id}", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -77,17 +81,6 @@ public class RestFullController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(listSpec, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/findProduct/{id}", method = RequestMethod.GET,
-            produces = {MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody
-    public ResponseEntity<Product> getProductDetail(@PathVariable("id") int id) {
-        Product product = productService.findById(id);
-        if (product == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity(product, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/changeStatus/{id}/{status}", method = RequestMethod.POST,
@@ -101,17 +94,6 @@ public class RestFullController {
         }
 
         return new ResponseEntity("success", HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/getBrand", method = RequestMethod.GET,
-            produces = {MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody
-    public ResponseEntity<List<Brand>> getBrand() {
-        List<Brand> listBrand = brandService.getByAll();
-        if (listBrand.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(listBrand, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/updateOther", method = RequestMethod.POST,
@@ -362,7 +344,7 @@ public class RestFullController {
             return new ResponseEntity("fail", HttpStatus.OK);
         }
     }
-    
+
     @RequestMapping(value = "/logout", method = RequestMethod.POST,
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -445,7 +427,7 @@ public class RestFullController {
         }
         return new ResponseEntity("success", HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/confirmEmail", method = RequestMethod.POST,
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -467,4 +449,111 @@ public class RestFullController {
         }
     }
 
+    
+    
+    
+    // API của m đây Lộc Óc Chó
+    @RequestMapping(value = "/findProduct/{id}", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<Product> getProductDetail(@PathVariable("id") int id) {
+        Product product = productService.findById(id);
+        if (product == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(product, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/findProductListByCate/{cateId}", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<Product> getProductListByCategory(@PathVariable("cateId") int id) {
+        Category category = categoryService.findById(id);
+
+        List<Product> list = productService.findTop6ProductWithCateID(id);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getAllCategory", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<Product> getAllCategory() {
+        List<Category> list = categoryService.getByAll();
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getBrand", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<List<Brand>> getBrand() {
+        List<Brand> listBrand = brandService.getByAll();
+        if (listBrand.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(listBrand, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/findProductListByBrand/{brandId}", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<Product> getProductListByBrand(@PathVariable("brandId") int id) {
+        Brand brand = brandService.findById(id);
+        List<Product> list = productService.findAllProductWithBrandID(id);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/findProductHot", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<Product> getProductHot() {
+        List<Product> list = productService.findHotSaleProduct(10);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/findProductNew", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<Product> getProductNew() {
+         List<Product> list = productService.findNewProduct(10);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/findProductBestSell", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<Product> getProductBestSell() {
+         List<Product> list = productService.findSellProduct(10);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/findProductBanner", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<Product> getProductBanner() {
+         List<Banner> list = bannerService.getByAll();
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+    
+    
 }
