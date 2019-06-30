@@ -39,6 +39,7 @@
                                                 <th>Địa chỉ giao hàng</th>
                                                 <th>Phí vận chuyển</th>
                                                 <th>Tổng cộng</th>
+                                                <th>Trạng thái đơn hàng</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -46,11 +47,34 @@
                                                 <tr>
                                                     <td onclick="rowClick(${a.orderID})">${Counter.count}</td>
                                                     <td hidden="true">${a.orderID}</td>
-                                                    <td onclick="rowClick(${a.orderID})">${a.promotionID.discount}</td>
+                                                    <c:if test="${empty a.promotionID.discount}">
+                                                        <td onclick="rowClick(${a.orderID})"></td>
+                                                    </c:if>
+                                                    <c:if test="${not empty a.promotionID.discount}">
+                                                        <td onclick="rowClick(${a.orderID})">${a.promotionID.discount} %</td>
+                                                    </c:if>
                                                     <td onclick="rowClick(${a.orderID})">${a.orderDate}</td>
                                                     <td onclick="rowClick(${a.orderID})">${a.shipAddress}</td>
                                                     <td onclick="rowClick(${a.orderID})"><fmt:formatNumber type="number" pattern="###,###" value="${a.deliveryFee}" /> ₫</td>
                                                     <td onclick="rowClick(${a.orderID})"><fmt:formatNumber type="number" pattern="###,###" value="${a.total}" /> ₫</td>
+                                                    <c:if test="${a.status == 'Create'}">
+                                                        <td onclick="rowClick(${a.orderID})">Mới</td>
+                                                    </c:if>
+                                                    <c:if test="${a.status == 'Confirm'}">
+                                                        <td onclick="rowClick(${a.orderID})">Đã xác nhận</td>
+                                                    </c:if>
+                                                    <c:if test="${a.status == 'Denied'}">
+                                                        <td onclick="rowClick(${a.orderID})">Đã hủy</td>
+                                                    </c:if>
+                                                    <c:if test="${a.status == 'Ready To Delivery'}">
+                                                        <td onclick="rowClick(${a.orderID})">Đang giao hàng</td>
+                                                    </c:if>
+                                                    <c:if test="${a.status == 'Delivery'}">
+                                                        <td onclick="rowClick(${a.orderID})">Đã giao hàng</td>
+                                                    </c:if>
+                                                    <c:if test="${a.status == 'Completed'}">
+                                                        <td onclick="rowClick(${a.orderID})">Đã xong</td>
+                                                    </c:if>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
@@ -71,8 +95,8 @@
                                         </thead>
                                         <tbody>
                                             <tr class="odd" style="text-align: center">
-                                                    <td valign="top" colspan="9" class="dataTables_empty">Hiện tại bạn chưa có đơn đặt hàng nào.</td>
-                                                </tr>
+                                                <td valign="top" colspan="9" class="dataTables_empty">Hiện tại bạn chưa có đơn đặt hàng nào.</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </c:if>
@@ -116,67 +140,67 @@
         </div>
     </body>
     <script>
-            $(function () {
-                $('#tableOrder').DataTable()
-                $('#example2').DataTable({
-                    'paging': true,
-                    'lengthChange': false,
-                    'searching': false,
-                    'ordering': true,
-                    'info': true,
-                    'autoWidth': false
-                });
+        $(function () {
+            $('#tableOrder').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
             });
+        });
 
-            function rowClick(id) {
-                $("#showDetail").modal('show');
-                //                var cateID = $(this).val();
-                var html = '';
-                $('#detailModelBody').empty();
-                $.ajax({
-                    type: "GET",
-                    contentType: "application/json",
-                    url: "${pageContext.request.contextPath}/api/findOrderDetail/" + id,
-                    dataType: 'json',
-                    timeout: 100000,
-                    success: function (result) {
-                        html += "<div col-md-12>";
-                        html += "<table class='table table-bordered table-hover' style='text-align: center'>";
-                        html += "<thead>";
+        function rowClick(id) {
+            $("#showDetail").modal('show');
+            //                var cateID = $(this).val();
+            var html = '';
+            $('#detailModelBody').empty();
+            $.ajax({
+                type: "GET",
+                contentType: "application/json",
+                url: "${pageContext.request.contextPath}/api/findOrderDetail/" + id,
+                dataType: 'json',
+                timeout: 100000,
+                success: function (result) {
+                    html += "<div col-md-12>";
+                    html += "<table class='table table-bordered table-hover' style='text-align: center'>";
+                    html += "<thead>";
+                    html += "<tr>";
+                    html += "<th style='text-align: center'>Product Name</th>";
+                    html += "<th style='text-align: center'>Product Image</th>";
+                    html += "<th style='text-align: center'>Quantity</th>";
+                    html += "<th style='text-align: center'>Price</th>";
+                    html += "</tr>";
+                    html += "</thead>";
+                    html += "<tbody>";
+                    for (var i = 0; i < result.length; i++) {
                         html += "<tr>";
-                        html += "<th style='text-align: center'>Product Name</th>";
-                        html += "<th style='text-align: center'>Product Image</th>";
-                        html += "<th style='text-align: center'>Quantity</th>";
-                        html += "<th style='text-align: center'>Price</th>";
-                        html += "</tr>";
-                        html += "</thead>";
-                        html += "<tbody>";
-                        for (var i = 0; i < result.length; i++) {
-                            html += "<tr>";
-                            html += "<td>";
-                            html += result[i]['productID']['productName'];
-                            html += "</td><td>";
-                            var listImg = result[i]['productID']['imagesCollection'];
-                            for (var j = 0; j < listImg.length; j++) {
-                                var check = listImg[j]['mainImage'];
-                                if (check) {
-                                    html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + listImg[j]['urlImage'] + "' style='width: 100px ; height:100px;vertical-align: middle;'/>";
-                                }
+                        html += "<td>";
+                        html += result[i]['productID']['productName'];
+                        html += "</td><td>";
+                        var listImg = result[i]['productID']['imagesCollection'];
+                        for (var j = 0; j < listImg.length; j++) {
+                            var check = listImg[j]['mainImage'];
+                            if (check) {
+                                html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + listImg[j]['urlImage'] + "' style='width: 100px ; height:100px;vertical-align: middle;'/>";
                             }
-                            html += "</td>";
-                            html += "<td>" + result[i]['quantity'] + "</td>";
-                            html += "<td>" + result[i]['productID']['price'] + " VNĐ" + "</td>";
-                            html += "</tr>";
                         }
-                        html += "</tbody>"
-                        html += "</table>"
-                        html += "</div>";
-                        $('#detailModelBody').html(html);
-                    },
-                    error: function (e) {
-                        console.log("ERROR: ", e);
+                        html += "</td>";
+                        html += "<td>" + result[i]['quantity'] + "</td>";
+                        html += "<td>" + result[i]['productID']['price'] + " VNĐ" + "</td>";
+                        html += "</tr>";
                     }
-                });
-            }
-        </script>
+                    html += "</tbody>"
+                    html += "</table>"
+                    html += "</div>";
+                    $('#detailModelBody').html(html);
+                },
+                error: function (e) {
+                    console.log("ERROR: ", e);
+                }
+            });
+        }
+    </script>
 </html>

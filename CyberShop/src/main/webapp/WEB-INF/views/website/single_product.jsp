@@ -11,164 +11,173 @@
     </head>
     <body>
         <%@include file="/WEB-INF/views/website/fragment/webHeader.jsp" %>
-        <div class="single-product-area">
-            <div class="zigzag-bottom"></div>
-            <div class="container">
-                <div class="row">
+        <c:if test="${not empty product.productID}">
 
-                    <div class="col-md-12">
-                        <div class="product-content-right">
-                            </br>
-                            <div class="row">
-                                <div class="col-sm-6" style="padding-right: 40px">
+            <div class="single-product-area">
+                <div class="zigzag-bottom"></div>
+                <div class="container">
+                    <div class="row">
 
-                                    <c:forEach var="lImg" items="${product.imagesCollection}">
-                                        <c:if test="${lImg.mainImage == true}" >
-                                            <img class="mySlides" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;height: 450px">
-                                        </c:if>
-                                        <c:if test="${lImg.mainImage == false}" >  
-                                            <img class="mySlides" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100% ;height: 450px;display:none">
-                                        </c:if>
+                        <div class="col-md-12">
+                            <div class="product-content-right">
+                                </br>
+                                <div class="row">
+                                    <div class="col-sm-6" style="padding-right: 40px">
 
-                                    </c:forEach>
+                                        <c:forEach var="lImg" items="${product.imagesCollection}">
+                                            <c:if test="${lImg.mainImage == true}" >
+                                                <img class="mySlides" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;height: 450px">
+                                            </c:if>
+                                            <c:if test="${lImg.mainImage == false}" >  
+                                                <img class="mySlides" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100% ;height: 450px;display:none">
+                                            </c:if>
 
-                                    <div class="w3-row-padding w3-section">
-                                        <c:forEach var="lImg" items="${product.imagesCollection}" varStatus="counter">
-                                            <div class="w3-col s2">
-                                                <img class="demo w3-opacity w3-hover-opacity-off" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;height: 50px;cursor:pointer" onclick="currentDiv(${counter.count})">
+                                        </c:forEach>
+
+                                        <div class="w3-row-padding w3-section">
+                                            <c:forEach var="lImg" items="${product.imagesCollection}" varStatus="counter">
+                                                <div class="w3-col s2">
+                                                    <img class="demo w3-opacity w3-hover-opacity-off" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;height: 50px;cursor:pointer" onclick="currentDiv(${counter.count})">
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="product-inner">
+                                            <h2 class="product-name">${product.productName}</h2>
+                                            <div class="product-inner-price">
+                                                <c:if test="${not empty product.downPrice}">
+                                                    <del>
+                                                        <fmt:formatNumber type="number" pattern="###,###" value="${product.price}" />₫
+                                                    </del>
+                                                    &nbsp;
+                                                    <ins>
+                                                        <fmt:formatNumber type="number" pattern="###,###" value="${product.downPrice}" />₫
+                                                    </ins>
+
+                                                </c:if>
+                                                <c:if test="${empty product.downPrice}">
+                                                    <ins>
+                                                        <fmt:formatNumber type="number" pattern="###,###" value="${product.price}" />₫
+                                                    </ins>
+                                                </c:if>
+                                            </div>    
+                                            <br/>
+                                            <c:if test="${product.quantity > 0}">
+
+                                                <div class="quantity">
+                                                    <input id="inputQuantity" size="10" type="number"  class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1" max="${product.quantity}">
+                                                </div>
+                                                <button onclick="addToCart(${product.productID},${product.quantity})" class="add_to_cart_button" type="button" >Thêm vào giỏ hàng</button>
+                                                <br/><br/>
+                                                <p style="color: #999;font-size: 12px">  Còn ${product.quantity} sản phẩm</p>
+                                            </c:if>
+                                            <c:if test="${product.quantity == 0}">
+                                                <h3 style="color: red"><strong>Sản phẩm tạm hết hàng</strong></h3>
+                                            </c:if>
+                                            <div style="height: 100px;"></div>
+                                            <div class="desc" role="tabpanel">
+                                                <ul class="product-tab" role="tablist">
+                                                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông số kĩ thuật</a></li>
+                                                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Đánh giá</a></li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                                        <table border="1" class="table table-bordered table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Specification Title</th>
+                                                                    <th>Value</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <c:forEach items="${listSpec}" var="spec">
+                                                                    <tr>
+                                                                        <td>${spec.title}</td>
+                                                                        <td>${spec.value}</td>
+                                                                    </tr>
+                                                                </c:forEach>
+                                                            </tbody>
+                                                        </table>
+
+
+                                                    </div>
+                                                    <div role="tabpanel" class="tab-pane fade" id="profile">
+                                                        <!--<h2>Đánh gi</h2>-->
+                                                        <div class="fb-comments" data-href="http://localhost:8084/CyberShop/singleproduct/${product.productID}" data-width="" data-numposts="5"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="related-products-wrapper">
+                                    <h2 class="related-products-title">Sản phẩm liên quan</h2>
+                                    <div class="related-products-carousel">
+                                        <c:forEach items="${listSame}" var="item">
+                                            <div class="single-product">
+                                                <div class="product-f-image">
+                                                    <c:forEach items="${item.imagesCollection}" var="img">
+                                                        <c:if test="${img.mainImage == true}">
+                                                            <img src="<c:url value="/resources/image/img_product/${img.urlImage}"/>" alt="" class="img-thumbnail">
+                                                        </c:if>
+                                                    </c:forEach>
+                                                    <div class="product-hover">
+                                                        <a onclick="addToCart(${item.productID})" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
+                                                        <a href="${pageContext.request.contextPath}/website/singleproduct/${item.productID}" class="view-details-link"><i class="fa fa-link"></i> Xem chi tiết</a>
+                                                    </div>
+                                                </div>
+
+                                                <h2><a href="${pageContext.request.contextPath}/website/singleproduct/${item.productID}">${item.productName}</a></h2>
+
+                                                <div class="product-carousel-price">
+                                                    <c:if test="${not empty item.downPrice}">
+                                                        <del>
+                                                            <fmt:formatNumber type="number" pattern="###,###" value="${item.price}" />₫
+                                                        </del>
+                                                        <ins>
+                                                            <fmt:formatNumber type="number" pattern="###,###" value="${item.downPrice}" />₫
+                                                        </ins>
+
+                                                    </c:if>
+                                                    <c:if test="${empty item.downPrice}">
+                                                        <ins>
+                                                            <fmt:formatNumber type="number" pattern="###,###" value="${item.price}" />₫
+                                                        </ins>
+                                                    </c:if>
+                                                </div> 
                                             </div>
                                         </c:forEach>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="product-inner">
-                                        <h2 class="product-name">${product.productName}</h2>
-                                        <div class="product-inner-price">
-                                            <c:if test="${not empty product.downPrice}">
-                                                <del>
-                                                    <fmt:formatNumber type="number" pattern="###,###" value="${product.price}" />₫
-                                                </del>
-                                                &nbsp;
-                                                <ins>
-                                                    <fmt:formatNumber type="number" pattern="###,###" value="${product.downPrice}" />₫
-                                                </ins>
-
-                                            </c:if>
-                                            <c:if test="${empty product.downPrice}">
-                                                <ins>
-                                                    <fmt:formatNumber type="number" pattern="###,###" value="${product.price}" />₫
-                                                </ins>
-                                            </c:if>
-                                        </div>    
-                                        <br/>
-                                        <c:if test="${product.quantity > 0}">
-                                        
-                                        <div class="quantity">
-                                            <input id="inputQuantity" size="10" type="number"  class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1" max="${product.quantity}">
-                                        </div>
-                                        <button onclick="addToCart(${product.productID},${product.quantity})" class="add_to_cart_button" type="button" >Thêm vào giỏ hàng</button>
-                                        <br/><br/>
-                                        <p style="color: #999;font-size: 12px">  Còn ${product.quantity} sản phẩm</p>
-                                        </c:if>
-                                        <c:if test="${product.quantity == 0}">
-                                            <h3 style="color: red"><strong>Sản phẩm tạm hết hàng</strong></h3>
-                                        </c:if>
-                                        <div style="height: 100px;"></div>
-                                        <div class="desc" role="tabpanel">
-                                            <ul class="product-tab" role="tablist">
-                                                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông số kĩ thuật</a></li>
-                                                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Đánh giá</a></li>
-                                            </ul>
-                                            <div class="tab-content">
-                                                <div role="tabpanel" class="tab-pane fade in active" id="home">
-                                                    <table border="1" class="table table-bordered table-hover">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Specification Title</th>
-                                                                <th>Value</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <c:forEach items="${listSpec}" var="spec">
-                                                                <tr>
-                                                                    <td>${spec.title}</td>
-                                                                    <td>${spec.value}</td>
-                                                                </tr>
-                                                            </c:forEach>
-                                                        </tbody>
-                                                    </table>
-
-
-                                                </div>
-                                                <div role="tabpanel" class="tab-pane fade" id="profile">
-                                                    <!--<h2>Đánh gi</h2>-->
-                                                    <div class="fb-comments" data-href="http://localhost:8084/CyberShop/singleproduct/${product.productID}" data-width="" data-numposts="5"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="related-products-wrapper">
-                                <h2 class="related-products-title">Sản phẩm liên quan</h2>
-                                <div class="related-products-carousel">
-                                    <c:forEach items="${listSame}" var="item">
-                                        <div class="single-product">
-                                            <div class="product-f-image">
-                                                <c:forEach items="${item.imagesCollection}" var="img">
-                                                    <c:if test="${img.mainImage == true}">
-                                                        <img src="<c:url value="/resources/image/img_product/${img.urlImage}"/>" alt="" class="img-thumbnail">
-                                                    </c:if>
-                                                </c:forEach>
-                                                <div class="product-hover">
-                                                    <a onclick="addToCart(${item.productID})" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                                    <a href="${pageContext.request.contextPath}/website/singleproduct/${item.productID}" class="view-details-link"><i class="fa fa-link"></i> Xem chi tiết</a>
-                                                </div>
-                                            </div>
-
-                                            <h2><a href="${pageContext.request.contextPath}/website/singleproduct/${item.productID}">${item.productName}</a></h2>
-
-                                            <div class="product-carousel-price">
-                                                <c:if test="${not empty item.downPrice}">
-                                                    <del>
-                                                        <fmt:formatNumber type="number" pattern="###,###" value="${item.price}" />₫
-                                                    </del>
-                                                    <ins>
-                                                        <fmt:formatNumber type="number" pattern="###,###" value="${item.downPrice}" />₫
-                                                    </ins>
-
-                                                </c:if>
-                                                <c:if test="${empty item.downPrice}">
-                                                    <ins>
-                                                        <fmt:formatNumber type="number" pattern="###,###" value="${item.price}" />₫
-                                                    </ins>
-                                                </c:if>
-                                            </div> 
-                                        </div>
-                                    </c:forEach>
-                                </div>
-                            </div>
-                        </div>                    
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!--Alert Result-->
-        <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-            <div class="vertical-alignment-helper">
-                <div class="modal-dialog vertical-align-center modal-sm"  >
-                    <div class="modal-content">
-                        <div id="alertContent"  class="modal-body">
-                            <img src="<c:url value="/resources/image/icon/checked.png"/>"/> <a style="color: #02acea"> Thêm vào giỏ hàng thành công!</a>
+                            </div>                    
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <!--Alert Result-->
+            <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+                <div class="vertical-alignment-helper">
+                    <div class="modal-dialog vertical-align-center modal-sm"  >
+                        <div class="modal-content">
+                            <div id="alertContent"  class="modal-body">
+                                <img src="<c:url value="/resources/image/icon/checked.png"/>"/> <a style="color: #02acea"> Thêm vào giỏ hàng thành công!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+        <c:if test="${empty product.productID}">
+            <div class="container text-center" style="height: 350px">
+                <br/><br/><br/><br/>
+                <h1>Sản phẩm không tồn tại</h1>
+            </div>
+        </c:if>
         <%@include file="/WEB-INF/views/website/fragment/webFooter.jsp" %>
         <script>
 

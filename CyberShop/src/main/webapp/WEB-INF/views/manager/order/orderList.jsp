@@ -52,7 +52,12 @@
                                                     <td onclick="rowClick(${a.orderID})">${Counter.count}</td>
                                                     <td hidden="true">${a.orderID}</td>
                                                     <td onclick="rowClick(${a.orderID})">${a.customerID.fullname}</td>
-                                                    <td onclick="rowClick(${a.orderID})">${a.promotionID.discount}</td>
+                                                    <c:if test="${empty a.promotionID.discount}">
+                                                        <td onclick="rowClick(${a.orderID})"></td>
+                                                    </c:if>
+                                                    <c:if test="${not empty a.promotionID.discount}">
+                                                        <td onclick="rowClick(${a.orderID})">${a.promotionID.discount} %</td>
+                                                    </c:if>
                                                     <td onclick="rowClick(${a.orderID})">${a.orderDate}</td>
                                                     <td onclick="rowClick(${a.orderID})">${a.shipAddress}</td>
                                                     <td onclick="rowClick(${a.orderID})"><fmt:formatNumber type="number" pattern="###,###" value="${a.deliveryFee}" /> ₫</td>
