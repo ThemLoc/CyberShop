@@ -1,15 +1,19 @@
 package com.cybershop.controllers;
 
 import com.cybershop.models.Brand;
+import com.cybershop.models.CartRest;
 import com.cybershop.models.Category;
 import com.cybershop.models.Customer;
+import com.cybershop.models.Customer_2;
 import com.cybershop.models.Image;
+import com.cybershop.models.Order;
 import com.cybershop.services.BrandService;
 import com.cybershop.services.ImageService;
 import java.io.File;
 import java.io.IOException;
 import com.cybershop.models.OrderDetail;
 import com.cybershop.models.Product;
+import com.cybershop.models.RequestWrapperCustomer;
 import com.cybershop.models.SpecificationTitle;
 import com.cybershop.services.CategoryService;
 import com.cybershop.services.CustomerService;
@@ -22,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
@@ -31,6 +36,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -362,7 +368,7 @@ public class RestFullController {
             return new ResponseEntity("fail", HttpStatus.OK);
         }
     }
-    
+
     @RequestMapping(value = "/logout", method = RequestMethod.POST,
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -445,7 +451,7 @@ public class RestFullController {
         }
         return new ResponseEntity("success", HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/confirmEmail", method = RequestMethod.POST,
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -467,4 +473,26 @@ public class RestFullController {
         }
     }
 
+    @RequestMapping(value = "/checkout/create", method = RequestMethod.POST, 
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<RequestWrapperCustomer> placeOrder(@RequestBody final RequestWrapperCustomer  custCart) {
+        final Order order = new Order();
+        
+        String checkOrder = orderService.collectItems2(order, custCart);
+        if (checkOrder.equalsIgnoreCase("ok")) {
+            if (custCart.getCust().getEmail() != null) {
+                Thread t = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        orderService.sendEmailOrder("cybershop.nano@gmail.com", custCart.getCust().getEmail(), "Cybershop Order", "Order : " + order.getStatus() + "Order date: " + order.getOrderDate());
+                    }
+                });
+                t.start();
+               
+            }
+        } 
+        return new ResponseEntity<>(custCart, HttpStatus.OK);
+    }
+    
 }

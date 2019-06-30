@@ -87,12 +87,12 @@
               
 
             </li>
-            <li>
+           <li>
                 <a href="${pageContext.request.contextPath}/manager/product">
                     <i class="fa fa-television"></i> <span>Product</span>
                 </a>
             </li>
-            <li>
+<!--             <li>
                 <a href="${pageContext.request.contextPath}/manager/category">
                     <i class="fa fa-circle-o"></i> <span>Category</span>
                 </a>
@@ -101,9 +101,9 @@
                 <a href="${pageContext.request.contextPath}/manager/order">
                     <i class="fa fa-book"></i> <span>Order</span>
 
-                    <!--                    <small class="label pull-right bg-red">3</small>
+                                        <small class="label pull-right bg-red">3</small>
                                         <small class="label pull-right bg-yellow">2</small>
-                                        <small class="label pull-right bg-green">1</small>-->
+                                        <small class="label pull-right bg-green">1</small>
 
 
                 </a>
@@ -112,7 +112,7 @@
                 <a href="${pageContext.request.contextPath}/manager/storeinfo">
                     <i class="fa fa-info-circle"></i> <span>Store Information</span>
                     <span class="pull-right-container">
-                        <!-- <small class="label pull-right bg-green">new</small> -->
+                         <small class="label pull-right bg-green">new</small> 
                     </span>
                 </a>
             </li>
@@ -120,7 +120,7 @@
                 <a href="${pageContext.request.contextPath}/manager/promotion">
                     <i class="fa fa-bullhorn"></i> <span>Promotion</span>
                 </a>
-            </li>
+            </li>-->
             <li>
                 <a href="${pageContext.request.contextPath}/manager/banner">
                     <i class="fa fa-sliders"></i> <span>Banner</span>
