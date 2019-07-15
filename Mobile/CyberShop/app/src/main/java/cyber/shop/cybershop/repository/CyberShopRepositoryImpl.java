@@ -368,7 +368,7 @@ public class CyberShopRepositoryImpl implements CyberShopRepository {
                         callBackData.onFail(response.message());
                     }
                 } else if (response.code() == 400) {
-                    callBackData.onFail(response.message());
+                    callBackData.onFail("Sản phẩm không đủ số lượng để cung cấp!");
                 }
             }
 

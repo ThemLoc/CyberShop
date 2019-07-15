@@ -472,9 +472,10 @@ public class RestFullController {
                     }
                 });
                 t.start();
-               
             }
-        } 
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(custCart, HttpStatus.OK);
     }  
     

@@ -105,7 +105,11 @@ public class OrderInformationActivity extends AppCompatActivity {
 
                 @Override
                 public void onFail(String message) {
-                    Toasty.error(OrderInformationActivity.this, "Gặp lỗi trong việc đặt hàng. Vui lòng quay lại sau!", Toasty.LENGTH_SHORT).show();
+                    if(message.contains("Sản phẩm không đủ số lượng để cung cấp!")) {
+                        Toasty.error(OrderInformationActivity.this, "Sản phẩm không đủ số lượng để cung cấp!", Toasty.LENGTH_SHORT).show();
+                    } else {
+                        Toasty.error(OrderInformationActivity.this, "Gặp lỗi trong việc đặt hàng. Vui lòng quay lại sau!", Toasty.LENGTH_SHORT).show();
+                    }
                 }
             });
         }

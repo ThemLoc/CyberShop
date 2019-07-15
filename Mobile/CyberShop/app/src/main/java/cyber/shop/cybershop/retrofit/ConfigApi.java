@@ -1,7 +1,7 @@
 package cyber.shop.cybershop.retrofit;
 
 public class ConfigApi {
-    public static final String BASE_URL = "http://192.168.1.24:8084/CyberShop/api/";
+    public static final String BASE_URL = "http://172.20.10.2:8084/CyberShop/api/";
 
     public interface Api {
         String GET_PRODUCT = "findProduct/{id}";
