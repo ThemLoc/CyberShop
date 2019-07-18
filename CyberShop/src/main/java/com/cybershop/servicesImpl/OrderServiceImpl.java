@@ -4,11 +4,14 @@ import com.cybershop.controllers.CartController;
 import com.cybershop.daos.OrderDAO;
 import com.cybershop.models.CartDTO;
 import com.cybershop.models.CartItem;
+import com.cybershop.models.CartRest;
 import com.cybershop.models.Customer;
+import com.cybershop.models.Customer_2;
 import com.cybershop.models.Order;
 import com.cybershop.models.OrderDetail;
 import com.cybershop.models.Product;
 import com.cybershop.models.Promotion;
+import com.cybershop.models.RequestWrapperCustomer;
 import com.cybershop.services.CustomerService;
 import com.cybershop.services.OrderService;
 import com.cybershop.services.ProductService;
@@ -42,6 +45,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ProductService productService;
+
 
     private CartController cartController;
 
@@ -203,5 +207,85 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void updateOrderBycus(int idOrder, int idCustomer) {
         dao.updateOrderByCustomer(idOrder, idCustomer);
+    }
+
+    @Transactional
+    @Override
+    public String collectItems2(Order order, RequestWrapperCustomer custCart) {
+        List<OrderDetail> details = new ArrayList<>();
+        order.setOrderDate(new Date());
+        order.setStatus("Create");
+        order.setShipAddress(custCart.getCust().getAddress());
+        double total = 0;
+        if (custCart.getCart() != null) {
+            List<CartRest> list = custCart.getCart();
+            for (int i = 0; i < list.size(); i++) {
+                Product p = productService.findById(list.get(i).getIdProduct());
+                System.out.println("p" + p);
+                OrderDetail detail = new OrderDetail();
+                detail.setProductID(p);
+                detail.setOrderID(order);
+                if (p.getDownPrice() != null) {
+                    detail.setPrice(p.getDownPrice());
+                    double amount = p.getDownPrice() * list.get(i).getQuanlity();
+                    total += amount;
+                } else {
+                    detail.setPrice(p.getPrice());
+                    double amount = p.getPrice() * list.get(i).getQuanlity();
+                    total += amount;
+                }
+                detail.setQuantity(list.get(i).getQuanlity());
+                details.add(detail);
+            }
+        }
+//        System.out.println("total"+ total);
+        String check = checkOrder2(details);
+        if (check.equals("ok")) {
+
+            order.setOrderDetailCollection(details);
+
+            order.setTotal(total);
+            Customer cust = new Customer();
+            cust.setAddress(custCart.getCust().getAddress());
+            cust.setFullname(custCart.getCust().getFullname());
+            cust.setPhone(custCart.getCust().getPhone());
+            cust.setEmail(custCart.getCust().getEmail());
+            cust.setUsername("Guest" + String.valueOf(new Date()));
+            cust.setIsGuest(true);
+            cust.setStatus(true);
+            order.setCustomerID(cust);
+            
+
+            order.setDeliveryFee(0.0);
+            if (order != null) {
+                save(order);
+            }
+
+            for (OrderDetail detail : details) {
+                int sell = 0;
+                int quantity = 0;
+                Product p = productService.findById(detail.getProductID().getProductID());
+                sell = p.getSell() + detail.getQuantity();
+                quantity = p.getQuantity() - detail.getQuantity();
+                productService.UpdateQuantityProduct(p.getProductID(), quantity, sell);
+            }
+        }
+        return check;
+    }
+    
+     private String checkOrder2(List<OrderDetail> details) {
+        boolean check = true;
+        for (OrderDetail detail_1 : details) {
+            Product tmp_p = productService.findById(detail_1.getProductID().getProductID());
+            if (detail_1.getQuantity() > tmp_p.getQuantity()) {
+                check = false;
+            }
+        }
+        if (check) {
+            return "ok";
+        } else {
+            return "fail";
+        }
+
     }
 }
