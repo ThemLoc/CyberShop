@@ -1,5 +1,7 @@
 package com.cybershop.controllers;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.cybershop.dto.CreateProductDTO;
 import com.cybershop.models.Brand;
 import com.cybershop.models.Category;
@@ -8,11 +10,16 @@ import com.cybershop.models.Product;
 import com.cybershop.other.MyFile;
 import com.cybershop.services.BrandService;
 import com.cybershop.services.CategoryService;
+import com.cybershop.services.ImageService;
 import com.cybershop.services.ProductService;
 import com.cybershop.services.SpecificationTitleService;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import org.cloudinary.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +47,9 @@ public class ProductController {
     @Autowired
     private BrandService brandService;
 
+    @Autowired
+    private ImageService imageService;
+   
     @RequestMapping(value = {""}, method = RequestMethod.GET)
     private String list(Model model) {
         model.addAttribute("categoryWithSpec", categoryService.getByAll());
@@ -76,9 +86,7 @@ public class ProductController {
             List<MultipartFile> listSubImg = product.getSubImg();
             MultipartFile mainImg = product.getMainImg();
             if (!mainImg.isEmpty()) {
-                fileName = mainImg.getOriginalFilename();
-                file = new File(saveDirectory + "CyberShop/src/main/webapp/resources/image/img_product", fileName);
-                mainImg.transferTo(file);
+                fileName = imageService.uploadFile(mainImg);
                 img = new Image();
                 img.setUrlImage(fileName);
                 img.setMainImage(Boolean.TRUE);
@@ -87,9 +95,7 @@ public class ProductController {
             }
             for (MultipartFile subImg : listSubImg) {
                 if (!subImg.isEmpty()) {
-                    fileName = subImg.getOriginalFilename();
-                    file = new File(saveDirectory + "CyberShop/src/main/webapp/resources/image/img_product", fileName);
-                    subImg.transferTo(file);
+                    fileName = imageService.uploadFile(subImg);
                     img = new Image();
                     img.setUrlImage(fileName);
                     img.setProductID(dbProduct);

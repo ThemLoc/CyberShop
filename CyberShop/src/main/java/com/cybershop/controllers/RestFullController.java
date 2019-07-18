@@ -147,21 +147,16 @@ public class RestFullController {
         product.setProductID(id);
         try {
             if (!mainImage.isEmpty()) {
-                fileName = mainImage.getOriginalFilename();
-                file = new File(saveDirectory + "CyberShop/src/main/webapp/resources/image/img_product", fileName);
-                mainImage.transferTo(file);
+                fileName = imageService.uploadFile(mainImage);
                 img = new Image();
                 img.setUrlImage(fileName);
                 img.setMainImage(Boolean.TRUE);
                 img.setProductID(product);
                 imageService.updateMainImage(img);
             }
-
             for (MultipartFile subImg : subImage) {
                 if (!subImage.isEmpty()) {
-                    fileName = subImg.getOriginalFilename();
-                    file = new File(saveDirectory + "CyberShop/src/main/webapp/resources/image/img_product", fileName);
-                    subImg.transferTo(file);
+                    fileName = imageService.uploadFile(subImg);
                     img = new Image();
                     img.setUrlImage(fileName);
                     img.setProductID(product);

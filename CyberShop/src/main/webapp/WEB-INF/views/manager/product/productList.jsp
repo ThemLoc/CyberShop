@@ -2,6 +2,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -582,7 +584,15 @@
                             for (var i = 0; i < result['imagesCollection'].length; i++) {
                                 var tmp = result['imagesCollection'][i]['mainImage'];
                                 if (tmp === true) {
-                                    html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][i]['urlImage'] + "' style='width: 100% ; height:300px;vertical-align: middle;'>";
+                                    var url = result['imagesCollection'][i]['urlImage'];
+                                    if (url != null) {
+                                        var check = url.toString().includes('res.cloudinary.com');
+                                        if (!check) {
+                                            html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + url + "' style='width: 100%;height:300px'>";
+                                        } else {
+                                            html += "<img src='" + url + "' style='width: 100% ; height:300px;vertical-align: middle;'>";
+                                        }
+                                    }
                                     result['imagesCollection'].splice(i, 1);
                                 }
                             }
@@ -612,7 +622,15 @@
                                 if (i > 0) {
                                     html += " <div class='item'>";
                                 }
-                                html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + result['imagesCollection'][i]['urlImage'] + "' style='width: 100%;height:300px'>";
+                                var url = result['imagesCollection'][i]['urlImage'];
+                                if (url != null) {
+                                    var check = url.toString().includes('res.cloudinary.com');
+                                    if (!check) {
+                                        html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + url + "' style='width: 100%;height:300px'>";
+                                    } else {
+                                        html += "<img src='" + url + "' style='width: 100% ; height:300px;vertical-align: middle;'>";
+                                    }
+                                }
                                 html += " </div>";
                             }
 
@@ -984,19 +1002,13 @@
                     data: data,
                     timeout: 100000,
                     success: function (result) {
-                        //                        $('#updateOtherInfo').modal('hide');
-                        //                        if (result === "success") {
-                        //                            html += "<h3 style='color:green'>Update Success!</h3";
-                        //                        } else {
-                        //                           html += "<span style='color:red'>Update fail!</span";
-                        //                        }
-                        //                        $('#alertModalBody').html(html);
-                        //                        $('#alertModal').modal('show');
+                        console.log(result);
+                        $('#updateImage').modal('hide');
+                        $('#showDetail').modal('hide');
                     }
                     ,
                     error: function (e) {
                         console.log("ERROR: ", e);
-                        //                            $('#alertModal').modal('show');
                     }
                 });
             });

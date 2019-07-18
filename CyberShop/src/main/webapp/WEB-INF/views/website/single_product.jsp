@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -26,10 +26,20 @@
 
                                         <c:forEach var="lImg" items="${product.imagesCollection}">
                                             <c:if test="${lImg.mainImage == true}" >
-                                                <img class="mySlides" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;height: 450px">
+                                                <c:if test = "${fn:contains(lImg.urlImage, 'res.cloudinary.com') == false}">
+                                                    <img class="mySlides" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;height: 450px">
+                                                </c:if>
+                                                <c:if test = "${fn:contains(lImg.urlImage, 'res.cloudinary.com') == true}">
+                                                    <img class="mySlides" src="<c:url value="${lImg.urlImage}"/>" style="width:100%;height: 450px">
+                                                </c:if>
                                             </c:if>
                                             <c:if test="${lImg.mainImage == false}" >  
-                                                <img class="mySlides" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100% ;height: 450px;display:none">
+                                                <c:if test = "${fn:contains(lImg.urlImage, 'res.cloudinary.com') == false}">
+                                                    <img class="mySlides" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;height: 450px; display: none">
+                                                </c:if>
+                                                <c:if test = "${fn:contains(lImg.urlImage, 'res.cloudinary.com') == true}">
+                                                    <img class="mySlides" src="<c:url value="${lImg.urlImage}"/>" style="width:100%;height: 450px; display:  none">
+                                                </c:if>
                                             </c:if>
 
                                         </c:forEach>
@@ -37,7 +47,12 @@
                                         <div class="w3-row-padding w3-section">
                                             <c:forEach var="lImg" items="${product.imagesCollection}" varStatus="counter">
                                                 <div class="w3-col s2">
-                                                    <img class="demo w3-opacity w3-hover-opacity-off" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;height: 50px;cursor:pointer" onclick="currentDiv(${counter.count})">
+                                                    <c:if test = "${fn:contains(lImg.urlImage, 'res.cloudinary.com') == false}">
+                                                        <img class="demo w3-opacity w3-hover-opacity-off" src="<c:url value="/resources/image/img_product/${lImg.urlImage}"/>" style="width:100%;height: 50px;cursor:pointer" onclick="currentDiv(${counter.count})">
+                                                    </c:if>  
+                                                    <c:if test = "${fn:contains(lImg.urlImage, 'res.cloudinary.com') == true}">
+                                                        <img class="demo w3-opacity w3-hover-opacity-off" src="<c:url value="${lImg.urlImage}"/>" style="width:100%;height: 50px;cursor:pointer" onclick="currentDiv(${counter.count})">
+                                                    </c:if>  
                                                 </div>
                                             </c:forEach>
                                         </div>

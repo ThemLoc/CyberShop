@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -111,7 +112,12 @@
                                                 <div class="product-f-image">
                                                     <c:forEach items="${newPro.imagesCollection}" var="list">
                                                         <c:if test="${list.mainImage == true}">
+                                                            <c:if test="${list.mainImage == false}">
                                                             <img class="p1" src="${pageContext.request.contextPath}/resources/image/img_product/${list.urlImage}" alt="">
+                                                            </c:if>
+                                                            <c:if test="${list.mainImage == true}">
+                                                            <img class="p1" src="${list.urlImage}" alt="">
+                                                            </c:if>
                                                         </c:if>
                                                     </c:forEach>
                                                     <div class="product-hover">
@@ -234,7 +240,12 @@
                                 <a href="${pageContext.request.contextPath}/website/singleproduct/${viewedPro.productID}">
                                     <c:forEach items="${viewedPro.imagesCollection}" var="list">
                                         <c:if test="${list.mainImage == true}">
-                                            <img class="product-thumb" src="${pageContext.request.contextPath}/resources/image/img_product/${list.urlImage}" alt="">
+                                            <c:if test = "${fn:contains(list.urlImage, 'res.cloudinary.com') == false}">
+                                                <img class="product-thumb" src="${pageContext.request.contextPath}/resources/image/img_product/${list.urlImage}" alt="">
+                                            </c:if>
+                                            <c:if test = "${fn:contains(list.urlImage, 'res.cloudinary.com') == true}">
+                                                <img class="product-thumb" src="${list.urlImage}" alt="">
+                                            </c:if>
                                         </c:if>
                                     </c:forEach>
                                 </a>

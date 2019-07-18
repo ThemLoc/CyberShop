@@ -306,7 +306,15 @@
                                 for (var j = 0; j < listImage.length; j++) {
                                     if (listImage[j]['mainImage'] === true) {
                                         html += '<a href="${pageContext.request.contextPath}/website/singleproduct/' + data[i]['productID'] + '">';
-                                        html += '<img src="${pageContext.request.contextPath}/resources/image/img_product/' + listImage[j]['urlImage'] + '" style="width: 100%;height: 200px" class="img-thumbnail img-list-product"/>';
+                                        var url = listImage[j]['urlImage'];
+                                        if (url != null) {
+                                            var check = url.toString().includes('res.cloudinary.com');
+                                            if (!check) {
+                                                html += "<img src='${pageContext.request.contextPath}/resources/image/img_product/" + url + "' style='width: 100%;height: 200px' class='img-thumbnail img-list-product'/>";
+                                            } else {
+                                                html += "<img src='" + url + "' style='width: 100%;height: 200px' class='img-thumbnail img-list-product'/>";
+                                            }
+                                        }
                                         html += ' </a>';
                                     }
                                 }
@@ -330,8 +338,8 @@
                             html += '<div class="product-option-shop">';
                             if (data[i]['quantity'] > 0) {
                                 html += '<a style="cursor:pointer" onclick="addToCart(' + data[i]['productID'] + ')" class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" >Add to cart</a>';
-                            }else{
-                                 html +=  '<h5 style="color: red"><strong>Tạm hết hàng</strong></h5>';
+                            } else {
+                                html += '<h5 style="color: red"><strong>Tạm hết hàng</strong></h5>';
                             }
                             html += '</div>';
                             html += '</div>';

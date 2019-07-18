@@ -1,12 +1,20 @@
 package com.cybershop.servicesImpl;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.cybershop.daos.ImageDAO;
 import com.cybershop.models.Image;
 import com.cybershop.services.ImageService;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
+import java.util.Map;
+import org.cloudinary.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ImageServiceImpl implements ImageService {
@@ -48,6 +56,25 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public void updateSubImage(List<Image> list) {
         dao.updateSubImage(list);
+    }
+    
+    @Override
+     public String uploadFile(MultipartFile aFile) {
+        try {
+            String mCloudName = "anhnt";
+             String mApiKey = "585419367667758";
+              String mApiSecret = "8cDwwpne9ZXblsrxwjfqClzYjJs";
+            Cloudinary c = new Cloudinary("cloudinary://" + mApiKey + ":" + mApiSecret + "@" + mCloudName);
+            File f = Files.createTempFile("temp", aFile.getOriginalFilename()).toFile();
+            aFile.transferTo(f);
+            Map response = c.uploader().upload(f, ObjectUtils.emptyMap());
+            JSONObject json = new JSONObject(response);
+            String url = json.getString("url");
+            System.out.println(url);
+            return url;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }
