@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -41,8 +42,14 @@
                                                             <c:if test="${image.mainImage == true}">
                                                                 <td class="product-thumbnail">
                                                                     <a href="${pageContext.request.contextPath}/website/singleproduct/${pd.value.item.productID}">
-                                                                        <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" 
+                                                                        <c:if test="${fn:contains(image.urlImage, 'res.cloudinary.com') == false}">
+                                                                            <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" 
                                                                              src="<c:url value="/resources/image/img_product/${image.urlImage}"/>">
+                                                                        </c:if>
+                                                                        <c:if test="${fn:contains(image.urlImage, 'res.cloudinary.com') == true}">
+                                                                            <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" 
+                                                                             src="${image.urlImage}"/>
+                                                                        </c:if>
                                                                     </a>
                                                                 </td>
                                                             </c:if>

@@ -1,7 +1,9 @@
 package com.cybershop.controllers;
 
+import com.cybershop.dto.CreateBrandDTO;
 import com.cybershop.models.Brand;
 import com.cybershop.services.BrandService;
+import com.cybershop.services.ImageService;
 import com.cybershop.services.ProductService;
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +31,9 @@ public class BrandController {
     @Autowired
     private ProductService productService;
     
+    @Autowired
+    private ImageService imageService;
+    
     @RequestMapping(method = RequestMethod.GET)
     private String list(Model model) {
         model.addAttribute("newBrand", new Brand());
@@ -38,18 +43,18 @@ public class BrandController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    private String add(@ModelAttribute("newBrand") Brand newBrand, HttpServletRequest request) {
+    private String add(@ModelAttribute("newBrand") CreateBrandDTO newBrand, HttpServletRequest request) {
         try {
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-            MultipartFile imageURL = multipartRequest.getFile("urlImage");
-            String fileName = imageURL.getOriginalFilename();
-            File file = new File("E:/FNano/ProjectNANO/newCyberShop/CyberShop/src/main/webapp/resources/image/img_brand", fileName);
-            imageURL.transferTo(file);
-            newBrand.setImageURL(fileName);
+            MultipartFile imageURL = newBrand.getUrlImg();
+            String fileName = imageService.uploadFile(imageURL);
+//            File file = new File("E:/FNano/ProjectNANO/newCyberShop/CyberShop/src/main/webapp/resources/image/img_brand", fileName);
+//            imageURL.transferTo(file);
+            Brand brand = new Brand();
+            brand.setBrandName(newBrand.getBrandName());
+            brand.setImageURL(fileName);
             System.out.println("FILE: " + fileName);
-            service.save(newBrand);
-        } catch (IOException ex) {
-            Logger.getLogger(BrandController.class.getName()).log(Level.SEVERE, null, ex);
+            service.save(brand);
         } catch (IllegalStateException ex) {
             Logger.getLogger(BrandController.class.getName()).log(Level.SEVERE, null, ex);
         }

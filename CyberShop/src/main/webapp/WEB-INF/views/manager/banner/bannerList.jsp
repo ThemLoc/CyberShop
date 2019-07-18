@@ -2,6 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -46,7 +47,12 @@
                                                                                 <td style="text-align: center">
                                                                                     <c:forEach items="${a.imagesCollection}" var="b">
                                                                                         <c:if test="${b.mainImage == true}">
-                                                                                            <img src="${pageContext.request.contextPath}/resources/image/img_product/${b.urlImage}" style="width: 100px ; height:100px;"/>
+                                                                                            <c:if test = "${fn:contains(b.urlImage, 'res.cloudinary.com') == false}">
+                                                                                                <img src="${pageContext.request.contextPath}/resources/image/img_product/${b.urlImage}" style="width: 100px ; height:100px;"/>
+                                                                                            </c:if>
+                                                                                            <c:if test = "${fn:contains(b.urlImage, 'res.cloudinary.com') == true}">
+                                                                                                <img src="${b.urlImage}" style="width: 100px ; height:100px;"/>
+                                                                                            </c:if>
                                                                                         </c:if>
                                                                                     </c:forEach>
                                                                                 </td>
@@ -106,7 +112,12 @@
                                                     <td style="text-align: center">
                                                         <c:forEach items="${a.productID.imagesCollection}" var="b">
                                                             <c:if test="${b.mainImage == true}">
-                                                                <img src="${pageContext.request.contextPath}/resources/image/img_product/${b.urlImage}" style="width: 100px ; height:100px;vertical-align: middle;"/>
+                                                                <c:if test = "${fn:contains(b.urlImage, 'res.cloudinary.com') == false}">
+                                                                    <img src="${pageContext.request.contextPath}/resources/image/img_product/${b.urlImage}" style="width: 100px ; height:100px;vertical-align: middle;"/>
+                                                                </c:if>
+                                                                <c:if test = "${fn:contains(b.urlImage, 'res.cloudinary.com') == true}">
+                                                                    <img src="${b.urlImage}" style="width: 100px ; height:100px;vertical-align: middle;"/>
+                                                                </c:if>
                                                             </c:if>
                                                         </c:forEach>
                                                     </td>

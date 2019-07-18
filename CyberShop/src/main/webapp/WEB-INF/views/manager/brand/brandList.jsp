@@ -2,6 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,7 +30,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Brand Image</label>
-                                                <input name="urlImage"  type="file" required="true" class="file" data-show-upload="false" accept="image/*"/>
+                                                <input name="urlImg"  type="file" required="true" class="file" data-show-upload="false" accept="image/*"/>
                                             </div>
                                         </div>
                                         <!-- /.box-body -->
@@ -75,7 +76,14 @@
                                                 <tr>
                                                     <td>${Counter.count}</td>
                                                     <td hidden="true">${a.brandID}</td>
-                                                    <td><img src="${pageContext.request.contextPath}/resources/image/img_brand/${a.imageURL}" style="width: 150px ; height:80px;vertical-align: middle;"/></td>
+                                                    <td>
+                                                        <c:if test = "${fn:contains(a.imageURL, 'res.cloudinary.com') == false}">
+                                                            <img src="${pageContext.request.contextPath}/resources/image/img_brand/${a.imageURL}" style="width: 150px ; height:80px;vertical-align: middle;"/>
+                                                        </c:if>
+                                                        <c:if test = "${fn:contains(a.imageURL, 'res.cloudinary.com') == true}">
+                                                            <img class="product-thumb" src="${a.imageURL}" style="width: 150px ; height:80px;vertical-align: middle;"/>
+                                                        </c:if>
+                                                    </td>
                                                     <td>${a.brandName}</td>
                                                     <c:forEach var="item"  items="${count}">
                                                         <c:if test="${item.brandID == a.brandID}">

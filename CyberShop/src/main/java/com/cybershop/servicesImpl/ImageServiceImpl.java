@@ -57,13 +57,13 @@ public class ImageServiceImpl implements ImageService {
     public void updateSubImage(List<Image> list) {
         dao.updateSubImage(list);
     }
-    
+
     @Override
-     public String uploadFile(MultipartFile aFile) {
+    public String uploadFile(MultipartFile aFile) {
         try {
             String mCloudName = "anhnt";
-             String mApiKey = "585419367667758";
-              String mApiSecret = "8cDwwpne9ZXblsrxwjfqClzYjJs";
+            String mApiKey = "585419367667758";
+            String mApiSecret = "8cDwwpne9ZXblsrxwjfqClzYjJs";
             Cloudinary c = new Cloudinary("cloudinary://" + mApiKey + ":" + mApiSecret + "@" + mCloudName);
             File f = Files.createTempFile("temp", aFile.getOriginalFilename()).toFile();
             aFile.transferTo(f);

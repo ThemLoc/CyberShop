@@ -2,6 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -162,8 +163,14 @@
                                                     <c:if test="${image.mainImage == true}">
                                                         <td class="product-thumbnail">
                                                             <a href="${pageContext.request.contextPath}/website/singleproduct/${pd.value.item.productID}">
-                                                                <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" 
-                                                                     src="<c:url value="/resources/image/img_product/${image.urlImage}"/>">
+                                                                <c:if test="${fn:contains(image.urlImage, 'res.cloudinary.com') == false}">
+                                                                    <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" 
+                                                                         src="<c:url value="/resources/image/img_product/${image.urlImage}"/>">
+                                                                </c:if>
+                                                                <c:if test="${fn:contains(image.urlImage, 'res.cloudinary.com') == true}">
+                                                                    <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" 
+                                                                         src="${image.urlImage}"/>
+                                                                </c:if>
                                                             </a>
                                                         </td>
                                                     </c:if>
@@ -178,7 +185,7 @@
                                                         <span class="amount">
                                                             <fmt:formatNumber type="number" pattern="###,###" value="${pd.value.item.price}" />₫
                                                         </span> 
-                                                      
+
                                                     </span> 
                                                 </td>
 
@@ -191,7 +198,7 @@
                                                 <td class="product-subtotal">
                                                     <span class="amount">
                                                         <fmt:formatNumber type="number" pattern="###,###" value=" ${pd.value.total}" />₫
-                                       
+
                                                     </span> 
                                                 </td>
                                             </tr>
@@ -208,27 +215,27 @@
 
                                         <tr class="shipping">
                                             <th colspan="4">Phí vận chuyển</th>
-                                            
+
                                             <td>
                                                 Miễn phí
                                                 <input type="hidden" class="shipping_method" value="free_shipping" id="shipping_method_0" data-index="0" name="shipping_method[0]">
                                             </td>
                                         </tr>
-                                         <tr class="order-total">
-                                             <th colspan="4">Tổng tiền Sản Phẩm</th>
-                                            
+                                        <tr class="order-total">
+                                            <th colspan="4">Tổng tiền Sản Phẩm</th>
+
                                             <td><strong><span class="amount"> <fmt:formatNumber type="number" pattern="###,###" value=" ${sessionScope.cart.totalOrder}" />₫</span></td>
                                         </tr>
-                                         <tr class="order-total">
-                                             <th colspan="4">Mã Giảm Giá (<strong> ${sessionScope.cart.promotion.promoCode}</strong>)</th>
-                                           
+                                        <tr class="order-total">
+                                            <th colspan="4">Mã Giảm Giá (<strong> ${sessionScope.cart.promotion.promoCode}</strong>)</th>
+
                                             <td>${sessionScope.cart.promotion.discount}%</td>
                                         </tr>
 
 
                                         <tr class="order-total">
                                             <th colspan="4">Tổng hóa đơn</th>
-                                            
+
                                             <td><strong><span class="amount"> <fmt:formatNumber type="number" pattern="###,###" value=" ${sessionScope.cart.totalAfterDiscount}" />₫</span></strong> </td>
                                         </tr>
 
@@ -243,27 +250,27 @@
                                             <label for="payment_method_bacs">Thanh toán khi nhận hàng </label>
 
                                         </li>
-<!--                                        <li class="payment_method_cheque">
-                                            <input type="radio" data-order_button_text="" value="cheque" name="payment_method" class="input-radio" id="payment_method_cheque">
-                                            <label for="payment_method_cheque">Thẻ ATM nội địa (Miễn phí thanh toán)</label>
-                                            <div style="display:none;" class="payment_box payment_method_cheque">
-                                            </div>
-                                        </li>
-                                        <li class="payment_method_paypal">
-                                            <input type="radio" data-order_button_text="Proceed to PayPal" value="paypal" name="payment_method" class="input-radio" id="payment_method_paypal">
-                                            <label for="payment_method_paypal">
-                                                Thanh toán bằng thẻ quốc tế <img alt="PayPal Acceptance Mark" src="https://www.paypalobjects.com/webstatic/mktg/Logo/AM_mc_vs_ms_ae_UK.png">
-                                            </label>
-                                            <div style="display:none;" class="payment_box payment_method_paypal">
-                                                <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
-                                            </div>
-                                        </li>-->
+                                        <!--                                        <li class="payment_method_cheque">
+                                                                                    <input type="radio" data-order_button_text="" value="cheque" name="payment_method" class="input-radio" id="payment_method_cheque">
+                                                                                    <label for="payment_method_cheque">Thẻ ATM nội địa (Miễn phí thanh toán)</label>
+                                                                                    <div style="display:none;" class="payment_box payment_method_cheque">
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li class="payment_method_paypal">
+                                                                                    <input type="radio" data-order_button_text="Proceed to PayPal" value="paypal" name="payment_method" class="input-radio" id="payment_method_paypal">
+                                                                                    <label for="payment_method_paypal">
+                                                                                        Thanh toán bằng thẻ quốc tế <img alt="PayPal Acceptance Mark" src="https://www.paypalobjects.com/webstatic/mktg/Logo/AM_mc_vs_ms_ae_UK.png">
+                                                                                    </label>
+                                                                                    <div style="display:none;" class="payment_box payment_method_paypal">
+                                                                                        <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
+                                                                                    </div>
+                                                                                </li>-->
                                     </ul>
 
                                     <div class="form-row place-order">
 
                                         <input type="submit" data-value="Đặt hàng" value="Đặt hàng" id="place_order" name="woocommerce_checkout_place_order" class="button alt">
-                                        
+
                                     </div>
 
                                     <div class="clear"></div>
